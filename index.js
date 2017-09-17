@@ -15,6 +15,7 @@ function telemetry() {
 		getBuffer: 			() => trucksimTelemetry.getData(null, true),
 		getRaw: 				() => rawDataFromBuffer(trucksimTelemetry.getData(null, true)),
 		getGame: 				() => game(rawDataFromBuffer(trucksimTelemetry.getData(null, true))),
+		getUserInput: 	() => userInput(rawDataFromBuffer(trucksimTelemetry.getData(null, true))),
 		getTruck: 			() => truck(rawDataFromBuffer(trucksimTelemetry.getData(null, true))),
 		getTrailer: 		() => trailer(rawDataFromBuffer(trucksimTelemetry.getData(null, true))),
 		getJob: 				() => job(rawDataFromBuffer(trucksimTelemetry.getData(null, true))),
@@ -23,6 +24,7 @@ function telemetry() {
 			const rawData = rawDataFromBuffer(trucksimTelemetry.getData(null, true))
 			return {
 				game: game(rawData),
+				userInput: userInput(rawData),
 				truck: truck(rawData),
 				trailer: trailer(rawData),
 				job: job(rawData),

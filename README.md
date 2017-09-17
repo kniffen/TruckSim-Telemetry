@@ -7,9 +7,7 @@ Telemetry data from the ets2-sdk-plugin
 Download and install the [ets2-sdk-plugin](https://github.com/nlhans/ets2-sdk-plugin) by [nlhans](https://github.com/nlhans)
 
 ### Step 2
-```
-npm i trucksim-telemetry
-```
+`npm i trucksim-telemetry`
 
 ### Step 3
 Load up the game and profit?
@@ -30,8 +28,9 @@ Check out [example.json](https://github.com/kniffen/TruckSim-Telemetry/blob/mast
 telemetry.getBuffer()     // -> Original memory buffer from the plugin
 telemetry.getRaw()        // -> Raw data
 telemetry.getGame()       // -> Parsed game data
+telemetry.getUserInput()  // -> Parsed user input data
 telemetry.getTruck()      // -> Parsed truck data
-telemetry.getTrailer()    // -> Parse trailer data
+telemetry.getTrailer()    // -> Parsed trailer data
 telemetry.getJob()        // -> Parsed job data
 telemetry.getNavigation() // -> Parsed navigational data
 telemetry.getAll()        // -> All parsed data
