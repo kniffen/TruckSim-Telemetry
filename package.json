@@ -1,0 +1,31 @@
+{
+  "name": "trucksim-telemetry",
+  "version": "0.1.0",
+  "description": "Telemetry data from the ets2-sdk-plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kniffen/TruckSim-Telemetry.git"
+  },
+  "keywords": [
+    "ats",
+    "ets2",
+    "scs",
+    "trucksim",
+    "telemetry",
+    "game"
+  ],
+  "author": "Kniffen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kniffen/TruckSim-Telemetry/issues"
+  },
+  "homepage": "https://github.com/kniffen/TruckSim-Telemetry#readme",
+  "dependencies": {
+    "edge": "^7.10.1",
+    "struct-fu": "^1.1.1"
+  }
+}

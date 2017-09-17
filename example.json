@@ -1,0 +1,161 @@
+{
+  "game": {
+    "time": 1205460000,
+    "paused": false,
+    "telemetryPluginVersion": 5,
+    "gameVersion": "1.13"
+  },
+  "truck": {
+    "id": "scania",
+    "make": "Scania",
+    "model": "Streamline",
+    "lightsDashboard": true,
+    "engine": {
+      "rpm": 0,
+      "rpmMax": 2500,
+      "oilPressure": 0,
+      "oilTemperature": 15.377540588378906,
+      "waterTemperature": 15.377540588378906,
+      "batteryVoltage": 24.198522567749023,
+      "wear": 0
+    },
+    "transmission": {
+      "gear": 0,
+      "displayedGear": -1,
+      "gearsForward": 12,
+      "gearsReverse": 2,
+      "gearRanges": 0,
+      "currentRange": 0,
+      "shifterSlot": 0,
+      "shifterToggle": 0,
+      "ratioForward": [
+        11.319999694824219,
+        9.131999969482422,
+        7.206999778747559,
+        5.814000129699707,
+        4.6479997634887695,
+        3.75,
+        3.0190000534057617,
+        2.434999942779541,
+        1.9220000505447388,
+        1.5499999523162842,
+        1.2400000095367432,
+        1
+      ],
+      "ratioReverse": [
+        -11.001999855041504,
+        -8.875,
+        -4.019999980926514
+      ],
+      "ratioDifferential": 2.7100000381469727,
+      "wear": 0
+    },
+    "fuel": {
+      "amount": 408.37060546875,
+      "capacity": 600,
+      "rate": 0,
+      "avgConsumption": 0,
+      "range": 829.5028076171875,
+      "warning": false,
+      "adblue": 70.41853332519531,
+      "adblueConsumption": 0
+    },
+    "lights": {
+      "blinkerLeftActive": false,
+      "blinkerRightActive": false,
+      "blinkerLeftOn": false,
+      "blinkerRightOn": false,
+      "lightsParkingOn": false,
+      "lightsBeamLowOn": false,
+      "lightsBeamHighOn": false,
+      "lightsAuxFrontOn": false,
+      "lightsAuxRoofOn": false,
+      "lightsBeaconOn": false,
+      "lightsBrakeOn": false,
+      "lightsReverseOn": false
+    },
+    "metrics": {
+      "speed": 0.000005234609034232562,
+      "cruiseControlSpeed": 0,
+      "odometer": 67688,
+      "steer": 0.019999202340841293,
+      "throttle": 0,
+      "brake": 0,
+      "clutch": 1,
+      "retarderBrake": 0,
+      "airPressure": 134.7050018310547,
+      "brakeTemperature": 15.535283088684082,
+      "adblue": 70.41853332519531,
+      "adblueConsumption": 0,
+      "oilPressure": 0,
+      "oilTemperature": 15.377540588378906,
+      "waterTemperature": 15.377540588378906,
+      "batteryVoltage": 24.198522567749023,
+      "fuel": 408.37060546875,
+      "fuelAvgConsumption": 0
+    },
+    "indicators": {
+      "cruiseControlOn": false,
+      "wipersOn": false,
+      "parkBrakeOn": false,
+      "motorBrakeOn": false,
+      "electricOn": false,
+      "engineOn": false,
+      "batteryVoltageWarningOn": true,
+      "airPressureWarningOn": false,
+      "airPressureEmergencyOn": false,
+      "adblueWarningOn": false,
+      "oilPressureWarningOn": true,
+      "waterTemperatureWarningOn": false
+    },
+    "wear": {
+      "engine": 0,
+      "transmission": 0,
+      "cabin": 0,
+      "chassis": 0,
+      "wheels": 0
+    },
+    "acceleration": {
+      "x": -0.0000013256172906039865,
+      "y": -0.00019328725466039032,
+      "z": -0.00002253391721751541
+    },
+    "coordinates": {
+      "x": 10171.244140625,
+      "y": 32.88664245605469,
+      "z": -10228.9619140625
+    },
+    "rotation": {
+      "x": 0.49999991059303284,
+      "y": -0.0000921696046134457,
+      "z": 2.6561846766526287e-7
+    }
+  },
+  "trailer": {
+    "attached": true,
+    "id": "empty_palet",
+    "name": "Empty Palettes",
+    "mass": 22080,
+    "wear": 0
+  },
+  "job": {
+    "income": 2095,
+    "deadline": 1258320000,
+    "onJob": true,
+    "jobFinished": false,
+    "source": {
+      "city": "Berlin",
+      "company": "Sanbuilders"
+    },
+    "destination": {
+      "city": "Szczecin",
+      "company": "TransiNet"
+    }
+  },
+  "navigation": {
+    "speedLimit": 0,
+    "estDistance": 174024,
+    "estTime": 1215577723,
+    "estDuration": 10117723
+  }
+}
