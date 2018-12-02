@@ -1,27 +1,30 @@
-const path = require('path')
-const edge = require('edge')
 const rawDataFromBuffer = require('./raw-data-from-buffer.js')
-
-const SharedMemory = edge.func(path.resolve(__dirname, 'SharedMemory.cs'))
+const scsSDKTememetry = require('./build/Release/scsSDKTememetry')
 
 // 4 day offset to make the day of the week line up
 // Because the game thinks it's year 1 and JavaScript think it's 1970
 const dateOffset = 345600000
 
+function fetchBuffer() {
+	const data = scsSDKTememetry.getData()
+  const arrayBuffer = new Uint8Array(data)
+ 	const buffer = new Buffer.from(arrayBuffer)
+ 	return buffer
+}
+
 function telemetry() {
-	const trucksimTelemetry = SharedMemory({}, true)
 
 	return {
-		getBuffer: 			() => trucksimTelemetry.getData(null, true),
-		getRaw: 				() => rawDataFromBuffer(trucksimTelemetry.getData(null, true)),
-		getGame: 				() => game(rawDataFromBuffer(trucksimTelemetry.getData(null, true))),
-		getUserInput: 	() => userInput(rawDataFromBuffer(trucksimTelemetry.getData(null, true))),
-		getTruck: 			() => truck(rawDataFromBuffer(trucksimTelemetry.getData(null, true))),
-		getTrailer: 		() => trailer(rawDataFromBuffer(trucksimTelemetry.getData(null, true))),
-		getJob: 				() => job(rawDataFromBuffer(trucksimTelemetry.getData(null, true))),
-		getNavigation: 	() => navigation(rawDataFromBuffer(trucksimTelemetry.getData(null, true))),
+		getBuffer: 			() => fetchBuffer(),
+		getRaw: 				() => rawDataFromBuffer(fetchBuffer()),
+		getGame: 				() => game(rawDataFromBuffer(fetchBuffer())),
+		getUserInput: 	() => userInput(rawDataFromBuffer(fetchBuffer())),
+		getTruck: 			() => truck(rawDataFromBuffer(fetchBuffer())),
+		getTrailer: 		() => trailer(rawDataFromBuffer(fetchBuffer())),
+		getJob: 				() => job(rawDataFromBuffer(fetchBuffer())),
+		getNavigation: 	() => navigation(rawDataFromBuffer(fetchBuffer())),
 		getAll: 				() => {
-			const rawData = rawDataFromBuffer(trucksimTelemetry.getData(null, true))
+			const rawData = rawDataFromBuffer( fetchBuffer() )
 			return {
 				game: game(rawData),
 				userInput: userInput(rawData),
@@ -109,7 +112,7 @@ const truck = (rawData) => ({
 	},
 
 	metrics: {
-		speed: 							rawData.speed,
+		speed: 							rawData.speed * 3.6 | 0,
 		cruiseControlSpeed: rawData.cruiseControlSpeed,
 		odometer: 					rawData.truckOdometer,
 		steer: 							rawData.gameSteer,
