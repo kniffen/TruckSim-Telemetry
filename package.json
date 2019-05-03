@@ -1,6 +1,6 @@
 {
   "name": "trucksim-telemetry",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Telemetry data from the ets2-sdk-plugin",
   "main": "index.js",
   "scripts": {

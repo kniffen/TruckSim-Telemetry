@@ -6,10 +6,9 @@ const scsSDKTememetry = require('./build/Release/scsSDKTememetry')
 const dateOffset = 345600000
 
 function fetchBuffer() {
-  const data = scsSDKTememetry.getData()
-  const arrayBuffer = new Uint8Array(data)
-   const buffer = new Buffer.from(arrayBuffer)
-   return buffer
+  const arrayBuffer = scsSDKTememetry.getArrayBuffer()
+  const buffer = new Buffer.from(arrayBuffer)
+  return buffer
 }
 
 function telemetry() {
