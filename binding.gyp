@@ -1,8 +1,8 @@
 {
   "targets": [
     {
-      "target_name": "scsSDKTememetry",
-      "sources": [ "scsSDKTememetry.cc" ],
+      "target_name": "scsSDKTelemetry",
+      "sources": [ "scsSDKTelemetry.cc" ],
     }
   ]
 }

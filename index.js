@@ -1,12 +1,12 @@
 const rawDataFromBuffer = require('./raw-data-from-buffer.js')
-const scsSDKTememetry = require('./build/Release/scsSDKTememetry')
+const scsSDKTelemetry = require('./build/Release/scsSDKTelemetry')
 
 // 4 day offset to make the day of the week line up
 // Because the game thinks it's year 1 and JavaScript think it's 1970
 const dateOffset = 345600000
 
 function fetchBuffer() {
-  const arrayBuffer = scsSDKTememetry.getArrayBuffer()
+  const arrayBuffer = scsSDKTelemetry.getArrayBuffer()
   const buffer = new Buffer.from(arrayBuffer)
   return buffer
 }

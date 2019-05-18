@@ -1,7 +1,7 @@
 #include <node.h>
 #include <windows.h>
 
-namespace scsSDKTememetry {
+namespace scsSDKTelemetry {
   using v8::FunctionCallbackInfo;
   using v8::Isolate;
   using v8::Local;
