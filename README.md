@@ -24,7 +24,7 @@ const truckSimTelemetry = require('trucksim-telemetry')
 
 const telemetry = truckSimTelemetry()
 ```
-## Events
+### Events
 ```JS
 // Example
 telemetry.game.on("change", function(to, from) {
@@ -61,7 +61,7 @@ telemetry.watch()
 telemetry.stop()
 ```
 
-## Functions
+### Functions
 If you don't want to use events you can just get the data manually using these functions
 ```JS
 telemetry.getBuffer()     // -> Original memory buffer from the plugin
