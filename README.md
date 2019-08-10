@@ -6,7 +6,7 @@ Telemetry data from the scs-sdk-plugin
 ## Installing
 
 ### Step 1
-Download and install the **[scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-pluginn)** by **[RenCloud](https://github.com/RenCloud)**
+Download and install the **[scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin)** by **[RenCloud](https://github.com/RenCloud)**
 
 
 > ⚠️ **[ets2-sdk-plugin](https://github.com/nlhans/ets2-sdk-plugin) by [nlhans](https://github.com/nlhans) is no longer supported!**
