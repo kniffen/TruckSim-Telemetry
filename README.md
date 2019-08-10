@@ -65,7 +65,7 @@ telemetry.stop()
 If you don't want to use events you can just get the data manually using these functions
 ```JS
 telemetry.getBuffer()     // -> Original memory buffer from the plugin
-telemetry.getDate()       // -> Parsed data
+telemetry.getData()       // -> Parsed data
 telemetry.getGame()       // -> Parsed game data
 telemetry.getControls()   // -> Parsed controls data
 telemetry.getTruck()      // -> Parsed truck data
