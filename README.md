@@ -1,6 +1,8 @@
 # TruckSim-Telemetry
 Telemetry data from the ets2-sdk-plugin
 
+[![Discord](https://img.shields.io/discord/125702694538051584.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/S6NRp5P)
+
 ## Installing
 
 ### Step 1
