@@ -22,7 +22,7 @@ namespace scsSDKTelemetry {
     hMapFileSimTelemetryETS2 = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, "Local\\SimTelemetryETS2");
     
     if (hMapFileSCSTelemetry) {
-      pBuf = (LPVOID) MapViewOfFile(hMapFileSCSTelemetry, FILE_MAP_ALL_ACCESS, 0, 0, 16*1024);
+      pBuf = (LPVOID) MapViewOfFile(hMapFileSCSTelemetry, FILE_MAP_ALL_ACCESS, 0, 0, 32*1024);
     
     } else if (hMapFileSimTelemetrySCS) {
       pBuf = (LPVOID) MapViewOfFile(hMapFileSimTelemetrySCS, FILE_MAP_ALL_ACCESS, 0, 0, 16*1024);
