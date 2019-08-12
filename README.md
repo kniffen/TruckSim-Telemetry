@@ -73,4 +73,4 @@ telemetry.getTrailer()    // -> Parsed trailer data
 telemetry.getJob()        // -> Parsed job data
 telemetry.getNavigation() // -> Parsed navigational data
 ```
-Check out [example.json](https://github.com/kniffen/TruckSim-Telemetry/blob/master/example.json) for data structure
+Check out the [examples](https://github.com/kniffen/TruckSim-Telemetry/tree/master/examples) for data structure
