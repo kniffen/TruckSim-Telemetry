@@ -1,0 +1,7 @@
+build
+examples
+
+lib/sdk-plugin-convert/sdk_1.5.js
+lib/sdk-plugin-convert/sdk_1.10.js
+
+**/*.tgz
