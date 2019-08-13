@@ -3,27 +3,30 @@ Telemetry data from the scs-sdk-plugin
 
 [![Discord](https://img.shields.io/discord/125702694538051584.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/S6NRp5P)
 
-## Installing
+### Documentation
+Read the full documentation over at http://trucksimtelemetry.kniffentechnologies.net/
+
+
+## Installation
 
 ### Step 1
 Download and install the **[scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin)** by **[RenCloud](https://github.com/RenCloud)**
 
-
-> ⚠️ **[ets2-sdk-plugin](https://github.com/nlhans/ets2-sdk-plugin) by [nlhans](https://github.com/nlhans) is no longer supported!**
-
 ### Step 2
+Install the module via NPM
 `npm i trucksim-telemetry`
 
-### Step 3
-Load up the game and profit?
+> **node that [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools) are required for it to install**
 
+## Use
 
-## Usage
+### Setup
 ```JS
 const truckSimTelemetry = require('trucksim-telemetry')
 
 const telemetry = truckSimTelemetry()
 ```
+
 ### Events
 ```JS
 // Example
@@ -37,32 +40,13 @@ telemetry.game.on("time-change", function(to, from) {
   // from -> previous in-game time object
 })
 
-// Other "change" events
-telemetry.truck
-telemetry.truck.fuel
-telemetry.truck.adBlue
-telemetry.truck.engine
-telemetry.truck.transmission
-telemetry.truck.brakes
-telemetry.truck.wheels
-telemetry.truck.lights
-telemetry.truck.cabin
-telemetry.truck.chassis
-telemetry.truck.position
-telemetry.truck.orientation
-telemetry.trailers
-telemetry.trailer
-telemetry.job
-telemetry.navigation
-telemetry.controls
-telemetry.events
-
 // Call to start watching the game for changes
 telemetry.watch()
 
 // Stop watching the game for changes
 telemetry.stop()
 ```
+More events are listen on the [documentation](http://trucksimtelemetry.kniffentechnologies.net/) page
 
 ### Functions
 If you don't want to use events you can just get the data manually using these functions
@@ -77,4 +61,4 @@ telemetry.getTrailer()    // -> Parsed trailer data
 telemetry.getJob()        // -> Parsed job data
 telemetry.getNavigation() // -> Parsed navigational data
 ```
-Check out the [examples](https://github.com/kniffen/TruckSim-Telemetry/tree/master/examples) for data structure
+More details about the functions are listen on the [documentation](http://trucksimtelemetry.kniffentechnologies.net/) page
