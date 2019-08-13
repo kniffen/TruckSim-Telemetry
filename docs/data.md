@@ -1,17 +1,17 @@
 # Data {docsify-ignore-all}
 
-[](objects/controls.md ':include')
+[](data/controls.md ':include')
 
-[](objects/events.md ':include')
+[](data/events.md ':include')
 
-[](objects/game.md ':include')
+[](data/game.md ':include')
 
-[](objects/job.md ':include')
+[](data/job.md ':include')
 
-[](objects/navigation.md ':include')
+[](data/navigation.md ':include')
 
-[](objects/substances.md ':include')
+[](data/substances.md ':include')
 
-[](objects/trailers.md ':include')
+[](data/trailers.md ':include')
 
-[](objects/truck.md ':include')
+[](data/truck.md ':include')
