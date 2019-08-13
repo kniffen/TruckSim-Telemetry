@@ -31,6 +31,7 @@
     "struct-fu": "^1.1.1"
   },
   "devDependencies": {
+    "live-server": "^1.2.1",
     "node-gyp": "^5.0.3"
   }
 }

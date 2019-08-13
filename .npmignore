@@ -1,5 +1,7 @@
 build
 examples
+docs
+dev
 
 lib/sdk-plugin-convert/sdk_1.5.js
 
