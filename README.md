@@ -49,10 +49,13 @@ telemetry.truck.lights
 telemetry.truck.cabin
 telemetry.truck.chassis
 telemetry.truck.position
+telemetry.truck.orientation
+telemetry.trailers
 telemetry.trailer
 telemetry.job
 telemetry.navigation
 telemetry.controls
+telemetry.events
 
 // Call to start watching the game for changes
 telemetry.watch()
@@ -69,6 +72,7 @@ telemetry.getData()       // -> Parsed data
 telemetry.getGame()       // -> Parsed game data
 telemetry.getControls()   // -> Parsed controls data
 telemetry.getTruck()      // -> Parsed truck data
+telemetry.getTrailers()   // -> Parsed trailers data
 telemetry.getTrailer()    // -> Parsed trailer data
 telemetry.getJob()        // -> Parsed job data
 telemetry.getNavigation() // -> Parsed navigational data
