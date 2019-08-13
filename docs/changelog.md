@@ -1,0 +1,35 @@
+# Changelog
+
+v0.5.0 - 2019.08.13
+- Added support for SCS SDK 1.10
+- Added change event for truck orientation
+- Added change event for world events (fines, tollgates, ferries, trains)
+- Added change event for trailers
+- Added getTrailers() function
+
+v0.4.2 - 2019.08.13
+- Removed damage value from trailer wheels
+- Fixed functions always returning undefined
+- Fixed various data properties
+
+v0.4.1 - 2019.08.13
+- Updated documentation
+
+v0.4.0 - 2019.08.12
+- Improved parsed data structure
+
+v0.3.0 - 2019.08.10
+- Added support for SCS SDK 1.9
+- Added events
+
+v0.2.1 - 2019.05.03
+- Fixed hard crash if game was not running
+
+v0.2.0 - 2018.12.02
+- Replaced C# shared memory solution with CPP node-addon module
+
+v0.1.1 - 2017.09.17
+- Added user input data
+
+v0.1.0 - 2017.09.17
+- Initial release
