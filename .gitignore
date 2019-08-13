@@ -6,3 +6,5 @@ package-lock.json
 build
 
 **/*.tgz
+
+lib/sdk-plugin-convert/sdk_1.5.js
