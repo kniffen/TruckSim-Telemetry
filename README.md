@@ -21,14 +21,14 @@ Install the module via NPM
 ## Use
 
 ### Setup
-```JS
+```javascript
 const truckSimTelemetry = require('trucksim-telemetry')
 
 const telemetry = truckSimTelemetry()
 ```
 
 ### Events
-```JS
+```javascript
 // Example
 telemetry.game.on("change", function(to, from) {
   // to   -> new game data
@@ -50,7 +50,7 @@ More events are listen on the [documentation](http://trucksimtelemetry.kniffente
 
 ### Functions
 If you don't want to use events you can just get the data manually using these functions
-```JS
+```javascript
 telemetry.getBuffer()     // -> Original memory buffer from the plugin
 telemetry.getData()       // -> Parsed data
 telemetry.getGame()       // -> Parsed game data
