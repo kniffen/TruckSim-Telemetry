@@ -1,7 +1,7 @@
 {
   "name": "trucksim-telemetry",
-  "version": "0.4.2",
-  "description": "Telemetry data from the ets2-sdk-plugin",
+  "version": "0.5.0",
+  "description": "Telemetry data from the scs-sdk-plugin",
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
