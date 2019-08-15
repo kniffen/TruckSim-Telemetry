@@ -1,4 +1,0 @@
-# data.trailer.accessoryId
-
-```json
-""```

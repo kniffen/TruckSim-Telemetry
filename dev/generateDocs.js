@@ -1,8 +1,11 @@
 const path = require("path")
 const fs   = require("fs")
 
-const data = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../examples/sdk_1.10.json")))
+const getDataFromPluginVersion10 = require("../lib/sdk-plugin-convert/sdk_1.10")
+const parseData                  = require("../lib/parseData")
 
+const buffer = fs.readFileSync(path.resolve(__dirname, "buffers/sdk_data_1_10"))
+const data   = parseData(getDataFromPluginVersion10(buffer))
 
 // Generate object doc files from example data
 for (const prop in data) {
@@ -10,7 +13,8 @@ for (const prop in data) {
 
   if (["game", "events", "job", "trailer", "truck"].includes(prop)) {
     for (const subProp in data[prop]) {
-      createObjectDoc(`data.${prop}.${subProp}`, data[prop][subProp], path.resolve(__dirname, `../docs/data/${prop}/${subProp}.md`))
+      if (typeof data[prop][subProp] == "object")
+        createObjectDoc(`data.${prop}.${subProp}`, data[prop][subProp], path.resolve(__dirname, `../docs/data/${prop}/${subProp}.md`))
     }
   }
 }

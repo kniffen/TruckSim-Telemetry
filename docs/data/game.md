@@ -2,7 +2,7 @@
 
 ```json
 {
-   "sdkActive": 1,
+   "sdkActive": true,
    "timestamp": {
       "value": 533312
    },
