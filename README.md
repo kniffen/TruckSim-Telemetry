@@ -22,12 +22,15 @@ Install the module via NPM
 
 ## Use
 
-### Events
+### Setup
 ```javascript
-import truckSimTelemetry from "trucksim-telemetry"
+const truckSimTelemetry = require('trucksim-telemetry')
 
 const telemetry = truckSimTelemetry()
+```
 
+### Events
+```javascript
 // Example
 telemetry.game.on("change", function(to, from) {
   // to   -> new game data
@@ -50,16 +53,14 @@ More events are listen on the [documentation](http://trucksimtelemetry.kniffente
 ### Functions
 If you don't want to use events you can just get the data manually using these functions
 ```javascript
-import truckSimTelemetry from "trucksim-telemetry"
-
-truckSimTelemetry.getBuffer()     // -> Original memory buffer from the plugin
-truckSimTelemetry.getData()       // -> Parsed data
-truckSimTelemetry.getGame()       // -> Parsed game data
-truckSimTelemetry.getControls()   // -> Parsed controls data
-truckSimTelemetry.getTruck()      // -> Parsed truck data
-truckSimTelemetry.getTrailers()   // -> Parsed trailers data
-truckSimTelemetry.getTrailer()    // -> Parsed trailer data
-truckSimTelemetry.getJob()        // -> Parsed job data
-truckSimTelemetry.getNavigation() // -> Parsed navigational data
+telemetry.getBuffer()     // -> Original memory buffer from the plugin
+telemetry.getData()       // -> Parsed data
+telemetry.getGame()       // -> Parsed game data
+telemetry.getControls()   // -> Parsed controls data
+telemetry.getTruck()      // -> Parsed truck data
+telemetry.getTrailers()   // -> Parsed trailers data
+telemetry.getTrailer()    // -> Parsed trailer data
+telemetry.getJob()        // -> Parsed job data
+telemetry.getNavigation() // -> Parsed navigational data
 ```
 More details about the functions are listen on the [documentation](http://trucksimtelemetry.kniffentechnologies.net/) page
