@@ -1,5 +1,9 @@
 Changelog
 
+v0.5.1 - 2019.08.15
+- Fixed sdkActive boolean value
+- Fixed negative speed values
+
 v0.5.0 - 2019.08.13
 - Added support for SCS SDK 1.10
 - Added change event for truck orientation
