@@ -1,43 +1,51 @@
 # Functions
 
 ### getBuffer()
-**Returns: [scs-sdk-plugin memory buffer](google.com)**
+**Returns: [scs-sdk-plugin memory buffer](https://github.com/RenCloud/scs-sdk-plugin)**
 
 ### getData()
-**Returns: [data object](data.md)**
+**Returns: [data object](data.md#controls)**
 
-### getControls()
-**Returns: [controls object](data/controls.md)**
-
-### getTruck()
-**Returns: [truck object](data/truck.md)**
-
-### getTrailers()
-**Returns: [trailers array](data/trailers.md)**
-
-### getTrailer()
-**Returns: [trailer object](data/trailer.md)**
+### getGame()
+**Returns: [data object](data.md#game)**
 
 ### getJob()
-**Returns: [job object](data/job.md)**
+**Returns: [data object](data.md#job)**
 
 ### getNavigation()
-**Returns: [navigation object](data/navigation.md)**
+**Returns: [data object](data.md#navigation)**
 
-### watch({options})
+### getTrailers()
+**Returns: [data object](data.md#trailers)**
+
+### getTrailer()
+**Returns: [data object](data.md#trailer)**
+
+### getTruck()
+**Returns: [data object](data.md#truck)**
+
+### watch({options}, update)
 **Use: starts watching the game for changes at every given interval**
 
-| Option   | type   | Default | Minimum | Required |
-| -------- | ------ | ------- | ------- |          |
-| interval | number | 100     | 100     | no       |
+| Option   | type     | Default | Minimum | Required |
+| -------- | -------- | ------- | ------- | -------- |
+| interval | number   | 100(ms) | 10(ms)  | no       |
+| update   | function |         |         | no       |
 
 #### Example
 ```javascript
-telemetry.game.on("change", function(current, previous) {
-  /* use data */
+import truckSimTelemetry from "trucksim-telemetry"
+
+const telemetry = truckSimTelemetry()
+
+telemetry.game.on("time-change", function(current, previous) {
+  // current  == current in-game time
+  // previous == previous in-game time
 })
 
-telemetry.watch({interval: 200})
+telemetry.watch({interval: 200}, function() {
+  // update function, runs everytime the game state changes
+})
 ```
 
 ### stop()
@@ -45,8 +53,13 @@ telemetry.watch({interval: 200})
 
 #### Example
 ```javascript
-telemetry.game.on("change", function(current, previous) {
-  /* use data */
+import truckSimTelemetry from "trucksim-telemetry"
+
+const telemetry = truckSimTelemetry()
+
+telemetry.game.on("time-change", function(current, previous) {
+  // current  == current in-game time
+  // previous == previous in-game time
 })
 
 telemetry.watch()
