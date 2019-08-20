@@ -1,4 +1,13 @@
 Changelog
+v0.6.0 - 2019.08.20
+- Added functions to main module
+- Added update callback to watch function
+- Reworked events and data structure
+- Decreased minimum refresh time to 10ms (use at own risk)
+- Fixed boolean values
+- Fixed amount values
+- Fixed time values
+- Fixed previous data objects being the same as current
 
 v0.5.1 - 2019.08.15
 - Fixed sdkActive boolean value
