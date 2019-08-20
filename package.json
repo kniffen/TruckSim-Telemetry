@@ -1,12 +1,13 @@
 {
   "name": "trucksim-telemetry",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Telemetry data from the scs-sdk-plugin",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npx gulp test",
     "dev-build": "npx node-gyp build",
-    "generate-docs": "node ./dev/generateDocs.js"
+    "dev": "npx gulp",
+    "docs": "npx live-server ./docs"
   },
   "gypfile": true,
   "repository": {
@@ -29,10 +30,29 @@
   "homepage": "https://github.com/kniffen/TruckSim-Telemetry#readme",
   "dependencies": {
     "deep-equal": "^1.0.1",
+    "lodash.clonedeep": "^4.5.0",
     "struct-fu": "^1.1.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-mocha": "^6.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-sourcemaps": "^2.6.5",
     "live-server": "^1.2.1",
-    "node-gyp": "^5.0.3"
+    "mocha": "^6.2.0",
+    "node-gyp": "^5.0.3",
+    "sinon": "^7.4.1",
+    "source-map-support": "^0.5.13"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   }
 }
