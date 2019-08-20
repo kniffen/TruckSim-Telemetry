@@ -1,7 +1,8 @@
-const scsSDKTelemetry = require('../build/Release/scsSDKTelemetry')
+import _scsSDKTelemetry from "../../build/Release/scsSDKTelemetry"
 
-function getBuffer() {
+export default function getBuffer(ignore, scsSDKTelemetry = _scsSDKTelemetry) {
   try {
+  
     const arrayBuffer = scsSDKTelemetry.getArrayBuffer()
     const buffer      = new Buffer.from(arrayBuffer)
     
@@ -11,5 +12,3 @@ function getBuffer() {
     /* ignore, make the function return undefined */ 
   }
 }
-
-module.exports = getBuffer

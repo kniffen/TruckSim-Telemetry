@@ -4,6 +4,7 @@ function parseData(data) {
   fixPropNames(data, output)
 
   // Game
+  output.game.timestamp.value  = output.game.timestamp.value / 1000
   output.game.sdkActive        = output.game.sdkActive == 1 ? true : false
   output.game.version          = `${output.game.version.major}.${output.game.version.minor}`
   output.game.telemetryVersion = `${output.game.telemetryVersion.major}.${output.game.telemetryVersion.minor}`
@@ -93,6 +94,15 @@ function parseData(data) {
   }
   output.truck.wheels = tempTruckWheels
 
+  // Truck damage
+  output.truck.damage = {
+    cabin:        output.truck.cabin.damage,
+    chassis:      output.truck.chassis.damage,
+    engine:       output.truck.engine.damage,
+    transmission: output.truck.transmission.damage,
+    wheels:       output.truck.wheels.length ? output.truck.wheels[0].damage : 0
+  }
+
   // Traiers
   if (output.game.pluginVersion < 10) 
     output.trailers = [output.trailer]
@@ -126,12 +136,17 @@ function parseData(data) {
           X: tmpTrailers[i].wheels.position.X[j],
           Y: tmpTrailers[i].wheels.position.Y[j],
           Z: tmpTrailers[i].wheels.position.Z[j],
-        },
+        }
       })
     }
 
     tmpTrailers[i].attached = tmpTrailers[i].attached == 1 ? true : false
     tmpTrailers[i].wheels   = tmpTrailerWheels
+
+    tmpTrailers[i].damage = {
+      cargo:   tmpTrailers[i].cargo   ? tmpTrailers[i].cargo.damage   : 0,
+      chassis: tmpTrailers[i].chassis ? tmpTrailers[i].chassis.damage : 0,
+    }
   }
 
   output.trailers = tmpTrailers
@@ -141,19 +156,16 @@ function parseData(data) {
   output.job.deliveryTime = convertTime(output.job.deliveryTime)
   
   // Navigation
-  output.navigation.speedLimit = convertSpeed(output.navigation.speedLimit)
+  output.navigation.speedLimit    = convertSpeed(output.navigation.speedLimit)
+  output.navigation.nextRestStop *= 60000
+  output.navigation.time         *= 1000
 
   // Events
-  output.events.job.autoParked = output.events.job.autoParked == 1 ? true : false
-  output.events.job.autoLoaded = output.events.job.autoLoaded == 1 ? true : false
-  output.events.job.active     = output.events.job.active     == 1 ? true : false
-  output.events.job.finished   = output.events.job.finished   == 1 ? true : false
-  output.events.job.cancelled  = output.events.job.cancelled  == 1 ? true : false
-  output.events.job.delivered  = output.events.job.delivered  == 1 ? true : false
+  output.events.job.started.active  = output.events.job.started.active  == 1 ? true : false
+  output.events.job.finished.active = output.events.job.finished.active == 1 ? true : false
 
   if (output.game.pluginVersion < 10) {
-    output.events.trailerConnected   = output.events.trailerConnected   == 1 ? true : false
-  
+    output.events.trailerConnected.active = output.events.trailerConnected.active == 1 ? true : false
     return output
   }
 
@@ -164,25 +176,34 @@ function parseData(data) {
   output.job.isSpecial      = output.job.isSpecial       == 1 ? true : false
   output.job.market = {
     id:   output.job.market,
-    name: output.job.market.split('_').map(([first, ...rest]) => first.toUpperCase() + rest.join('')).join(' ')
+    name: output.job.market != '' ? output.job.market.split('_').map(([first, ...rest]) => first.toUpperCase() + rest.join('')).join(' ') : ""
   }
-  
-  // Events
-  output.events.job.delivered.autoParked = output.events.job.delivered.autoParked == 1 ? true : false
-  output.events.job.delivered.autoLoaded = output.events.job.delivered.autoLoaded == 1 ? true : false
-  output.events.job.active               = output.events.job.active               == 1 ? true : false
-  output.events.job.finished.active      = output.events.job.finished.active      == 1 ? true : false
-  output.events.job.cancelled.active     = output.events.job.cancelled.active     == 1 ? true : false
-  output.events.job.delivered.active     = output.events.job.delivered.active     == 1 ? true : false
-  output.events.fine.active              = output.events.fine.active              == 1 ? true : false
-  output.events.tollgate.active          = output.events.tollgate.active          == 1 ? true : false
-  output.events.ferry.active             = output.events.ferry.active             == 1 ? true : false
-  output.events.train.active             = output.events.train.active             == 1 ? true : false
-  output.events.job.distance             = parseDistance(output.events.job.distance)
-  output.events.job.deliveryTime         = output.events.job.deliveryTime * 60000
 
-  output.events.job.penalty     = output.events.job.penalty.reduce((a, b) => a + b)
-  output.events.job.revenue     = output.events.job.revenue.reduce((a, b) => a + b)
+  // Job started
+  output.events.job.started.autoLoaded = output.events.job.started.autoLoaded == 1 ? true : false
+
+  // Job delivered
+  output.events.job.delivered.autoParked   = output.events.job.delivered.autoParked == 1 ? true : false
+  output.events.job.delivered.deliveryTime = output.events.job.delivered.deliveryTime * 60000
+  output.events.job.delivered.distance     = parseDistance(output.events.job.delivered.distance)
+  output.events.job.delivered.revenue      = output.events.job.delivered.revenue.reduce((a, b) => a + b)
+
+  // Job cancelled
+  output.events.job.cancelled.penalty = output.events.job.cancelled.penalty.reduce((a, b) => a + b)
+  
+  // Triggers
+  output.events.job.cancelled.active = output.events.job.cancelled.active == 1 ? true : false
+  output.events.job.delivered.active = output.events.job.delivered.active == 1 ? true : false
+  output.events.fine.active         = output.events.fine.active         == 1 ? true : false
+  output.events.tollgate.active     = output.events.tollgate.active     == 1 ? true : false
+  output.events.ferry.active        = output.events.ferry.active        == 1 ? true : false
+  output.events.train.active        = output.events.train.active        == 1 ? true : false
+
+  output.events.fine.offence = {
+    id:   output.events.fine.offence,
+    name: output.events.fine.offence != '' ? output.events.fine.offence.split('_').map(([first, ...rest]) => first.toUpperCase() + rest.join('')).join(' ') : ""
+  }
+
   output.events.fine.amount     = output.events.fine.amount.reduce((a, b) => a + b)
   output.events.tollgate.amount = output.events.tollgate.amount.reduce((a, b) => a + b)
   output.events.ferry.amount    = output.events.ferry.amount.reduce((a, b) => a + b)
@@ -195,8 +216,10 @@ function parseData(data) {
 function convertSpeed(input) {
   if (typeof input == "number") input = { value: input }
 
-  input.kph = Math.floor(Math.abs(input.value * 3.6))
-  input.mph = Math.floor(Math.abs(input.value * 2.25))
+  if (input.value < 0) input.value = 0
+
+  input.kph = Math.round(Math.abs(input.value * 3.6))
+  input.mph = Math.round(Math.abs(input.value * 2.25))
 
   return input
 }
@@ -204,7 +227,7 @@ function convertSpeed(input) {
 function parseDistance(km) {
   return {
     km,
-    miles: Math.floor(km / 1.609)
+    miles: Math.round(km / 1.609)
   }
 }
 
@@ -212,11 +235,9 @@ function convertTime(input) {
   // 4 day offset to make the day of the week line up
   // Because the game thinks it's year 1 but unix starts in 1970
   const dateOffset = 345600000
+  const unix       = input * 60000 + dateOffset
   
-  return {
-    value: input,
-    unix:  input * 60000 + dateOffset
-  }
+  return {value: input, unix}
 }
 
 function fixPropNames(src, target) {
@@ -239,4 +260,4 @@ function ensurePropertyExists(target, property, value) {
   if (!target[property]) target[property] = value == undefined ? {} : value
 }
 
-module.exports = parseData
+export default parseData

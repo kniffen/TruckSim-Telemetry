@@ -1,10 +1,10 @@
-const _ = require("struct-fu")
+import _ from "struct-fu"
 
-function getDataFromPluginVersion10(buffer) {
+export default function getDataFromPluginVersion10(buffer) {
 
   const wheelSize    = 16
   const stringSize   = 64
-  const trailerCount = 5 // TODO: It should be 10 but it complains about the offset being off
+  const trailerCount = 7 // TODO: It should be 10 but it complains about the offset being out of range
 
   const entries = _.struct([
     // 1st zone
@@ -49,7 +49,7 @@ function getDataFromPluginVersion10(buffer) {
     _.uint32le("truck.transmission.slots.handlePosition", 32),
     _.uint32le("truck.transmission.slots.selector", 32),
 
-    _.uint32le("events.job.deliveryTime"),
+    _.uint32le("events.job.delivered.deliveryTime"),
 
     _.padTo(500),
 
@@ -60,7 +60,7 @@ function getDataFromPluginVersion10(buffer) {
     _.int32le("truck.transmission.gear.displayed"),
     _.int32le("truck.transmission.slots.gear", 32),
 
-    _.int32le("events.job.earnedXP"),
+    _.int32le("events.job.delivered.earnedXP"),
 
     _.padTo(700),
 
@@ -136,8 +136,8 @@ function getDataFromPluginVersion10(buffer) {
     _.float32le("truck.wheels.lift", wheelSize),
     _.float32le("truck.wheels.liftOffset", wheelSize),
 
-    _.float32le("events.job.cargoDamage"),
-    _.float32le("events.job.distance"),
+    _.float32le("events.job.delivered.cargoDamage"),
+    _.float32le("events.job.delivered.distance"),
     _.float32le("job.cargo.damage"),
     
     _.padTo(1500),
@@ -181,8 +181,8 @@ function getDataFromPluginVersion10(buffer) {
 
     _.uint8("truck.transmission.selector", 2),
 
-    _.uint8("events.job.autoParked"),
-    _.uint8("events.job.autoLoaded"),
+    _.uint8("events.job.delivered.autoParked"),
+    _.uint8("events.job.started.autoLoaded"),
 
     _.padTo(1640),
 
@@ -336,8 +336,8 @@ function getDataFromPluginVersion10(buffer) {
     _.padTo(4200),
 
     // 11th zone
-    _.uint32le("events.job.penalty", 2),
-    _.uint32le("events.job.revenue", 2),
+    _.uint32le("events.job.cancelled.penalty", 2),
+    _.uint32le("events.job.delivered.revenue", 2),
     _.uint32le("events.fine.amount", 2),
     _.uint32le("events.tollgate.amount", 2),
     _.uint32le("events.ferry.amount", 2),
@@ -346,10 +346,10 @@ function getDataFromPluginVersion10(buffer) {
     _.padTo(4300),
 
     // 12th zone
-    _.uint8("events.job.active"),
-    _.uint8("events.job.finished"),
-    _.uint8("events.job.cancelled"),
-    _.uint8("events.job.delivered"),
+    _.uint8("events.job.started.active"),
+    _.uint8("events.job.finished.active"),
+    _.uint8("events.job.cancelled.active"),
+    _.uint8("events.job.delivered.active"),
     _.uint8("events.fine.active"),
     _.uint8("events.tollgate.active"),
     _.uint8("events.ferry.active"),
@@ -461,5 +461,3 @@ function getDataFromPluginVersion10(buffer) {
   return entries.unpack(buffer)
   
 }
-
-module.exports = getDataFromPluginVersion10

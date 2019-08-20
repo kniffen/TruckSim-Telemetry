@@ -1,6 +1,6 @@
-const _ = require("struct-fu")
+import _  from "struct-fu"
 
-function getDataFromPluginVersion9(buffer) {
+export default function getDataFromPluginVersion9(buffer) {
 
   const wheelSize  = 16
   const stringSize = 64
@@ -366,9 +366,9 @@ function getDataFromPluginVersion9(buffer) {
     _.padTo(5000),
 
     // 11th zone
-    _.uint8("events.job.active"),
-    _.uint8("events.job.finished"),
-    _.uint8("events.trailerConnected"),
+    _.uint8("events.job.started.active"),
+    _.uint8("events.job.finished.active"),
+    _.uint8("events.trailerConnected.active"),
 
     _.padTo(5200),
 
@@ -380,5 +380,3 @@ function getDataFromPluginVersion9(buffer) {
   return entries.unpack(buffer)
   
 }
-
-module.exports = getDataFromPluginVersion9

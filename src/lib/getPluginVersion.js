@@ -1,6 +1,6 @@
-const _ = require("struct-fu")
+import _ from "struct-fu"
 
-function getPluginVersion(buffer) {
+export default function getPluginVersion(buffer) {
   try {
     
     const entries = _.struct([
@@ -20,5 +20,3 @@ function getPluginVersion(buffer) {
   
   }
 }
-
-module.exports = getPluginVersion
