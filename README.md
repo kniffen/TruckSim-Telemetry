@@ -28,12 +28,6 @@ import truckSimTelemetry from "trucksim-telemetry"
 
 const telemetry = truckSimTelemetry()
 
-// Example
-telemetry.game.on("change", function(to, from) {
-  // to   -> new game data
-  // from -> previous game data
-})
-
 telemetry.game.on("time-change", function(to, from) {
   // to   -> new in-game time object
   // from -> previous in-game time object
@@ -45,7 +39,21 @@ telemetry.watch()
 // Stop watching the game for changes
 telemetry.stop()
 ```
-More events are listen on the [documentation](http://trucksimtelemetry.kniffentechnologies.net/) page
+
+### Update loop
+**The update function runs everytime the state of the game changes**
+
+```javascript
+import truckSimTelemetry from "trucksim-telemetry"
+
+const telemetry = truckSimTelemetry()
+
+function update() {
+  console.log(telemetry.data.truck.speed) // => current speed object
+}
+
+telemetry.watch({interval: 100}, update)
+```
 
 ### Functions
 If you don't want to use events you can just get the data manually using these functions
@@ -62,4 +70,4 @@ truckSimTelemetry.getTrailer()    // -> Parsed trailer data
 truckSimTelemetry.getJob()        // -> Parsed job data
 truckSimTelemetry.getNavigation() // -> Parsed navigational data
 ```
-More details about the functions are listen on the [documentation](http://trucksimtelemetry.kniffentechnologies.net/) page
+Fot more details about events and functions visit the [documentation](http://trucksimtelemetry.kniffentechnologies.net/) page
