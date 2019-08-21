@@ -1,12 +1,14 @@
 ## trailers
 
 ### coupling
+
 | Parameter | Type     |
 | ----------| -------- |
 | trailer   | Number   |
 | attached  | Boolean  |
 
 ### damage
+
 | Parameter                                               | Type    |
 | --------------------------------------------------------| ------- |
 | trailer                                                 | Number  |

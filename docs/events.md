@@ -1,13 +1,13 @@
 # Events
 
-[](events/game.md ':include')
+[game](events/game.md ':include')
 
-[](events/job.md ':include')
+[job](events/job.md ':include')
 
-[](events/navigation.md ':include')
+[navigation](events/navigation.md ':include')
 
-[](events/trailers.md ':include')
+[trailers](events/trailers.md ':include')
 
-[](events/trailer.md ':include')
+[trailer](events/trailer.md ':include')
 
-[](events/truck.md ':include')
+[truck](events/truck.md ':include')
