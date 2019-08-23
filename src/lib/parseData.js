@@ -116,6 +116,9 @@ function parseData(data) {
 
   for (let i = 0; i < tmpTrailers.length; i++) {
     const tmpTrailerWheels = []
+    
+    if (!tmpTrailers[i].wheels) continue
+
     for (let j = 0; j < tmpTrailers[i].wheels.count; j++) {
       tmpTrailerWheels.push({
         substance:      {
