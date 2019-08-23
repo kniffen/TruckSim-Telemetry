@@ -106,7 +106,7 @@ export default function getDataFromPluginVersion10(buffer) {
     _.float32le("truck.brakes.temperature.value"),
 
     _.float32le("truck.fuel.value"),
-    _.float32le("truck.fuel.avgConcumption"),
+    _.float32le("truck.fuel.avgConsumption"),
     _.float32le("truck.fuel.range"),
     _.float32le("truck.adBlue.value"),
     _.float32le("truck.engine.oilPressure.value"),
