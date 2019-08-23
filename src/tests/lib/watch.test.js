@@ -146,7 +146,16 @@ describe("watch()", function() {
   it("Should run the update callback if the object has changed", function() {
     watch(telemetry, opts, spies.update, _setInterval, getData, eventEmitters)
 
-    assert.equal(spies.update.args.length, 8)
+    assert.deepEqual(spies.update.args, [
+      [{counter: 10, game: {sdkActive: false}}],
+      [{counter: 10, game: {sdkActive: false}}],
+      [{counter: 10, game: {sdkActive: false}}],
+      [{counter: 10, game: {sdkActive: false}}],
+      [{counter: 10, game: {sdkActive: false}}],
+      [{counter: 10, game: {sdkActive: false}}],
+      [{counter: 10, game: {sdkActive: false}}],
+      [{counter: 10, game: {sdkActive: false}}],
+    ])
   })
 
 })

@@ -62,7 +62,7 @@ export default function watch(
       eventEmitters[i](telemetry, [cloneDeep(current), cloneDeep(previous)])
     }
 
-    if (update && !equal(current, previous)) update()
+    if (update && !equal(current, previous)) update(current)
 
     previous = cloneDeep(current)
   }
