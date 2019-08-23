@@ -71,3 +71,8 @@ truckSimTelemetry.getJob()        // -> Parsed job data
 truckSimTelemetry.getNavigation() // -> Parsed navigational data
 ```
 Fot more details about events and functions visit the [documentation](http://trucksimtelemetry.kniffentechnologies.net/) page
+
+## Demo
+To help visualize the data you can use the [Demo app](https://github.com/kniffen/TruckSim-Telemetry-Demo)
+
+![demo screenshot](https://raw.githubusercontent.com/kniffen/TruckSim-Telemetry-Demo/raw/master/screenshot.jpg)
