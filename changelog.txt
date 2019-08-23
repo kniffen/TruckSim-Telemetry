@@ -1,4 +1,9 @@
 Changelog
+v0.6.1 - 2019.08.??
+- Added data parameter to update callback
+- Fixed avgConsumption typo
+- Fixed hard crash if quitting the game and trying to parse trailer wheels
+
 v0.6.0 - 2019.08.20
 - Added functions to main module
 - Added update callback to watch function

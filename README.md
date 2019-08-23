@@ -48,8 +48,8 @@ import truckSimTelemetry from "trucksim-telemetry"
 
 const telemetry = truckSimTelemetry()
 
-function update() {
-  console.log(telemetry.data.truck.speed) // => current speed object
+function update(data) {
+  console.log(data.truck.speed) // => current speed object
 }
 
 telemetry.watch({interval: 100}, update)
