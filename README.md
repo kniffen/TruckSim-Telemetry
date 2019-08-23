@@ -75,4 +75,4 @@ Fot more details about events and functions visit the [documentation](http://tru
 ## Demo
 To help visualize the data you can use the [Demo app](https://github.com/kniffen/TruckSim-Telemetry-Demo)
 
-![demo screenshot](https://raw.githubusercontent.com/kniffen/TruckSim-Telemetry-Demo/raw/master/screenshot.jpg)
+![demo screenshot](https://raw.githubusercontent.com/kniffen/TruckSim-Telemetry-Demo/master/screenshot.jpg)
