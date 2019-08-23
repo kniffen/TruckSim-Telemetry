@@ -1,5 +1,5 @@
 Changelog
-v0.6.1 - 2019.08.??
+v0.6.1 - 2019.08.23
 - Added data parameter to update callback
 - Fixed avgConsumption typo
 - Fixed hard crash if quitting the game and trying to parse trailer wheels
