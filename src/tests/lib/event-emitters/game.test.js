@@ -18,12 +18,11 @@ describe("event-emitters/game()", function() {
     train:      sinon.spy(),
   }
 
-  const data = []
-
   const createData = () => ({
     game: {
-      paused: false,
-      time:   100
+      paused:        false,
+      time:          100,
+      pluginVersion: 10
     },
     events: {
       fine:     {active: false, amount: 100},
@@ -34,8 +33,7 @@ describe("event-emitters/game()", function() {
   })
 
   before(function() {
-    data[0] = createData()
-    data[1] = createData()
+    const data = [createData(), createData()]
 
     telemetry.game.on("pause",       spies.pause)
     telemetry.game.on("time-change", spies.timeChange)
@@ -45,6 +43,7 @@ describe("event-emitters/game()", function() {
     telemetry.game.on("train",       spies.train)
 
     game(telemetry, data)
+
     data[0].game.paused            = true
     data[0].game.time             += 10
     data[0].events.fine.active     = true
@@ -52,6 +51,7 @@ describe("event-emitters/game()", function() {
     data[0].events.ferry.active    = true
     data[0].events.train.active    = true
     game(telemetry, data)
+
     data[0].game.paused            = false
     data[1].game.time++
     data[0].events.fine.active     = false
@@ -59,6 +59,7 @@ describe("event-emitters/game()", function() {
     data[0].events.ferry.active    = false
     data[0].events.train.active    = false
     game(telemetry, data)
+
     data[1].game.paused            = true
     data[1].game.time             += 9
     data[1].events.fine.active     = true
@@ -66,6 +67,7 @@ describe("event-emitters/game()", function() {
     data[1].events.ferry.active    = true
     data[1].events.train.active    = true
     game(telemetry, data)
+
     data[1].game.paused            = false
     data[1].game.time             -= 5
     data[1].events.fine.active     = false
@@ -106,6 +108,21 @@ describe("event-emitters/game()", function() {
   it("Should emit train events", function() {
     assert.equal(spies.train.args.length, 1)
     assert.deepEqual(spies.train.args[0][0], {active: true, amount: 400})
+  })
+
+  it("Should not emit events not supported by plugin version 9", function() {
+    const data = [createData(), createData()]
+    
+    for (let i = 0; i < 2; i++) {
+      data[i].game.pluginVersion = 9
+  
+      delete data[i].events.fine
+      delete data[i].events.tollgate
+      delete data[i].events.ferry
+      delete data[i].events.train
+    }
+
+    game(telemetry, data)
   })
 
 })

@@ -16,9 +16,10 @@ describe("event-emitters/job()", function() {
     started:   sinon.spy(),
   }
 
-  const data = []
-
   const createData = () => ({
+    game: {
+      pluginVersion: 10
+    },
     events: {
       job: {
         cancelled: {active: false, foo: "bar"},
@@ -30,8 +31,7 @@ describe("event-emitters/job()", function() {
   })
 
   before(function() {
-    data[0] = createData()
-    data[1] = createData()
+    const data = [createData(), createData()]
 
     telemetry.job.on("cancelled", spies.cancelled)
     telemetry.job.on("delivered", spies.delivered)
@@ -39,21 +39,25 @@ describe("event-emitters/job()", function() {
     telemetry.job.on("started",   spies.started)
 
     job(telemetry, data)
+    
     data[0].events.job.cancelled.active = true
     data[0].events.job.delivered.active = true
     data[0].events.job.finished.active  = true
     data[0].events.job.started.active   = true
     job(telemetry, data)
+    
     data[0].events.job.cancelled.active = false
     data[0].events.job.delivered.active = false
     data[0].events.job.finished.active  = false
     data[0].events.job.started.active   = false
     job(telemetry, data)
+    
     data[1].events.job.cancelled.active = true
     data[1].events.job.delivered.active = true
     data[1].events.job.finished.active  = true
     data[1].events.job.started.active   = true
     job(telemetry, data)
+    
     data[1].events.job.cancelled.active = false
     data[1].events.job.delivered.active = false
     data[1].events.job.finished.active  = false
@@ -78,6 +82,19 @@ describe("event-emitters/job()", function() {
   it("Should emit started events", function() {
     assert.equal(spies.started.args.length, 1)
     assert.deepEqual(spies.started.args[0][0], {active: true, qux: "quux"})
+  })
+
+  it("Should not emit events not supported by plugin version 9", function() {
+    const data = [createData(), createData()]
+    
+    for (let i = 0; i < 2; i++) {
+      data[i].game.pluginVersion = 9
+  
+      delete data[i].events.job.cancelled
+      delete data[i].events.job.delivered
+    }
+
+    job(telemetry, data)
   })
 
 })
