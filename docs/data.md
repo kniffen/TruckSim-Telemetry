@@ -16,7 +16,8 @@
       "brake": 1,
       "clutch": 0
    }
-}```
+}
+```
 
 ### controls.game
 
@@ -26,7 +27,8 @@
    "throttle": 0,
    "brake": 1,
    "clutch": 0
-}```
+}
+```
 
 ### controls.input
 
@@ -36,7 +38,8 @@
    "throttle": 0,
    "brake": 0,
    "clutch": 0
-}```
+}
+```
 
 ## events
 
@@ -103,7 +106,8 @@
       "amount": 0,
       "active": false
    }
-}```
+}
+```
 
 ### events.ferry
 
@@ -119,7 +123,8 @@
    },
    "amount": 0,
    "active": false
-}```
+}
+```
 
 #### events.ferry.source
 
@@ -127,7 +132,8 @@
 {
    "name": "",
    "id": ""
-}```
+}
+```
 
 #### events.ferry.target
 
@@ -135,7 +141,8 @@
 {
    "name": "",
    "id": ""
-}```
+}
+```
 
 ### events.fine
 
@@ -147,7 +154,8 @@
    },
    "amount": 0,
    "active": false
-}```
+}
+```
 
 #### events.fine.offence
 
@@ -155,7 +163,8 @@
 {
    "id": "",
    "name": ""
-}```
+}
+```
 
 ### events.job
 
@@ -184,7 +193,8 @@
    "finished": {
       "active": false
    }
-}```
+}
+```
 
 #### events.job.cancelled
 
@@ -192,7 +202,8 @@
 {
    "penalty": 0,
    "active": false
-}```
+}
+```
 
 #### events.job.delivered
 
@@ -208,14 +219,16 @@
    "autoParked": false,
    "revenue": 0,
    "active": false
-}```
+}
+```
 
 #### events.job.finished
 
 ```json
 {
    "active": false
-}```
+}
+```
 
 #### events.job.started
 
@@ -223,7 +236,8 @@
 {
    "autoLoaded": false,
    "active": true
-}```
+}
+```
 
 ### events.tollgate
 
@@ -231,7 +245,8 @@
 {
    "amount": 0,
    "active": false
-}```
+}
+```
 
 ### events.train
 
@@ -247,7 +262,8 @@
    },
    "amount": 0,
    "active": false
-}```
+}
+```
 
 #### events.train.source
 
@@ -255,7 +271,8 @@
 {
    "name": "",
    "id": ""
-}```
+}
+```
 
 #### events.train.target
 
@@ -263,7 +280,8 @@
 {
    "name": "",
    "id": ""
-}```
+}
+```
 
 ## game
 
@@ -271,7 +289,7 @@
 {
    "sdkActive": true,
    "timestamp": {
-      "value": 533312
+      "value": 533.312
    },
    "paused": true,
    "pluginVersion": 10,
@@ -287,7 +305,8 @@
    },
    "maxTrailerCount": 10,
    "scale": 3
-}```
+}
+```
 
 ### game.game
 
@@ -295,7 +314,8 @@
 {
    "id": 1,
    "name": "ets2"
-}```
+}
+```
 
 ### game.time
 
@@ -303,14 +323,16 @@
 {
    "value": 7238,
    "unix": 779880000
-}```
+}
+```
 
 ### game.timestamp
 
 ```json
 {
-   "value": 533312
-}```
+   "value": 533.312
+}
+```
 
 ## job
 
@@ -354,7 +376,8 @@
       "name": "Quick Job"
    },
    "income": 362
-}```
+}
+```
 
 ### job.cargo
 
@@ -366,7 +389,8 @@
    "isLoaded": true,
    "id": "canned_tuna",
    "name": "Canned Tuna"
-}```
+}
+```
 
 ### job.deliveryTime
 
@@ -374,7 +398,8 @@
 {
    "value": 7537,
    "unix": 797820000
-}```
+}
+```
 
 ### job.destination
 
@@ -388,7 +413,8 @@
       "id": "drekkar",
       "name": "Drekkar Trans"
    }
-}```
+}
+```
 
 #### job.destination.city
 
@@ -396,7 +422,8 @@
 {
    "id": "bergen",
    "name": "Bergen"
-}```
+}
+```
 
 #### job.destination.company
 
@@ -404,7 +431,8 @@
 {
    "id": "drekkar",
    "name": "Drekkar Trans"
-}```
+}
+```
 
 ### job.market
 
@@ -412,7 +440,8 @@
 {
    "id": "quick_job",
    "name": "Quick Job"
-}```
+}
+```
 
 ### job.source
 
@@ -426,7 +455,8 @@
       "id": "polar_fish",
       "name": "Polar Fish"
    }
-}```
+}
+```
 
 #### job.source.city
 
@@ -434,7 +464,8 @@
 {
    "id": "bergen",
    "name": "Bergen"
-}```
+}
+```
 
 #### job.source.company
 
@@ -442,21 +473,23 @@
 {
    "id": "polar_fish",
    "name": "Polar Fish"
-}```
+}
+```
 
 ## navigation
 
 ```json
 {
-   "nextRestStop": 659,
+   "nextRestStop": 39540000,
    "distance": 273.49658203125,
-   "time": 39.5620231628418,
+   "time": 39562.0231628418,
    "speedLimit": {
       "value": 13.88888931274414,
       "kph": 50,
       "mph": 31
    }
-}```
+}
+```
 
 ### navigation.speedLimit
 
@@ -465,7 +498,8 @@
    "value": 13.88888931274414,
    "kph": 50,
    "mph": 31
-}```
+}
+```
 
 ## substances
 
@@ -487,7 +521,8 @@
    "glass",
    "wood",
    "soft"
-]```
+]
+```
 
 ## trailer
 
@@ -689,7 +724,8 @@
       "cargo": 0.0006701607489958405,
       "chassis": 0.00824151374399662
    }
-}```
+}
+```
 
 ### trailer.acceleration
 
@@ -715,7 +751,8 @@
       "Y": 0.0022492464631795883,
       "Z": -0.014959881082177162
    }
-}```
+}
+```
 
 #### trailer.acceleration.angularAcceleration
 
@@ -724,7 +761,8 @@
    "X": 0.0035117140505462885,
    "Y": 0.0022492464631795883,
    "Z": -0.014959881082177162
-}```
+}
+```
 
 #### trailer.acceleration.angularVelocity
 
@@ -733,7 +771,8 @@
    "X": 0.00017785612726584077,
    "Y": 0.0004528241406660527,
    "Z": -0.005526624154299498
-}```
+}
+```
 
 #### trailer.acceleration.linearAcceleration
 
@@ -742,7 +781,8 @@
    "X": -0.02382512018084526,
    "Y": 0.11556900292634964,
    "Z": -0.04338977113366127
-}```
+}
+```
 
 #### trailer.acceleration.linearVelocity
 
@@ -751,7 +791,8 @@
    "X": 0.008739281445741653,
    "Y": 0.0008155117393471301,
    "Z": 0.0006451276130974293
-}```
+}
+```
 
 ### trailer.brand
 
@@ -759,21 +800,24 @@
 {
    "id": "",
    "name": ""
-}```
+}
+```
 
 ### trailer.cargo
 
 ```json
 {
    "damage": 0.0006701607489958405
-}```
+}
+```
 
 ### trailer.chassis
 
 ```json
 {
    "damage": 0.00824151374399662
-}```
+}
+```
 
 ### trailer.damage
 
@@ -781,7 +825,8 @@
 {
    "cargo": 0.0006701607489958405,
    "chassis": 0.00824151374399662
-}```
+}
+```
 
 ### trailer.hook
 
@@ -792,7 +837,8 @@
       "Y": 1.0035500526428223,
       "Z": -5.060946464538574
    }
-}```
+}
+```
 
 #### trailer.hook.position
 
@@ -801,7 +847,8 @@
    "X": 0,
    "Y": 1.0035500526428223,
    "Z": -5.060946464538574
-}```
+}
+```
 
 ### trailer.licensePlate
 
@@ -812,7 +859,8 @@
       "name": "Norway",
       "id": "norway"
    }
-}```
+}
+```
 
 #### trailer.licensePlate.country
 
@@ -820,7 +868,8 @@
 {
    "name": "Norway",
    "id": "norway"
-}```
+}
+```
 
 ### trailer.model
 
@@ -828,7 +877,8 @@
 {
    "id": "krone.coolliner",
    "name": ""
-}```
+}
+```
 
 ### trailer.orientation
 
@@ -837,7 +887,8 @@
    "heading": 0.987075924873352,
    "pitch": -0.0016184132546186447,
    "roll": 0.00004561048262985423
-}```
+}
+```
 
 ### trailer.position
 
@@ -846,7 +897,8 @@
    "X": -10182.099548339844,
    "Y": 2.8594589233398438,
    "Z": -56971.34114074707
-}```
+}
+```
 
 ### trailer.wheels
 
@@ -978,7 +1030,8 @@
          "Z": 0.9414224624633789
       }
    }
-]```
+]
+```
 
 #### trailer.wheels.0
 
@@ -1003,7 +1056,8 @@
       "Y": 0.5415486693382263,
       "Z": 3.5108704566955566
    }
-}```
+}
+```
 
 #### trailer.wheels.1
 
@@ -1028,7 +1082,8 @@
       "Y": 0.5415486693382263,
       "Z": 3.5108704566955566
    }
-}```
+}
+```
 
 #### trailer.wheels.2
 
@@ -1053,7 +1108,8 @@
       "Y": 0.5406518578529358,
       "Z": 2.221005439758301
    }
-}```
+}
+```
 
 #### trailer.wheels.3
 
@@ -1078,7 +1134,8 @@
       "Y": 0.5406518578529358,
       "Z": 2.221005439758301
    }
-}```
+}
+```
 
 #### trailer.wheels.4
 
@@ -1103,7 +1160,8 @@
       "Y": 0.5377593636512756,
       "Z": 0.9414224624633789
    }
-}```
+}
+```
 
 #### trailer.wheels.5
 
@@ -1128,7 +1186,8 @@
       "Y": 0.5377593636512756,
       "Z": 0.9414224624633789
    }
-}```
+}
+```
 
 ## trailers
 
@@ -1758,7 +1817,8 @@
          "chassis": 0
       }
    }
-]```
+]
+```
 
 ## truck
 
@@ -2146,7 +2206,7 @@
          "enabled": false
       },
       "value": 1136.724853515625,
-      "avgConcumption": 1.0358302593231201,
+      "avgConsumption": 1.0358302593231201,
       "range": 2308.972412109375
    },
    "adBlue": {
@@ -2193,7 +2253,7 @@
       "ratio": 3.0799999237060547
    },
    "speed": {
-      "value": -0.0007895487360656261,
+      "value": 0,
       "kph": 0,
       "mph": 0
    },
@@ -2325,7 +2385,8 @@
       "transmission": 0.0004944907850585878,
       "wheels": 0.0002472453925292939
    }
-}```
+}
+```
 
 ### truck.acceleration
 
@@ -2351,7 +2412,8 @@
       "Y": -0.0014540289994329214,
       "Z": 0.011740298941731453
    }
-}```
+}
+```
 
 #### truck.acceleration.angularAcceleration
 
@@ -2360,7 +2422,8 @@
    "X": -0.0018508766079321504,
    "Y": -0.0014540289994329214,
    "Z": 0.011740298941731453
-}```
+}
+```
 
 #### truck.acceleration.angularVelocity
 
@@ -2369,7 +2432,8 @@
    "X": -0.00018936704145744443,
    "Y": -0.000012564576536533423,
    "Z": 0.000434524001320824
-}```
+}
+```
 
 #### truck.acceleration.linearAcceleration
 
@@ -2378,7 +2442,8 @@
    "X": 0.0013104218523949385,
    "Y": 0.16259200870990753,
    "Z": 0.00845605693757534
-}```
+}
+```
 
 #### truck.acceleration.linearVelocity
 
@@ -2387,7 +2452,8 @@
    "X": 0.0010731453076004982,
    "Y": 0.0009856170509010553,
    "Z": 0.0011698190355673432
-}```
+}
+```
 
 ### truck.adBlue
 
@@ -2399,7 +2465,8 @@
       "enabled": false
    },
    "value": 95.8034896850586
-}```
+}
+```
 
 #### truck.adBlue.warning
 
@@ -2407,7 +2474,8 @@
 {
    "factor": 0.15000000596046448,
    "enabled": false
-}```
+}
+```
 
 ### truck.brakes
 
@@ -2437,7 +2505,8 @@
    "motor": {
       "enabled": false
    }
-}```
+}
+```
 
 #### truck.brakes.airPressure
 
@@ -2452,21 +2521,24 @@
       "enabled": false
    },
    "value": 124.40995788574219
-}```
+}
+```
 
 #### truck.brakes.motor
 
 ```json
 {
    "enabled": false
-}```
+}
+```
 
 #### truck.brakes.parking
 
 ```json
 {
    "enabled": false
-}```
+}
+```
 
 #### truck.brakes.retarder
 
@@ -2474,14 +2546,16 @@
 {
    "steps": 5,
    "level": 0
-}```
+}
+```
 
 #### truck.brakes.temperature
 
 ```json
 {
    "value": 21.060251235961914
-}```
+}
+```
 
 ### truck.brand
 
@@ -2489,7 +2563,8 @@
 {
    "id": "scania",
    "name": "Scania"
-}```
+}
+```
 
 ### truck.cabin
 
@@ -2525,7 +2600,8 @@
          "roll": -0.00012723123654723167
       }
    }
-}```
+}
+```
 
 #### truck.cabin.acceleration
 
@@ -2541,7 +2617,8 @@
       "Y": -0.001774521660991013,
       "Z": 0.0021061147563159466
    }
-}```
+}
+```
 
 #### truck.cabin.offset
 
@@ -2557,7 +2634,8 @@
       "pitch": -0.0000026941299893223913,
       "roll": -0.00012723123654723167
    }
-}```
+}
+```
 
 #### truck.cabin.position
 
@@ -2566,14 +2644,16 @@
    "X": 0,
    "Y": 1.2947975397109985,
    "Z": -2.2461023330688477
-}```
+}
+```
 
 ### truck.chassis
 
 ```json
 {
    "damage": 0.0016483026556670666
-}```
+}
+```
 
 ### truck.cruiseControl
 
@@ -2583,7 +2663,8 @@
    "enabled": false,
    "kph": 0,
    "mph": 0
-}```
+}
+```
 
 ### truck.damage
 
@@ -2594,21 +2675,24 @@
    "engine": 0.0008241513278335333,
    "transmission": 0.0004944907850585878,
    "wheels": 0.0002472453925292939
-}```
+}
+```
 
 ### truck.differential
 
 ```json
 {
    "ratio": 3.0799999237060547
-}```
+}
+```
 
 ### truck.electric
 
 ```json
 {
    "enabled": false
-}```
+}
+```
 
 ### truck.engine
 
@@ -2644,7 +2728,8 @@
    },
    "damage": 0.0008241513278335333,
    "enabled": false
-}```
+}
+```
 
 #### truck.engine.batteryVoltage
 
@@ -2655,7 +2740,8 @@
       "enabled": true
    },
    "value": 27.476198196411133
-}```
+}
+```
 
 #### truck.engine.oilPressure
 
@@ -2666,14 +2752,16 @@
       "enabled": true
    },
    "value": 0
-}```
+}
+```
 
 #### truck.engine.oilTemperature
 
 ```json
 {
    "value": 16.01543426513672
-}```
+}
+```
 
 #### truck.engine.rpm
 
@@ -2681,7 +2769,8 @@
 {
    "max": 2500,
    "value": 0
-}```
+}
+```
 
 #### truck.engine.waterTemperature
 
@@ -2692,7 +2781,8 @@
       "enabled": false
    },
    "value": 16.014619827270508
-}```
+}
+```
 
 ### truck.fuel
 
@@ -2704,9 +2794,10 @@
       "enabled": false
    },
    "value": 1136.724853515625,
-   "avgConcumption": 1.0358302593231201,
+   "avgConsumption": 1.0358302593231201,
    "range": 2308.972412109375
-}```
+}
+```
 
 #### truck.fuel.warning
 
@@ -2714,7 +2805,8 @@
 {
    "factor": 0.15000000596046448,
    "enabled": false
-}```
+}
+```
 
 ### truck.head
 
@@ -2737,7 +2829,8 @@
          "roll": 0
       }
    }
-}```
+}
+```
 
 #### truck.head.offset
 
@@ -2753,7 +2846,8 @@
       "pitch": -0.025000009685754776,
       "roll": 0
    }
-}```
+}
+```
 
 #### truck.head.position
 
@@ -2762,7 +2856,8 @@
    "X": -0.6832099556922913,
    "Y": 1.4106093645095825,
    "Z": 0.38374221324920654
-}```
+}
+```
 
 ### truck.hook
 
@@ -2773,7 +2868,8 @@
       "Y": 1,
       "Z": 1.42624032497406
    }
-}```
+}
+```
 
 #### truck.hook.position
 
@@ -2782,7 +2878,8 @@
    "X": 0,
    "Y": 1,
    "Z": 1.42624032497406
-}```
+}
+```
 
 ### truck.licensePlate
 
@@ -2793,7 +2890,8 @@
       "id": "norway",
       "name": "Norway"
    }
-}```
+}
+```
 
 #### truck.licensePlate.country
 
@@ -2801,7 +2899,8 @@
 {
    "id": "norway",
    "name": "Norway"
-}```
+}
+```
 
 ### truck.lights
 
@@ -2842,42 +2941,48 @@
    "reverse": {
       "enabled": false
    }
-}```
+}
+```
 
 #### truck.lights.auxFront
 
 ```json
 {
    "value": 0
-}```
+}
+```
 
 #### truck.lights.auxRoof
 
 ```json
 {
    "value": 0
-}```
+}
+```
 
 #### truck.lights.beacon
 
 ```json
 {
    "enabled": false
-}```
+}
+```
 
 #### truck.lights.beamHigh
 
 ```json
 {
    "enabled": false
-}```
+}
+```
 
 #### truck.lights.beamLow
 
 ```json
 {
    "enabled": false
-}```
+}
+```
 
 #### truck.lights.blinker
 
@@ -2891,28 +2996,32 @@
       "enabled": false,
       "active": false
    }
-}```
+}
+```
 
 #### truck.lights.brake
 
 ```json
 {
    "enabled": false
-}```
+}
+```
 
 #### truck.lights.parking
 
 ```json
 {
    "enabled": false
-}```
+}
+```
 
 #### truck.lights.reverse
 
 ```json
 {
    "enabled": false
-}```
+}
+```
 
 ### truck.model
 
@@ -2920,7 +3029,8 @@
 {
    "id": "vehicle.scania.s_2016",
    "name": "S"
-}```
+}
+```
 
 ### truck.orientation
 
@@ -2929,7 +3039,8 @@
    "heading": 0.9232192039489746,
    "pitch": -0.0020853704772889614,
    "roll": 0.0018318187212571502
-}```
+}
+```
 
 ### truck.position
 
@@ -2938,16 +3049,18 @@
    "X": -10181.01889038086,
    "Y": 2.825601577758789,
    "Z": -56977.644958496094
-}```
+}
+```
 
 ### truck.speed
 
 ```json
 {
-   "value": -0.0007895487360656261,
+   "value": 0,
    "kph": 0,
    "mph": 0
-}```
+}
+```
 
 ### truck.transmission
 
@@ -3165,7 +3278,8 @@
       false
    ],
    "shifterType": "arcade"
-}```
+}
+```
 
 #### truck.transmission.gear
 
@@ -3173,7 +3287,8 @@
 {
    "selected": 0,
    "displayed": 0
-}```
+}
+```
 
 #### truck.transmission.gearRatiosForward
 
@@ -3203,7 +3318,8 @@
    0,
    0,
    0
-]```
+]
+```
 
 #### truck.transmission.gearRatiosReverse
 
@@ -3217,7 +3333,8 @@
    0,
    0,
    0
-]```
+]
+```
 
 #### truck.transmission.selector
 
@@ -3225,7 +3342,8 @@
 [
    false,
    false
-]```
+]
+```
 
 #### truck.transmission.slots
 
@@ -3391,7 +3509,8 @@
       "selector": 0,
       "gear": 0
    }
-]```
+]
+```
 
 ### truck.wheels
 
@@ -3493,7 +3612,8 @@
       "onGround": true,
       "damage": 0.0002472453925292939
    }
-]```
+]
+```
 
 #### truck.wheels.0
 
@@ -3521,7 +3641,8 @@
    "liftable": false,
    "onGround": true,
    "damage": 0.0002472453925292939
-}```
+}
+```
 
 #### truck.wheels.1
 
@@ -3549,7 +3670,8 @@
    "liftable": false,
    "onGround": true,
    "damage": 0.0002472453925292939
-}```
+}
+```
 
 #### truck.wheels.2
 
@@ -3577,7 +3699,8 @@
    "liftable": false,
    "onGround": true,
    "damage": 0.0002472453925292939
-}```
+}
+```
 
 #### truck.wheels.3
 
@@ -3605,12 +3728,14 @@
    "liftable": false,
    "onGround": true,
    "damage": 0.0002472453925292939
-}```
+}
+```
 
 ### truck.wipers
 
 ```json
 {
    "enabled": false
-}```
+}
+```
 

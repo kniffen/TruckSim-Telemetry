@@ -75,7 +75,7 @@ function generateDataDocs(done) {
     subKeys.sort()
     for (const prop of subKeys) {
       if (typeof subData[prop] == "object") {
-        output += `${'#'.repeat(depth)} ${depth > 2 ? `${name}.${prop}` : prop}\n\n\`\`\`json\n${JSON.stringify(subData[prop], null, 3)}\`\`\`\n\n`
+        output += `${'#'.repeat(depth)} ${depth > 2 ? `${name}.${prop}` : prop}\n\n\`\`\`json\n${JSON.stringify(subData[prop], null, 3)}\n\`\`\`\n\n`
         addSubObjects(subData[prop], `${name}.${prop}`, depth + 1)
       }
     }
@@ -84,7 +84,7 @@ function generateDataDocs(done) {
   const props = Object.keys(data)
   props.sort()
   for (const prop of props) {
-    output += `## ${prop}\n\n\`\`\`json\n${JSON.stringify(data[prop], null, 3)}\`\`\`\n\n`
+    output += `## ${prop}\n\n\`\`\`json\n${JSON.stringify(data[prop], null, 3)}\n\`\`\`\n\n`
     
     if (!Array.isArray(data[prop])) addSubObjects(data[prop], prop)
   }

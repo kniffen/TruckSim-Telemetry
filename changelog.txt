@@ -1,4 +1,8 @@
 Changelog
+v0.6.2 - 2019.10.03
+- Fixed events being emitted by unsupported plugin version
+- Added SDK version warnings
+
 v0.6.1 - 2019.08.23
 - Added data parameter to update callback
 - Fixed avgConsumption typo
