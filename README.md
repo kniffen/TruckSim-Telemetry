@@ -1,26 +1,29 @@
 # TruckSim-Telemetry
-Telemetry data from the scs-sdk-plugin
+TruckSim-Telemetry is a node module that takes telemetry data for Euro Truck Simulator 2 and American Truck Simulator provided by the [scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin) and outputs parsed data and events.
 
 [![Discord](https://img.shields.io/discord/125702694538051584.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/S6NRp5P)
 
-## About
-TruckSim-Telemetry is a node module that takes telemetry data for Euro Truck Simulator 2 and American Truck Simulator provided by the [scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin) and outputs parsed data and events.
-
-### Documentation
+## Documentation
 Read the full documentation over at http://trucksimtelemetry.kniffentechnologies.net/
 
-## Installation
+## Getting started
 
-### Step 1
+### Prerequisites
 Download and install the **[scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin)** by **[RenCloud](https://github.com/RenCloud)**
 
-### Step 2
+Install the [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools)
+
+### Installing
 Install the module via NPM
 `npm i trucksim-telemetry`
 
-> **node that [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools) are required for it to install**
+### Installing with Electron
+You may run into an issue where Electron throws an error message, this is because Electron might be using a different version of Node than what's installed on your system.
+To fix this use the following module to rebuild trucksim-telemetry for the Node version Electron is using.
 
-## Use
+https://www.npmjs.com/package/electron-rebuild
+
+## Examples
 
 ### Events
 ```javascript
@@ -70,9 +73,13 @@ truckSimTelemetry.getTrailer()    // -> Parsed trailer data
 truckSimTelemetry.getJob()        // -> Parsed job data
 truckSimTelemetry.getNavigation() // -> Parsed navigational data
 ```
-Fot more details about events and functions visit the [documentation](http://trucksimtelemetry.kniffentechnologies.net/) page
 
-## Demo
-To help visualize the data you can use the [Demo app](https://github.com/kniffen/TruckSim-Telemetry-Demo)
+Fot more details about events and functions see the [documentation](http://trucksimtelemetry.kniffentechnologies.net/) page
+
+### Demo
+To help visualize the data you can use this [Demo app](https://github.com/kniffen/TruckSim-Telemetry-Demo)
 
 ![demo screenshot](https://raw.githubusercontent.com/kniffen/TruckSim-Telemetry-Demo/master/screenshot.jpg)
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details
