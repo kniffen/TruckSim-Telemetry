@@ -10,6 +10,7 @@ namespace scsSDKTelemetry {
   using v8::ArrayBuffer;
   using v8::Exception;
   using v8::String;
+  using v8::NewStringType;
 
   HANDLE hMapFileSCSTelemetry;
   HANDLE hMapFileSimTelemetrySCS;
@@ -32,7 +33,9 @@ namespace scsSDKTelemetry {
     
     } else {
       Isolate* isolate = args.GetIsolate();
-      isolate->ThrowException(Exception::Error(String::NewFromUtf8(isolate, "Unable to get array buffer")));
+      isolate->ThrowException(Exception::TypeError(
+        String::NewFromUtf8(isolate, "Unable to get array buffer", NewStringType::kNormal).ToLocalChecked())
+      );
 
       return;
     }
