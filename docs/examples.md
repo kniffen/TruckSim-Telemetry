@@ -2,7 +2,7 @@
 
 ### Getting data
 ```javascript
-import truckSimTelemetry from "trucksim-telemetry"
+const truckSimTelemetry = require("trucksim-telemetry")
 
 const data = truckSimTelemetry.getData()
 
@@ -11,7 +11,7 @@ console.log(data.game.paused) // -> boolean true:false
 
 ### In-game time change
 ```javascript
-import truckSimTelemetry from "trucksim-telemetry"
+const truckSimTelemetry = require("trucksim-telemetry")
 
 const telemetry = truckSimTelemetry()
 

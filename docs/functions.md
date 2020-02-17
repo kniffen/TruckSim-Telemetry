@@ -34,7 +34,7 @@
 
 #### Example
 ```javascript
-import truckSimTelemetry from "trucksim-telemetry"
+const truckSimTelemetry = require("trucksim-telemetry")
 
 const telemetry = truckSimTelemetry()
 
@@ -53,7 +53,7 @@ telemetry.watch({interval: 200}, function() {
 
 #### Example
 ```javascript
-import truckSimTelemetry from "trucksim-telemetry"
+const truckSimTelemetry = require("trucksim-telemetry")
 
 const telemetry = truckSimTelemetry()
 

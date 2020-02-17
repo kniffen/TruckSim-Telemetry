@@ -27,7 +27,7 @@ https://www.npmjs.com/package/electron-rebuild
 
 ### Events
 ```javascript
-import truckSimTelemetry from "trucksim-telemetry"
+const truckSimTelemetry = require("trucksim-telemetry")
 
 const telemetry = truckSimTelemetry()
 
@@ -47,7 +47,7 @@ telemetry.stop()
 **The update function runs everytime the state of the game changes**
 
 ```javascript
-import truckSimTelemetry from "trucksim-telemetry"
+const truckSimTelemetry = require("trucksim-telemetry")
 
 const telemetry = truckSimTelemetry()
 
@@ -61,7 +61,7 @@ telemetry.watch({interval: 100}, update)
 ### Functions
 If you don't want to use events you can just get the data manually using these functions
 ```javascript
-import truckSimTelemetry from "trucksim-telemetry"
+const truckSimTelemetry = require("trucksim-telemetry")
 
 truckSimTelemetry.getBuffer()     // -> Original memory buffer from the plugin
 truckSimTelemetry.getData()       // -> Parsed data
