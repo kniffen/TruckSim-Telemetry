@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "npx gulp test",
-    "dev-build": "npx node-gyp build",
     "dev": "npx gulp",
     "docs": "npx live-server ./docs"
   },
@@ -34,11 +33,9 @@
     "struct-fu": "^1.1.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.5.5",
-    "@babel/register": "^7.5.5",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
     "gulp-mocha": "^6.0.0",
@@ -49,10 +46,5 @@
     "node-gyp": "^5.0.3",
     "sinon": "^7.4.1",
     "source-map-support": "^0.5.13"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
   }
 }
