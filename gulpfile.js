@@ -1,21 +1,21 @@
-import path       from "path"
-import fs         from "fs"
-import gulp       from "gulp"
-import plumber    from "gulp-plumber"
-import sourcemaps from "gulp-sourcemaps"
-import babel      from "gulp-babel"
-import mocha      from "gulp-mocha"
+const path       = require("path")
+const fs         = require("fs")
+const gulp       = require("gulp")
+const plumber    = require("gulp-plumber")
+const sourcemaps = require("gulp-sourcemaps")
+const babel      = require("gulp-babel")
+const mocha      = require("gulp-mocha")
 
-import parseData from "./src/lib/parseData"
+const parseData = require("./src/parseData")
 
 const buffers    = []
 const converters = []
 
-buffers[9]  = fs.readFileSync(path.resolve(__dirname, "./src/buffers/scs_sdk_plugin_buffer_1_9"))
-buffers[10] = fs.readFileSync(path.resolve(__dirname, "./src/buffers/scs_sdk_plugin_buffer_1_10"))
+buffers[9]  = fs.readFileSync(path.resolve(__dirname, "./tests/buffers/scs_sdk_plugin_buffer_1_9"))
+buffers[10] = fs.readFileSync(path.resolve(__dirname, "./tests/buffers/scs_sdk_plugin_buffer_1_10"))
 
-converters[9]  = require("./src/lib/converters/scs_sdk_plugin_1_9").default
-converters[10] = require("./src/lib/converters/scs_sdk_plugin_1_10").default
+converters[9]  = require("./src/converters/scs_sdk_plugin_1_9")
+converters[10] = require("./src/converters/scs_sdk_plugin_1_10")
 
 function watch() {
   gulp.watch("src/**/*.js",                {cwd: "./"}, gulp.series(build, test))
@@ -38,27 +38,21 @@ function build() {
 }
 
 function test() {
-  return gulp.src("dist/tests/**/*.test.js", {read: false})
+  for (const index in buffers) {
+    const rawData    = converters[index](buffers[index])
+    const parsedData = parseData(rawData)
+
+    fs.writeFileSync(path.resolve(__dirname, `./tests/data/scs_sdk_plugin_raw_data_1_${index}.json`), JSON.stringify(rawData, null, 3))
+    fs.writeFileSync(path.resolve(__dirname, `./tests/data/scs_sdk_plugin_parsed_data_1_${index}.json`), JSON.stringify(parsedData, null, 3))
+  }
+
+  return gulp.src("tests/**/*.test.js", {read: false})
     .pipe(plumber())
     .pipe(mocha({
       reporter: 'spec',
       timeout:   5000,
       require:   ['source-map-support/register'],
     }))
-}
-
-function generateData(done) {
-  //fs.mkdirSync(path.resolve(__dirname, "./dist/data/"))
-
-  for (const index in buffers) {
-    const rawData    = converters[index](buffers[index])
-    const parsedData = parseData(rawData)
-
-    fs.writeFileSync(path.resolve(__dirname, `./dist/data/scs_sdk_plugin_raw_data_1_${index}.json`), JSON.stringify(rawData, null, 3))
-    fs.writeFileSync(path.resolve(__dirname, `./dist/data/scs_sdk_plugin_parsed_data_1_${index}.json`), JSON.stringify(parsedData, null, 3))
-  }
-
-  return done()
 }
 
 function generateDataDocs(done) {
@@ -94,11 +88,10 @@ function generateDataDocs(done) {
   return done()
 }
 
-exports.watch            = watch
-exports.copy             = copy
-exports.build            = build
-exports.test             = test
-exports.generateData     = generateData
-exports.generateDataDocs = generateDataDocs
+module.exports.watch            = watch
+module.exports.copy             = copy
+module.exports.build            = build
+module.exports.test             = test
+module.exports.generateDataDocs = generateDataDocs
 
-exports.default = gulp.series(build, copy, generateData, test, watch)
+module.exports.default = gulp.series(build, copy, test, watch)
