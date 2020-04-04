@@ -81,6 +81,10 @@ function eventEmittersTruck(telemetry, data) {
   if (data[0].truck.wipers.enabled != data[1].truck.wipers.enabled)
     telemetry.truck.emit("wipers", data[0].truck.wipers.enabled)
 
+  // Refuel
+  if (data[0].events.refuel.amount != data[1].events.refuel.amount)
+    telemetry.truck.emit("refuel", data[0].events.refuel, data[1].events.refuel)
+
 }
 
 module.exports = eventEmittersTruck

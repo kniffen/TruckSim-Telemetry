@@ -23,6 +23,7 @@ describe("eventEmitters/truck()", function() {
     park:                  sinon.spy(),
     retarder:              sinon.spy(),
     wipers:                sinon.spy(),
+    refuel:                sinon.spy(),
   }
 
   const data = []
@@ -78,6 +79,11 @@ describe("eventEmitters/truck()", function() {
       wipers: {
         enabled: false
       }
+    },
+    events: {
+      refuel: {
+        amount: 0
+      }
     }
   })
 
@@ -94,6 +100,7 @@ describe("eventEmitters/truck()", function() {
     telemetry.truck.on("park",                     spies.park)
     telemetry.truck.on("retarder",                 spies.retarder)
     telemetry.truck.on("wipers",                   spies.wipers)
+    telemetry.truck.on("refuel",                   spies.refuel)
   })
 
   beforeEach(function() {
@@ -319,4 +326,15 @@ describe("eventEmitters/truck()", function() {
     assert.deepEqual(spies.wipers.args, [[true], [false]])
 
   })
+
+  it("Should emit refuel events", function() {
+    truck(telemetry, data)
+    data[0].events.refuel.amount = 1
+    truck(telemetry, data)
+
+    assert.deepEqual(spies.refuel.args, [
+      [{amount: 1}, {amount: 0}],
+    ])
+  })
+
 })

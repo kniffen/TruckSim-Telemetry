@@ -140,6 +140,9 @@ function getDataFromPluginVersion10(buffer) {
 
     _.float32le("events.job.delivered.cargoDamage"),
     _.float32le("events.job.delivered.distance"),
+    
+    _.float32le("events.refuel.amount"),
+
     _.float32le("job.cargo.damage"),
     
     _.padTo(1500),
