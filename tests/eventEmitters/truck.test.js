@@ -82,6 +82,7 @@ describe("eventEmitters/truck()", function() {
     },
     events: {
       refuel: {
+        active: false,
         amount: 0
       }
     }
@@ -324,16 +325,16 @@ describe("eventEmitters/truck()", function() {
     truck(telemetry, data)
 
     assert.deepEqual(spies.wipers.args, [[true], [false]])
-
   })
 
   it("Should emit refuel events", function() {
     truck(telemetry, data)
+    data[0].events.refuel.active = true
     data[0].events.refuel.amount = 1
     truck(telemetry, data)
 
     assert.deepEqual(spies.refuel.args, [
-      [{amount: 1}, {amount: 0}],
+      [{active: true, amount: 1}, {active: false, amount: 0}],
     ])
   })
 

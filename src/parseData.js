@@ -201,10 +201,11 @@ function parseData(data) {
   // Triggers
   output.events.job.cancelled.active = output.events.job.cancelled.active == 1 ? true : false
   output.events.job.delivered.active = output.events.job.delivered.active == 1 ? true : false
-  output.events.fine.active         = output.events.fine.active         == 1 ? true : false
-  output.events.tollgate.active     = output.events.tollgate.active     == 1 ? true : false
-  output.events.ferry.active        = output.events.ferry.active        == 1 ? true : false
-  output.events.train.active        = output.events.train.active        == 1 ? true : false
+  output.events.fine.active          = output.events.fine.active          == 1 ? true : false
+  output.events.tollgate.active      = output.events.tollgate.active      == 1 ? true : false
+  output.events.ferry.active         = output.events.ferry.active         == 1 ? true : false
+  output.events.train.active         = output.events.train.active         == 1 ? true : false
+  output.events.refuel.active        = output.events.refuel.active        == 1 ? true : false
 
   output.events.fine.offence = {
     id:   output.events.fine.offence,
