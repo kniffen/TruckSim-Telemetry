@@ -4,7 +4,7 @@ TruckSim-Telemetry is a node module that takes telemetry data for Euro Truck Sim
 [![Discord](https://img.shields.io/discord/125702694538051584.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/S6NRp5P)
 
 ## Documentation
-Read the full documentation over at http://trucksimtelemetry.kniffentechnologies.net/
+Read the full documentation over at http://trucksimtelemetry.knifftech.org/
 
 ## Getting started
 
@@ -74,7 +74,7 @@ truckSimTelemetry.getJob()        // -> Parsed job data
 truckSimTelemetry.getNavigation() // -> Parsed navigational data
 ```
 
-Fot more details about events and functions see the [documentation](http://trucksimtelemetry.kniffentechnologies.net/) page
+Fot more details about events and functions see the [documentation](http://trucksimtelemetry.knifftech.org/) page
 
 ### Demo
 To help visualize the data you can use this [Demo app](https://github.com/kniffen/TruckSim-Telemetry-Demo)
