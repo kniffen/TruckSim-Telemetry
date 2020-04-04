@@ -55,6 +55,13 @@
 | ----------------------------------- | ------- |
 | [train object](data.md#eventstrain) | Object  |
 
+### refuel-payed
+<span class="warning">Only SDK 1.10 and above</span>
+
+| Parameter | Type    |
+| --------- | ------- |
+| None      |         |
+
 ## job
 
 ### started
@@ -206,3 +213,11 @@ Triggers when there's 1% or more damage to the truck's chassis
 | Parameter | Type     |
 | ----------| -------- |
 | enabled   | Boolean  |
+
+### refuel
+<span class="warning">Only SDK 1.10 and above</span>
+
+| Parameter                                      | Type   |
+| -----------------------------------------------| ------ |
+| current [refuel object](data.md#eventsrefuel)  | Object |
+| previous [refuel object](data.md#eventsrefuel) | Object |

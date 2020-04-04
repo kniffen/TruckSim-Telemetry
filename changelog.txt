@@ -1,14 +1,23 @@
 Changelog
-v0.6.2 - 2019.10.03
+v0.6.4 - 2020-04-04
+- Added delivery starting and finishing times
+- Added refuel event and data
+- Added refuel payed event
+- Added planned distance
+
+v0.6.3 - 2020-02-02
+- Fixed deprecated string type
+
+v0.6.2 - 2019-10-03
 - Fixed events being emitted by unsupported plugin version
 - Added SDK version warnings
 
-v0.6.1 - 2019.08.23
+v0.6.1 - 2019-08-23
 - Added data parameter to update callback
 - Fixed avgConsumption typo
 - Fixed hard crash if quitting the game and trying to parse trailer wheels
 
-v0.6.0 - 2019.08.20
+v0.6.0 - 2019-08-20
 - Added functions to main module
 - Added update callback to watch function
 - Reworked events and data structure
@@ -18,40 +27,40 @@ v0.6.0 - 2019.08.20
 - Fixed time values
 - Fixed previous data objects being the same as current
 
-v0.5.1 - 2019.08.15
+v0.5.1 - 2019-08-15
 - Fixed sdkActive boolean value
 - Fixed negative speed values
 
-v0.5.0 - 2019.08.13
+v0.5.0 - 2019-08-13
 - Added support for SCS SDK 1.10
 - Added change event for truck orientation
 - Added change event for world events (fines, tollgates, ferries, trains)
 - Added change event for trailers
 - Added getTrailers() function
 
-v0.4.2 - 2019.08.13
+v0.4.2 - 2019-08-13
 - Removed damage value from trailer wheels
 - Fixed functions always returning undefined
 - Fixed various data properties
 
-v0.4.1 - 2019.08.13
+v0.4.1 - 2019-08-13
 - Updated documentation
 
-v0.4.0 - 2019.08.12
+v0.4.0 - 2019-08-12
 - Improved parsed data structure
 
-v0.3.0 - 2019.08.10
+v0.3.0 - 2019-08-10
 - Added support for SCS SDK 1.9
 - Added events
 
-v0.2.1 - 2019.05.03
+v0.2.1 - 2019-05-03
 - Fixed hard crash if game was not running
 
-v0.2.0 - 2018.12.02
+v0.2.0 - 2018-12-02
 - Replaced C# shared memory solution with CPP node-addon module
 
-v0.1.1 - 2017.09.17
+v0.1.1 - 2017-09-17
 - Added user input data
 
-v0.1.0 - 2017.09.17
+v0.1.0 - 2017-09-17
 - Initial release
