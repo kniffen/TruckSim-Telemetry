@@ -181,6 +181,7 @@ function parseData(data) {
     id:   output.job.market,
     name: output.job.market != '' ? output.job.market.split('_').map(([first, ...rest]) => first.toUpperCase() + rest.join('')).join(' ') : ""
   }
+  output.job.plannedDistance = parseDistance(output.job.plannedDistance)
 
   // Job started
   output.events.job.started.autoLoaded = output.events.job.started.autoLoaded == 1 ? true : false

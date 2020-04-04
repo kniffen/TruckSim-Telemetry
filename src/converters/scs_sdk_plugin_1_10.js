@@ -37,6 +37,8 @@ function getDataFromPluginVersion10(buffer) {
     _.uint32le("game.maxTrailerCount"),
 
     _.uint32le("trailer.cargo.units"),
+
+    _.uint32le("job.plannedDistance"),
     
     _.uint32le("truck.transmission.slot"),
     _.uint32le("truck.brakes.retarder.level"),
