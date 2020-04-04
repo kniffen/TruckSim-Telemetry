@@ -11,12 +11,13 @@ describe("eventEmitters/game()", function() {
   }
 
   const spies = {
-    pause:      sinon.spy(),
-    timeChange: sinon.spy(),
-    fine:       sinon.spy(),
-    tollgate:   sinon.spy(),
-    ferry:      sinon.spy(),
-    train:      sinon.spy(),
+    pause:       sinon.spy(),
+    timeChange:  sinon.spy(),
+    fine:        sinon.spy(),
+    tollgate:    sinon.spy(),
+    ferry:       sinon.spy(),
+    train:       sinon.spy(),
+    refuelPayed: sinon.spy()
   }
 
   const createData = () => ({
@@ -26,22 +27,24 @@ describe("eventEmitters/game()", function() {
       pluginVersion: 10
     },
     events: {
-      fine:     {active: false, amount: 100},
-      tollgate: {active: false, amount: 200},
-      ferry:    {active: false, amount: 300},
-      train:    {active: false, amount: 400},
+      fine:        {active: false, amount: 100},
+      tollgate:    {active: false, amount: 200},
+      ferry:       {active: false, amount: 300},
+      train:       {active: false, amount: 400},
+      refuelPayed: {active: false}
     }
   })
 
   before(function() {
     const data = [createData(), createData()]
 
-    telemetry.game.on("pause",       spies.pause)
-    telemetry.game.on("time-change", spies.timeChange)
-    telemetry.game.on("fine",        spies.fine)
-    telemetry.game.on("tollgate",    spies.tollgate)
-    telemetry.game.on("ferry",       spies.ferry)
-    telemetry.game.on("train",       spies.train)
+    telemetry.game.on("pause",        spies.pause)
+    telemetry.game.on("time-change",  spies.timeChange)
+    telemetry.game.on("fine",         spies.fine)
+    telemetry.game.on("tollgate",     spies.tollgate)
+    telemetry.game.on("ferry",        spies.ferry)
+    telemetry.game.on("train",        spies.train)
+    telemetry.game.on("refuel-payed", spies.refuelPayed)
 
     game(telemetry, data)
 
@@ -124,6 +127,16 @@ describe("eventEmitters/game()", function() {
     }
 
     game(telemetry, data)
+  })
+
+  it("Should emit refuel-payed events", function() {
+    const data = [createData(), createData()]
+
+    game(telemetry, data)
+    data[0].events.refuelPayed.active = true
+    game(telemetry, data)
+  
+    assert.equal(spies.refuelPayed.args.length, 1)
   })
 
 })

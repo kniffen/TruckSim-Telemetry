@@ -360,6 +360,7 @@ function getDataFromPluginVersion10(buffer) {
     _.uint8("events.ferry.active"),
     _.uint8("events.train.active"),
     _.uint8("events.refuel.active"),
+    _.uint8("events.refuelPayed.active"),
     
     _.padTo(4400),
     

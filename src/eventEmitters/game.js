@@ -29,6 +29,10 @@ function eventEmittersGame(telemetry, data) {
   // Train
   if (data[0].events.train.active && !data[1].events.train.active)
     telemetry.game.emit("train", cloneDeep(data[0].events.train))
+
+  // Refuel payed
+  if (data[0].events.refuelPayed.active && !data[1].events.refuelPayed.active)
+    telemetry.game.emit("refuel-payed")
 }
 
 module.exports = eventEmittersGame
