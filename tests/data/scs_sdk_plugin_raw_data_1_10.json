@@ -17,7 +17,8 @@
    "job.deliveryTime": 1049,
    "game.maxTrailerCount": 10,
    "trailer.cargo.units": 15,
-   "truck.transmission.slot": 1,
+   "job.plannedDistance": 1,
+   "truck.transmission.slot": 0,
    "truck.brakes.retarder.level": 0,
    "truck.lights.auxFront.value": 0,
    "truck.lights.auxRoof.value": 0,
@@ -44,7 +45,6 @@
       0,
       0,
       0,
-      0,
       1,
       1,
       1,
@@ -69,12 +69,12 @@
       6,
       6,
       6,
+      7,
       7,
       7,
       7
    ],
    "truck.transmission.slots.selector": [
-      7,
       0,
       1,
       2,
@@ -105,9 +105,10 @@
       3,
       0,
       1,
-      2
+      2,
+      3
    ],
-   "events.job.delivered.deliveryTime": 3,
+   "events.job.delivered.deliveryTime": 0,
    "events.job.delivered.startingTime": 0,
    "events.job.delivered.finishingTime": 0,
    "navigation.nextRestStop": 629,
@@ -357,6 +358,7 @@
    ],
    "events.job.delivered.cargoDamage": 0,
    "events.job.delivered.distance": 0,
+   "events.refuel.amount": 0,
    "job.cargo.damage": 0,
    "truck.wheels.steerable": [
       1,
@@ -669,6 +671,8 @@
    "events.tollgate.active": 0,
    "events.ferry.active": 0,
    "events.train.active": 0,
+   "events.refuel.active": 0,
+   "events.refuelPayed.active": 0,
    "substances": [
       "static",
       "road",
