@@ -186,14 +186,18 @@ function parseData(data) {
   output.events.job.started.autoLoaded = output.events.job.started.autoLoaded == 1 ? true : false
 
   // Job delivered
-  output.events.job.delivered.autoParked   = output.events.job.delivered.autoParked == 1 ? true : false
-  output.events.job.delivered.deliveryTime = output.events.job.delivered.deliveryTime * 60000
-  output.events.job.delivered.distance     = parseDistance(output.events.job.delivered.distance)
-  output.events.job.delivered.revenue      = output.events.job.delivered.revenue.reduce((a, b) => a + b)
+  output.events.job.delivered.autoParked    = output.events.job.delivered.autoParked == 1 ? true : false
+  output.events.job.delivered.distance      = parseDistance(output.events.job.delivered.distance)
+  output.events.job.delivered.revenue       = output.events.job.delivered.revenue.reduce((a, b) => a + b)
+  output.events.job.delivered.deliveryTime  = output.events.job.delivered.deliveryTime  * 60000
+  output.events.job.delivered.startingTime  = output.events.job.delivered.startingTime  * 60000
+  output.events.job.delivered.finishingTime = output.events.job.delivered.finishingTime * 60000
 
   // Job cancelled
-  output.events.job.cancelled.penalty = output.events.job.cancelled.penalty.reduce((a, b) => a + b)
-  
+  output.events.job.cancelled.penalty       = output.events.job.cancelled.penalty.reduce((a, b) => a + b)
+  output.events.job.cancelled.startingTime  = output.events.job.delivered.startingTime
+  output.events.job.cancelled.finishingTime = output.events.job.delivered.finishingTime
+
   // Triggers
   output.events.job.cancelled.active = output.events.job.cancelled.active == 1 ? true : false
   output.events.job.delivered.active = output.events.job.delivered.active == 1 ? true : false

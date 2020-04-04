@@ -50,6 +50,8 @@ function getDataFromPluginVersion10(buffer) {
     _.uint32le("truck.transmission.slots.selector", 32),
 
     _.uint32le("events.job.delivered.deliveryTime"),
+    _.uint32le("events.job.delivered.startingTime"),
+    _.uint32le("events.job.delivered.finishingTime"),
 
     _.padTo(500),
 
