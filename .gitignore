@@ -4,6 +4,7 @@ package-lock.json
 
 # Node-gyp
 build
-dist
 
+# Dist
+dist
 **/*.tgz
