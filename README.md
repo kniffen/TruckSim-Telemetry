@@ -9,9 +9,12 @@ Read the full documentation over at http://trucksimtelemetry.knifftech.org/
 ## Getting started
 
 ### Prerequisites
-Download and install the **[scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin)** by **[RenCloud](https://github.com/RenCloud)**
+#### Download and install the **[scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin)** by **[RenCloud](https://github.com/RenCloud)**
+Supported versions
+- v.1.9.0
+- v.1.10.4
 
-Install the [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools)
+#### Install the [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools)
 
 ### Installing
 Install the module via NPM
