@@ -1,6 +1,6 @@
 {
   "name": "trucksim-telemetry",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Telemetry data from the scs-sdk-plugin",
   "main": "index.js",
   "scripts": {
@@ -32,6 +32,7 @@
   },
   "homepage": "https://github.com/kniffen/TruckSim-Telemetry#readme",
   "dependencies": {
+    "@babel/runtime": "^7.10.4",
     "deep-equal": "^2.0.2",
     "lodash.clonedeep": "^4.5.0",
     "struct-fu": "^1.2.1"
