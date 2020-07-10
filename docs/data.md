@@ -5,14 +5,14 @@
 ```json
 {
    "input": {
-      "steering": 1,
-      "throttle": 0.33334749937057495,
+      "steering": 0,
+      "throttle": 0,
       "brake": 0,
       "clutch": 0
    },
    "game": {
-      "steering": 0.2610137164592743,
-      "throttle": 0.2918427884578705,
+      "steering": 0.044386204332113266,
+      "throttle": 3.5201175307975063e-11,
       "brake": 0,
       "clutch": 0
    }
@@ -23,8 +23,8 @@
 
 ```json
 {
-   "steering": 0.2610137164592743,
-   "throttle": 0.2918427884578705,
+   "steering": 0.044386204332113266,
+   "throttle": 3.5201175307975063e-11,
    "brake": 0,
    "clutch": 0
 }
@@ -34,8 +34,8 @@
 
 ```json
 {
-   "steering": 1,
-   "throttle": 0.33334749937057495,
+   "steering": 0,
+   "throttle": 0,
    "brake": 0,
    "clutch": 0
 }
@@ -324,10 +324,16 @@
 ```json
 {
    "sdkActive": true,
+   "paused": true,
    "timestamp": {
-      "value": 601859.258
+      "value": 25782
    },
-   "paused": false,
+   "simulationTimestamp": {
+      "value": 346869
+   },
+   "renderTimestamp": {
+      "value": 346837
+   },
    "pluginVersion": 10,
    "version": "1.16",
    "game": {
@@ -336,8 +342,8 @@
    },
    "telemetryVersion": "1.15",
    "time": {
-      "value": 780,
-      "unix": 392400000
+      "value": 1137,
+      "unix": 413820000
    },
    "maxTrailerCount": 10,
    "scale": 3
@@ -353,12 +359,28 @@
 }
 ```
 
+### game.renderTimestamp
+
+```json
+{
+   "value": 346837
+}
+```
+
+### game.simulationTimestamp
+
+```json
+{
+   "value": 346869
+}
+```
+
 ### game.time
 
 ```json
 {
-   "value": 780,
-   "unix": 392400000
+   "value": 1137,
+   "unix": 413820000
 }
 ```
 
@@ -366,7 +388,7 @@
 
 ```json
 {
-   "value": 601859.258
+   "value": 25782
 }
 ```
 
@@ -375,20 +397,20 @@
 ```json
 {
    "deliveryTime": {
-      "value": 1049,
-      "unix": 408540000
+      "value": 1436,
+      "unix": 431760000
    },
    "plannedDistance": {
       "km": 1,
       "miles": 1
    },
    "cargo": {
-      "mass": 3576.300048828125,
-      "unitMass": 238.4199981689453,
-      "damage": 0,
+      "mass": 22073.701171875,
+      "unitMass": 668.9000244140625,
+      "damage": 0.00008580870780861005,
       "isLoaded": true,
-      "id": "used_plast_c",
-      "name": "Used Plastics"
+      "id": "empty_palet",
+      "name": "Empty Pallets"
    },
    "isSpecial": false,
    "destination": {
@@ -407,15 +429,15 @@
          "name": "København"
       },
       "company": {
-         "id": "norr_food",
-         "name": "Norrfood"
+         "id": "ika_bohag",
+         "name": "Ika Bohag"
       }
    },
    "market": {
       "id": "quick_job",
       "name": "Quick Job"
    },
-   "income": 354
+   "income": 361
 }
 ```
 
@@ -423,12 +445,12 @@
 
 ```json
 {
-   "mass": 3576.300048828125,
-   "unitMass": 238.4199981689453,
-   "damage": 0,
+   "mass": 22073.701171875,
+   "unitMass": 668.9000244140625,
+   "damage": 0.00008580870780861005,
    "isLoaded": true,
-   "id": "used_plast_c",
-   "name": "Used Plastics"
+   "id": "empty_palet",
+   "name": "Empty Pallets"
 }
 ```
 
@@ -436,8 +458,8 @@
 
 ```json
 {
-   "value": 1049,
-   "unix": 408540000
+   "value": 1436,
+   "unix": 431760000
 }
 ```
 
@@ -501,8 +523,8 @@
       "name": "København"
    },
    "company": {
-      "id": "norr_food",
-      "name": "Norrfood"
+      "id": "ika_bohag",
+      "name": "Ika Bohag"
    }
 }
 ```
@@ -520,8 +542,8 @@
 
 ```json
 {
-   "id": "norr_food",
-   "name": "Norrfood"
+   "id": "ika_bohag",
+   "name": "Ika Bohag"
 }
 ```
 
@@ -529,9 +551,9 @@
 
 ```json
 {
-   "nextRestStop": 37740000,
-   "distance": 754.2119140625,
-   "time": 117480.46112060547,
+   "nextRestStop": 39540000,
+   "distance": 1367.2750244140625,
+   "time": 163580.42907714844,
    "speedLimit": {
       "value": 0,
       "kph": 0,
@@ -583,20 +605,62 @@
             "id": 0,
             "name": "static"
          },
-         "radius": 0.5360000133514404,
-         "suspDeflection": 0.011085576377809048,
-         "velocity": 2.672335147857666,
+         "radius": 0.4977928102016449,
+         "suspDeflection": -0.00443316949531436,
+         "velocity": 0.9644074440002441,
+         "steering": 0.006779339164495468,
+         "rotation": 0.15739326179027557,
+         "steerable": true,
+         "simulated": true,
+         "powered": false,
+         "liftable": false,
+         "onGround": true,
+         "position": {
+            "X": -0.8199999928474426,
+            "Y": 0.5120000243186951,
+            "Z": 5.994736194610596
+         }
+      },
+      {
+         "substance": {
+            "id": 0,
+            "name": "static"
+         },
+         "radius": 0.4977928102016449,
+         "suspDeflection": 0.0008983325678855181,
+         "velocity": 0.941504955291748,
+         "steering": 0.006946156732738018,
+         "rotation": 0.8126164078712463,
+         "steerable": true,
+         "simulated": true,
+         "powered": false,
+         "liftable": false,
+         "onGround": true,
+         "position": {
+            "X": 0.8199999928474426,
+            "Y": 0.5120000243186951,
+            "Z": 5.994736194610596
+         }
+      },
+      {
+         "substance": {
+            "id": 0,
+            "name": "static"
+         },
+         "radius": 0.4977928102016449,
+         "suspDeflection": -0.002489376114681363,
+         "velocity": 0.9634995460510254,
          "steering": 0,
-         "rotation": 0.02081902325153351,
+         "rotation": 0.7247052192687988,
          "steerable": false,
          "simulated": true,
          "powered": false,
          "liftable": false,
          "onGround": true,
          "position": {
-            "X": -0.8299999833106995,
-            "Y": 0.5363953709602356,
-            "Z": 4.782358646392822
+            "X": -0.8199999928474426,
+            "Y": 0.5120000243186951,
+            "Z": 3.738947868347168
          }
       },
       {
@@ -604,20 +668,20 @@
             "id": 0,
             "name": "static"
          },
-         "radius": 0.5360000133514404,
-         "suspDeflection": -0.014565023593604565,
-         "velocity": 2.791815757751465,
+         "radius": 0.4977928102016449,
+         "suspDeflection": 0.0028420828748494387,
+         "velocity": 0.9405779242515564,
          "steering": 0,
-         "rotation": 0.8265714049339294,
+         "rotation": 0.4264112710952759,
          "steerable": false,
          "simulated": true,
          "powered": false,
          "liftable": false,
          "onGround": true,
          "position": {
-            "X": 0.8299999833106995,
-            "Y": 0.5363953709602356,
-            "Z": 4.782358646392822
+            "X": 0.8199999928474426,
+            "Y": 0.5120000243186951,
+            "Z": 3.738947868347168
          }
       },
       {
@@ -625,20 +689,20 @@
             "id": 0,
             "name": "static"
          },
-         "radius": 0.5360000133514404,
-         "suspDeflection": 0.013248639181256294,
-         "velocity": 2.673236608505249,
+         "radius": 0.4977928102016449,
+         "suspDeflection": -0.0013528919080272317,
+         "velocity": 0.9634882211685181,
          "steering": 0,
-         "rotation": 0.9424297213554382,
+         "rotation": 0.5896692276000977,
          "steerable": false,
          "simulated": true,
          "powered": false,
          "liftable": false,
          "onGround": true,
          "position": {
-            "X": -0.8299999833106995,
-            "Y": 0.5363953709602356,
-            "Z": 3.4716885089874268
+            "X": -0.8199999928474426,
+            "Y": 0.5120000243186951,
+            "Z": 2.4232027530670166
          }
       },
       {
@@ -646,132 +710,90 @@
             "id": 0,
             "name": "static"
          },
-         "radius": 0.5360000133514404,
-         "suspDeflection": -0.012401961721479893,
-         "velocity": 2.7928123474121094,
+         "radius": 0.4977928102016449,
+         "suspDeflection": 0.003978567197918892,
+         "velocity": 0.9405667781829834,
          "steering": 0,
-         "rotation": 0.7436085939407349,
+         "rotation": 0.3009224236011505,
          "steerable": false,
          "simulated": true,
          "powered": false,
          "liftable": false,
          "onGround": true,
          "position": {
-            "X": 0.8299999833106995,
-            "Y": 0.5363953709602356,
-            "Z": 3.4716885089874268
-         }
-      },
-      {
-         "substance": {
-            "id": 0,
-            "name": "static"
-         },
-         "radius": 0.5360000133514404,
-         "suspDeflection": 0.015568828210234642,
-         "velocity": 2.6725502014160156,
-         "steering": 0,
-         "rotation": 0.8082288503646851,
-         "steerable": false,
-         "simulated": true,
-         "powered": false,
-         "liftable": true,
-         "onGround": true,
-         "position": {
-            "X": -0.8299999833106995,
-            "Y": 0.5363953709602356,
-            "Z": 2.0658223628997803
-         }
-      },
-      {
-         "substance": {
-            "id": 0,
-            "name": "static"
-         },
-         "radius": 0.5360000133514404,
-         "suspDeflection": -0.010081758722662926,
-         "velocity": 2.7920570373535156,
-         "steering": 0,
-         "rotation": 0.6123186349868774,
-         "steerable": false,
-         "simulated": true,
-         "powered": false,
-         "liftable": true,
-         "onGround": true,
-         "position": {
-            "X": 0.8299999833106995,
-            "Y": 0.5363953709602356,
-            "Z": 2.0658223628997803
+            "X": 0.8199999928474426,
+            "Y": 0.5120000243186951,
+            "Z": 2.4232027530670166
          }
       }
    ],
    "attached": true,
    "cargo": {
-      "damage": 0
+      "damage": 0.00008580870780861005
    },
    "chassis": {
-      "damage": 0
+      "damage": 0.0005714049912057817
    },
    "acceleration": {
       "linearVelocity": {
-         "X": -0.7520157694816589,
-         "Y": 0.025314822793006897,
-         "Z": -9.20535659790039
+         "X": 0.11202561110258102,
+         "Y": 0.0026313159614801407,
+         "Z": -2.9777443408966064
       },
       "angularVelocity": {
-         "X": 0.0005447171279229224,
-         "Y": 0.038614094257354736,
-         "Z": 0.000029433185773086734
+         "X": 0.00006622773798881099,
+         "Y": -0.006957799196243286,
+         "Z": 0.0012516402639448643
       },
       "linearAcceleration": {
-         "X": -0.7142657041549683,
-         "Y": 0.009613700211048126,
-         "Z": 0.5458364486694336
+         "X": -0.07377363741397858,
+         "Y": -0.002917367499321699,
+         "Z": 0.12628217041492462
       },
       "angularAcceleration": {
-         "X": 0.00017187304911203682,
-         "Y": 0.03927218168973923,
-         "Z": 0.0018393417121842504
+         "X": -0.000013220620530773886,
+         "Y": 0.004130142740905285,
+         "Z": 0.0014063366688787937
       }
    },
    "hook": {
       "position": {
          "X": 0,
          "Y": 1,
-         "Z": -4.430164813995361
+         "Z": -5.0657806396484375
       }
    },
    "position": {
-      "X": 6988.686431884766,
-      "Y": 7.56157112121582,
-      "Z": -27698.609294891357
+      "X": 7184.687412261963,
+      "Y": 7.451491355895996,
+      "Z": -27815.420806884766
    },
    "orientation": {
-      "heading": 0.880923330783844,
-      "pitch": -0.00026262077153660357,
-      "roll": 0.002051371382549405
+      "heading": 0.7765598297119141,
+      "pitch": -0.00013747652701567858,
+      "roll": -0.00041595849324949086
    },
    "model": {
-      "id": "krone.boxliner.chassis_20x2esii",
+      "id": "scs_box.moving_floor.chassis_stwx2esii",
       "name": ""
    },
-   "accessoryId": "scs_container.container_20_green",
-   "bodyType": "container",
+   "accessoryId": "",
+   "bodyType": "dryvan",
    "brand": {
       "id": "",
       "name": ""
    },
    "chainType": "single",
    "licensePlate": {
-      "value": "NP 91 65",
+      "value": "UJ 99 57",
       "country": {
          "name": "Denmark",
          "id": "denmark"
       }
    },
    "damage": {
-      "cargo": 0,
-      "chassis": 0
+      "cargo": 0.00008580870780861005,
+      "chassis": 0.0005714049912057817
    }
 }
 ```
@@ -781,24 +803,24 @@
 ```json
 {
    "linearVelocity": {
-      "X": -0.7520157694816589,
-      "Y": 0.025314822793006897,
-      "Z": -9.20535659790039
+      "X": 0.11202561110258102,
+      "Y": 0.0026313159614801407,
+      "Z": -2.9777443408966064
    },
    "angularVelocity": {
-      "X": 0.0005447171279229224,
-      "Y": 0.038614094257354736,
-      "Z": 0.000029433185773086734
+      "X": 0.00006622773798881099,
+      "Y": -0.006957799196243286,
+      "Z": 0.0012516402639448643
    },
    "linearAcceleration": {
-      "X": -0.7142657041549683,
-      "Y": 0.009613700211048126,
-      "Z": 0.5458364486694336
+      "X": -0.07377363741397858,
+      "Y": -0.002917367499321699,
+      "Z": 0.12628217041492462
    },
    "angularAcceleration": {
-      "X": 0.00017187304911203682,
-      "Y": 0.03927218168973923,
-      "Z": 0.0018393417121842504
+      "X": -0.000013220620530773886,
+      "Y": 0.004130142740905285,
+      "Z": 0.0014063366688787937
    }
 }
 ```
@@ -807,9 +829,9 @@
 
 ```json
 {
-   "X": 0.00017187304911203682,
-   "Y": 0.03927218168973923,
-   "Z": 0.0018393417121842504
+   "X": -0.000013220620530773886,
+   "Y": 0.004130142740905285,
+   "Z": 0.0014063366688787937
 }
 ```
 
@@ -817,9 +839,9 @@
 
 ```json
 {
-   "X": 0.0005447171279229224,
-   "Y": 0.038614094257354736,
-   "Z": 0.000029433185773086734
+   "X": 0.00006622773798881099,
+   "Y": -0.006957799196243286,
+   "Z": 0.0012516402639448643
 }
 ```
 
@@ -827,9 +849,9 @@
 
 ```json
 {
-   "X": -0.7142657041549683,
-   "Y": 0.009613700211048126,
-   "Z": 0.5458364486694336
+   "X": -0.07377363741397858,
+   "Y": -0.002917367499321699,
+   "Z": 0.12628217041492462
 }
 ```
 
@@ -837,9 +859,9 @@
 
 ```json
 {
-   "X": -0.7520157694816589,
-   "Y": 0.025314822793006897,
-   "Z": -9.20535659790039
+   "X": 0.11202561110258102,
+   "Y": 0.0026313159614801407,
+   "Z": -2.9777443408966064
 }
 ```
 
@@ -856,7 +878,7 @@
 
 ```json
 {
-   "damage": 0
+   "damage": 0.00008580870780861005
 }
 ```
 
@@ -864,7 +886,7 @@
 
 ```json
 {
-   "damage": 0
+   "damage": 0.0005714049912057817
 }
 ```
 
@@ -872,8 +894,8 @@
 
 ```json
 {
-   "cargo": 0,
-   "chassis": 0
+   "cargo": 0.00008580870780861005,
+   "chassis": 0.0005714049912057817
 }
 ```
 
@@ -884,7 +906,7 @@
    "position": {
       "X": 0,
       "Y": 1,
-      "Z": -4.430164813995361
+      "Z": -5.0657806396484375
    }
 }
 ```
@@ -895,7 +917,7 @@
 {
    "X": 0,
    "Y": 1,
-   "Z": -4.430164813995361
+   "Z": -5.0657806396484375
 }
 ```
 
@@ -903,7 +925,7 @@
 
 ```json
 {
-   "value": "NP 91 65",
+   "value": "UJ 99 57",
    "country": {
       "name": "Denmark",
       "id": "denmark"
@@ -924,7 +946,7 @@
 
 ```json
 {
-   "id": "krone.boxliner.chassis_20x2esii",
+   "id": "scs_box.moving_floor.chassis_stwx2esii",
    "name": ""
 }
 ```
@@ -933,9 +955,9 @@
 
 ```json
 {
-   "heading": 0.880923330783844,
-   "pitch": -0.00026262077153660357,
-   "roll": 0.002051371382549405
+   "heading": 0.7765598297119141,
+   "pitch": -0.00013747652701567858,
+   "roll": -0.00041595849324949086
 }
 ```
 
@@ -943,9 +965,9 @@
 
 ```json
 {
-   "X": 6988.686431884766,
-   "Y": 7.56157112121582,
-   "Z": -27698.609294891357
+   "X": 7184.687412261963,
+   "Y": 7.451491355895996,
+   "Z": -27815.420806884766
 }
 ```
 
@@ -958,20 +980,62 @@
          "id": 0,
          "name": "static"
       },
-      "radius": 0.5360000133514404,
-      "suspDeflection": 0.011085576377809048,
-      "velocity": 2.672335147857666,
+      "radius": 0.4977928102016449,
+      "suspDeflection": -0.00443316949531436,
+      "velocity": 0.9644074440002441,
+      "steering": 0.006779339164495468,
+      "rotation": 0.15739326179027557,
+      "steerable": true,
+      "simulated": true,
+      "powered": false,
+      "liftable": false,
+      "onGround": true,
+      "position": {
+         "X": -0.8199999928474426,
+         "Y": 0.5120000243186951,
+         "Z": 5.994736194610596
+      }
+   },
+   {
+      "substance": {
+         "id": 0,
+         "name": "static"
+      },
+      "radius": 0.4977928102016449,
+      "suspDeflection": 0.0008983325678855181,
+      "velocity": 0.941504955291748,
+      "steering": 0.006946156732738018,
+      "rotation": 0.8126164078712463,
+      "steerable": true,
+      "simulated": true,
+      "powered": false,
+      "liftable": false,
+      "onGround": true,
+      "position": {
+         "X": 0.8199999928474426,
+         "Y": 0.5120000243186951,
+         "Z": 5.994736194610596
+      }
+   },
+   {
+      "substance": {
+         "id": 0,
+         "name": "static"
+      },
+      "radius": 0.4977928102016449,
+      "suspDeflection": -0.002489376114681363,
+      "velocity": 0.9634995460510254,
       "steering": 0,
-      "rotation": 0.02081902325153351,
+      "rotation": 0.7247052192687988,
       "steerable": false,
       "simulated": true,
       "powered": false,
       "liftable": false,
       "onGround": true,
       "position": {
-         "X": -0.8299999833106995,
-         "Y": 0.5363953709602356,
-         "Z": 4.782358646392822
+         "X": -0.8199999928474426,
+         "Y": 0.5120000243186951,
+         "Z": 3.738947868347168
       }
    },
    {
@@ -979,20 +1043,20 @@
          "id": 0,
          "name": "static"
       },
-      "radius": 0.5360000133514404,
-      "suspDeflection": -0.014565023593604565,
-      "velocity": 2.791815757751465,
+      "radius": 0.4977928102016449,
+      "suspDeflection": 0.0028420828748494387,
+      "velocity": 0.9405779242515564,
       "steering": 0,
-      "rotation": 0.8265714049339294,
+      "rotation": 0.4264112710952759,
       "steerable": false,
       "simulated": true,
       "powered": false,
       "liftable": false,
       "onGround": true,
       "position": {
-         "X": 0.8299999833106995,
-         "Y": 0.5363953709602356,
-         "Z": 4.782358646392822
+         "X": 0.8199999928474426,
+         "Y": 0.5120000243186951,
+         "Z": 3.738947868347168
       }
    },
    {
@@ -1000,20 +1064,20 @@
          "id": 0,
          "name": "static"
       },
-      "radius": 0.5360000133514404,
-      "suspDeflection": 0.013248639181256294,
-      "velocity": 2.673236608505249,
+      "radius": 0.4977928102016449,
+      "suspDeflection": -0.0013528919080272317,
+      "velocity": 0.9634882211685181,
       "steering": 0,
-      "rotation": 0.9424297213554382,
+      "rotation": 0.5896692276000977,
       "steerable": false,
       "simulated": true,
       "powered": false,
       "liftable": false,
       "onGround": true,
       "position": {
-         "X": -0.8299999833106995,
-         "Y": 0.5363953709602356,
-         "Z": 3.4716885089874268
+         "X": -0.8199999928474426,
+         "Y": 0.5120000243186951,
+         "Z": 2.4232027530670166
       }
    },
    {
@@ -1021,62 +1085,20 @@
          "id": 0,
          "name": "static"
       },
-      "radius": 0.5360000133514404,
-      "suspDeflection": -0.012401961721479893,
-      "velocity": 2.7928123474121094,
+      "radius": 0.4977928102016449,
+      "suspDeflection": 0.003978567197918892,
+      "velocity": 0.9405667781829834,
       "steering": 0,
-      "rotation": 0.7436085939407349,
+      "rotation": 0.3009224236011505,
       "steerable": false,
       "simulated": true,
       "powered": false,
       "liftable": false,
       "onGround": true,
       "position": {
-         "X": 0.8299999833106995,
-         "Y": 0.5363953709602356,
-         "Z": 3.4716885089874268
-      }
-   },
-   {
-      "substance": {
-         "id": 0,
-         "name": "static"
-      },
-      "radius": 0.5360000133514404,
-      "suspDeflection": 0.015568828210234642,
-      "velocity": 2.6725502014160156,
-      "steering": 0,
-      "rotation": 0.8082288503646851,
-      "steerable": false,
-      "simulated": true,
-      "powered": false,
-      "liftable": true,
-      "onGround": true,
-      "position": {
-         "X": -0.8299999833106995,
-         "Y": 0.5363953709602356,
-         "Z": 2.0658223628997803
-      }
-   },
-   {
-      "substance": {
-         "id": 0,
-         "name": "static"
-      },
-      "radius": 0.5360000133514404,
-      "suspDeflection": -0.010081758722662926,
-      "velocity": 2.7920570373535156,
-      "steering": 0,
-      "rotation": 0.6123186349868774,
-      "steerable": false,
-      "simulated": true,
-      "powered": false,
-      "liftable": true,
-      "onGround": true,
-      "position": {
-         "X": 0.8299999833106995,
-         "Y": 0.5363953709602356,
-         "Z": 2.0658223628997803
+         "X": 0.8199999928474426,
+         "Y": 0.5120000243186951,
+         "Z": 2.4232027530670166
       }
    }
 ]
@@ -1090,20 +1112,20 @@
       "id": 0,
       "name": "static"
    },
-   "radius": 0.5360000133514404,
-   "suspDeflection": 0.011085576377809048,
-   "velocity": 2.672335147857666,
-   "steering": 0,
-   "rotation": 0.02081902325153351,
-   "steerable": false,
+   "radius": 0.4977928102016449,
+   "suspDeflection": -0.00443316949531436,
+   "velocity": 0.9644074440002441,
+   "steering": 0.006779339164495468,
+   "rotation": 0.15739326179027557,
+   "steerable": true,
    "simulated": true,
    "powered": false,
    "liftable": false,
    "onGround": true,
    "position": {
-      "X": -0.8299999833106995,
-      "Y": 0.5363953709602356,
-      "Z": 4.782358646392822
+      "X": -0.8199999928474426,
+      "Y": 0.5120000243186951,
+      "Z": 5.994736194610596
    }
 }
 ```
@@ -1116,20 +1138,20 @@
       "id": 0,
       "name": "static"
    },
-   "radius": 0.5360000133514404,
-   "suspDeflection": -0.014565023593604565,
-   "velocity": 2.791815757751465,
-   "steering": 0,
-   "rotation": 0.8265714049339294,
-   "steerable": false,
+   "radius": 0.4977928102016449,
+   "suspDeflection": 0.0008983325678855181,
+   "velocity": 0.941504955291748,
+   "steering": 0.006946156732738018,
+   "rotation": 0.8126164078712463,
+   "steerable": true,
    "simulated": true,
    "powered": false,
    "liftable": false,
    "onGround": true,
    "position": {
-      "X": 0.8299999833106995,
-      "Y": 0.5363953709602356,
-      "Z": 4.782358646392822
+      "X": 0.8199999928474426,
+      "Y": 0.5120000243186951,
+      "Z": 5.994736194610596
    }
 }
 ```
@@ -1142,20 +1164,20 @@
       "id": 0,
       "name": "static"
    },
-   "radius": 0.5360000133514404,
-   "suspDeflection": 0.013248639181256294,
-   "velocity": 2.673236608505249,
+   "radius": 0.4977928102016449,
+   "suspDeflection": -0.002489376114681363,
+   "velocity": 0.9634995460510254,
    "steering": 0,
-   "rotation": 0.9424297213554382,
+   "rotation": 0.7247052192687988,
    "steerable": false,
    "simulated": true,
    "powered": false,
    "liftable": false,
    "onGround": true,
    "position": {
-      "X": -0.8299999833106995,
-      "Y": 0.5363953709602356,
-      "Z": 3.4716885089874268
+      "X": -0.8199999928474426,
+      "Y": 0.5120000243186951,
+      "Z": 3.738947868347168
    }
 }
 ```
@@ -1168,20 +1190,20 @@
       "id": 0,
       "name": "static"
    },
-   "radius": 0.5360000133514404,
-   "suspDeflection": -0.012401961721479893,
-   "velocity": 2.7928123474121094,
+   "radius": 0.4977928102016449,
+   "suspDeflection": 0.0028420828748494387,
+   "velocity": 0.9405779242515564,
    "steering": 0,
-   "rotation": 0.7436085939407349,
+   "rotation": 0.4264112710952759,
    "steerable": false,
    "simulated": true,
    "powered": false,
    "liftable": false,
    "onGround": true,
    "position": {
-      "X": 0.8299999833106995,
-      "Y": 0.5363953709602356,
-      "Z": 3.4716885089874268
+      "X": 0.8199999928474426,
+      "Y": 0.5120000243186951,
+      "Z": 3.738947868347168
    }
 }
 ```
@@ -1194,20 +1216,20 @@
       "id": 0,
       "name": "static"
    },
-   "radius": 0.5360000133514404,
-   "suspDeflection": 0.015568828210234642,
-   "velocity": 2.6725502014160156,
+   "radius": 0.4977928102016449,
+   "suspDeflection": -0.0013528919080272317,
+   "velocity": 0.9634882211685181,
    "steering": 0,
-   "rotation": 0.8082288503646851,
+   "rotation": 0.5896692276000977,
    "steerable": false,
    "simulated": true,
    "powered": false,
-   "liftable": true,
+   "liftable": false,
    "onGround": true,
    "position": {
-      "X": -0.8299999833106995,
-      "Y": 0.5363953709602356,
-      "Z": 2.0658223628997803
+      "X": -0.8199999928474426,
+      "Y": 0.5120000243186951,
+      "Z": 2.4232027530670166
    }
 }
 ```
@@ -1220,20 +1242,20 @@
       "id": 0,
       "name": "static"
    },
-   "radius": 0.5360000133514404,
-   "suspDeflection": -0.010081758722662926,
-   "velocity": 2.7920570373535156,
+   "radius": 0.4977928102016449,
+   "suspDeflection": 0.003978567197918892,
+   "velocity": 0.9405667781829834,
    "steering": 0,
-   "rotation": 0.6123186349868774,
+   "rotation": 0.3009224236011505,
    "steerable": false,
    "simulated": true,
    "powered": false,
-   "liftable": true,
+   "liftable": false,
    "onGround": true,
    "position": {
-      "X": 0.8299999833106995,
-      "Y": 0.5363953709602356,
-      "Z": 2.0658223628997803
+      "X": 0.8199999928474426,
+      "Y": 0.5120000243186951,
+      "Z": 2.4232027530670166
    }
 }
 ```
@@ -1249,20 +1271,62 @@
                "id": 0,
                "name": "static"
             },
-            "radius": 0.5360000133514404,
-            "suspDeflection": 0.011085576377809048,
-            "velocity": 2.672335147857666,
+            "radius": 0.4977928102016449,
+            "suspDeflection": -0.00443316949531436,
+            "velocity": 0.9644074440002441,
+            "steering": 0.006779339164495468,
+            "rotation": 0.15739326179027557,
+            "steerable": true,
+            "simulated": true,
+            "powered": false,
+            "liftable": false,
+            "onGround": true,
+            "position": {
+               "X": -0.8199999928474426,
+               "Y": 0.5120000243186951,
+               "Z": 5.994736194610596
+            }
+         },
+         {
+            "substance": {
+               "id": 0,
+               "name": "static"
+            },
+            "radius": 0.4977928102016449,
+            "suspDeflection": 0.0008983325678855181,
+            "velocity": 0.941504955291748,
+            "steering": 0.006946156732738018,
+            "rotation": 0.8126164078712463,
+            "steerable": true,
+            "simulated": true,
+            "powered": false,
+            "liftable": false,
+            "onGround": true,
+            "position": {
+               "X": 0.8199999928474426,
+               "Y": 0.5120000243186951,
+               "Z": 5.994736194610596
+            }
+         },
+         {
+            "substance": {
+               "id": 0,
+               "name": "static"
+            },
+            "radius": 0.4977928102016449,
+            "suspDeflection": -0.002489376114681363,
+            "velocity": 0.9634995460510254,
             "steering": 0,
-            "rotation": 0.02081902325153351,
+            "rotation": 0.7247052192687988,
             "steerable": false,
             "simulated": true,
             "powered": false,
             "liftable": false,
             "onGround": true,
             "position": {
-               "X": -0.8299999833106995,
-               "Y": 0.5363953709602356,
-               "Z": 4.782358646392822
+               "X": -0.8199999928474426,
+               "Y": 0.5120000243186951,
+               "Z": 3.738947868347168
             }
          },
          {
@@ -1270,20 +1334,20 @@
                "id": 0,
                "name": "static"
             },
-            "radius": 0.5360000133514404,
-            "suspDeflection": -0.014565023593604565,
-            "velocity": 2.791815757751465,
+            "radius": 0.4977928102016449,
+            "suspDeflection": 0.0028420828748494387,
+            "velocity": 0.9405779242515564,
             "steering": 0,
-            "rotation": 0.8265714049339294,
+            "rotation": 0.4264112710952759,
             "steerable": false,
             "simulated": true,
             "powered": false,
             "liftable": false,
             "onGround": true,
             "position": {
-               "X": 0.8299999833106995,
-               "Y": 0.5363953709602356,
-               "Z": 4.782358646392822
+               "X": 0.8199999928474426,
+               "Y": 0.5120000243186951,
+               "Z": 3.738947868347168
             }
          },
          {
@@ -1291,20 +1355,20 @@
                "id": 0,
                "name": "static"
             },
-            "radius": 0.5360000133514404,
-            "suspDeflection": 0.013248639181256294,
-            "velocity": 2.673236608505249,
+            "radius": 0.4977928102016449,
+            "suspDeflection": -0.0013528919080272317,
+            "velocity": 0.9634882211685181,
             "steering": 0,
-            "rotation": 0.9424297213554382,
+            "rotation": 0.5896692276000977,
             "steerable": false,
             "simulated": true,
             "powered": false,
             "liftable": false,
             "onGround": true,
             "position": {
-               "X": -0.8299999833106995,
-               "Y": 0.5363953709602356,
-               "Z": 3.4716885089874268
+               "X": -0.8199999928474426,
+               "Y": 0.5120000243186951,
+               "Z": 2.4232027530670166
             }
          },
          {
@@ -1312,132 +1376,90 @@
                "id": 0,
                "name": "static"
             },
-            "radius": 0.5360000133514404,
-            "suspDeflection": -0.012401961721479893,
-            "velocity": 2.7928123474121094,
+            "radius": 0.4977928102016449,
+            "suspDeflection": 0.003978567197918892,
+            "velocity": 0.9405667781829834,
             "steering": 0,
-            "rotation": 0.7436085939407349,
+            "rotation": 0.3009224236011505,
             "steerable": false,
             "simulated": true,
             "powered": false,
             "liftable": false,
             "onGround": true,
             "position": {
-               "X": 0.8299999833106995,
-               "Y": 0.5363953709602356,
-               "Z": 3.4716885089874268
-            }
-         },
-         {
-            "substance": {
-               "id": 0,
-               "name": "static"
-            },
-            "radius": 0.5360000133514404,
-            "suspDeflection": 0.015568828210234642,
-            "velocity": 2.6725502014160156,
-            "steering": 0,
-            "rotation": 0.8082288503646851,
-            "steerable": false,
-            "simulated": true,
-            "powered": false,
-            "liftable": true,
-            "onGround": true,
-            "position": {
-               "X": -0.8299999833106995,
-               "Y": 0.5363953709602356,
-               "Z": 2.0658223628997803
-            }
-         },
-         {
-            "substance": {
-               "id": 0,
-               "name": "static"
-            },
-            "radius": 0.5360000133514404,
-            "suspDeflection": -0.010081758722662926,
-            "velocity": 2.7920570373535156,
-            "steering": 0,
-            "rotation": 0.6123186349868774,
-            "steerable": false,
-            "simulated": true,
-            "powered": false,
-            "liftable": true,
-            "onGround": true,
-            "position": {
-               "X": 0.8299999833106995,
-               "Y": 0.5363953709602356,
-               "Z": 2.0658223628997803
+               "X": 0.8199999928474426,
+               "Y": 0.5120000243186951,
+               "Z": 2.4232027530670166
             }
          }
       ],
       "attached": true,
       "cargo": {
-         "damage": 0
+         "damage": 0.00008580870780861005
       },
       "chassis": {
-         "damage": 0
+         "damage": 0.0005714049912057817
       },
       "acceleration": {
          "linearVelocity": {
-            "X": -0.7520157694816589,
-            "Y": 0.025314822793006897,
-            "Z": -9.20535659790039
+            "X": 0.11202561110258102,
+            "Y": 0.0026313159614801407,
+            "Z": -2.9777443408966064
          },
          "angularVelocity": {
-            "X": 0.0005447171279229224,
-            "Y": 0.038614094257354736,
-            "Z": 0.000029433185773086734
+            "X": 0.00006622773798881099,
+            "Y": -0.006957799196243286,
+            "Z": 0.0012516402639448643
          },
          "linearAcceleration": {
-            "X": -0.7142657041549683,
-            "Y": 0.009613700211048126,
-            "Z": 0.5458364486694336
+            "X": -0.07377363741397858,
+            "Y": -0.002917367499321699,
+            "Z": 0.12628217041492462
          },
          "angularAcceleration": {
-            "X": 0.00017187304911203682,
-            "Y": 0.03927218168973923,
-            "Z": 0.0018393417121842504
+            "X": -0.000013220620530773886,
+            "Y": 0.004130142740905285,
+            "Z": 0.0014063366688787937
          }
       },
       "hook": {
          "position": {
             "X": 0,
             "Y": 1,
-            "Z": -4.430164813995361
+            "Z": -5.0657806396484375
          }
       },
       "position": {
-         "X": 6988.686431884766,
-         "Y": 7.56157112121582,
-         "Z": -27698.609294891357
+         "X": 7184.687412261963,
+         "Y": 7.451491355895996,
+         "Z": -27815.420806884766
       },
       "orientation": {
-         "heading": 0.880923330783844,
-         "pitch": -0.00026262077153660357,
-         "roll": 0.002051371382549405
+         "heading": 0.7765598297119141,
+         "pitch": -0.00013747652701567858,
+         "roll": -0.00041595849324949086
       },
       "model": {
-         "id": "krone.boxliner.chassis_20x2esii",
+         "id": "scs_box.moving_floor.chassis_stwx2esii",
          "name": ""
       },
-      "accessoryId": "scs_container.container_20_green",
-      "bodyType": "container",
+      "accessoryId": "",
+      "bodyType": "dryvan",
       "brand": {
          "id": "",
          "name": ""
       },
       "chainType": "single",
       "licensePlate": {
-         "value": "NP 91 65",
+         "value": "UJ 99 57",
          "country": {
             "name": "Denmark",
             "id": "denmark"
          }
       },
       "damage": {
-         "cargo": 0,
-         "chassis": 0
+         "cargo": 0.00008580870780861005,
+         "chassis": 0.0005714049912057817
       }
    },
    {
@@ -2041,21 +2063,21 @@
          }
       ],
       "gear": {
-         "selected": 9,
-         "displayed": 9
+         "selected": 4,
+         "displayed": 4
       },
       "gearRatiosForward": [
-         14.9399995803833,
-         11.729999542236328,
-         9.039999961853027,
-         7.090000152587891,
-         5.539999961853027,
-         4.349999904632568,
-         3.440000057220459,
-         2.700000047683716,
-         2.0799999237060547,
-         1.6299999952316284,
-         1.2699999809265137,
+         14.930000305175781,
+         11.638999938964844,
+         9.02400016784668,
+         7.034999847412109,
+         5.644000053405762,
+         4.400000095367432,
+         3.3929998874664307,
+         2.6449999809265137,
+         2.0510001182556152,
+         1.5989999771118164,
+         1.2829999923706055,
          1,
          0,
          0,
@@ -2071,16 +2093,16 @@
          0
       ],
       "gearRatiosReverse": [
-         -17.479999542236328,
-         -13.729999542236328,
-         -4.019999980926514,
-         -3.1600000858306885,
+         -16.38599967956543,
+         -12.77400016784668,
+         -3.7239999771118164,
+         -2.9030001163482666,
          0,
          0,
          0,
          0
       ],
-      "damage": 0,
+      "damage": 0.000857107515912503,
       "selector": [
          false,
          false
@@ -2089,7 +2111,7 @@
    },
    "brakes": {
       "retarder": {
-         "steps": 4,
+         "steps": 5,
          "level": 0
       },
       "airPressure": {
@@ -2101,10 +2123,10 @@
             "factor": 34.79999923706055,
             "enabled": false
          },
-         "value": 123.2735366821289
+         "value": 119.03890228271484
       },
       "temperature": {
-         "value": 31.632246017456055
+         "value": 42.017730712890625
       },
       "parking": {
          "enabled": false
@@ -2120,23 +2142,23 @@
             "name": "static"
          },
          "radius": 0.5059999823570251,
-         "suspDeflection": -0.007532251067459583,
-         "velocity": 2.8579611778259277,
-         "steering": 0.02890092134475708,
-         "rotation": 0.2969536781311035,
+         "suspDeflection": 0.00204966077581048,
+         "velocity": 0.9360547065734863,
+         "steering": 0.004721172619611025,
+         "rotation": 0.09767400473356247,
          "lift": 0,
          "liftOffset": 0,
          "position": {
-            "X": -1.0499999523162842,
-            "Y": 0.5059999823570251,
-            "Z": -1.810332179069519
+            "X": -1.0099999904632568,
+            "Y": 0.5029071569442749,
+            "Z": -1.5647835731506348
          },
          "steerable": true,
          "simulated": true,
          "powered": false,
          "liftable": false,
          "onGround": true,
-         "damage": 0
+         "damage": 0.0004285537579562515
       },
       {
          "substance": {
@@ -2144,23 +2166,23 @@
             "name": "static"
          },
          "radius": 0.5059999823570251,
-         "suspDeflection": 0.00898733176290989,
-         "velocity": 3.1351113319396973,
-         "steering": 0.02632000297307968,
-         "rotation": 0.9150500297546387,
+         "suspDeflection": -0.0007183313718996942,
+         "velocity": 0.9496390223503113,
+         "steering": 0.004649566486477852,
+         "rotation": 0.009713885374367237,
          "lift": 0,
          "liftOffset": 0,
          "position": {
-            "X": 1.0499999523162842,
-            "Y": 0.5059999823570251,
-            "Z": -1.810332179069519
+            "X": 1.0099999904632568,
+            "Y": 0.5029071569442749,
+            "Z": -1.5647835731506348
          },
          "steerable": true,
          "simulated": true,
          "powered": false,
          "liftable": false,
          "onGround": true,
-         "damage": 0
+         "damage": 0.0004285537579562515
       },
       {
          "substance": {
@@ -2168,23 +2190,23 @@
             "name": "static"
          },
          "radius": 0.5059999823570251,
-         "suspDeflection": -0.011164143681526184,
-         "velocity": 2.8291561603546143,
+         "suspDeflection": 0.0003887538914568722,
+         "velocity": 0.9360982775688171,
          "steering": 0,
-         "rotation": 0.4926978051662445,
+         "rotation": 0.47931382060050964,
          "lift": 0,
          "liftOffset": 0,
          "position": {
-            "X": -0.9168882369995117,
-            "Y": 0.5059999823570251,
-            "Z": 2.0425631999969482
+            "X": -0.8799999952316284,
+            "Y": 0.5029100179672241,
+            "Z": 3.299969434738159
          },
          "steerable": false,
          "simulated": true,
          "powered": true,
          "liftable": false,
          "onGround": true,
-         "damage": 0
+         "damage": 0.0004285537579562515
       },
       {
          "substance": {
@@ -2192,23 +2214,71 @@
             "name": "static"
          },
          "radius": 0.5059999823570251,
-         "suspDeflection": 0.0037742529530078173,
-         "velocity": 3.0748093128204346,
+         "suspDeflection": -0.002112360903993249,
+         "velocity": 0.9478927254676819,
          "steering": 0,
-         "rotation": 0.19500264525413513,
+         "rotation": 0.18726874887943268,
          "lift": 0,
          "liftOffset": 0,
          "position": {
-            "X": 0.9168882369995117,
-            "Y": 0.5059999823570251,
-            "Z": 2.0425631999969482
+            "X": 0.8799999952316284,
+            "Y": 0.5029100179672241,
+            "Z": 3.299969434738159
          },
          "steerable": false,
          "simulated": true,
          "powered": true,
          "liftable": false,
          "onGround": true,
-         "damage": 0
+         "damage": 0.0004285537579562515
+      },
+      {
+         "substance": {
+            "id": 0,
+            "name": "static"
+         },
+         "radius": 0.5059999823570251,
+         "suspDeflection": 0.0008779849740676582,
+         "velocity": 0.936123251914978,
+         "steering": 0,
+         "rotation": 0.40602460503578186,
+         "lift": 0,
+         "liftOffset": 0,
+         "position": {
+            "X": -0.8799999952316284,
+            "Y": 0.5029100179672241,
+            "Z": 1.9376683235168457
+         },
+         "steerable": false,
+         "simulated": true,
+         "powered": true,
+         "liftable": false,
+         "onGround": true,
+         "damage": 0.0004285537579562515
+      },
+      {
+         "substance": {
+            "id": 0,
+            "name": "static"
+         },
+         "radius": 0.5059999823570251,
+         "suspDeflection": -0.001623129821382463,
+         "velocity": 0.9479235410690308,
+         "steering": 0,
+         "rotation": 0.10329454392194748,
+         "lift": 0,
+         "liftOffset": 0,
+         "position": {
+            "X": 0.8799999952316284,
+            "Y": 0.5029100179672241,
+            "Z": 1.9376683235168457
+         },
+         "steerable": false,
+         "simulated": true,
+         "powered": true,
+         "liftable": false,
+         "onGround": true,
+         "damage": 0.0004285537579562515
       }
    ],
    "lights": {
@@ -2249,14 +2319,14 @@
       }
    },
    "fuel": {
-      "capacity": 1400,
+      "capacity": 600,
       "warning": {
          "factor": 0.15000000596046448,
          "enabled": false
       },
-      "value": 990.6223754882812,
-      "avgConsumption": 0.6594856977462769,
-      "range": 2012.20166015625
+      "value": 279.91851806640625,
+      "avgConsumption": 1.2983520030975342,
+      "range": 568.58447265625
    },
    "adBlue": {
       "capacity": 80,
@@ -2264,7 +2334,7 @@
          "factor": 0.15000000596046448,
          "enabled": false
       },
-      "value": 59.53112030029297
+      "value": 63.99592590332031
    },
    "engine": {
       "oilPressure": {
@@ -2272,39 +2342,39 @@
             "factor": 10.149999618530273,
             "enabled": false
          },
-         "value": 51.909976959228516
+         "value": 55.54645538330078
       },
       "waterTemperature": {
          "warning": {
             "factor": 105,
             "enabled": false
          },
-         "value": 35.438533782958984
+         "value": 32.34773254394531
       },
       "batteryVoltage": {
          "warning": {
             "factor": 23.760000228881836,
             "enabled": false
          },
-         "value": 27.58809471130371
+         "value": 27.561450958251953
       },
       "rpm": {
-         "max": 2300,
-         "value": 975.545166015625
+         "max": 2000,
+         "value": 1084.4683837890625
       },
       "oilTemperature": {
-         "value": 37.30851364135742
+         "value": 34.05520248413086
       },
-      "damage": 0,
+      "damage": 0.0014285125071182847,
       "enabled": true
    },
    "differential": {
-      "ratio": 2.640000104904175
+      "ratio": 2.7330000400543213
    },
    "speed": {
-      "value": 9.394007682800293,
-      "kph": 34,
-      "mph": 21
+      "value": 3.0011959075927734,
+      "kph": 11,
+      "mph": 7
    },
    "cruiseControl": {
       "value": 0,
@@ -2313,41 +2383,41 @@
       "mph": 0
    },
    "cabin": {
-      "damage": 0,
+      "damage": 0.002285619964823127,
       "position": {
          "X": 0,
-         "Y": 1.3630750179290771,
-         "Z": -2.387122869491577
+         "Y": 1.114259958267212,
+         "Z": -2.2728700637817383
       },
       "acceleration": {
          "angularVelocity": {
-            "X": -0.0013273038202896714,
-            "Y": 0.06782843172550201,
-            "Z": -0.0004752987588290125
+            "X": 0.04861454665660858,
+            "Y": 0.0035170044284313917,
+            "Z": -0.0001688732299953699
          },
          "angularAcceleration": {
-            "X": -0.0018069964135065675,
-            "Y": 0.02506464347243309,
-            "Z": 0.000005306716047925875
+            "X": -0.000621875049546361,
+            "Y": -0.0041884263046085835,
+            "Z": -0.00727934530004859
          }
       },
       "offset": {
          "position": {
-            "X": 0.011427490971982479,
-            "Y": -0.0006417036056518555,
-            "Z": 0.00044083595275878906
+            "X": -0.000503993418533355,
+            "Y": -0.00014710426330566406,
+            "Z": -0.009687423706054688
          },
          "orientation": {
-            "heading": 0.00006426678010029718,
-            "pitch": -0.00019189035810995847,
-            "roll": -0.001383037306368351
+            "heading": 0.9999775886535645,
+            "pitch": 0.00017094444774556905,
+            "roll": 0.000012332285223237704
          }
       }
    },
    "chassis": {
-      "damage": 0
+      "damage": 0.0028570250142365694
    },
-   "odometer": 681163.5,
+   "odometer": 763879.25,
    "electric": {
       "enabled": true
    },
@@ -2356,19 +2426,19 @@
    },
    "head": {
       "position": {
-         "X": -0.7097118496894836,
-         "Y": 1.255061149597168,
-         "Z": 0.33089709281921387
+         "X": -0.7478597164154053,
+         "Y": 1.6422810554504395,
+         "Z": 0.39699506759643555
       },
       "offset": {
          "position": {
             "X": 0,
             "Y": 0,
-            "Z": 0.11999999731779099
+            "Z": 0.0142000000923872
          },
          "orientation": {
-            "heading": 0.957099974155426,
-            "pitch": -0.017880713567137718,
+            "heading": 0,
+            "pitch": -0.0027777620125561953,
             "roll": 0
          }
       }
@@ -2377,62 +2447,62 @@
       "position": {
          "X": 0,
          "Y": 1,
-         "Z": 1.3308583498001099
+         "Z": 2.3377344608306885
       }
    },
    "acceleration": {
       "linearVelocity": {
-         "X": -1.1933386325836182,
-         "Y": 0.004659643862396479,
-         "Z": -9.383707046508789
+         "X": -0.052224691957235336,
+         "Y": -0.0014985717134550214,
+         "Z": -2.9959256649017334
       },
       "angularVelocity": {
-         "X": -0.0006287384312599897,
-         "Y": 0.0677923709154129,
-         "Z": -0.00030850162147544324
+         "X": -0.0002666208310984075,
+         "Y": 0.0034045169595628977,
+         "Z": -0.000190045713679865
       },
       "linearAcceleration": {
-         "X": -0.42574748396873474,
-         "Y": 0.006118857767432928,
-         "Z": 0.19645236432552338
+         "X": 0.04974434897303581,
+         "Y": 0.014719861559569836,
+         "Z": 0.12746880948543549
       },
       "angularAcceleration": {
-         "X": -0.00002956792013719678,
-         "Y": 0.026156919077038765,
-         "Z": -0.0014450877206400037
+         "X": 0.00017927536100614816,
+         "Y": -0.0031535737216472626,
+         "Z": -0.004756967071443796
       }
    },
    "position": {
-      "X": 6992.404357910156,
-      "Y": 7.569162845611572,
-      "Z": -27702.9903755188
+      "X": 7192.021619796753,
+      "Y": 7.471873760223389,
+      "Z": -27816.36846923828
    },
    "orientation": {
-      "heading": 0.9078420996665955,
-      "pitch": -0.00023457904171664268,
-      "roll": -0.0012825197773054242
+      "heading": 0.7576277256011963,
+      "pitch": -0.000057145913160638884,
+      "roll": 0.00022361279116012156
    },
    "brand": {
-      "id": "volvo",
-      "name": "Volvo"
+      "id": "mercedes",
+      "name": "Mercedes-Benz"
    },
    "model": {
-      "id": "vehicle.volvo.fh16",
-      "name": "FH16 Classic"
+      "id": "vehicle.mercedes.actros",
+      "name": "Actros"
    },
    "licensePlate": {
-      "value": "BP 26 985",
+      "value": "UJ 29 295",
       "country": {
          "id": "denmark",
          "name": "Denmark"
       }
    },
    "damage": {
-      "cabin": 0,
-      "chassis": 0,
-      "engine": 0,
-      "transmission": 0,
-      "wheels": 0
+      "cabin": 0.002285619964823127,
+      "chassis": 0.0028570250142365694,
+      "engine": 0.0014285125071182847,
+      "transmission": 0.000857107515912503,
+      "wheels": 0.0004285537579562515
    }
 }
 ```
@@ -2442,24 +2512,24 @@
 ```json
 {
    "linearVelocity": {
-      "X": -1.1933386325836182,
-      "Y": 0.004659643862396479,
-      "Z": -9.383707046508789
+      "X": -0.052224691957235336,
+      "Y": -0.0014985717134550214,
+      "Z": -2.9959256649017334
    },
    "angularVelocity": {
-      "X": -0.0006287384312599897,
-      "Y": 0.0677923709154129,
-      "Z": -0.00030850162147544324
+      "X": -0.0002666208310984075,
+      "Y": 0.0034045169595628977,
+      "Z": -0.000190045713679865
    },
    "linearAcceleration": {
-      "X": -0.42574748396873474,
-      "Y": 0.006118857767432928,
-      "Z": 0.19645236432552338
+      "X": 0.04974434897303581,
+      "Y": 0.014719861559569836,
+      "Z": 0.12746880948543549
    },
    "angularAcceleration": {
-      "X": -0.00002956792013719678,
-      "Y": 0.026156919077038765,
-      "Z": -0.0014450877206400037
+      "X": 0.00017927536100614816,
+      "Y": -0.0031535737216472626,
+      "Z": -0.004756967071443796
    }
 }
 ```
@@ -2468,9 +2538,9 @@
 
 ```json
 {
-   "X": -0.00002956792013719678,
-   "Y": 0.026156919077038765,
-   "Z": -0.0014450877206400037
+   "X": 0.00017927536100614816,
+   "Y": -0.0031535737216472626,
+   "Z": -0.004756967071443796
 }
 ```
 
@@ -2478,9 +2548,9 @@
 
 ```json
 {
-   "X": -0.0006287384312599897,
-   "Y": 0.0677923709154129,
-   "Z": -0.00030850162147544324
+   "X": -0.0002666208310984075,
+   "Y": 0.0034045169595628977,
+   "Z": -0.000190045713679865
 }
 ```
 
@@ -2488,9 +2558,9 @@
 
 ```json
 {
-   "X": -0.42574748396873474,
-   "Y": 0.006118857767432928,
-   "Z": 0.19645236432552338
+   "X": 0.04974434897303581,
+   "Y": 0.014719861559569836,
+   "Z": 0.12746880948543549
 }
 ```
 
@@ -2498,9 +2568,9 @@
 
 ```json
 {
-   "X": -1.1933386325836182,
-   "Y": 0.004659643862396479,
-   "Z": -9.383707046508789
+   "X": -0.052224691957235336,
+   "Y": -0.0014985717134550214,
+   "Z": -2.9959256649017334
 }
 ```
 
@@ -2513,7 +2583,7 @@
       "factor": 0.15000000596046448,
       "enabled": false
    },
-   "value": 59.53112030029297
+   "value": 63.99592590332031
 }
 ```
 
@@ -2531,7 +2601,7 @@
 ```json
 {
    "retarder": {
-      "steps": 4,
+      "steps": 5,
       "level": 0
    },
    "airPressure": {
@@ -2543,10 +2613,10 @@
          "factor": 34.79999923706055,
          "enabled": false
       },
-      "value": 123.2735366821289
+      "value": 119.03890228271484
    },
    "temperature": {
-      "value": 31.632246017456055
+      "value": 42.017730712890625
    },
    "parking": {
       "enabled": false
@@ -2569,7 +2639,7 @@
       "factor": 34.79999923706055,
       "enabled": false
    },
-   "value": 123.2735366821289
+   "value": 119.03890228271484
 }
 ```
 
@@ -2593,7 +2663,7 @@
 
 ```json
 {
-   "steps": 4,
+   "steps": 5,
    "level": 0
 }
 ```
@@ -2602,7 +2672,7 @@
 
 ```json
 {
-   "value": 31.632246017456055
+   "value": 42.017730712890625
 }
 ```
 
@@ -2610,8 +2680,8 @@
 
 ```json
 {
-   "id": "volvo",
-   "name": "Volvo"
+   "id": "mercedes",
+   "name": "Mercedes-Benz"
 }
 ```
 
@@ -2619,34 +2689,34 @@
 
 ```json
 {
-   "damage": 0,
+   "damage": 0.002285619964823127,
    "position": {
       "X": 0,
-      "Y": 1.3630750179290771,
-      "Z": -2.387122869491577
+      "Y": 1.114259958267212,
+      "Z": -2.2728700637817383
    },
    "acceleration": {
       "angularVelocity": {
-         "X": -0.0013273038202896714,
-         "Y": 0.06782843172550201,
-         "Z": -0.0004752987588290125
+         "X": 0.04861454665660858,
+         "Y": 0.0035170044284313917,
+         "Z": -0.0001688732299953699
       },
       "angularAcceleration": {
-         "X": -0.0018069964135065675,
-         "Y": 0.02506464347243309,
-         "Z": 0.000005306716047925875
+         "X": -0.000621875049546361,
+         "Y": -0.0041884263046085835,
+         "Z": -0.00727934530004859
       }
    },
    "offset": {
       "position": {
-         "X": 0.011427490971982479,
-         "Y": -0.0006417036056518555,
-         "Z": 0.00044083595275878906
+         "X": -0.000503993418533355,
+         "Y": -0.00014710426330566406,
+         "Z": -0.009687423706054688
       },
       "orientation": {
-         "heading": 0.00006426678010029718,
-         "pitch": -0.00019189035810995847,
-         "roll": -0.001383037306368351
+         "heading": 0.9999775886535645,
+         "pitch": 0.00017094444774556905,
+         "roll": 0.000012332285223237704
       }
    }
 }
@@ -2657,14 +2727,14 @@
 ```json
 {
    "angularVelocity": {
-      "X": -0.0013273038202896714,
-      "Y": 0.06782843172550201,
-      "Z": -0.0004752987588290125
+      "X": 0.04861454665660858,
+      "Y": 0.0035170044284313917,
+      "Z": -0.0001688732299953699
    },
    "angularAcceleration": {
-      "X": -0.0018069964135065675,
-      "Y": 0.02506464347243309,
-      "Z": 0.000005306716047925875
+      "X": -0.000621875049546361,
+      "Y": -0.0041884263046085835,
+      "Z": -0.00727934530004859
    }
 }
 ```
@@ -2674,14 +2744,14 @@
 ```json
 {
    "position": {
-      "X": 0.011427490971982479,
-      "Y": -0.0006417036056518555,
-      "Z": 0.00044083595275878906
+      "X": -0.000503993418533355,
+      "Y": -0.00014710426330566406,
+      "Z": -0.009687423706054688
    },
    "orientation": {
-      "heading": 0.00006426678010029718,
-      "pitch": -0.00019189035810995847,
-      "roll": -0.001383037306368351
+      "heading": 0.9999775886535645,
+      "pitch": 0.00017094444774556905,
+      "roll": 0.000012332285223237704
    }
 }
 ```
@@ -2691,8 +2761,8 @@
 ```json
 {
    "X": 0,
-   "Y": 1.3630750179290771,
-   "Z": -2.387122869491577
+   "Y": 1.114259958267212,
+   "Z": -2.2728700637817383
 }
 ```
 
@@ -2700,7 +2770,7 @@
 
 ```json
 {
-   "damage": 0
+   "damage": 0.0028570250142365694
 }
 ```
 
@@ -2719,11 +2789,11 @@
 
 ```json
 {
-   "cabin": 0,
-   "chassis": 0,
-   "engine": 0,
-   "transmission": 0,
-   "wheels": 0
+   "cabin": 0.002285619964823127,
+   "chassis": 0.0028570250142365694,
+   "engine": 0.0014285125071182847,
+   "transmission": 0.000857107515912503,
+   "wheels": 0.0004285537579562515
 }
 ```
 
@@ -2731,7 +2801,7 @@
 
 ```json
 {
-   "ratio": 2.640000104904175
+   "ratio": 2.7330000400543213
 }
 ```
 
@@ -2752,30 +2822,30 @@
          "factor": 10.149999618530273,
          "enabled": false
       },
-      "value": 51.909976959228516
+      "value": 55.54645538330078
    },
    "waterTemperature": {
       "warning": {
          "factor": 105,
          "enabled": false
       },
-      "value": 35.438533782958984
+      "value": 32.34773254394531
    },
    "batteryVoltage": {
       "warning": {
          "factor": 23.760000228881836,
          "enabled": false
       },
-      "value": 27.58809471130371
+      "value": 27.561450958251953
    },
    "rpm": {
-      "max": 2300,
-      "value": 975.545166015625
+      "max": 2000,
+      "value": 1084.4683837890625
    },
    "oilTemperature": {
-      "value": 37.30851364135742
+      "value": 34.05520248413086
    },
-   "damage": 0,
+   "damage": 0.0014285125071182847,
    "enabled": true
 }
 ```
@@ -2788,7 +2858,7 @@
       "factor": 23.760000228881836,
       "enabled": false
    },
-   "value": 27.58809471130371
+   "value": 27.561450958251953
 }
 ```
 
@@ -2800,7 +2870,7 @@
       "factor": 10.149999618530273,
       "enabled": false
    },
-   "value": 51.909976959228516
+   "value": 55.54645538330078
 }
 ```
 
@@ -2808,7 +2878,7 @@
 
 ```json
 {
-   "value": 37.30851364135742
+   "value": 34.05520248413086
 }
 ```
 
@@ -2816,8 +2886,8 @@
 
 ```json
 {
-   "max": 2300,
-   "value": 975.545166015625
+   "max": 2000,
+   "value": 1084.4683837890625
 }
 ```
 
@@ -2829,7 +2899,7 @@
       "factor": 105,
       "enabled": false
    },
-   "value": 35.438533782958984
+   "value": 32.34773254394531
 }
 ```
 
@@ -2837,14 +2907,14 @@
 
 ```json
 {
-   "capacity": 1400,
+   "capacity": 600,
    "warning": {
       "factor": 0.15000000596046448,
       "enabled": false
    },
-   "value": 990.6223754882812,
-   "avgConsumption": 0.6594856977462769,
-   "range": 2012.20166015625
+   "value": 279.91851806640625,
+   "avgConsumption": 1.2983520030975342,
+   "range": 568.58447265625
 }
 ```
 
@@ -2862,19 +2932,19 @@
 ```json
 {
    "position": {
-      "X": -0.7097118496894836,
-      "Y": 1.255061149597168,
-      "Z": 0.33089709281921387
+      "X": -0.7478597164154053,
+      "Y": 1.6422810554504395,
+      "Z": 0.39699506759643555
    },
    "offset": {
       "position": {
          "X": 0,
          "Y": 0,
-         "Z": 0.11999999731779099
+         "Z": 0.0142000000923872
       },
       "orientation": {
-         "heading": 0.957099974155426,
-         "pitch": -0.017880713567137718,
+         "heading": 0,
+         "pitch": -0.0027777620125561953,
          "roll": 0
       }
    }
@@ -2888,11 +2958,11 @@
    "position": {
       "X": 0,
       "Y": 0,
-      "Z": 0.11999999731779099
+      "Z": 0.0142000000923872
    },
    "orientation": {
-      "heading": 0.957099974155426,
-      "pitch": -0.017880713567137718,
+      "heading": 0,
+      "pitch": -0.0027777620125561953,
       "roll": 0
    }
 }
@@ -2902,9 +2972,9 @@
 
 ```json
 {
-   "X": -0.7097118496894836,
-   "Y": 1.255061149597168,
-   "Z": 0.33089709281921387
+   "X": -0.7478597164154053,
+   "Y": 1.6422810554504395,
+   "Z": 0.39699506759643555
 }
 ```
 
@@ -2915,7 +2985,7 @@
    "position": {
       "X": 0,
       "Y": 1,
-      "Z": 1.3308583498001099
+      "Z": 2.3377344608306885
    }
 }
 ```
@@ -2926,7 +2996,7 @@
 {
    "X": 0,
    "Y": 1,
-   "Z": 1.3308583498001099
+   "Z": 2.3377344608306885
 }
 ```
 
@@ -2934,7 +3004,7 @@
 
 ```json
 {
-   "value": "BP 26 985",
+   "value": "UJ 29 295",
    "country": {
       "id": "denmark",
       "name": "Denmark"
@@ -3076,8 +3146,8 @@
 
 ```json
 {
-   "id": "vehicle.volvo.fh16",
-   "name": "FH16 Classic"
+   "id": "vehicle.mercedes.actros",
+   "name": "Actros"
 }
 ```
 
@@ -3085,9 +3155,9 @@
 
 ```json
 {
-   "heading": 0.9078420996665955,
-   "pitch": -0.00023457904171664268,
-   "roll": -0.0012825197773054242
+   "heading": 0.7576277256011963,
+   "pitch": -0.000057145913160638884,
+   "roll": 0.00022361279116012156
 }
 ```
 
@@ -3095,9 +3165,9 @@
 
 ```json
 {
-   "X": 6992.404357910156,
-   "Y": 7.569162845611572,
-   "Z": -27702.9903755188
+   "X": 7192.021619796753,
+   "Y": 7.471873760223389,
+   "Z": -27816.36846923828
 }
 ```
 
@@ -3105,9 +3175,9 @@
 
 ```json
 {
-   "value": 9.394007682800293,
-   "kph": 34,
-   "mph": 21
+   "value": 3.0011959075927734,
+   "kph": 11,
+   "mph": 7
 }
 ```
 
@@ -3282,21 +3352,21 @@
       }
    ],
    "gear": {
-      "selected": 9,
-      "displayed": 9
+      "selected": 4,
+      "displayed": 4
    },
    "gearRatiosForward": [
-      14.9399995803833,
-      11.729999542236328,
-      9.039999961853027,
-      7.090000152587891,
-      5.539999961853027,
-      4.349999904632568,
-      3.440000057220459,
-      2.700000047683716,
-      2.0799999237060547,
-      1.6299999952316284,
-      1.2699999809265137,
+      14.930000305175781,
+      11.638999938964844,
+      9.02400016784668,
+      7.034999847412109,
+      5.644000053405762,
+      4.400000095367432,
+      3.3929998874664307,
+      2.6449999809265137,
+      2.0510001182556152,
+      1.5989999771118164,
+      1.2829999923706055,
       1,
       0,
       0,
@@ -3312,16 +3382,16 @@
       0
    ],
    "gearRatiosReverse": [
-      -17.479999542236328,
-      -13.729999542236328,
-      -4.019999980926514,
-      -3.1600000858306885,
+      -16.38599967956543,
+      -12.77400016784668,
+      -3.7239999771118164,
+      -2.9030001163482666,
       0,
       0,
       0,
       0
    ],
-   "damage": 0,
+   "damage": 0.000857107515912503,
    "selector": [
       false,
       false
@@ -3334,8 +3404,8 @@
 
 ```json
 {
-   "selected": 9,
-   "displayed": 9
+   "selected": 4,
+   "displayed": 4
 }
 ```
 
@@ -3343,17 +3413,17 @@
 
 ```json
 [
-   14.9399995803833,
-   11.729999542236328,
-   9.039999961853027,
-   7.090000152587891,
-   5.539999961853027,
-   4.349999904632568,
-   3.440000057220459,
-   2.700000047683716,
-   2.0799999237060547,
-   1.6299999952316284,
-   1.2699999809265137,
+   14.930000305175781,
+   11.638999938964844,
+   9.02400016784668,
+   7.034999847412109,
+   5.644000053405762,
+   4.400000095367432,
+   3.3929998874664307,
+   2.6449999809265137,
+   2.0510001182556152,
+   1.5989999771118164,
+   1.2829999923706055,
    1,
    0,
    0,
@@ -3374,10 +3444,10 @@
 
 ```json
 [
-   -17.479999542236328,
-   -13.729999542236328,
-   -4.019999980926514,
-   -3.1600000858306885,
+   -16.38599967956543,
+   -12.77400016784668,
+   -3.7239999771118164,
+   -2.9030001163482666,
    0,
    0,
    0,
@@ -3571,23 +3641,23 @@
          "name": "static"
       },
       "radius": 0.5059999823570251,
-      "suspDeflection": -0.007532251067459583,
-      "velocity": 2.8579611778259277,
-      "steering": 0.02890092134475708,
-      "rotation": 0.2969536781311035,
+      "suspDeflection": 0.00204966077581048,
+      "velocity": 0.9360547065734863,
+      "steering": 0.004721172619611025,
+      "rotation": 0.09767400473356247,
       "lift": 0,
       "liftOffset": 0,
       "position": {
-         "X": -1.0499999523162842,
-         "Y": 0.5059999823570251,
-         "Z": -1.810332179069519
+         "X": -1.0099999904632568,
+         "Y": 0.5029071569442749,
+         "Z": -1.5647835731506348
       },
       "steerable": true,
       "simulated": true,
       "powered": false,
       "liftable": false,
       "onGround": true,
-      "damage": 0
+      "damage": 0.0004285537579562515
    },
    {
       "substance": {
@@ -3595,23 +3665,23 @@
          "name": "static"
       },
       "radius": 0.5059999823570251,
-      "suspDeflection": 0.00898733176290989,
-      "velocity": 3.1351113319396973,
-      "steering": 0.02632000297307968,
-      "rotation": 0.9150500297546387,
+      "suspDeflection": -0.0007183313718996942,
+      "velocity": 0.9496390223503113,
+      "steering": 0.004649566486477852,
+      "rotation": 0.009713885374367237,
       "lift": 0,
       "liftOffset": 0,
       "position": {
-         "X": 1.0499999523162842,
-         "Y": 0.5059999823570251,
-         "Z": -1.810332179069519
+         "X": 1.0099999904632568,
+         "Y": 0.5029071569442749,
+         "Z": -1.5647835731506348
       },
       "steerable": true,
       "simulated": true,
       "powered": false,
       "liftable": false,
       "onGround": true,
-      "damage": 0
+      "damage": 0.0004285537579562515
    },
    {
       "substance": {
@@ -3619,23 +3689,23 @@
          "name": "static"
       },
       "radius": 0.5059999823570251,
-      "suspDeflection": -0.011164143681526184,
-      "velocity": 2.8291561603546143,
+      "suspDeflection": 0.0003887538914568722,
+      "velocity": 0.9360982775688171,
       "steering": 0,
-      "rotation": 0.4926978051662445,
+      "rotation": 0.47931382060050964,
       "lift": 0,
       "liftOffset": 0,
       "position": {
-         "X": -0.9168882369995117,
-         "Y": 0.5059999823570251,
-         "Z": 2.0425631999969482
+         "X": -0.8799999952316284,
+         "Y": 0.5029100179672241,
+         "Z": 3.299969434738159
       },
       "steerable": false,
       "simulated": true,
       "powered": true,
       "liftable": false,
       "onGround": true,
-      "damage": 0
+      "damage": 0.0004285537579562515
    },
    {
       "substance": {
@@ -3643,23 +3713,71 @@
          "name": "static"
       },
       "radius": 0.5059999823570251,
-      "suspDeflection": 0.0037742529530078173,
-      "velocity": 3.0748093128204346,
+      "suspDeflection": -0.002112360903993249,
+      "velocity": 0.9478927254676819,
       "steering": 0,
-      "rotation": 0.19500264525413513,
+      "rotation": 0.18726874887943268,
       "lift": 0,
       "liftOffset": 0,
       "position": {
-         "X": 0.9168882369995117,
-         "Y": 0.5059999823570251,
-         "Z": 2.0425631999969482
+         "X": 0.8799999952316284,
+         "Y": 0.5029100179672241,
+         "Z": 3.299969434738159
       },
       "steerable": false,
       "simulated": true,
       "powered": true,
       "liftable": false,
       "onGround": true,
-      "damage": 0
+      "damage": 0.0004285537579562515
+   },
+   {
+      "substance": {
+         "id": 0,
+         "name": "static"
+      },
+      "radius": 0.5059999823570251,
+      "suspDeflection": 0.0008779849740676582,
+      "velocity": 0.936123251914978,
+      "steering": 0,
+      "rotation": 0.40602460503578186,
+      "lift": 0,
+      "liftOffset": 0,
+      "position": {
+         "X": -0.8799999952316284,
+         "Y": 0.5029100179672241,
+         "Z": 1.9376683235168457
+      },
+      "steerable": false,
+      "simulated": true,
+      "powered": true,
+      "liftable": false,
+      "onGround": true,
+      "damage": 0.0004285537579562515
+   },
+   {
+      "substance": {
+         "id": 0,
+         "name": "static"
+      },
+      "radius": 0.5059999823570251,
+      "suspDeflection": -0.001623129821382463,
+      "velocity": 0.9479235410690308,
+      "steering": 0,
+      "rotation": 0.10329454392194748,
+      "lift": 0,
+      "liftOffset": 0,
+      "position": {
+         "X": 0.8799999952316284,
+         "Y": 0.5029100179672241,
+         "Z": 1.9376683235168457
+      },
+      "steerable": false,
+      "simulated": true,
+      "powered": true,
+      "liftable": false,
+      "onGround": true,
+      "damage": 0.0004285537579562515
    }
 ]
 ```
@@ -3673,23 +3791,23 @@
       "name": "static"
    },
    "radius": 0.5059999823570251,
-   "suspDeflection": -0.007532251067459583,
-   "velocity": 2.8579611778259277,
-   "steering": 0.02890092134475708,
-   "rotation": 0.2969536781311035,
+   "suspDeflection": 0.00204966077581048,
+   "velocity": 0.9360547065734863,
+   "steering": 0.004721172619611025,
+   "rotation": 0.09767400473356247,
    "lift": 0,
    "liftOffset": 0,
    "position": {
-      "X": -1.0499999523162842,
-      "Y": 0.5059999823570251,
-      "Z": -1.810332179069519
+      "X": -1.0099999904632568,
+      "Y": 0.5029071569442749,
+      "Z": -1.5647835731506348
    },
    "steerable": true,
    "simulated": true,
    "powered": false,
    "liftable": false,
    "onGround": true,
-   "damage": 0
+   "damage": 0.0004285537579562515
 }
 ```
 
@@ -3702,23 +3820,23 @@
       "name": "static"
    },
    "radius": 0.5059999823570251,
-   "suspDeflection": 0.00898733176290989,
-   "velocity": 3.1351113319396973,
-   "steering": 0.02632000297307968,
-   "rotation": 0.9150500297546387,
+   "suspDeflection": -0.0007183313718996942,
+   "velocity": 0.9496390223503113,
+   "steering": 0.004649566486477852,
+   "rotation": 0.009713885374367237,
    "lift": 0,
    "liftOffset": 0,
    "position": {
-      "X": 1.0499999523162842,
-      "Y": 0.5059999823570251,
-      "Z": -1.810332179069519
+      "X": 1.0099999904632568,
+      "Y": 0.5029071569442749,
+      "Z": -1.5647835731506348
    },
    "steerable": true,
    "simulated": true,
    "powered": false,
    "liftable": false,
    "onGround": true,
-   "damage": 0
+   "damage": 0.0004285537579562515
 }
 ```
 
@@ -3731,23 +3849,23 @@
       "name": "static"
    },
    "radius": 0.5059999823570251,
-   "suspDeflection": -0.011164143681526184,
-   "velocity": 2.8291561603546143,
+   "suspDeflection": 0.0003887538914568722,
+   "velocity": 0.9360982775688171,
    "steering": 0,
-   "rotation": 0.4926978051662445,
+   "rotation": 0.47931382060050964,
    "lift": 0,
    "liftOffset": 0,
    "position": {
-      "X": -0.9168882369995117,
-      "Y": 0.5059999823570251,
-      "Z": 2.0425631999969482
+      "X": -0.8799999952316284,
+      "Y": 0.5029100179672241,
+      "Z": 3.299969434738159
    },
    "steerable": false,
    "simulated": true,
    "powered": true,
    "liftable": false,
    "onGround": true,
-   "damage": 0
+   "damage": 0.0004285537579562515
 }
 ```
 
@@ -3760,23 +3878,81 @@
       "name": "static"
    },
    "radius": 0.5059999823570251,
-   "suspDeflection": 0.0037742529530078173,
-   "velocity": 3.0748093128204346,
+   "suspDeflection": -0.002112360903993249,
+   "velocity": 0.9478927254676819,
    "steering": 0,
-   "rotation": 0.19500264525413513,
+   "rotation": 0.18726874887943268,
    "lift": 0,
    "liftOffset": 0,
    "position": {
-      "X": 0.9168882369995117,
-      "Y": 0.5059999823570251,
-      "Z": 2.0425631999969482
+      "X": 0.8799999952316284,
+      "Y": 0.5029100179672241,
+      "Z": 3.299969434738159
    },
    "steerable": false,
    "simulated": true,
    "powered": true,
    "liftable": false,
    "onGround": true,
-   "damage": 0
+   "damage": 0.0004285537579562515
+}
+```
+
+#### truck.wheels.4
+
+```json
+{
+   "substance": {
+      "id": 0,
+      "name": "static"
+   },
+   "radius": 0.5059999823570251,
+   "suspDeflection": 0.0008779849740676582,
+   "velocity": 0.936123251914978,
+   "steering": 0,
+   "rotation": 0.40602460503578186,
+   "lift": 0,
+   "liftOffset": 0,
+   "position": {
+      "X": -0.8799999952316284,
+      "Y": 0.5029100179672241,
+      "Z": 1.9376683235168457
+   },
+   "steerable": false,
+   "simulated": true,
+   "powered": true,
+   "liftable": false,
+   "onGround": true,
+   "damage": 0.0004285537579562515
+}
+```
+
+#### truck.wheels.5
+
+```json
+{
+   "substance": {
+      "id": 0,
+      "name": "static"
+   },
+   "radius": 0.5059999823570251,
+   "suspDeflection": -0.001623129821382463,
+   "velocity": 0.9479235410690308,
+   "steering": 0,
+   "rotation": 0.10329454392194748,
+   "lift": 0,
+   "liftOffset": 0,
+   "position": {
+      "X": 0.8799999952316284,
+      "Y": 0.5029100179672241,
+      "Z": 1.9376683235168457
+   },
+   "steerable": false,
+   "simulated": true,
+   "powered": true,
+   "liftable": false,
+   "onGround": true,
+   "damage": 0.0004285537579562515
 }
 ```
 
