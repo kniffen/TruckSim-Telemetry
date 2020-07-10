@@ -7,6 +7,8 @@
     "build": "npx gulp build",
     "test": "npx gulp test",
     "dev": "npx gulp",
+    "generate-buffer": "npx gulp generateBuffer",
+    "generate-data": "npx gulp generateData",
     "docs": "npx gulp docs",
     "docsold": "npx live-server ./docs"
   },
@@ -54,6 +56,9 @@
   "babel": {
     "presets": [
       "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-runtime"
     ]
   }
 }
