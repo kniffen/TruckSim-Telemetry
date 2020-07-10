@@ -7,8 +7,9 @@ import babel      from "gulp-babel"
 import mocha      from "gulp-mocha"
 import liveServer from "live-server"
 
-import converter from "./src/lib/converters/scs_sdk_plugin_1_10"
-import parseData from "./src/lib/parseData"
+import getBuffer  from "./src/lib/getBuffer"
+import converters from "./src/lib/converters"
+import parseData  from "./src/lib/parseData"
 
 function build() {
   return gulp.src("src/**/*.js")
@@ -31,7 +32,11 @@ function test() {
     .pipe(mocha({
       reporter: 'spec',
       timeout:   5000,
-      require:   ['source-map-support/register'],
+      require:   [
+        '@babel/register',
+        'source-map-support/register'
+      ],
+      exit: true
     }))
 }
 
@@ -39,9 +44,32 @@ function watch() {
   gulp.watch("src/**/*.js", {cwd: "./"}, gulp.series(build, test))
 }
 
+function generateBuffer(done) {
+  const buffer = getBuffer()
+  const data   = converters[10](parseData(converted))
+
+  fs.writeFileSync(path.resolve(__dirname, `./src/tests/buffers/scs_sdk_plugin_buffer_${data.game.pluginVersion}`), buffer)
+  
+  done()
+}
+
+function generateData(done) {
+  for (const version in converters) {
+    const buffer = fs.readFileSync(path.resolve(__dirname, `./src/tests/buffers/scs_sdk_plugin_buffer_${version}`))
+  
+    const converted = converters[version](buffer)
+    const parsed    = parseData(converted)
+
+    fs.writeFileSync(path.resolve(__dirname, `./src/tests/data/scs_sdk_plugin_raw_data_${version}.json`),    JSON.stringify(converted, null, 3))
+    fs.writeFileSync(path.resolve(__dirname, `./src/tests/data/scs_sdk_plugin_parsed_data_${version}.json`), JSON.stringify(parsed,    null, 3))
+  }
+
+  done()
+}
+
 function generateDataDocs(done) {
-  const buffer     = fs.readFileSync(path.resolve(__dirname, "./src/tests/buffers/scs_sdk_plugin_buffer_1_10"))
-  const parsedData = parseData(converter(buffer))
+  const buffer     = fs.readFileSync(path.resolve(__dirname, "./src/tests/buffers/scs_sdk_plugin_buffer_10"))
+  const parsedData = parseData(converters[10](buffer))
   const filePath   = path.resolve(__dirname, "./docs/data.md")
 
   let output = "# Data\n\n"
@@ -80,7 +108,9 @@ function hostDocs() {
   })
 }
 
-exports.build   = build
-exports.test    = gulp.series(build, copy, test)
-exports.docs    = gulp.series(generateDataDocs, hostDocs)
-exports.default = gulp.series(build, copy, test, watch)
+exports.build          = build
+exports.test           = gulp.series(build, copy, test)
+exports.docs           = gulp.series(generateDataDocs, hostDocs)
+exports.generateBuffer = generateBuffer
+exports.generateData   = generateData
+exports.default        = gulp.series(build, copy, test, watch)
