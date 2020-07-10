@@ -1,5 +1,9 @@
 import _ from "struct-fu"
 
+function uint64() {
+
+}
+
 export default function getDataFromPluginVersion10(buffer) {
 
   const wheelSize    = 16
@@ -8,9 +12,13 @@ export default function getDataFromPluginVersion10(buffer) {
 
   const entries = _.struct([
     // 1st zone
-    _.uint32le("game.sdkActive"),
-    _.uint32le("game.timestamp.value"),
-    _.uint32le("game.paused"),
+    _.uint8("game.sdkActive"),
+    _.padTo(4),
+    _.uint8("game.paused"),
+    _.padTo(8),
+    _.uint32le("game.timestamp.value", 2),
+    _.uint32le("game.simulationTimestamp.value", 2),
+    _.uint32le("game.renderTimestamp.value", 2),
 
     _.padTo(40),
 

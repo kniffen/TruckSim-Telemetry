@@ -17,8 +17,8 @@ describe("truckSimTelemetry()", function() {
   let buffer, data
 
   before(function() {
-    buffer = fs.readFileSync(path.resolve(__dirname, "./buffers/scs_sdk_plugin_buffer_1_10"))
-    data   = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./data/scs_sdk_plugin_parsed_data_1_10.json")))
+    buffer = fs.readFileSync(path.resolve(__dirname, "./buffers/scs_sdk_plugin_buffer_10"))
+    data   = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./data/scs_sdk_plugin_parsed_data_10.json")))
 
     sinon.stub(getBuffer, "default").callsFake(function() {
       return buffer

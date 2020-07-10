@@ -22,7 +22,7 @@ describe("watch()", function() {
   const stubs = {}
 
   before(function() {
-    data = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./data/scs_sdk_plugin_parsed_data_1_10.json")))
+    data = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./data/scs_sdk_plugin_parsed_data_10.json")))
 
     clock = sinon.useFakeTimers()
 

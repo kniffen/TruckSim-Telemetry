@@ -4,13 +4,16 @@ export default function parseData(data) {
   fixPropNames(data, output)
 
   // Game
-  output.game.timestamp.value  = output.game.timestamp.value / 1000
   output.game.sdkActive        = output.game.sdkActive == 1 ? true : false
   output.game.version          = `${output.game.version.major}.${output.game.version.minor}`
   output.game.telemetryVersion = `${output.game.telemetryVersion.major}.${output.game.telemetryVersion.minor}`
   output.game.paused           = output.game.paused == 1 ? true : false
   output.game.game             = {id:   output.game.game, name: ["unknown", "ets2", "ats"][output.game.game]}
   output.game.time             = convertTime(output.game.time)
+
+  if (output.game.pluginVersion <= 9) {
+    output.game.timestamp.value = parseInt(output.game.timestamp.value / 1000)
+  }
 
   // Truck
   output.truck.speed                 = convertSpeed(output.truck.speed)
@@ -173,6 +176,13 @@ export default function parseData(data) {
   }
 
   // SDK 1.10
+
+  // Game
+  if (output.game.pluginVersion >= 10) {
+    output.game.timestamp.value           = parseInt(output.game.timestamp.value[0]           / 1000)
+    output.game.simulationTimestamp.value = parseInt(output.game.simulationTimestamp.value[0] / 1000)
+    output.game.renderTimestamp.value     = parseInt(output.game.renderTimestamp.value[0]     / 1000)
+  }
 
   // Job
   output.job.cargo.isLoaded = output.job.cargo.isLoaded  == 1 ? true : false

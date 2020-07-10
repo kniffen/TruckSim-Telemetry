@@ -14,10 +14,10 @@ describe("getData()", function() {
   let version, buffer, parsedData
 
   before(function() {
-    parsedData = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./data/scs_sdk_plugin_parsed_data_1_10.json")))
+    parsedData = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./data/scs_sdk_plugin_parsed_data_10.json")))
 
     getBufferStub = sinon.stub(getBuffer, "default").callsFake(function() {
-      buffer = fs.readFileSync(path.resolve(__dirname, "./buffers/scs_sdk_plugin_buffer_1_10"))
+      buffer = fs.readFileSync(path.resolve(__dirname, "./buffers/scs_sdk_plugin_buffer_10"))
       return buffer
     })
   
