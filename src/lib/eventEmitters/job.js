@@ -14,7 +14,7 @@ export default function eventEmittersJob(telemetry, data) {
   // SDK 1.10 and above
   if (data[0]?.game.pluginVersion < 10) return
 
-  // Job delivered
+  // Job cancelled
   if (data[0]?.events?.job.cancelled.active && !data[1]?.events?.job.cancelled.active)
     telemetry.job.emit("cancelled", cloneDeep(data[0].events.job.cancelled))
 
