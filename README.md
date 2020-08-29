@@ -20,11 +20,6 @@ Supported versions
 Install the module via NPM
 `npm i trucksim-telemetry`
 
-### Installing with Electron
-You may run into an issue where Electron throws an error message, this is because Electron might be using a different version of Node than what's installed on your system.
-To fix this use the following module to rebuild trucksim-telemetry for the Node version Electron is using.
-
-https://www.npmjs.com/package/electron-rebuild
 
 ## Examples
 
