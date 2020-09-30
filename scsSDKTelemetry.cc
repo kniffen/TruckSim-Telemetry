@@ -21,7 +21,8 @@ napi_value GetArrayBuffer(napi_env env, napi_callback_info info) {
   } else if (hMapFileSimTelemetryETS2) {
     pBuf = MapViewOfFile(hMapFileSimTelemetryETS2, FILE_MAP_ALL_ACCESS, 0, 0, 16*1024);
   } else {
-    napi_throw_error(env, "200", "Unable to get array buffer");
+    napi_throw_error(env, NULL, "Unable to get array buffer");
+    return nullptr;
   }
 
   status = napi_create_external_arraybuffer(env, pBuf, 16*1024, NULL, NULL, &buffer);
