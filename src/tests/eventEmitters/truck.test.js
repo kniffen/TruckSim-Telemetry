@@ -24,6 +24,8 @@ describe("eventEmitters/truck()", function() {
     retarder:              sinon.spy(),
     wipers:                sinon.spy(),
     refuel:                sinon.spy(),
+    refuelStarted:         sinon.spy(),
+    refuelStopped:         sinon.spy(),
   }
 
   const data = []
@@ -82,6 +84,9 @@ describe("eventEmitters/truck()", function() {
     },
     events: {
       refuel: {
+        active: false
+      },
+      refuelPaid: {
         active: false,
         amount: 0
       }
@@ -102,6 +107,8 @@ describe("eventEmitters/truck()", function() {
     telemetry.truck.on("retarder",                 spies.retarder)
     telemetry.truck.on("wipers",                   spies.wipers)
     telemetry.truck.on("refuel",                   spies.refuel)
+    telemetry.truck.on("refuel-started",           spies.refuelStarted)
+    telemetry.truck.on("refuel-stopped",           spies.refuelStopped)
   })
 
   beforeEach(function() {
@@ -330,12 +337,19 @@ describe("eventEmitters/truck()", function() {
   it("Should emit refuel events", function() {
     truck(telemetry, data)
     data[0].events.refuel.active = true
-    data[0].events.refuel.amount = 1
+    data[1].events.refuel.active = false
+    truck(telemetry, data)
+    data[0].events.refuel.active = false
+    data[1].events.refuel.active = true
     truck(telemetry, data)
 
-    assert.deepEqual(spies.refuel.args, [
-      [{active: true, amount: 1}, {active: false, amount: 0}],
+    assert.deepEqual(spies.refuel.args[0], [
+      {active: false},
+      {active: true},
     ])
+    assert(spies.refuel.calledOnce)
+    assert(spies.refuelStarted.calledOnce)
+    assert(spies.refuelStopped.calledOnce)
   })
 
 })

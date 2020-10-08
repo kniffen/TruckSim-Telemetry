@@ -369,7 +369,7 @@
    ],
    "events.job.delivered.cargoDamage": 0,
    "events.job.delivered.distance": 0,
-   "events.refuel.amount": 0,
+   "events.refuelPaid.amount": 0,
    "job.cargo.damage": 0.00008580870780861005,
    "truck.wheels.steerable": [
       1,
@@ -683,7 +683,7 @@
    "events.ferry.active": 0,
    "events.train.active": 0,
    "events.refuel.active": 0,
-   "events.refuelPayed.active": 0,
+   "events.refuelPaid.active": 0,
    "substances": [
       "static",
       "road",

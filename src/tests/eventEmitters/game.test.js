@@ -17,7 +17,8 @@ describe("eventEmitters/game()", function() {
     tollgate:    sinon.spy(),
     ferry:       sinon.spy(),
     train:       sinon.spy(),
-    refuelPayed: sinon.spy()
+    refuelPayed: sinon.spy(),
+    refuelPaid:  sinon.spy()
   }
 
   const createData = () => ({
@@ -31,7 +32,8 @@ describe("eventEmitters/game()", function() {
       tollgate:    {active: false, amount: 200},
       ferry:       {active: false, amount: 300},
       train:       {active: false, amount: 400},
-      refuelPayed: {active: false}
+      refuelPayed: {active: false},
+      refuelPaid:  {active: false, amount: 500}
     }
   })
 
@@ -45,6 +47,7 @@ describe("eventEmitters/game()", function() {
     telemetry.game.on("ferry",        spies.ferry)
     telemetry.game.on("train",        spies.train)
     telemetry.game.on("refuel-payed", spies.refuelPayed)
+    telemetry.game.on("refuel-paid",  spies.refuelPaid)
 
     game(telemetry, data)
 
@@ -129,14 +132,18 @@ describe("eventEmitters/game()", function() {
     game(telemetry, data)
   })
 
-  it("Should emit refuel-payed events", function() {
+  it("Should emit refuel-paid events", function() {
     const data = [createData(), createData()]
 
     game(telemetry, data)
-    data[0].events.refuelPayed.active = true
+    data[0].events.refuelPaid.active = true
+    data[0].events.refuelPaid.amount = 600
     game(telemetry, data)
   
-    assert.equal(spies.refuelPayed.args.length, 1)
+    assert(spies.refuelPayed.calledOnce)
+    assert.deepEqual(spies.refuelPaid.args[0], [
+      {active: true,  amount: 600}
+    ])
   })
 
 })

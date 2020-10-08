@@ -908,7 +908,7 @@
             "active": false
          }
       },
-      "refuel": {
+      "refuelPaid": {
          "amount": 0,
          "active": false
       },
@@ -948,7 +948,7 @@
          "amount": 0,
          "active": false
       },
-      "refuelPayed": {
+      "refuel": {
          "active": false
       }
    },

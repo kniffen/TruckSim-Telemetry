@@ -151,7 +151,7 @@ export default function getDataFromPluginVersion10(buffer) {
     _.float32le("events.job.delivered.cargoDamage"),
     _.float32le("events.job.delivered.distance"),
     
-    _.float32le("events.refuel.amount"),
+    _.float32le("events.refuelPaid.amount"),
 
     _.float32le("job.cargo.damage"),
     
@@ -370,7 +370,7 @@ export default function getDataFromPluginVersion10(buffer) {
     _.uint8("events.ferry.active"),
     _.uint8("events.train.active"),
     _.uint8("events.refuel.active"),
-    _.uint8("events.refuelPayed.active"),
+    _.uint8("events.refuelPaid.active"),
     
     _.padTo(4400),
     

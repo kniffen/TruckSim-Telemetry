@@ -82,7 +82,13 @@ export default function eventEmittersTruck(telemetry, data) {
     telemetry.truck.emit("wipers", data[0].truck.wipers.enabled)
 
   // Refuel
-  if (data[0]?.events?.refuel.active && !data[1]?.events?.refuel.active)
+  if (data[0]?.events?.refuel.active && !data[1]?.events?.refuel.active) {
     telemetry.truck.emit("refuel", data[0].events.refuel, data[1].events.refuel)
+    telemetry.truck.emit("refuel-started")
+  }
+
+  if (!data[0]?.events?.refuel.active && data[1]?.events?.refuel.active)
+    telemetry.truck.emit("refuel-stopped")
+
 
 }

@@ -30,7 +30,9 @@ export default function eventEmittersGame(telemetry, data) {
   if (data[0]?.events?.train.active && !data[1]?.events?.train.active)
     telemetry.game.emit("train", cloneDeep(data[0].events.train))
 
-  // Refuel payed
-  if (data[0]?.events?.refuelPayed.active && !data[1]?.events?.refuelPayed.active)
+  // Refuel paid
+  if (data[0]?.events?.refuelPaid.active && !data[1]?.events?.refuelPaid.active) {
     telemetry.game.emit("refuel-payed")
+    telemetry.game.emit("refuel-paid",  data[0].events.refuelPaid)
+  }
 }

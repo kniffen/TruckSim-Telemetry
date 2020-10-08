@@ -217,7 +217,7 @@ export default function parseData(data) {
   output.events.ferry.active         = output.events.ferry.active         == 1 ? true : false
   output.events.train.active         = output.events.train.active         == 1 ? true : false
   output.events.refuel.active        = output.events.refuel.active        == 1 ? true : false
-  output.events.refuelPayed.active   = output.events.refuelPayed.active   == 1 ? true : false
+  output.events.refuelPaid.active    = output.events.refuelPaid.active    == 1 ? true : false
 
   output.events.fine.offence = {
     id:   output.events.fine.offence,
