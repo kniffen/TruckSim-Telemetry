@@ -1,4 +1,17 @@
 Changelog
+
+v0.10.0 - 2020-10-08
+- Reworked and fixed refuel events
+
+v0.9.1 - 2020-09-30
+- Fixed error handling
+
+v0.9.0 - 2020-08-29
+- Made addon context-aware
+
+v0.8.0 - 2020-07-10
+- Added support for plugin version 1.10.5
+
 v0.7.0 - 2020-04-11
 - Updated source to ES6 syntax
 
