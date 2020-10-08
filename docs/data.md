@@ -74,7 +74,7 @@
          "active": false
       }
    },
-   "refuel": {
+   "refuelPaid": {
       "amount": 0,
       "active": false
    },
@@ -114,7 +114,7 @@
       "amount": 0,
       "active": false
    },
-   "refuelPayed": {
+   "refuel": {
       "active": false
    }
 }
@@ -262,15 +262,15 @@
 
 ```json
 {
-   "amount": 0,
    "active": false
 }
 ```
 
-### events.refuelPayed
+### events.refuelPaid
 
 ```json
 {
+   "amount": 0,
    "active": false
 }
 ```

@@ -55,12 +55,22 @@
 | ----------------------------------- | ------- |
 | [train object](data.md#eventstrain) | Object  |
 
+
 ### refuel-payed
 <span class="warning">Only SDK 1.10 and above</span>
+<br />
+<span class="warning">Legacy support, will be removed. Use "refuel-paid" instead</span>
 
-| Parameter | Type    |
-| --------- | ------- |
-| None      |         |
+| Parameter                                      | Type   |
+| -----------------------------------------------| ------ |
+| None                                           |        |
+
+### refuel-paid
+<span class="warning">Only SDK 1.10 and above</span>
+
+| Parameter                                      | Type    |
+| ---------------------------------------------- | ------- |
+| [refuelPaid object](data.md#eventsrefuelPaid)  | Object  |
 
 ## job
 
@@ -215,9 +225,26 @@ Triggers when there's 1% or more damage to the truck's chassis
 | enabled   | Boolean  |
 
 ### refuel
+
+<span class="warning">Only SDK 1.10 and above</span>
+<br />
+<span class="warning">Legacy support, will be removed. Use "refuel-started" instead</span>
+
+| Parameter                                      | Type    |
+| ---------------------------------------------- | ------- |
+| current [refuel object](data.md#eventsrefuel)  | Object  |
+| previous [refuel object](data.md#eventsrefuel) | Object  |
+
+### refuel-started
 <span class="warning">Only SDK 1.10 and above</span>
 
 | Parameter                                      | Type   |
 | -----------------------------------------------| ------ |
-| current [refuel object](data.md#eventsrefuel)  | Object |
-| previous [refuel object](data.md#eventsrefuel) | Object |
+| None                                           |        |
+
+### refuel-stopped
+<span class="warning">Only SDK 1.10 and above</span>
+
+| Parameter                                      | Type   |
+| -----------------------------------------------| ------ |
+| None     
