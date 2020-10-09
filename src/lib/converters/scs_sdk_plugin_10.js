@@ -331,7 +331,7 @@ export default function getDataFromPluginVersion10(buffer) {
 
     _.char("job.market", 32),
 
-    _.char("events.fine.offence", 16),
+    _.char("events.fine.offence", 32),
 
     _.char("events.ferry.source.name", stringSize),
     _.char("events.ferry.target.name", stringSize),
