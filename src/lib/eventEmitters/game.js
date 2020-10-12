@@ -1,4 +1,4 @@
-import equal     from "deep-equal"
+import isEqual   from "lodash.isequal"
 import cloneDeep from "lodash.clonedeep"
 
 export default function eventEmittersGame(telemetry, data) {
@@ -8,7 +8,7 @@ export default function eventEmittersGame(telemetry, data) {
     telemetry.game.emit("pause", data[0].game.paused)
 
   // Game time changed
-  if (!equal(data[0]?.game.time, data[1]?.game.time))
+  if (!isEqual(data[0]?.game.time, data[1]?.game.time))
     telemetry.game.emit("time-change", data[0].game.time, data[1].game.time )
  
   // SDK 1.10 and above

@@ -1,4 +1,4 @@
-import equal     from "deep-equal"
+import isEqual   from "lodash.isequal"
 import cloneDeep from "lodash.clonedeep"
 
 export default function eventEmittersTruck(telemetry, data) {
@@ -69,7 +69,7 @@ export default function eventEmittersTruck(telemetry, data) {
     telemetry.truck.emit("park", data[0].truck.brakes.parking.enabled)
 
   // Retarder
-  if (!equal(data[0]?.truck?.brakes.retarder, data[1]?.truck?.brakes.retarder)){
+  if (!isEqual(data[0]?.truck?.brakes.retarder, data[1]?.truck?.brakes.retarder)){
     telemetry.truck.emit(
       "retarder", 
       cloneDeep(data[0].truck.brakes.retarder), 

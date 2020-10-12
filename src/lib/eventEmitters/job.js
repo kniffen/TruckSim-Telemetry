@@ -1,4 +1,3 @@
-import equal     from "deep-equal"
 import cloneDeep from "lodash.clonedeep"
 
 export default function eventEmittersJob(telemetry, data) {

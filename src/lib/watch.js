@@ -1,4 +1,4 @@
-import deepEqual from "deep-equal"
+import isEqual   from "lodash.isequal"
 import cloneDeep from "lodash.clonedeep"
 
 import getData from "./getData"
@@ -45,7 +45,7 @@ export default function watch(opts, update, telemetry) {
     for (const key of Object.keys(eventEmitters))
       eventEmitters[key](telemetry, [cloneDeep(current), cloneDeep(previous)])
 
-    if (update && !deepEqual(current, previous)) update(current)
+    if (update && !isEqual(current, previous)) update(current)
 
     previous = cloneDeep(current)
   }
