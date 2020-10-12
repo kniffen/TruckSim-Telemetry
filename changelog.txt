@@ -1,5 +1,14 @@
 Changelog
 
+v0.10.3 - 2020-10-12
+- Replaced deep-equal dependency with lodash.isequal
+
+v0.10.2 - 2020-10-11
+- Updated dependencies
+
+v0.10.1 - 2020-10-09
+- Added support for plugin version 1.10.6
+
 v0.10.0 - 2020-10-08
 - Reworked and fixed refuel events
 
