@@ -107,7 +107,7 @@ export default function parseData(data) {
   }
 
   // Traiers
-  if (output.game.pluginVersion < 10) 
+  if (output.game.pluginVersion < 10)
     output.trailers = [output.trailer]
 
   const tmpTrailers = []
@@ -118,10 +118,17 @@ export default function parseData(data) {
   }
 
   for (let i = 0; i < tmpTrailers.length; i++) {
-    const tmpTrailerWheels = []
-    
+    tmpTrailers[i].damage = {
+      cargo:   tmpTrailers[i].cargo?.damage   || null,
+      chassis: tmpTrailers[i].chassis?.damage || null,
+      wheels:  tmpTrailers[i].wheels?.damage  || null,
+    }
+
+    tmpTrailers[i].attached = tmpTrailers[i].attached == 1 ? true : false
+
     if (!tmpTrailers[i].wheels) continue
 
+    const tmpTrailerWheels = []
     for (let j = 0; j < tmpTrailers[i].wheels.count; j++) {
       tmpTrailerWheels.push({
         substance:      {
@@ -146,13 +153,7 @@ export default function parseData(data) {
       })
     }
 
-    tmpTrailers[i].attached = tmpTrailers[i].attached == 1 ? true : false
     tmpTrailers[i].wheels   = tmpTrailerWheels
-
-    tmpTrailers[i].damage = {
-      cargo:   tmpTrailers[i].cargo   ? tmpTrailers[i].cargo.damage   : 0,
-      chassis: tmpTrailers[i].chassis ? tmpTrailers[i].chassis.damage : 0,
-    }
   }
 
   output.trailers = tmpTrailers
