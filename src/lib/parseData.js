@@ -160,7 +160,7 @@ export default function parseData(data) {
   output.trailer  = tmpTrailers[0]
 
   // Job
-  output.job.deliveryTime = convertTime(output.job.deliveryTime)
+  output.job.deliveryTime = convertTime(output.job.deliveryTime, output.job.market == "external_contracts")
   
   // Navigation
   output.navigation.speedLimit    = convertSpeed(output.navigation.speedLimit)
@@ -252,13 +252,17 @@ function parseDistance(km) {
   }
 }
 
-function convertTime(input) {
-  // 4 day offset to make the day of the week line up
-  // Because the game thinks it's year 1 but unix starts in 1970
-  const dateOffset = 345600000
-  const unix       = input * 60000 + dateOffset
-  
-  return {value: input, unix}
+function convertTime(value, isExternalContract) {
+  if (isExternalContract) return {value: 0, unix: 0}
+
+  const epoch = new Date(null)
+  const day = Math.floor(value % 525600 / 1440)
+
+  epoch.setDate(day)
+  epoch.setHours(Math.floor(value % 1440 / 60))
+  epoch.setMinutes(Math.floor(value % 1440 % 60))
+
+  return {value, unix: epoch.valueOf()}
 }
 
 function fixPropNames(src, target) {
