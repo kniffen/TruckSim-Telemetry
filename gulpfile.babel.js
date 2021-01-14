@@ -46,7 +46,7 @@ function watch() {
 
 function generateBuffer(done) {
   const buffer = getBuffer()
-  const data   = converters[10](parseData(converted))
+  const data   = parseData(converters[10](buffer))
 
   fs.writeFileSync(path.resolve(__dirname, `./src/tests/buffers/scs_sdk_plugin_buffer_${data.game.pluginVersion}`), buffer)
   

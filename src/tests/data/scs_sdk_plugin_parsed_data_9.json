@@ -13,7 +13,7 @@
       "telemetryVersion": "1.13",
       "time": {
          "value": 7238,
-         "unix": 779880000
+         "unix": 776280000
       },
       "scale": 3,
       "sdkActive": false
@@ -577,7 +577,7 @@
    "job": {
       "deliveryTime": {
          "value": 7537,
-         "unix": 797820000
+         "unix": 794220000
       },
       "cargo": {
          "mass": 18918.900390625,
@@ -736,8 +736,9 @@
          }
       ],
       "damage": {
-         "cargo": 0,
-         "chassis": 0
+         "cargo": null,
+         "chassis": null,
+         "wheels": null
       },
       "attached": true,
       "hook": {
@@ -968,8 +969,9 @@
             }
          ],
          "damage": {
-            "cargo": 0,
-            "chassis": 0
+            "cargo": null,
+            "chassis": null,
+            "wheels": null
          },
          "attached": true,
          "hook": {
