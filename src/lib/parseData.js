@@ -256,11 +256,11 @@ function convertTime(value, isExternalContract) {
   if (isExternalContract) return {value: 0, unix: 0}
 
   const epoch = new Date(null)
-  const day = Math.floor(value % 525600 / 1440)
+  const day   = Math.floor(value / 1440 % 7 + 5)
 
-  epoch.setDate(day)
-  epoch.setHours(Math.floor(value % 1440 / 60))
-  epoch.setMinutes(Math.floor(value % 1440 % 60))
+  epoch.setUTCDate(day)
+  epoch.setUTCHours(Math.floor(value % 1440 / 60))
+  epoch.setUTCMinutes(Math.floor(value % 1440 % 60))
 
   return {value, unix: epoch.valueOf()}
 }
