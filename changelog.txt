@@ -1,5 +1,12 @@
 Changelog
 
+v0.10.5 - 2021-01-26
+- Improved unix timestamp
+
+v0.10.4 - 2021-01-14
+- Improved time conversion
+- Added missing damage value for trailer wheels
+
 v0.10.3 - 2020-10-12
 - Replaced deep-equal dependency with lodash.isequal
 
