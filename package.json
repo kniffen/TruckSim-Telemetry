@@ -1,6 +1,6 @@
 {
   "name": "trucksim-telemetry",
-  "version": "0.10.5",
+  "version": "0.10.6",
   "description": "Telemetry data from the scs-sdk-plugin",
   "main": "index.js",
   "scripts": {

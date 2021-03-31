@@ -1,5 +1,8 @@
 Changelog
 
+v0.10.6 - 2021-03-31
+- Removed unneeded dependencies
+
 v0.10.5 - 2021-01-26
 - Improved unix timestamp
 
