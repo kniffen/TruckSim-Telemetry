@@ -26,9 +26,9 @@ describe("eventEmitters/trailers()", function() {
 
   const createData = () => ({
     trailers: [
-      {attached: true,  damage: {chassis: 0.01}},
-      {attached: false, damage: {chassis: 0.02}},
-      {attached: true,  damage: {chassis: 0.03}},
+      {attached: true,  damage: {total: 0.01}},
+      {attached: false, damage: {total: 0.02}},
+      {attached: true,  damage: {total: 0.03}},
     ]
   })
 
@@ -45,22 +45,22 @@ describe("eventEmitters/trailers()", function() {
     trailers(telemetry, data)
     data[0].trailers[0].attached = false
     data[0].trailers[1].attached = true
-    data[0].trailers[0].damage.chassis = 0.03
-    data[0].trailers[2].damage.chassis = 0.02
+    data[0].trailers[0].damage.total = 0.03
+    data[0].trailers[2].damage.total = 0.02
     trailers(telemetry, data)
     data[0].trailers[0].attached = true
     data[0].trailers[1].attached = false
-    data[1].trailers[0].damage.chassis = 0.03
+    data[1].trailers[0].damage.total = 0.03
     trailers(telemetry, data)
     data[1].trailers[0].attached = true
     data[1].trailers[1].attached = false
-    data[1].trailers[0].damage.chassis = 0.02
-    data[1].trailers[2].damage.chassis = 0.01
+    data[1].trailers[0].damage.total = 0.02
+    data[1].trailers[2].damage.total = 0.01
     trailers(telemetry, data)
     data[0].trailers[0].attached = true
     data[0].trailers[1].attached = false
-    data[0].trailers[0].damage.chassis = 0.00
-    data[0].trailers[2].damage.chassis = 0.05
+    data[0].trailers[0].damage.total = 0.00
+    data[0].trailers[2].damage.total = 0.05
     trailers(telemetry, data)
   })
 
@@ -78,13 +78,13 @@ describe("eventEmitters/trailers()", function() {
     assert.equal(spies.trailers.damage.args.length, 4)
     assert.equal(spies.trailer.damage.args.length, 2)
 
-    assert.deepEqual(spies.trailers.damage.args[0], [0, {chassis: 0.03}, {chassis: 0.01}])
-    assert.deepEqual(spies.trailers.damage.args[1], [0, {chassis: 0.03}, {chassis: 0.02}])
-    assert.deepEqual(spies.trailers.damage.args[2], [2, {chassis: 0.02}, {chassis: 0.01}])
-    assert.deepEqual(spies.trailers.damage.args[3], [2, {chassis: 0.05}, {chassis: 0.01}])
+    assert.deepEqual(spies.trailers.damage.args[0], [0, {total: 0.03}, {total: 0.01}])
+    assert.deepEqual(spies.trailers.damage.args[1], [0, {total: 0.03}, {total: 0.02}])
+    assert.deepEqual(spies.trailers.damage.args[2], [2, {total: 0.02}, {total: 0.01}])
+    assert.deepEqual(spies.trailers.damage.args[3], [2, {total: 0.05}, {total: 0.01}])
   
-    assert.deepEqual(spies.trailer.damage.args[0], [{chassis: 0.03}, {chassis: 0.01}])
-    assert.deepEqual(spies.trailer.damage.args[1], [{chassis: 0.03}, {chassis: 0.02}])
+    assert.deepEqual(spies.trailer.damage.args[0], [{total: 0.03}, {total: 0.01}])
+    assert.deepEqual(spies.trailer.damage.args[1], [{total: 0.03}, {total: 0.02}])
   })
 
 })
