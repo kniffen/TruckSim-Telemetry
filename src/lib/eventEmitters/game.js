@@ -4,13 +4,14 @@ import cloneDeep from "lodash.clonedeep"
 export default function eventEmittersGame(telemetry, data) {
 
   // Game paused/unpaused
-  if (data[0]?.game.paused != data[1]?.game.paused)
-    telemetry.game.emit("pause", data[0].game.paused)
+  if ( data[0]?.game.paused != data[1]?.game.paused ) {
+    telemetry.game.emit( "pause", data[0].game.paused )
+  }
 
   // Game time changed
-  if (!isEqual(data[0]?.game.time, data[1]?.game.time))
-    telemetry.game.emit("time-change", data[0].game.time, data[1].game.time )
- 
+  if ( !isEqual( data[0]?.game.time, data[1]?.game.time ) ) {
+    telemetry.game.emit( "time-change", data[0].game.time, data[1].game.time )
+  }
 
   // Fine
   if ( data[0]?.events?.fine.active && !data[1]?.events?.fine.active ) {
