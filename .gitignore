@@ -8,3 +8,7 @@ build
 # Dist
 dist
 **/*.tgz
+
+# Test data
+src/tests/buffers/*
+src/tests/data/*
