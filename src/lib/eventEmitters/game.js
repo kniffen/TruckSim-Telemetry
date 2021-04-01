@@ -11,8 +11,6 @@ export default function eventEmittersGame(telemetry, data) {
   if (!isEqual(data[0]?.game.time, data[1]?.game.time))
     telemetry.game.emit("time-change", data[0].game.time, data[1].game.time )
  
-  // SDK 1.10 and above
-  if (data[0]?.game.pluginVersion < 10) return
 
   // Fine
   if (data[0]?.events?.fine.active && !data[1]?.events?.fine.active)

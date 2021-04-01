@@ -11,15 +11,9 @@ napi_value GetArrayBuffer(napi_env env, napi_callback_info info) {
   napi_value buffer;
 
   hMapFileSCSTelemetry     = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, "Local\\SCSTelemetry");
-  hMapFileSimTelemetrySCS  = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, "Local\\SimTelemetrySCS");
-  hMapFileSimTelemetryETS2 = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, "Local\\SimTelemetryETS2");
 
   if (hMapFileSCSTelemetry) {
     pBuf = MapViewOfFile(hMapFileSCSTelemetry, FILE_MAP_ALL_ACCESS, 0, 0, 32*1024);  
-  } else if (hMapFileSimTelemetrySCS) {
-    pBuf = MapViewOfFile(hMapFileSimTelemetrySCS, FILE_MAP_ALL_ACCESS, 0, 0, 16*1024);
-  } else if (hMapFileSimTelemetryETS2) {
-    pBuf = MapViewOfFile(hMapFileSimTelemetryETS2, FILE_MAP_ALL_ACCESS, 0, 0, 16*1024);
   } else {
     napi_throw_error(env, NULL, "Unable to get array buffer");
     return nullptr;

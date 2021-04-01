@@ -10,8 +10,6 @@ export default function eventEmittersJob(telemetry, data) {
   if (data[0]?.events?.job.started.active && !data[1]?.events?.job.started.active)
       telemetry.job.emit("started", cloneDeep(data[0].events.job.started))
 
-  // SDK 1.10 and above
-  if (data[0]?.game.pluginVersion < 10) return
 
   // Job cancelled
   if (data[0]?.events?.job.cancelled.active && !data[1]?.events?.job.cancelled.active)
