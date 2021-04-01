@@ -4,7 +4,7 @@ import cloneDeep from "lodash.clonedeep"
 export default function eventEmittersTruck(telemetry, data) {
  
   // Truck damage
-  if (Math.floor(data[0]?.truck?.damage.chassis * 100) > Math.floor(data[1]?.truck?.damage.chassis * 100)) {
+  if ( Math.floor( data[0]?.truck?.damage.total * 100 ) > Math.floor( data[1]?.truck?.damage.total * 100 ) ) {
     telemetry.truck.emit(
       "damage", 
       cloneDeep(data[0].truck.damage), 

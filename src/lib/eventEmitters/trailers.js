@@ -11,7 +11,7 @@ export default function eventEmittersTrailers(telemetry, data) {
     }
 
     // Damage
-    if (Math.floor(data[0]?.trailers[i]?.damage.chassis * 100) > Math.floor(data[1]?.trailers[i]?.damage.chassis * 100)) {
+    if ( Math.floor(data[0]?.trailers[i]?.damage.total * 100) > Math.floor(data[1]?.trailers[i]?.damage.total * 100) ) {
       telemetry.trailers.emit(
         "damage", 
         i, 
