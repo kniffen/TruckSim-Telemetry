@@ -305,8 +305,8 @@ export default function getDataFromPluginVersion10(buffer) {
     _.padTo(2300),
     
     // 9th zone
-    _.char("truck.brand.id", stringSize),
-    _.char("truck.brand.name", stringSize),
+    _.char("truck.make.id", stringSize),
+    _.char("truck.make.name", stringSize),
 
     _.char("truck.model.id", stringSize),
     _.char("truck.model.name", stringSize),
@@ -334,14 +334,14 @@ export default function getDataFromPluginVersion10(buffer) {
     _.char("events.fine.offence", 32),
 
     _.char("events.ferry.source.name", stringSize),
-    _.char("events.ferry.target.name", stringSize),
+    _.char("events.ferry.destination.name", stringSize),
     _.char("events.ferry.source.id", stringSize),
-    _.char("events.ferry.target.id", stringSize),
+    _.char("events.ferry.destination.id", stringSize),
 
     _.char("events.train.source.name", stringSize),
-    _.char("events.train.target.name", stringSize),
+    _.char("events.train.destination.name", stringSize),
     _.char("events.train.source.id", stringSize),
-    _.char("events.train.target.id", stringSize),
+    _.char("events.train.destination.id", stringSize),
 
     _.padTo(4000),
 
@@ -463,8 +463,8 @@ export default function getDataFromPluginVersion10(buffer) {
       _.char("model.id", stringSize),
       _.char("accessoryId", stringSize),
       _.char("bodyType", stringSize),
-      _.char("brand.id", stringSize),
-      _.char("brand.name", stringSize),
+      _.char("make.id", stringSize),
+      _.char("make.name", stringSize),
       _.char("model.name", stringSize),
       _.char("chainType", stringSize),
       _.char("licensePlate.value", stringSize),
