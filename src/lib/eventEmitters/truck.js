@@ -13,16 +13,52 @@ export default function eventEmittersTruck(telemetry, data) {
   }
 
   // Cruise control toggle
-  if (data[0]?.truck?.cruiseControl.enabled != data[1]?.truck?.cruiseControl.enabled)
-    telemetry.truck.emit("cruise-control", data[0].truck.cruiseControl.enabled)
+  if ( data[0]?.truck?.cruiseControl.enabled != data[1]?.truck?.cruiseControl.enabled ) {
+    const cruiseControlData = {
+      enabled:      data[0].truck.cruiseControl.enabled,
+      currentSpeed: data[0].truck.speed,
+      speedLimit:   data[0].navigation.speedLimit,
+      cruiseControlSpeed: {
+        value: data[0].truck.cruiseControl.value,
+        kph:   data[0].truck.cruiseControl.kph,
+        mph:   data[0].truck.cruiseControl.mph
+      },
+    }
+
+    telemetry.truck.emit( "cruise-control", cruiseControlData )
+  }
 
   // cruise control increase
-  if (data[0]?.truck?.cruiseControl.value > data[1]?.truck?.cruiseControl.value)
-    telemetry.truck.emit("cruise-control-increase", cloneDeep(data[0].truck.cruiseControl))
+  if ( data[0]?.truck?.cruiseControl.value > data[1]?.truck?.cruiseControl.value ) {
+    const cruiseControlData = {
+      enabled:      data[0].truck.cruiseControl.enabled,
+      currentSpeed: data[0].truck.speed,
+      speedLimit:   data[0].navigation.speedLimit,
+      cruiseControlSpeed: {
+        value: data[0].truck.cruiseControl.value,
+        kph:   data[0].truck.cruiseControl.kph,
+        mph:   data[0].truck.cruiseControl.mph
+      },
+    }
+
+    telemetry.truck.emit( "cruise-control-increase", cruiseControlData )
+  }
 
   // cruise control decrease
-  if (data[0]?.truck?.cruiseControl.value < data[1]?.truck?.cruiseControl.value)
-    telemetry.truck.emit("cruise-control-decrease", cloneDeep(data[0].truck.cruiseControl))
+  if ( data[0]?.truck?.cruiseControl.value < data[1]?.truck?.cruiseControl.value ) {
+    const cruiseControlData = {
+      enabled:      data[0].truck.cruiseControl.enabled,
+      currentSpeed: data[0].truck.speed,
+      speedLimit:   data[0].navigation.speedLimit,
+      cruiseControlSpeed: {
+        value: data[0].truck.cruiseControl.value,
+        kph:   data[0].truck.cruiseControl.kph,
+        mph:   data[0].truck.cruiseControl.mph
+      },
+    }
+
+    telemetry.truck.emit( "cruise-control-decrease", cruiseControlData )
+  }
 
   // Warnings
   const warnings = [
@@ -82,13 +118,14 @@ export default function eventEmittersTruck(telemetry, data) {
     telemetry.truck.emit("wipers", data[0].truck.wipers.enabled)
 
   // Refuel
-  if (data[0]?.events?.refuel.active && !data[1]?.events?.refuel.active) {
     telemetry.truck.emit("refuel", data[0].events.refuel, data[1].events.refuel)
-    telemetry.truck.emit("refuel-started")
+  if ( data[0]?.events?.refuel.active && !data[1]?.events?.refuel.active ) {
+    telemetry.truck.emit( "refuel-started", data[1].truck.fuel )
   }
 
-  if (!data[0]?.events?.refuel.active && data[1]?.events?.refuel.active)
-    telemetry.truck.emit("refuel-stopped")
+  if ( !data[0]?.events?.refuel.active && data[1]?.events?.refuel.active ) {
+    telemetry.truck.emit( "refuel-stopped", data[0].truck.fuel )
+  }
 
 
 }
