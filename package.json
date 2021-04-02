@@ -9,8 +9,7 @@
     "dev": "npx gulp",
     "generate-buffer": "npx gulp generateBuffer",
     "generate-data": "npx gulp generateData",
-    "docs": "npx gulp docs",
-    "docsold": "npx live-server ./docs"
+    "docs": "npx gulp docs"
   },
   "gypfile": true,
   "repository": {
