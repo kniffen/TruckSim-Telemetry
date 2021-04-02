@@ -11,14 +11,13 @@ Read the full documentation over at http://trucksimtelemetry.knifftech.org/
 ### Prerequisites
 #### Download and install the **[scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin)** by **[RenCloud](https://github.com/RenCloud)**
 Supported versions
-- v.1.9.0
 - v.1.10.6
 
 #### Install the [windows-build-tools](https://github.com/felixrieseberg/windows-build-tools)
 
 ### Installing
 Install the module via NPM
-`npm i trucksim-telemetry`
+`npm install trucksim-telemetry`
 
 
 ## Examples
@@ -53,7 +52,7 @@ function update(data) {
   console.log(data.truck.speed) // => current speed object
 }
 
-telemetry.watch({interval: 100}, update)
+telemetry.watch({}, update)
 ```
 
 ### Functions
