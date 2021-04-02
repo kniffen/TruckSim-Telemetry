@@ -7,22 +7,22 @@
 **Returns: [data object](data.md#controls)**
 
 ### getGame()
-**Returns: [data object](data.md#game)**
+**Returns: [game data object](data.md#game)**
 
 ### getJob()
-**Returns: [data object](data.md#job)**
+**Returns: [job data object](data.md#job)**
 
 ### getNavigation()
-**Returns: [data object](data.md#navigation)**
+**Returns: [navigation data object](data.md#navigation)**
 
 ### getTrailers()
-**Returns: [data object](data.md#trailers)**
+**Returns: [trailers data object](data.md#trailers)**
 
 ### getTrailer()
-**Returns: [data object](data.md#trailer)**
+**Returns: [trailer data object](data.md#trailer)**
 
 ### getTruck()
-**Returns: [data object](data.md#truck)**
+**Returns: [truck data object](data.md#truck)**
 
 ### watch({options}, update)
 **Use: starts watching the game for changes at every given interval**
@@ -57,15 +57,13 @@ const truckSimTelemetry = require("trucksim-telemetry")
 
 const telemetry = truckSimTelemetry()
 
-telemetry.game.on("time-change", function(current, previous) {
+telemetry.game.once("time-change", function(current, previous) {
   // current  == current in-game time
   // previous == previous in-game time
+
+  // Stop watching the game for changes
+  telemetry.stop()
 })
 
 telemetry.watch()
-
-// Stop watching after 5 seconds
-setTimeout(function() {
-  telemetry.stop()  
-}, 5000)
 ```

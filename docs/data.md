@@ -91,7 +91,7 @@
          "name": "",
          "id": ""
       },
-      "target": {
+      "destination": {
          "name": "",
          "id": ""
       },
@@ -103,7 +103,7 @@
          "name": "",
          "id": ""
       },
-      "target": {
+      "destination": {
          "name": "",
          "id": ""
       },
@@ -128,7 +128,7 @@
       "name": "",
       "id": ""
    },
-   "target": {
+   "destination": {
       "name": "",
       "id": ""
    },
@@ -137,7 +137,7 @@
 }
 ```
 
-#### events.ferry.source
+#### events.ferry.destination
 
 ```json
 {
@@ -146,7 +146,7 @@
 }
 ```
 
-#### events.ferry.target
+#### events.ferry.source
 
 ```json
 {
@@ -292,7 +292,7 @@
       "name": "",
       "id": ""
    },
-   "target": {
+   "destination": {
       "name": "",
       "id": ""
    },
@@ -301,7 +301,7 @@
 }
 ```
 
-#### events.train.source
+#### events.train.destination
 
 ```json
 {
@@ -310,7 +310,7 @@
 }
 ```
 
-#### events.train.target
+#### events.train.source
 
 ```json
 {
@@ -332,7 +332,7 @@
       "value": 3726400
    },
    "renderTimestamp": {
-      "value": 3726376
+      "value": 37263761
    },
    "pluginVersion": 10,
    "version": "1.16",
@@ -343,7 +343,7 @@
    "telemetryVersion": "1.16",
    "time": {
       "value": 15881488,
-      "unix": 6719280000
+      "unix": 674880000
    },
    "maxTrailerCount": 10,
    "scale": 3
@@ -363,7 +363,7 @@
 
 ```json
 {
-   "value": 3726376
+   "value": 37263761
 }
 ```
 
@@ -380,7 +380,7 @@
 ```json
 {
    "value": 15881488,
-   "unix": 6719280000
+   "unix": 674880000
 }
 ```
 
@@ -398,7 +398,7 @@
 {
    "deliveryTime": {
       "value": 15883117,
-      "unix": 6817020000
+      "unix": 772620000
    },
    "plannedDistance": {
       "km": 9,
@@ -459,7 +459,7 @@
 ```json
 {
    "value": 15883117,
-   "unix": 6817020000
+   "unix": 772620000
 }
 ```
 
@@ -779,7 +779,7 @@
    },
    "accessoryId": "",
    "bodyType": "refrigerated",
-   "brand": {
+   "make": {
       "id": "",
       "name": ""
    },
@@ -794,7 +794,8 @@
    "damage": {
       "cargo": 0.012286542914807796,
       "chassis": 0.03265746310353279,
-      "wheels": 0.004918619524687529
+      "wheels": 0.004918619524687529,
+      "total": 0.03265746310353279
    }
 }
 ```
@@ -866,15 +867,6 @@
 }
 ```
 
-### trailer.brand
-
-```json
-{
-   "id": "",
-   "name": ""
-}
-```
-
 ### trailer.cargo
 
 ```json
@@ -897,7 +889,8 @@
 {
    "cargo": 0.012286542914807796,
    "chassis": 0.03265746310353279,
-   "wheels": 0.004918619524687529
+   "wheels": 0.004918619524687529,
+   "total": 0.03265746310353279
 }
 ```
 
@@ -941,6 +934,15 @@
 {
    "name": "Italy",
    "id": "italy"
+}
+```
+
+### trailer.make
+
+```json
+{
+   "id": "",
+   "name": ""
 }
 ```
 
@@ -1447,7 +1449,7 @@
       },
       "accessoryId": "",
       "bodyType": "refrigerated",
-      "brand": {
+      "make": {
          "id": "",
          "name": ""
       },
@@ -1462,7 +1464,8 @@
       "damage": {
          "cargo": 0.012286542914807796,
          "chassis": 0.03265746310353279,
-         "wheels": 0.004918619524687529
+         "wheels": 0.004918619524687529,
+         "total": 0.03265746310353279
       }
    },
    {
@@ -1519,7 +1522,7 @@
       },
       "accessoryId": "",
       "bodyType": "",
-      "brand": {
+      "make": {
          "id": "",
          "name": ""
       },
@@ -1534,7 +1537,8 @@
       "damage": {
          "cargo": null,
          "chassis": null,
-         "wheels": null
+         "wheels": null,
+         "total": null
       }
    },
    {
@@ -1591,7 +1595,7 @@
       },
       "accessoryId": "",
       "bodyType": "",
-      "brand": {
+      "make": {
          "id": "",
          "name": ""
       },
@@ -1606,7 +1610,8 @@
       "damage": {
          "cargo": null,
          "chassis": null,
-         "wheels": null
+         "wheels": null,
+         "total": null
       }
    },
    {
@@ -1663,7 +1668,7 @@
       },
       "accessoryId": "",
       "bodyType": "",
-      "brand": {
+      "make": {
          "id": "",
          "name": ""
       },
@@ -1678,7 +1683,8 @@
       "damage": {
          "cargo": null,
          "chassis": null,
-         "wheels": null
+         "wheels": null,
+         "total": null
       }
    },
    {
@@ -1735,7 +1741,7 @@
       },
       "accessoryId": "",
       "bodyType": "",
-      "brand": {
+      "make": {
          "id": "",
          "name": ""
       },
@@ -1750,7 +1756,8 @@
       "damage": {
          "cargo": null,
          "chassis": null,
-         "wheels": null
+         "wheels": null,
+         "total": null
       }
    },
    {
@@ -1807,7 +1814,7 @@
       },
       "accessoryId": "",
       "bodyType": "",
-      "brand": {
+      "make": {
          "id": "",
          "name": ""
       },
@@ -1822,7 +1829,8 @@
       "damage": {
          "cargo": null,
          "chassis": null,
-         "wheels": null
+         "wheels": null,
+         "total": null
       }
    },
    {
@@ -1879,7 +1887,7 @@
       },
       "accessoryId": "",
       "bodyType": "",
-      "brand": {
+      "make": {
          "id": "",
          "name": ""
       },
@@ -1894,7 +1902,8 @@
       "damage": {
          "cargo": null,
          "chassis": null,
-         "wheels": null
+         "wheels": null,
+         "total": null
       }
    }
 ]
@@ -2491,7 +2500,7 @@
       "pitch": -0.003974676597863436,
       "roll": -0.002503795549273491
    },
-   "brand": {
+   "make": {
       "id": "mercedes",
       "name": "Mercedes-Benz"
    },
@@ -2511,7 +2520,8 @@
       "chassis": 0.038533974438905716,
       "engine": 0.019268987700343132,
       "transmission": 0.011562191881239414,
-      "wheels": 0.005800096318125725
+      "wheels": 0.005800096318125725,
+      "total": 0.038533974438905716
    }
 }
 ```
@@ -2685,15 +2695,6 @@
 }
 ```
 
-### truck.brand
-
-```json
-{
-   "id": "mercedes",
-   "name": "Mercedes-Benz"
-}
-```
-
 ### truck.cabin
 
 ```json
@@ -2802,7 +2803,8 @@
    "chassis": 0.038533974438905716,
    "engine": 0.019268987700343132,
    "transmission": 0.011562191881239414,
-   "wheels": 0.005800096318125725
+   "wheels": 0.005800096318125725,
+   "total": 0.038533974438905716
 }
 ```
 
@@ -3148,6 +3150,15 @@
 ```json
 {
    "enabled": false
+}
+```
+
+### truck.make
+
+```json
+{
+   "id": "mercedes",
+   "name": "Mercedes-Benz"
 }
 ```
 
