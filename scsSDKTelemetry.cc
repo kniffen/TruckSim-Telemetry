@@ -5,19 +5,20 @@ HANDLE hMapFileSCSTelemetry;
 LPVOID pBuf = NULL;
 
 napi_value GetArrayBuffer(napi_env env, napi_callback_info info) {
+  size_t mmf_size = 32*1024;
   napi_status status;
   napi_value buffer;
 
   hMapFileSCSTelemetry     = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, "Local\\SCSTelemetry");
 
   if (hMapFileSCSTelemetry) {
-    pBuf = MapViewOfFile(hMapFileSCSTelemetry, FILE_MAP_ALL_ACCESS, 0, 0, 32*1024);  
+    pBuf = MapViewOfFile(hMapFileSCSTelemetry, FILE_MAP_ALL_ACCESS, 0, 0, mmf_size);  
   } else {
     napi_throw_error(env, NULL, "Unable to get array buffer");
     return nullptr;
   }
 
-  status = napi_create_external_arraybuffer(env, pBuf, 16*1024, NULL, NULL, &buffer);
+  status = napi_create_external_arraybuffer(env, pBuf, mmf_size, NULL, NULL, &buffer);
 
   return buffer;
 }
