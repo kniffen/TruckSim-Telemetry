@@ -1,5 +1,8 @@
 Changelog
 
+v0.12.0 - 2021-04-08
+- Added mapped memory file name as option parameter
+
 v0.11.0 - 2021-04-02
 - Improved data for fine, tollgate, ferry, train and refuel-paid game events
 - Improved data for started, cancelled and delivered job events
