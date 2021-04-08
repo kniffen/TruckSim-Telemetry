@@ -2,8 +2,6 @@
 #include <windows.h>
 
 HANDLE hMapFileSCSTelemetry;
-HANDLE hMapFileSimTelemetrySCS;
-HANDLE hMapFileSimTelemetryETS2;
 LPVOID pBuf = NULL;
 
 napi_value GetArrayBuffer(napi_env env, napi_callback_info info) {
