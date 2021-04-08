@@ -22,56 +22,8 @@ Install the module via NPM
 
 ## Examples
 
-### Events
-```javascript
-const truckSimTelemetry = require("trucksim-telemetry")
+Check the [Documentation](https://trucksimtelemetry.knifftech.org) page for [examples](https://trucksimtelemetry.knifftech.org/#/examples)
 
-const telemetry = truckSimTelemetry()
-
-telemetry.game.on("time-change", function(to, from) {
-  // to   -> new in-game time object
-  // from -> previous in-game time object
-})
-
-// Call to start watching the game for changes
-telemetry.watch()
-
-// Stop watching the game for changes
-telemetry.stop()
-```
-
-### Update loop
-**The update function runs everytime the state of the game changes**
-
-```javascript
-const truckSimTelemetry = require("trucksim-telemetry")
-
-const telemetry = truckSimTelemetry()
-
-function update(data) {
-  console.log(data.truck.speed) // => current speed object
-}
-
-telemetry.watch({}, update)
-```
-
-### Functions
-If you don't want to use events you can just get the data manually using these functions
-```javascript
-const truckSimTelemetry = require("trucksim-telemetry")
-
-truckSimTelemetry.getBuffer()     // -> Original memory buffer from the plugin
-truckSimTelemetry.getData()       // -> Parsed data
-truckSimTelemetry.getGame()       // -> Parsed game data
-truckSimTelemetry.getControls()   // -> Parsed controls data
-truckSimTelemetry.getTruck()      // -> Parsed truck data
-truckSimTelemetry.getTrailers()   // -> Parsed trailers data
-truckSimTelemetry.getTrailer()    // -> Parsed trailer data
-truckSimTelemetry.getJob()        // -> Parsed job data
-truckSimTelemetry.getNavigation() // -> Parsed navigational data
-```
-
-Fot more details about events and functions see the [documentation](http://trucksimtelemetry.knifftech.org/) page
 
 ### Demo
 To help visualize the data you can use this [Demo app](https://github.com/kniffen/TruckSim-Telemetry-Demo)

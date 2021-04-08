@@ -29,7 +29,7 @@
 
 | Option   | type     | Default | Minimum | Required |
 | -------- | -------- | ------- | ------- | -------- |
-| interval | number   | 100(ms) | 10(ms)  | no       |
+| interval | integer  | 100(ms) | 10(ms)  | no       |
 | update   | function |         |         | no       |
 
 #### Example
@@ -43,7 +43,7 @@ telemetry.game.on("time-change", function(current, previous) {
   // previous == previous in-game time
 })
 
-telemetry.watch({interval: 200}, function() {
+telemetry.watch({interval: 50}, function() {
   // update function, runs everytime the game state changes
 })
 ```
