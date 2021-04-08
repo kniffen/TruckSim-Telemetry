@@ -13,6 +13,10 @@ describe("getData()", function() {
   let getBufferStub, getPluginVersionStub
   let version, buffer, parsedData
 
+  const opts = {
+    mmfName: "foobar"
+  }
+
   before(function() {
     parsedData = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./data/scs_sdk_plugin_parsed_data_10.json")))
 
@@ -41,36 +45,38 @@ describe("getData()", function() {
   })
 
   it("Should get parsed data from supported SDK versions", function() {
-    const result = getData()
+    const result = getData(null, opts)
 
-    assert.equal(getBufferStub.args.length, 1)
-    assert.deepEqual(getPluginVersionStub.args[0], [buffer])
+    assert.deepEqual(getBufferStub.args, [[opts]])
+    assert.deepEqual(getPluginVersionStub.args, [[buffer]])
     assert.deepEqual(result, parsedData)
   })
 
   it("Should return data for a specified property", function() {
-    const result = getData("game")
+    const result = getData("game", opts)
   
-    assert.equal(getBufferStub.args.length, 1)
-    assert.deepEqual(getPluginVersionStub.args[0], [buffer])
+    assert.deepEqual(getBufferStub.args, [[opts]])
+    assert.deepEqual(getPluginVersionStub.args, [[buffer]])
     assert.deepEqual(result, parsedData.game)
   })
 
   it("Should throw an error for unsupported SDK versions", function() {
     version = 1234
     try {
-      const result = getData()
+      const result = getData(null, opts)
     } catch (err) {
+      assert.deepEqual(getBufferStub.args, [[opts]])
       assert.equal(err.message, "SCS-SDK-Plugin version 1234 is not supported")
     }
   })
 
   it("Should return undefined if version number is less than 0", function() {
     version = 0
-    const test1 = getData()
+    const test1 = getData(null, opts)
     version = -1
-    const test2 = getData()
+    const test2 = getData(null, opts)
 
+    assert.deepEqual(getBufferStub.args, [[opts], [opts]])
     assert.equal(test1, undefined)
     assert.equal(test2, undefined)
   })
@@ -82,7 +88,8 @@ describe("getData()", function() {
       return undefined
     })
 
-    const result = getData()
+    const result = getData(null, opts)
+    assert.deepEqual(getBufferStub.args, [[opts]])
     assert.equal(result, undefined)
   })
 

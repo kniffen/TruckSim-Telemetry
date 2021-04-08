@@ -3,8 +3,8 @@ import getPluginVersion from "./getPluginVersion"
 import converters       from "./converters"
 import parseData        from "./parseData"
 
-export default function getData(key) {
-  const buffer = getBuffer()
+export default function getData(key, opts) {
+  const buffer = getBuffer(opts)
 
   if (!buffer) return
 

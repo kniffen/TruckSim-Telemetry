@@ -5,11 +5,24 @@ HANDLE hMapFileSCSTelemetry;
 LPVOID pBuf = NULL;
 
 napi_value GetArrayBuffer(napi_env env, napi_callback_info info) {
+  char* mmf_name;
+  size_t argc = 1;
+  size_t mmf_name_size;
+  size_t mmf_name_size_read;
   size_t mmf_size = 32*1024;
   napi_status status;
+  napi_value argv[1];
   napi_value buffer;
 
-  hMapFileSCSTelemetry     = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, "Local\\SCSTelemetry");
+  status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
+  status = napi_get_value_string_utf8(env, argv[0], NULL, 0, &mmf_name_size);
+
+  mmf_name      = (char*)calloc(mmf_name_size + 1, sizeof(char));
+  mmf_name_size = mmf_name_size + 1;
+
+  status = napi_get_value_string_utf8(env, argv[0], mmf_name, mmf_name_size, &mmf_name_size_read);
+
+  hMapFileSCSTelemetry = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, mmf_name);
 
   if (hMapFileSCSTelemetry) {
     pBuf = MapViewOfFile(hMapFileSCSTelemetry, FILE_MAP_ALL_ACCESS, 0, 0, mmf_size);  

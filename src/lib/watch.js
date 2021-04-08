@@ -19,7 +19,7 @@ export default function watch(opts, update, telemetry) {
   let previous = null
 
   const watcher = () => {
-    const current = getData()
+    const current = getData(null, telemetry.opts)
 
     if (current?.game.sdkActive && !previous?.game.sdkActive) {
       telemetry.game.emit("connected")

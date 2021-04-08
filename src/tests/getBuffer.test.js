@@ -5,27 +5,28 @@ import getBuffer from "../lib/getBuffer"
 import scsSDKTelemetry from "../../build/Release/scsSDKTelemetry"
 
 describe("getBuffer()", function() {
+  const opts = {
+    mmfName: "foobar"
+  }
 
-  it( "Should return a buffer" )
-  // it("Should return a buffer", function() {
-  //   const getArrayBufferStub = sinon.stub(scsSDKTelemetry, "getArrayBuffer").callsFake(() => "foobar")
-  //   const buffer = getBuffer()
+  const sandbox = sinon.createSandbox()
 
-  //   assert.equal(buffer.toString(), "foobar")
-  //   getArrayBufferStub.restore()
-  // })
-
-  it( "Should return undefined if it fails" )
-  // it("Should return undefined if it fails", function() {
-  //   const getArrayBufferStub = sinon.stub(scsSDKTelemetry, "getArrayBuffer").callsFake(function() {
-  //     throw new Error("foobar")
-  //   })
-   
-  //   const buffer = getBuffer()
+  before(function() {
+    // TODO: Figure out to make the following work
+    // Current error: TypeError: Cannot redefine property: getArrayBuffer
     
-  //   assert(buffer === undefined)
-  //   getArrayBufferStub.restore()
+    //sandbox.stub(scsSDKTelemetry, "getArrayBuffer")
+  })
 
-  // })
+  
+  it("Should return a buffer")
+
+  it("Should return a buffer with a specified mapped memory file name")
+
+  it("Should return undefined if it fails", function() {
+    const buffer = getBuffer(opts)
+    
+    assert(buffer === undefined)
+  })
 
 })
