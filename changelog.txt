@@ -1,7 +1,7 @@
 Changelog
 
 v0.13.0 - 2021-04-20
-- Added typescript support (curtesy of jack-douglas)
+- Added typescript support (Courtesy of jack-douglas)
 
 v0.12.0 - 2021-04-08
 - Added mapped memory file name as option parameter
