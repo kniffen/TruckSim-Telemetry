@@ -1,9 +1,8 @@
 import scsSDKTelemetry from "../../build/Release/scsSDKTelemetry"
 
-export default function getBuffer() {
+export default function getBuffer(opts) {
   try {
-  
-    const arrayBuffer = scsSDKTelemetry.getArrayBuffer()
+    const arrayBuffer = scsSDKTelemetry.getArrayBuffer(opts.mmfName)
     const buffer      = new Buffer.from(arrayBuffer)
     
     return buffer

@@ -15,18 +15,29 @@ import stop  from "../lib/stop"
 describe("truckSimTelemetry()", function() {
 
   let buffer, data
+  const defaultOpts = {
+    mmfName: "Local\\SCSTelemetry"
+  }
+
+  const sandbox = sinon.createSandbox()
 
   before(function() {
     buffer = fs.readFileSync(path.resolve(__dirname, "./buffers/scs_sdk_plugin_buffer_10"))
     data   = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./data/scs_sdk_plugin_parsed_data_10.json")))
 
-    sinon.stub(getBuffer, "default").callsFake(function() {
+    sandbox.stub(getBuffer, "default").callsFake(function() {
       return buffer
     })
+
+    sandbox.spy(getData, "default")
   })
 
   after(function() {
-    getBuffer.default.restore()
+    sandbox.restore()
+  })
+
+  afterEach(function() {
+    sandbox.resetHistory()
   })
 
   it("should return a telemetry object", function() {
@@ -50,6 +61,8 @@ describe("truckSimTelemetry()", function() {
       trailer:    {},
     })
 
+    assert.deepEqual(telemetry.opts, defaultOpts)
+
     assert.deepEqual(telemetry.getBuffer(),     buffer)
     assert.deepEqual(telemetry.getData(),       data)
     assert.deepEqual(telemetry.getGame(),       data.game)
@@ -59,6 +72,69 @@ describe("truckSimTelemetry()", function() {
     assert.deepEqual(telemetry.getTruck(),      data.truck)
     assert.deepEqual(telemetry.getTrailers(),   data.trailers)
     assert.deepEqual(telemetry.getTrailer(),    data.trailer)
+
+    assert.deepEqual(getBuffer.default.args, [
+      [defaultOpts],
+      [defaultOpts],
+      [defaultOpts],
+      [defaultOpts],
+      [defaultOpts],
+      [defaultOpts],
+      [defaultOpts],
+      [defaultOpts],
+      [defaultOpts],
+    ])
+
+    assert.deepEqual(getData.default.args, [
+      [null,         defaultOpts],
+      ["game",       defaultOpts],
+      ["controls",   defaultOpts],
+      ["job",        defaultOpts],
+      ["navigation", defaultOpts],
+      ["truck",      defaultOpts],
+      ["trailers",   defaultOpts],
+      ["trailer",    defaultOpts],
+    ])
+  })
+
+  it("should accept options", function() {
+    const opts      = {mmfName: "foobar"}
+    const telemetry = truckSimTelemetry(opts)
+  
+    assert.deepEqual(telemetry.opts, opts)
+
+    assert.deepEqual(telemetry.getBuffer(),     buffer)
+    assert.deepEqual(telemetry.getData(),       data)
+    assert.deepEqual(telemetry.getGame(),       data.game)
+    assert.deepEqual(telemetry.getControls(),   data.controls)
+    assert.deepEqual(telemetry.getJob(),        data.job)
+    assert.deepEqual(telemetry.getNavigation(), data.navigation)
+    assert.deepEqual(telemetry.getTruck(),      data.truck)
+    assert.deepEqual(telemetry.getTrailers(),   data.trailers)
+    assert.deepEqual(telemetry.getTrailer(),    data.trailer)
+
+    assert.deepEqual(getBuffer.default.args, [
+      [opts],
+      [opts],
+      [opts],
+      [opts],
+      [opts],
+      [opts],
+      [opts],
+      [opts],
+      [opts],
+    ])
+
+    assert.deepEqual(getData.default.args, [
+      [null,         opts],
+      ["game",       opts],
+      ["controls",   opts],
+      ["job",        opts],
+      ["navigation", opts],
+      ["truck",      opts],
+      ["trailers",   opts],
+      ["trailer",    opts],
+    ])
   })
 
 })

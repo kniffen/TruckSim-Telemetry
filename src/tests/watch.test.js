@@ -17,26 +17,27 @@ import * as eventEmittersTrailers   from "../lib/eventEmitters/trailers"
 
 describe("watch()", function() {
 
-  let clock, data, datas
-  const spies = {}
-  const stubs = {}
+  let clock, data, datas, update
+  const opts  = {mmfName: "foobar"}
+  
+  const sandbox = sinon.createSandbox()
 
   before(function() {
     data = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./data/scs_sdk_plugin_parsed_data_10.json")))
 
     clock = sinon.useFakeTimers()
 
-    spies.update = sinon.spy()
+    update = sandbox.spy()
 
-    stubs.getData = sinon.stub(getData, "default").callsFake(function() {
+    sandbox.stub(getData, "default").callsFake(function() {
       return datas[getData.default.args.length - 1] || datas[0]
     })
 
-    stubs.game       = sinon.stub(eventEmittersGame,       "default")
-    stubs.job        = sinon.stub(eventEmittersJob,        "default")
-    stubs.navigation = sinon.stub(eventEmittersNavigation, "default")
-    stubs.truck      = sinon.stub(eventEmittersTruck,      "default")
-    stubs.trailers   = sinon.stub(eventEmittersTrailers,   "default")
+    sandbox.stub(eventEmittersGame,       "default")
+    sandbox.stub(eventEmittersJob,        "default")
+    sandbox.stub(eventEmittersNavigation, "default")
+    sandbox.stub(eventEmittersTruck,      "default")
+    sandbox.stub(eventEmittersTrailers,   "default")
   })
 
   beforeEach(function() {
@@ -44,46 +45,36 @@ describe("watch()", function() {
   })
 
   afterEach(function() {
-    for (const spy in spies) {
-      spies[spy].resetHistory()
-    }
-
-    for (const stub in stubs) {
-      stubs[stub].resetHistory()
-    }
+    sandbox.resetHistory()
   })
 
   after(function() {
-    clock.restore()
-
-    for (const stub in stubs) {
-      stubs[stub].restore()
-    }
+    sandbox.restore()
   })
 
   it("Should ensure the opts object exists and the interval property is 100ms or more", function() {
     const testCases = [
-      {opts: undefined,            tick: 100, callCount: 2},
-      {opts: null,                 tick: 100, callCount: 2},
-      {opts: {},                   tick: 100, callCount: 2},
-      {opts: {interval: 200},      tick: 200, callCount: 2},
-      {opts: {interval: "200"},    tick: 200, callCount: 2},
-      {opts: {interval: 1},        tick: 10,  callCount: 2},
-      {opts: {interval: "foobar"}, tick: 100, callCount: 2},
+      {opts: undefined,            tick: 100},
+      {opts: null,                 tick: 100},
+      {opts: {},                   tick: 100},
+      {opts: {interval: 200},      tick: 200},
+      {opts: {interval: "200"},    tick: 200},
+      {opts: {interval: 1},        tick: 10},
+      {opts: {interval: "foobar"}, tick: 100},
     ]
 
     for (const testCase of testCases) {
-      const telemetry = truckSimTelemetry()
+      const telemetry = truckSimTelemetry(opts)
 
-      watch(testCase.opts, spies.update, telemetry)
+      watch(testCase.opts, update, telemetry)
 
       clock.tick(testCase.tick)
       telemetry.stop()
       clock.reset()
 
-      assert.equal(stubs.getData.args.length, testCase.callCount)
+      assert.deepEqual(getData.default.args, [[null, opts], [null, opts]])
 
-      stubs.getData.resetHistory()
+      getData.default.resetHistory()
     }
   })
 
@@ -94,25 +85,25 @@ describe("watch()", function() {
     datas[1].game.sdkActive = false
     datas[2].game.sdkActive = true
 
-    const telemetry = truckSimTelemetry()
-    const spy = sinon.spy()
+    const telemetry = truckSimTelemetry(opts)
+    const spy       = sinon.spy()
 
-    telemetry.game.once("connected", spy)
+    telemetry.game.once("connected",    spy)
     telemetry.game.once("disconnected", spy)
 
-    watch({interval: 10}, spies.update, telemetry)
+    watch({interval: 10}, update, telemetry)
     clock.tick(10)
     telemetry.stop()
     clock.reset()
 
     assert.equal(spy.args.length, 2)
-    assert.equal(spies.update.args.length, 1)
+    assert.equal(update.args.length, 1)
   })
 
   it("Should update the data properties of the telemetry object", function() {
-    const telemetry = truckSimTelemetry()
+    const telemetry = truckSimTelemetry(opts)
 
-    watch({interval: 10}, spies.update, telemetry)
+    watch({interval: 10}, update, telemetry)
     clock.tick(10)
     telemetry.stop()
     clock.reset()
@@ -129,51 +120,51 @@ describe("watch()", function() {
   it("Should run event emitters", function() {
     datas[1] = cloneDeep(data)
 
-    const telemetry = truckSimTelemetry()
+    const telemetry = truckSimTelemetry(opts)
 
-    watch({interval: 10}, spies.update, telemetry)
+    watch({interval: 10}, update, telemetry)
     clock.tick(10)
     telemetry.stop()
     clock.reset()
 
-    assert.deepEqual(stubs.game.args[0],       [telemetry, [datas[1], datas[0]]])
-    assert.deepEqual(stubs.job.args[0],        [telemetry, [datas[1], datas[0]]])
-    assert.deepEqual(stubs.navigation.args[0], [telemetry, [datas[1], datas[0]]])
-    assert.deepEqual(stubs.truck.args[0],      [telemetry, [datas[1], datas[0]]])
-    assert.deepEqual(stubs.trailers.args[0],   [telemetry, [datas[1], datas[0]]])
-
+    assert.deepEqual(eventEmittersGame.default.args[0],       [telemetry, [datas[1], datas[0]]])
+    assert.deepEqual(eventEmittersJob.default.args[0],        [telemetry, [datas[1], datas[0]]])
+    assert.deepEqual(eventEmittersNavigation.default.args[0], [telemetry, [datas[1], datas[0]]])
+    assert.deepEqual(eventEmittersTruck.default.args[0],      [telemetry, [datas[1], datas[0]]])
+    assert.deepEqual(eventEmittersTrailers.default.args[0],   [telemetry, [datas[1], datas[0]]])
   })
 
   it("Should quit early if a watcher already exists", function() {
-    const telemetry = truckSimTelemetry()
+    const telemetry = truckSimTelemetry(opts)
 
     telemetry.watcher = "foobar"
 
-    watch({interval: 10}, spies.update, telemetry)
+    watch({interval: 10}, update, telemetry)
     clock.tick(10)
     telemetry.stop()
     clock.reset()
 
-    assert.equal(stubs.getData.args.length, 0)
+    assert.equal(getData.default.args.length, 0)
   })
 
   it("Should handle there being no data", function() {
-    stubs.getData.callsFake(function() {
+    getData.default.restore()
+    sandbox.stub(getData, "default").callsFake(function() {
       return undefined
     })
 
-    const telemetry = truckSimTelemetry()
+    const telemetry = truckSimTelemetry(opts)
 
-    watch({interval: 10}, spies.update, telemetry)
+    watch({interval: 10}, update, telemetry)
     clock.tick(10)
     telemetry.stop()
     clock.reset()
 
-    assert.deepEqual(stubs.game.args.length,       0)
-    assert.deepEqual(stubs.job.args.length,        0)
-    assert.deepEqual(stubs.navigation.args.length, 0)
-    assert.deepEqual(stubs.truck.args.length,      0)
-    assert.deepEqual(stubs.trailers.args.length,   0)
+    assert.equal(eventEmittersGame.default.args.length,       0)
+    assert.equal(eventEmittersJob.default.args.length,        0)
+    assert.equal(eventEmittersNavigation.default.args.length, 0)
+    assert.equal(eventEmittersTruck.default.args.length,      0)
+    assert.equal(eventEmittersTrailers.default.args.length,   0)
   })
 
 })

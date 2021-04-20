@@ -72,6 +72,15 @@ function generateDataDocs(done) {
   const parsedData = parseData(converters[10](buffer))
   const filePath   = path.resolve(__dirname, "./docs/data.md")
 
+  /* Remove deprecated values*/
+  delete parsedData.truck.brand
+  delete parsedData.trailer.brand
+  delete parsedData.events.ferry.target
+  delete parsedData.events.train.target
+  for ( let i = 0; i < parsedData.trailers.length; i++ ) {
+    delete parsedData.trailers[i].brand
+  }
+
   let output = "# Data\n\n"
 
   const addSubObjects = (subData, name, depth = 3) => {

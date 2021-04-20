@@ -33,11 +33,13 @@ describe("eventEmitters/truck()", function() {
   const createData = () => ({
     truck: {
       damage:{
-        chassis: 0.01
+        total: 0.01
       },
       cruiseControl: {
         enabled: false,
-        value:   0
+        value:   0,
+        kph:     0,
+        mph:     0,
       },
       brakes: {
         airPressure: {
@@ -53,7 +55,13 @@ describe("eventEmitters/truck()", function() {
         }
       },
       fuel: {
+        value: 485.2419738769531,
         warning: {enabled: false}
+      },
+      speed: {
+       value: 22.345924377441406,
+       kph:   80,
+       mph:   50,
       },
       adBlue: {
         warning: {enabled: false}
@@ -82,6 +90,13 @@ describe("eventEmitters/truck()", function() {
         enabled: false
       }
     },
+    navigation: {
+      speedLimit: {
+        value: 13.88888931274414,
+        kph:   50,
+        mph:   31,
+      }
+    },
     events: {
       refuel: {
         active: false
@@ -106,7 +121,6 @@ describe("eventEmitters/truck()", function() {
     telemetry.truck.on("park",                     spies.park)
     telemetry.truck.on("retarder",                 spies.retarder)
     telemetry.truck.on("wipers",                   spies.wipers)
-    telemetry.truck.on("refuel",                   spies.refuel)
     telemetry.truck.on("refuel-started",           spies.refuelStarted)
     telemetry.truck.on("refuel-stopped",           spies.refuelStopped)
   })
@@ -115,23 +129,35 @@ describe("eventEmitters/truck()", function() {
     data[0] = createData()
     data[1] = createData()
 
+    data[1].truck.speed = {
+      value: 35.564654231321859,
+      kph:   124,
+      mph:   65,
+    }
+    data[1].truck.cruiseControl = {
+      enabled: false,
+      value:   18.564457846511884,
+      kph:     50,
+      mph:     25,
+    }
+
     sinon.reset()
   })
 
   it("Should emit damage events", function() {
     truck(telemetry, data)
-    data[0].truck.damage.chassis = 0.03
+    data[0].truck.damage.total = 0.03
     truck(telemetry, data)
-    data[1].truck.damage.chassis = 0.03
+    data[1].truck.damage.total = 0.03
     truck(telemetry, data)
-    data[0].truck.damage.chassis = 0.02
+    data[0].truck.damage.total = 0.02
     truck(telemetry, data)
-    data[0].truck.damage.chassis = 0.05
+    data[0].truck.damage.total = 0.05
     truck(telemetry, data)
 
     assert.equal(spies.damage.args.length, 2)
-    assert.deepEqual(spies.damage.args[0], [{chassis: 0.03}, {chassis: 0.01}])
-    assert.deepEqual(spies.damage.args[1], [{chassis: 0.05}, {chassis: 0.03}])
+    assert.deepEqual(spies.damage.args[0], [{total: 0.03}, {total: 0.01}])
+    assert.deepEqual(spies.damage.args[1], [{total: 0.05}, {total: 0.03}])
   })
 
   it("Should emit cruise-control events", function() {
@@ -145,28 +171,100 @@ describe("eventEmitters/truck()", function() {
     data[0].truck.cruiseControl.enabled = true
     truck(telemetry, data)
 
-    assert.equal(spies.cruiseControl.args.length, 2)
-    assert.equal(spies.cruiseControl.args[0][0], true)
-    assert.equal(spies.cruiseControl.args[1][0], false)
+    assert.equal( spies.cruiseControl.args.length, 2 )
+
+    assert.deepEqual( spies.cruiseControl.args[0][0], {
+      enabled: true,
+      cruiseControlSpeed: {
+        value: 0,
+        kph:   0,
+        mph:   0,
+      },
+      currentSpeed: {
+        value: 22.345924377441406,
+        kph:   80,
+        mph:   50,
+      },
+      speedLimit: {
+        value: 13.88888931274414,
+        kph:   50,
+        mph:   31,
+      }
+    } )
+
+    assert.deepEqual(spies.cruiseControl.args[1][0], {
+      enabled: false,
+      cruiseControlSpeed: {
+        value: 0,
+        kph:   0,
+        mph:   0,
+      },
+      currentSpeed: {
+        value: 22.345924377441406,
+        kph:   80,
+        mph:   50,
+      },
+      speedLimit: {
+        value: 13.88888931274414,
+        kph:   50,
+        mph:   31,
+      },
+    })
   })
 
   it("Should emit cruise-control-increase events", function() {
+    data[0].truck.cruiseControl.enabled = true
     truck(telemetry, data)
-    data[0].truck.cruiseControl.value++
+    data[0].truck.cruiseControl.value+=20
     truck(telemetry, data)
-    data[1].truck.cruiseControl.value++
+    data[1].truck.cruiseControl.value+=20
     truck(telemetry, data)
-    data[0].truck.cruiseControl.value--
+    data[0].truck.cruiseControl.value-=20
     truck(telemetry, data)
-    data[0].truck.cruiseControl.value+=2
+    data[0].truck.cruiseControl.value+=50
     truck(telemetry, data)
 
     assert.equal(spies.cruiseControlIncrease.args.length, 2)
-    assert.deepEqual(spies.cruiseControlIncrease.args[0][0], {enabled: false, value: 1})
-    assert.deepEqual(spies.cruiseControlIncrease.args[1][0], {enabled: false, value: 2})
+    assert.deepEqual(spies.cruiseControlIncrease.args[0][0], {
+      enabled: true,
+      cruiseControlSpeed: {
+        value: 20,
+        kph:   0,
+        mph:   0,
+      },
+      currentSpeed: {
+        value: 22.345924377441406,
+        kph:   80,
+        mph:   50,
+      },
+      speedLimit: {
+        value: 13.88888931274414,
+        kph:   50,
+        mph:   31,
+      },
+    })
+    assert.deepEqual(spies.cruiseControlIncrease.args[1][0], {
+      enabled: true,
+      cruiseControlSpeed: {
+        value: 50,
+        kph:   0,
+        mph:   0,
+      },
+      currentSpeed: {
+        value: 22.345924377441406,
+        kph:   80,
+        mph:   50,
+      },
+      speedLimit: {
+        value: 13.88888931274414,
+        kph:   50,
+        mph:   31,
+      },
+    })
   })
 
   it("Should emit cruise-control-decrease events", function() {
+    data[0].truck.cruiseControl.enabled = true
     data[0].truck.cruiseControl.value = 10
     data[1].truck.cruiseControl.value = 10
     truck(telemetry, data)
@@ -180,8 +278,42 @@ describe("eventEmitters/truck()", function() {
     truck(telemetry, data)
 
     assert.equal(spies.cruiseControlDecrease.args.length, 2)
-    assert.deepEqual(spies.cruiseControlDecrease.args[0][0], {enabled: false, value: 9})
-    assert.deepEqual(spies.cruiseControlDecrease.args[1][0], {enabled: false, value: 5})
+    assert.deepEqual(spies.cruiseControlDecrease.args[0][0], {
+      enabled: true,
+      cruiseControlSpeed: {
+        value: 9,
+        kph:   0,
+        mph:   0,
+      },
+      currentSpeed: {
+        value: 22.345924377441406,
+        kph:   80,
+        mph:   50,
+      },
+      speedLimit: {
+        value: 13.88888931274414,
+        kph:   50,
+        mph:   31,
+      },
+    })
+    assert.deepEqual(spies.cruiseControlDecrease.args[1][0], {
+      enabled: true,
+      cruiseControlSpeed: {
+        value: 5,
+        kph:   0,
+        mph:   0,
+      },
+      currentSpeed: {
+        value: 22.345924377441406,
+        kph:   80,
+        mph:   50,
+      },
+      speedLimit: {
+        value: 13.88888931274414,
+        kph:   50,
+        mph:   31,
+      },
+    })
   })
 
   it("Should emit warning events", function() {
@@ -341,15 +473,20 @@ describe("eventEmitters/truck()", function() {
     truck(telemetry, data)
     data[0].events.refuel.active = false
     data[1].events.refuel.active = true
+    data[0].truck.fuel.value     = 587.2515454132155
     truck(telemetry, data)
 
-    assert.deepEqual(spies.refuel.args[0], [
-      {active: false},
-      {active: true},
-    ])
-    assert(spies.refuel.calledOnce)
     assert(spies.refuelStarted.calledOnce)
     assert(spies.refuelStopped.calledOnce)
+
+    assert.deepEqual(spies.refuelStarted.args[0][0], {
+      value:        485.2419738769531,
+      warning:      {enabled: false}
+    })
+    assert.deepEqual(spies.refuelStopped.args[0][0], {
+      value:        587.2515454132155,
+      warning:      {enabled: false}
+    })
   })
 
 })

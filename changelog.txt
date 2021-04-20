@@ -1,5 +1,22 @@
 Changelog
 
+v0.12.0 - 2021-04-08
+- Added mapped memory file name as option parameter
+
+v0.11.0 - 2021-04-02
+- Improved data for fine, tollgate, ferry, train and refuel-paid game events
+- Improved data for started, cancelled and delivered job events
+- Improved data for cruise-control, cruise-control-increase, cruise-control-decrease, refuel-started and refuel-stopped truck events
+- Improved damage detection for trucks and trailers
+- Added total damage value to truck data
+- Added total damage value to trailer data
+- Removed support for plugin versions older than version 10
+- Removed refuel-payed game event
+- Removed refuel truck event
+
+v0.10.6 - 2021-03-31
+- Removed unneeded dependencies
+
 v0.10.5 - 2021-01-26
 - Improved unix timestamp
 

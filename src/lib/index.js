@@ -3,11 +3,14 @@ import EventEmitter from "events"
 import watch from "./watch"
 import stop  from "./stop"
 
-import getBuffer from "./getBuffer"
-import getData   from "./getData"
+import getBuffer    from "./getBuffer"
+import getData      from "./getData"
+import parseOptions from "./parseOptions"
 
-export default function truckSimTelemetry() {
+export default function truckSimTelemetry(opts = {}) {
   const telemetry = new Object()
+
+  telemetry.opts = parseOptions(opts)
 
   telemetry.game       = new EventEmitter()
   telemetry.job        = new EventEmitter()
@@ -26,18 +29,18 @@ export default function truckSimTelemetry() {
     truck:      new Object(),
   }
 
-  telemetry.watch = (opts, cb) => watch(opts, cb, telemetry)
-  telemetry.stop  = ()         => stop(telemetry)
+  telemetry.watch = (watchOpts, cb) => watch(watchOpts, cb, telemetry)
+  telemetry.stop  = ()              => stop(telemetry)
 
-  telemetry.getBuffer     = getBuffer
-  telemetry.getData       = getData
-  telemetry.getGame       = () => getData("game")
-  telemetry.getControls   = () => getData("controls")
-  telemetry.getJob        = () => getData("job")
-  telemetry.getNavigation = () => getData("navigation")
-  telemetry.getTruck      = () => getData("truck")
-  telemetry.getTrailers   = () => getData("trailers")
-  telemetry.getTrailer    = () => getData("trailer")
+  telemetry.getBuffer     = () => getBuffer(telemetry.opts)
+  telemetry.getData       = () => getData(null,         telemetry.opts)
+  telemetry.getGame       = () => getData("game",       telemetry.opts)
+  telemetry.getControls   = () => getData("controls",   telemetry.opts)
+  telemetry.getJob        = () => getData("job",        telemetry.opts)
+  telemetry.getNavigation = () => getData("navigation", telemetry.opts)
+  telemetry.getTruck      = () => getData("truck",      telemetry.opts)
+  telemetry.getTrailers   = () => getData("trailers",   telemetry.opts)
+  telemetry.getTrailer    = () => getData("trailer",    telemetry.opts)
 
   return telemetry
 }

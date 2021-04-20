@@ -17,7 +17,6 @@ describe("eventEmitters/game()", function() {
     tollgate:    sinon.spy(),
     ferry:       sinon.spy(),
     train:       sinon.spy(),
-    refuelPayed: sinon.spy(),
     refuelPaid:  sinon.spy()
   }
 
@@ -28,11 +27,10 @@ describe("eventEmitters/game()", function() {
       pluginVersion: 10
     },
     events: {
-      fine:        {active: false, amount: 100},
+      fine:        {active: false, amount: 100, offence: "foobar"},
       tollgate:    {active: false, amount: 200},
-      ferry:       {active: false, amount: 300},
-      train:       {active: false, amount: 400},
-      refuelPayed: {active: false},
+      ferry:       {active: false, amount: 300, source: "foo", destination: "bar"},
+      train:       {active: false, amount: 400, source: "foo", destination: "bar"},
       refuelPaid:  {active: false, amount: 500}
     }
   })
@@ -46,7 +44,6 @@ describe("eventEmitters/game()", function() {
     telemetry.game.on("tollgate",     spies.tollgate)
     telemetry.game.on("ferry",        spies.ferry)
     telemetry.game.on("train",        spies.train)
-    telemetry.game.on("refuel-payed", spies.refuelPayed)
     telemetry.game.on("refuel-paid",  spies.refuelPaid)
 
     game(telemetry, data)
@@ -99,37 +96,32 @@ describe("eventEmitters/game()", function() {
   
   it("Should emit fine events", function() {
     assert.equal(spies.fine.args.length, 1)
-    assert.deepEqual(spies.fine.args[0][0], {active: true, amount: 100})
+    assert.deepEqual(spies.fine.args[0][0], {offence: "foobar", amount: 100})
   })
   
   it("Should emit tollgate events", function() {
     assert.equal(spies.tollgate.args.length, 1)
-    assert.deepEqual(spies.tollgate.args[0][0], {active: true, amount: 200})
+    assert.deepEqual(spies.tollgate.args[0][0], {amount: 200})
   })
   
   it("Should emit ferry events", function() {
     assert.equal(spies.ferry.args.length, 1)
-    assert.deepEqual(spies.ferry.args[0][0], {active: true, amount: 300})
+    assert.deepEqual(spies.ferry.args[0][0], {
+      source:      "foo",
+      destination: "bar",
+      target:      "bar",
+      amount:      300,
+    })
   })
 
   it("Should emit train events", function() {
     assert.equal(spies.train.args.length, 1)
-    assert.deepEqual(spies.train.args[0][0], {active: true, amount: 400})
-  })
-
-  it("Should not emit events not supported by plugin version 9", function() {
-    const data = [createData(), createData()]
-    
-    for (let i = 0; i < 2; i++) {
-      data[i].game.pluginVersion = 9
-  
-      delete data[i].events.fine
-      delete data[i].events.tollgate
-      delete data[i].events.ferry
-      delete data[i].events.train
-    }
-
-    game(telemetry, data)
+    assert.deepEqual(spies.train.args[0][0], {
+      source:      "foo",
+      destination: "bar",
+      target:      "bar",
+      amount:      400,
+    })
   })
 
   it("Should emit refuel-paid events", function() {
@@ -140,9 +132,8 @@ describe("eventEmitters/game()", function() {
     data[0].events.refuelPaid.amount = 600
     game(telemetry, data)
   
-    assert(spies.refuelPayed.calledOnce)
     assert.deepEqual(spies.refuelPaid.args[0], [
-      {active: true,  amount: 600}
+      {amount: 600}
     ])
   })
 
