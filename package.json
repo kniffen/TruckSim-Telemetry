@@ -1,13 +1,13 @@
 {
   "name": "trucksim-telemetry",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "Telemetry data from the scs-sdk-plugin",
   "main": "index.js",
   "types": "./typings/index.d.ts",
   "scripts": {
+    "dev": "npx gulp",
     "build": "npx gulp build",
     "test": "npx gulp test",
-    "dev": "npx gulp",
     "generate-buffer": "npx gulp generateBuffer",
     "generate-data": "npx gulp generateData",
     "docs": "npx gulp docs"
@@ -45,12 +45,10 @@
     "gulp-babel": "^8.0.0",
     "gulp-mocha": "^7.0.2",
     "gulp-plumber": "^1.2.1",
-    "gulp-sourcemaps": "^2.6.5",
     "live-server": "^1.2.1",
     "mocha": "^8.3.2",
     "node-gyp": "^7.1.2",
-    "sinon": "^9.2.4",
-    "source-map-support": "^0.5.19"
+    "sinon": "^9.2.4"
   },
   "babel": {
     "presets": [
