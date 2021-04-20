@@ -1,5 +1,3 @@
-import EventEmitter from "events"
-
 declare module "trucksim-telemetry" {
   declare function truckSimTelemetry(opts?: Options): Telemetry;
   declare namespace truckSimTelemetry {
@@ -22,10 +20,6 @@ declare module "trucksim-telemetry" {
 
   interface WatchOptions {
     interval?: number
-  }
-
-  interface TSTEvent extends any {
-
   }
 
   export interface Telemetry {
