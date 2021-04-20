@@ -2,7 +2,7 @@ import path   from "path"
 import fs     from "fs"
 import assert from "assert"
 
-import getPluginVersion from "../lib/getPluginVersion"
+import getPluginVersion from "../src/getPluginVersion"
 
 describe("getPluginVersion()", function() {
   

@@ -2,7 +2,7 @@ import assert       from"assert"
 import sinon        from"sinon"
 import EventEmitter from"events"
 
-import game from "../../lib/eventEmitters/game"
+import game from "../../src/eventEmitters/game"
 
 describe("eventEmitters/game()", function() {
 

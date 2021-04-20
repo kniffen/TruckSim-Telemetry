@@ -2,7 +2,7 @@ import assert       from "assert"
 import sinon        from "sinon"
 import EventEmitter from "events"
 
-import job from "../../lib/eventEmitters/job"
+import job from "../../src/eventEmitters/job"
 
 describe("eventEmitters/job()", function() {
 

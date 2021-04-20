@@ -1,7 +1,7 @@
 import assert from "assert"
 import sinon  from "sinon"
 
-import parseOptions  from "../lib/parseOptions"
+import parseOptions  from "../src/parseOptions"
 
 describe("parseOptions()", function() {
 

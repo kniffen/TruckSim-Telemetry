@@ -1,8 +1,8 @@
 import assert       from "assert"
 import sinon        from "sinon"
 
-import getBuffer from "../lib/getBuffer"
-import scsSDKTelemetry from "../../build/Release/scsSDKTelemetry"
+import getBuffer from "../src/getBuffer"
+import scsSDKTelemetry from "../build/Release/scsSDKTelemetry"
 
 describe("getBuffer()", function() {
   const opts = {

@@ -1,4 +1,4 @@
-import scsSDKTelemetry from "../../build/Release/scsSDKTelemetry"
+import scsSDKTelemetry from "../build/Release/scsSDKTelemetry"
 
 export default function getBuffer(opts) {
   try {

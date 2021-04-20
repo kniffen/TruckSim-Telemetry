@@ -1,6 +1,6 @@
 build
 docs
 src
-dist/tests
+tests
 
 **/*.tgz

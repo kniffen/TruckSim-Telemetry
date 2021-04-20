@@ -3,10 +3,10 @@ import sinon  from "sinon"
 import fs     from "fs"
 import path   from "path"
 
-import getData   from "../lib/getData"
+import getData   from "../src/getData"
 
-import * as getBuffer        from "../lib/getBuffer"
-import * as getPluginVersion from "../lib/getPluginVersion"
+import * as getBuffer        from "../src/getBuffer"
+import * as getPluginVersion from "../src/getPluginVersion"
 
 describe("getData()", function() {
 

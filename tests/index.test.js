@@ -4,13 +4,13 @@ import EventEmitter from "events"
 import fs           from "fs"
 import path         from "path"
 
-import truckSimTelemetry from "../lib"
+import truckSimTelemetry from "../src"
 
-import * as getBuffer from "../lib/getBuffer"
-import * as getData   from "../lib/getData"
+import * as getBuffer from "../src/getBuffer"
+import * as getData   from "../src/getData"
 
-import watch from "../lib/watch"
-import stop  from "../lib/stop"
+import watch from "../src/watch"
+import stop  from "../src/stop"
 
 describe("truckSimTelemetry()", function() {
 

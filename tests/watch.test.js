@@ -4,16 +4,16 @@ import fs        from "fs"
 import path      from "path"
 import cloneDeep from "lodash.clonedeep"
 
-import truckSimTelemetry from "../lib"
+import truckSimTelemetry from "../src"
 
-import watch         from "../lib/watch"
-import * as getData  from "../lib/getData"
+import watch         from "../src/watch"
+import * as getData  from "../src/getData"
 
-import * as eventEmittersGame       from "../lib/eventEmitters/game"
-import * as eventEmittersJob        from "../lib/eventEmitters/job"
-import * as eventEmittersNavigation from "../lib/eventEmitters/navigation"
-import * as eventEmittersTruck      from "../lib/eventEmitters/truck"
-import * as eventEmittersTrailers   from "../lib/eventEmitters/trailers"
+import * as eventEmittersGame       from "../src/eventEmitters/game"
+import * as eventEmittersJob        from "../src/eventEmitters/job"
+import * as eventEmittersNavigation from "../src/eventEmitters/navigation"
+import * as eventEmittersTruck      from "../src/eventEmitters/truck"
+import * as eventEmittersTrailers   from "../src/eventEmitters/trailers"
 
 describe("watch()", function() {
 

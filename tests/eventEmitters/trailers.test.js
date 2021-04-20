@@ -2,7 +2,7 @@ import assert       from "assert"
 import sinon        from "sinon"
 import EventEmitter from "events"
 
-import trailers from "../../lib/eventEmitters/trailers"
+import trailers from "../../src/eventEmitters/trailers"
 
 describe("eventEmitters/trailers()", function() {
 

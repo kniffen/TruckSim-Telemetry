@@ -1,7 +1,7 @@
-const truckSimTelemetry = require("./dist/lib").default
-const getBuffer         = require("./dist/lib/getBuffer").default
-const getData           = require("./dist/lib/getData").default
-const parseOptions      = require("./dist/lib/parseOptions").default
+const truckSimTelemetry = require("./dist").default
+const getBuffer         = require("./dist/getBuffer").default
+const getData           = require("./dist/getData").default
+const parseOptions      = require("./dist/parseOptions").default
 
 truckSimTelemetry.getBuffer     = (opts) => getBuffer(parseOptions(opts))
 

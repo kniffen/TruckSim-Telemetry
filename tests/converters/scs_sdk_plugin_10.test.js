@@ -2,7 +2,7 @@ import path   from "path"
 import fs     from "fs"
 import assert from "assert"
 
-import converter from "../../lib/converters/scs_sdk_plugin_10"
+import converter from "../../src/converters/scs_sdk_plugin_10"
 
 describe("converters/scs_sdk_plugin_10()", function() {
 

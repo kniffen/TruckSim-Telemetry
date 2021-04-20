@@ -10,5 +10,5 @@ dist
 **/*.tgz
 
 # Test data
-src/tests/buffers/*
-src/tests/data/*
+tests/buffers/*
+tests/data/*

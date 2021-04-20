@@ -3,8 +3,8 @@ import sinon  from "sinon"
 import path   from "path"
 import fs     from "fs"
 
-import parseData  from "../lib/parseData"
-import converters from "../lib/converters"
+import parseData  from "../src/parseData"
+import converters from "../src/converters"
 
 describe("parseData()", function() {
 

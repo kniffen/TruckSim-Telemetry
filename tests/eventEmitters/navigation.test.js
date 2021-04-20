@@ -2,7 +2,7 @@ import assert       from "assert"
 import sinon        from "sinon"
 import EventEmitter from "events"
 
-import navigation from "../../lib/eventEmitters/navigation"
+import navigation from "../../src/eventEmitters/navigation"
 
 describe("eventEmitters/navigation()", function() {
 

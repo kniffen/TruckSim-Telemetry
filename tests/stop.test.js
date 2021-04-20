@@ -1,7 +1,7 @@
 import assert from "assert"
 import sinon  from "sinon"
 
-import stop from "../lib/stop"
+import stop from "../src/stop"
 
 describe("stop()", function() {
 
