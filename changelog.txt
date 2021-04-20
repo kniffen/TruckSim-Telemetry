@@ -1,5 +1,8 @@
 Changelog
 
+v0.13.1 - 2021-04-20
+- Hotfix: type declaration not working as intended
+
 v0.13.0 - 2021-04-20
 - Added typescript support (Courtesy of jack-douglas)
 
