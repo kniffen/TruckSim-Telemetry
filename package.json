@@ -3,6 +3,7 @@
   "version": "0.12.0",
   "description": "Telemetry data from the scs-sdk-plugin",
   "main": "index.js",
+  "types": "./typings/index.d.ts",
   "scripts": {
     "build": "npx gulp build",
     "test": "npx gulp test",
