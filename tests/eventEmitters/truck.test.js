@@ -1,10 +1,10 @@
-import assert       from "assert"
-import sinon        from "sinon"
-import EventEmitter from "events"
+const assert = require('assert')
+const sinon = require('sinon')
+const EventEmitter = require('events')
 
-import truck from "../../src/eventEmitters/truck"
+const truck = require('../../lib/eventEmitters/truck')
 
-describe("eventEmitters/truck()", function() {
+describe('eventEmitters/truck()', function() {
 
   const telemetry = {
     truck: new EventEmitter()
@@ -109,20 +109,20 @@ describe("eventEmitters/truck()", function() {
   })
 
   before(function() {
-    telemetry.truck.on("damage",                   spies.damage)
-    telemetry.truck.on("cruise-control",           spies.cruiseControl)
-    telemetry.truck.on("cruise-control-increase",  spies.cruiseControlIncrease)
-    telemetry.truck.on("cruise-control-decrease",  spies.cruiseControlDecrease)
-    telemetry.truck.on("warning",                  spies.warning)
-    telemetry.truck.on("emergency",                spies.emergency)
-    telemetry.truck.on("engine",                   spies.engine)
-    telemetry.truck.on("electric",                 spies.electric)
-    telemetry.truck.on("gear-change",              spies.gearChange)
-    telemetry.truck.on("park",                     spies.park)
-    telemetry.truck.on("retarder",                 spies.retarder)
-    telemetry.truck.on("wipers",                   spies.wipers)
-    telemetry.truck.on("refuel-started",           spies.refuelStarted)
-    telemetry.truck.on("refuel-stopped",           spies.refuelStopped)
+    telemetry.truck.on('damage',                   spies.damage)
+    telemetry.truck.on('cruise-control',           spies.cruiseControl)
+    telemetry.truck.on('cruise-control-increase',  spies.cruiseControlIncrease)
+    telemetry.truck.on('cruise-control-decrease',  spies.cruiseControlDecrease)
+    telemetry.truck.on('warning',                  spies.warning)
+    telemetry.truck.on('emergency',                spies.emergency)
+    telemetry.truck.on('engine',                   spies.engine)
+    telemetry.truck.on('electric',                 spies.electric)
+    telemetry.truck.on('gear-change',              spies.gearChange)
+    telemetry.truck.on('park',                     spies.park)
+    telemetry.truck.on('retarder',                 spies.retarder)
+    telemetry.truck.on('wipers',                   spies.wipers)
+    telemetry.truck.on('refuel-started',           spies.refuelStarted)
+    telemetry.truck.on('refuel-stopped',           spies.refuelStopped)
   })
 
   beforeEach(function() {
@@ -144,7 +144,7 @@ describe("eventEmitters/truck()", function() {
     sinon.reset()
   })
 
-  it("Should emit damage events", function() {
+  it('Should emit damage events', function() {
     truck(telemetry, data)
     data[0].truck.damage.total = 0.03
     truck(telemetry, data)
@@ -160,7 +160,7 @@ describe("eventEmitters/truck()", function() {
     assert.deepEqual(spies.damage.args[1], [{total: 0.05}, {total: 0.03}])
   })
 
-  it("Should emit cruise-control events", function() {
+  it('Should emit cruise-control events', function() {
     truck(telemetry, data)
     data[0].truck.cruiseControl.enabled = true
     truck(telemetry, data)
@@ -212,7 +212,7 @@ describe("eventEmitters/truck()", function() {
     })
   })
 
-  it("Should emit cruise-control-increase events", function() {
+  it('Should emit cruise-control-increase events', function() {
     data[0].truck.cruiseControl.enabled = true
     truck(telemetry, data)
     data[0].truck.cruiseControl.value+=20
@@ -263,7 +263,7 @@ describe("eventEmitters/truck()", function() {
     })
   })
 
-  it("Should emit cruise-control-decrease events", function() {
+  it('Should emit cruise-control-decrease events', function() {
     data[0].truck.cruiseControl.enabled = true
     data[0].truck.cruiseControl.value = 10
     data[1].truck.cruiseControl.value = 10
@@ -316,7 +316,7 @@ describe("eventEmitters/truck()", function() {
     })
   })
 
-  it("Should emit warning events", function() {
+  it('Should emit warning events', function() {
     truck(telemetry, data)
     data[0].truck.brakes.airPressure.warning.enabled      = true
     data[0].truck.fuel.warning.enabled                    = true
@@ -347,22 +347,22 @@ describe("eventEmitters/truck()", function() {
     truck(telemetry, data)
 
     assert.deepEqual(spies.warning.args, [
-      ["Air Pressure",      true],
-      ["Fuel",              true],
-      ["AdBlue",            true],
-      ["Oil Pressure",      true],
-      ["Water Temperature", true],
-      ["Battery Voltage",   true],
-      ["Air Pressure",      false],
-      ["Fuel",              false],
-      ["AdBlue",            false],
-      ["Oil Pressure",      false],
-      ["Water Temperature", false],
-      ["Battery Voltage",   false],
+      ['Air Pressure',      true],
+      ['Fuel',              true],
+      ['AdBlue',            true],
+      ['Oil Pressure',      true],
+      ['Water Temperature', true],
+      ['Battery Voltage',   true],
+      ['Air Pressure',      false],
+      ['Fuel',              false],
+      ['AdBlue',            false],
+      ['Oil Pressure',      false],
+      ['Water Temperature', false],
+      ['Battery Voltage',   false],
     ])
   })
 
-  it("Should emit emergency events", function() {
+  it('Should emit emergency events', function() {
     truck(telemetry, data)
     data[0].truck.brakes.airPressure.emergency.enabled = true
     truck(telemetry, data)
@@ -373,13 +373,13 @@ describe("eventEmitters/truck()", function() {
     truck(telemetry, data)
 
     assert.deepEqual(spies.emergency.args, [
-      ["Air Pressure",      true],
-      ["Air Pressure",      false],
+      ['Air Pressure',      true],
+      ['Air Pressure',      false],
     ])
 
   })
 
-  it("Should emit engine events", function() {
+  it('Should emit engine events', function() {
     truck(telemetry, data)
     data[0].truck.engine.enabled = true
     truck(telemetry, data)
@@ -393,7 +393,7 @@ describe("eventEmitters/truck()", function() {
 
   })
 
-  it("Should emit electric events", function() {
+  it('Should emit electric events', function() {
     truck(telemetry, data)
     data[0].truck.electric.enabled = true
     truck(telemetry, data)
@@ -407,7 +407,7 @@ describe("eventEmitters/truck()", function() {
 
   })
 
-  it("Should emit gear-change events", function() {
+  it('Should emit gear-change events', function() {
     truck(telemetry, data)
     data[0].truck.transmission.gear.selected++
     truck(telemetry, data)
@@ -423,7 +423,7 @@ describe("eventEmitters/truck()", function() {
     ])
   })
 
-  it("Should emit park events", function() {
+  it('Should emit park events', function() {
     truck(telemetry, data)
     data[0].truck.brakes.parking.enabled = true
     truck(telemetry, data)
@@ -437,7 +437,7 @@ describe("eventEmitters/truck()", function() {
 
   })
 
-  it("Should emit retarder events", function() {
+  it('Should emit retarder events', function() {
     truck(telemetry, data)
     data[0].truck.brakes.retarder.level++
     truck(telemetry, data)
@@ -453,7 +453,7 @@ describe("eventEmitters/truck()", function() {
     ])
   })
 
-  it("Should emit wipers events", function() {
+  it('Should emit wipers events', function() {
     truck(telemetry, data)
     data[0].truck.wipers.enabled = true
     truck(telemetry, data)
@@ -466,7 +466,7 @@ describe("eventEmitters/truck()", function() {
     assert.deepEqual(spies.wipers.args, [[true], [false]])
   })
 
-  it("Should emit refuel events", function() {
+  it('Should emit refuel events', function() {
     truck(telemetry, data)
     data[0].events.refuel.active = true
     data[1].events.refuel.active = false

@@ -1,9 +1,9 @@
-import assert from "assert"
-import sinon  from "sinon"
+const assert = require('assert')
+const sinon = require('sinon')
 
-import stop from "../src/stop"
+const stop = require('../lib/stop')
 
-describe("stop()", function() {
+describe('stop()', function() {
 
   let clock, telemetry, cb
 
@@ -20,7 +20,7 @@ describe("stop()", function() {
     clock.restore()
   })
 
-  it("Should stop a watcher interval", function() {
+  it('Should stop a watcher interval', function() {
     clock.tick(1)
     stop(telemetry)
     clock.tick(100)

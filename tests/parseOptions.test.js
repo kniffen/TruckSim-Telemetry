@@ -1,31 +1,31 @@
-import assert from "assert"
-import sinon  from "sinon"
+const assert = require('assert')
+const sinon = require('sinon')
 
-import parseOptions  from "../src/parseOptions"
+const parseOptions = require('../lib/parseOptions')
 
-describe("parseOptions()", function() {
+describe('parseOptions()', function() {
 
-  it("Should parse option objects", function() {
+  it('Should parse option objects', function() {
     const actual = [
       parseOptions(),
       parseOptions(null),
       parseOptions(undefined),
-      parseOptions("foo"),
+      parseOptions('foo'),
       parseOptions(1234),
       parseOptions([]),
       parseOptions({}),
-      parseOptions({mmfName: "bar"}),
+      parseOptions({mmfName: 'bar'}),
     ]
 
     const expected = [
-      {mmfName: "Local\\SCSTelemetry"},
-      {mmfName: "Local\\SCSTelemetry"},
-      {mmfName: "Local\\SCSTelemetry"},
-      {mmfName: "Local\\SCSTelemetry"},
-      {mmfName: "Local\\SCSTelemetry"},
-      {mmfName: "Local\\SCSTelemetry"},
-      {mmfName: "Local\\SCSTelemetry"},
-      {mmfName: "bar"},
+      {mmfName: 'Local\\SCSTelemetry'},
+      {mmfName: 'Local\\SCSTelemetry'},
+      {mmfName: 'Local\\SCSTelemetry'},
+      {mmfName: 'Local\\SCSTelemetry'},
+      {mmfName: 'Local\\SCSTelemetry'},
+      {mmfName: 'Local\\SCSTelemetry'},
+      {mmfName: 'Local\\SCSTelemetry'},
+      {mmfName: 'bar'},
     ]
 
     assert.deepEqual(actual, expected)

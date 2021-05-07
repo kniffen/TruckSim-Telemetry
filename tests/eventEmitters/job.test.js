@@ -1,10 +1,10 @@
-import assert       from "assert"
-import sinon        from "sinon"
-import EventEmitter from "events"
+const assert = require('assert')
+const sinon = require('sinon')
+const EventEmitter = require('events')
 
-import job from "../../src/eventEmitters/job"
+const job = require('../../lib/eventEmitters/job')
 
-describe("eventEmitters/job()", function() {
+describe('eventEmitters/job()', function() {
 
   const telemetry = {
     job: new EventEmitter()
@@ -54,10 +54,10 @@ describe("eventEmitters/job()", function() {
       plannedDistance: 3002,
       income:          3003,
       isSpecial:       true,
-      cargo:           {foo: "foo"},
-      source:          {foo: "bar"},
-      destination:     {foo: "qux"},
-      market:          {foo: "quux"},
+      cargo:           {foo: 'foo'},
+      source:          {foo: 'bar'},
+      destination:     {foo: 'qux'},
+      market:          {foo: 'quux'},
     }
   })
 
@@ -69,16 +69,16 @@ describe("eventEmitters/job()", function() {
       plannedDistance: 4002,
       income:          4002,
       isSpecial:       false,
-      cargo:           {bar: "foo"},
-      source:          {bar: "bar"},
-      destination:     {bar: "qux"},
-      market:          {bar: "quux"},
+      cargo:           {bar: 'foo'},
+      source:          {bar: 'bar'},
+      destination:     {bar: 'qux'},
+      market:          {bar: 'quux'},
     }
 
-    telemetry.job.on( "cancelled", spies.cancelled )
-    telemetry.job.on( "delivered", spies.delivered )
-    telemetry.job.on( "finished",  spies.finished )
-    telemetry.job.on( "started",   spies.started )
+    telemetry.job.on( 'cancelled', spies.cancelled )
+    telemetry.job.on( 'delivered', spies.delivered )
+    telemetry.job.on( 'finished',  spies.finished )
+    telemetry.job.on( 'started',   spies.started )
 
     job( telemetry, data )
 
@@ -117,27 +117,27 @@ describe("eventEmitters/job()", function() {
   } )
 
 
-  it("Should emit finished events", function() {
+  it('Should emit finished events', function() {
     assert.equal(spies.finished.args.length, 1)
   } )
 
 
-  it( "Should emit started events", function() {
+  it( 'Should emit started events', function() {
     assert.equal( spies.started.args.length, 1)
     assert.deepEqual( spies.started.args[0][0], {
       autoLoaded:      false,
       deliveryTime:    3001,
       plannedDistance: 3002,
-      cargo:           {foo: "foo"},
+      cargo:           {foo: 'foo'},
       isSpecial:       true,
-      source:          {foo: "bar"},
-      destination:     {foo: "qux"},
-      market:          {foo: "quux"},
+      source:          {foo: 'bar'},
+      destination:     {foo: 'qux'},
+      market:          {foo: 'quux'},
       income:          3003,
     } )
   } )
 
-  it( "Should emit cancelled events", function() {
+  it( 'Should emit cancelled events', function() {
     assert.equal( spies.cancelled.args.length, 1 )
     assert.deepEqual( spies.cancelled.args[0][0], {
       penalty:         1001,
@@ -145,16 +145,16 @@ describe("eventEmitters/job()", function() {
       finishingTime:   1003,
       deliveryTime:    4001,
       plannedDistance: 4002,
-      cargo:           {bar: "foo"},
+      cargo:           {bar: 'foo'},
       isSpecial:       false,
-      source:          {bar: "bar"},
-      destination:     {bar: "qux"},
-      market:          {bar: "quux"},
+      source:          {bar: 'bar'},
+      destination:     {bar: 'qux'},
+      market:          {bar: 'quux'},
       income:          0,
     } )
   } )
 
-  it( "Should emit delivered events", function() {
+  it( 'Should emit delivered events', function() {
     assert.equal( spies.delivered.args.length, 1)
     assert.deepEqual( spies.delivered.args[0][0], {
       deliveryTime:    2001,
@@ -166,11 +166,11 @@ describe("eventEmitters/job()", function() {
       autoParked:      false,
       revenue:         2006,
       plannedDistance: 4002,
-      cargo:           {bar: "foo"},
+      cargo:           {bar: 'foo'},
       isSpecial:       false,
-      source:          {bar: "bar"},
-      destination:     {bar: "qux"},
-      market:          {bar: "quux"},
+      source:          {bar: 'bar'},
+      destination:     {bar: 'qux'},
+      market:          {bar: 'quux'},
     } )
   } )
 

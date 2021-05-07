@@ -1,10 +1,10 @@
-import assert       from "assert"
-import sinon        from "sinon"
-import EventEmitter from "events"
+const assert = require('assert')
+const sinon = require('sinon')
+const EventEmitter = require('events')
 
-import trailers from "../../src/eventEmitters/trailers"
+const trailers = require('../../lib/eventEmitters/trailers')
 
-describe("eventEmitters/trailers()", function() {
+describe('eventEmitters/trailers()', function() {
 
   const telemetry = {
     trailers: new EventEmitter(),
@@ -36,11 +36,11 @@ describe("eventEmitters/trailers()", function() {
     data[0] = createData()
     data[1] = createData()
   
-    telemetry.trailers.on("coupling", spies.trailers.coupling)
-    telemetry.trailers.on("damage",   spies.trailers.damage)
+    telemetry.trailers.on('coupling', spies.trailers.coupling)
+    telemetry.trailers.on('damage',   spies.trailers.damage)
     
-    telemetry.trailer.on("coupling", spies.trailer.coupling)
-    telemetry.trailer.on("damage",   spies.trailer.damage)
+    telemetry.trailer.on('coupling', spies.trailer.coupling)
+    telemetry.trailer.on('damage',   spies.trailer.damage)
 
     trailers(telemetry, data)
     data[0].trailers[0].attached = false
@@ -64,7 +64,7 @@ describe("eventEmitters/trailers()", function() {
     trailers(telemetry, data)
   })
 
-  it("Should emit coupling events", function() {
+  it('Should emit coupling events', function() {
     assert.equal(spies.trailers.coupling.args.length, 2)
     assert.equal(spies.trailer.coupling.args.length, 1)
 
@@ -74,7 +74,7 @@ describe("eventEmitters/trailers()", function() {
     assert.deepEqual(spies.trailer.coupling.args[0][0], false)
   })
 
-  it("Should emit damage events", function() {
+  it('Should emit damage events', function() {
     assert.equal(spies.trailers.damage.args.length, 4)
     assert.equal(spies.trailer.damage.args.length, 2)
 

@@ -1,35 +1,35 @@
-import assert       from "assert"
-import sinon        from "sinon"
-import EventEmitter from "events"
-import fs           from "fs"
-import path         from "path"
+const assert = require('assert')
+const sinon = require('sinon')
+const EventEmitter = require('events')
+const fs = require('fs')
+const path = require('path')
 
-import truckSimTelemetry from "../src"
+const truckSimTelemetry = require('../lib')
 
-import * as getBuffer from "../src/getBuffer"
-import * as getData   from "../src/getData"
+const getBuffer = require('../lib/getBuffer')
+const getData = require('../lib/getData')
 
-import watch from "../src/watch"
-import stop  from "../src/stop"
+const watch = require('../lib/watch')
+const stop = require('../lib/stop')
 
-describe("truckSimTelemetry()", function() {
+describe('truckSimTelemetry()', function() {
 
   let buffer, data
   const defaultOpts = {
-    mmfName: "Local\\SCSTelemetry"
+    mmfName: 'Local\\SCSTelemetry'
   }
 
   const sandbox = sinon.createSandbox()
 
   before(function() {
-    buffer = fs.readFileSync(path.resolve(__dirname, "./buffers/scs_sdk_plugin_buffer_10"))
-    data   = JSON.parse(fs.readFileSync(path.resolve(__dirname, "./data/scs_sdk_plugin_parsed_data_10.json")))
+    buffer = fs.readFileSync(path.resolve(__dirname, './buffers/scs_sdk_plugin_buffer_10'))
+    data   = JSON.parse(fs.readFileSync(path.resolve(__dirname, './data/scs_sdk_plugin_parsed_data_10.json')))
 
-    sandbox.stub(getBuffer, "default").callsFake(function() {
+    sandbox.stub(getBuffer, 'default').callsFake(function() {
       return buffer
     })
 
-    sandbox.spy(getData, "default")
+    sandbox.spy(getData, 'default')
   })
 
   after(function() {
@@ -40,7 +40,7 @@ describe("truckSimTelemetry()", function() {
     sandbox.resetHistory()
   })
 
-  it("should return a telemetry object", function() {
+  it('should return a telemetry object', function() {
     const telemetry    = truckSimTelemetry()
     const eventEmitter = new EventEmitter()
     
@@ -87,18 +87,18 @@ describe("truckSimTelemetry()", function() {
 
     assert.deepEqual(getData.default.args, [
       [null,         defaultOpts],
-      ["game",       defaultOpts],
-      ["controls",   defaultOpts],
-      ["job",        defaultOpts],
-      ["navigation", defaultOpts],
-      ["truck",      defaultOpts],
-      ["trailers",   defaultOpts],
-      ["trailer",    defaultOpts],
+      ['game',       defaultOpts],
+      ['controls',   defaultOpts],
+      ['job',        defaultOpts],
+      ['navigation', defaultOpts],
+      ['truck',      defaultOpts],
+      ['trailers',   defaultOpts],
+      ['trailer',    defaultOpts],
     ])
   })
 
-  it("should accept options", function() {
-    const opts      = {mmfName: "foobar"}
+  it('should accept options', function() {
+    const opts      = {mmfName: 'foobar'}
     const telemetry = truckSimTelemetry(opts)
   
     assert.deepEqual(telemetry.opts, opts)
@@ -127,13 +127,13 @@ describe("truckSimTelemetry()", function() {
 
     assert.deepEqual(getData.default.args, [
       [null,         opts],
-      ["game",       opts],
-      ["controls",   opts],
-      ["job",        opts],
-      ["navigation", opts],
-      ["truck",      opts],
-      ["trailers",   opts],
-      ["trailer",    opts],
+      ['game',       opts],
+      ['controls',   opts],
+      ['job',        opts],
+      ['navigation', opts],
+      ['truck',      opts],
+      ['trailers',   opts],
+      ['trailer',    opts],
     ])
   })
 

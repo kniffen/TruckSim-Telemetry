@@ -1,12 +1,12 @@
-import assert       from "assert"
-import sinon        from "sinon"
+const assert = require('assert')
+const sinon = require('sinon')
 
-import getBuffer from "../src/getBuffer"
-import scsSDKTelemetry from "../build/Release/scsSDKTelemetry"
+const getBuffer = require('../lib/getBuffer')
+const scsSDKTelemetry = require('../build/Release/scsSDKTelemetry')
 
-describe("getBuffer()", function() {
+describe('getBuffer()', function() {
   const opts = {
-    mmfName: "foobar"
+    mmfName: 'foobar'
   }
 
   const sandbox = sinon.createSandbox()
@@ -15,15 +15,15 @@ describe("getBuffer()", function() {
     // TODO: Figure out to make the following work
     // Current error: TypeError: Cannot redefine property: getArrayBuffer
     
-    //sandbox.stub(scsSDKTelemetry, "getArrayBuffer")
+    //sandbox.stub(scsSDKTelemetry, 'getArrayBuffer')
   })
 
   
-  it("Should return a buffer")
+  it('Should return a buffer')
 
-  it("Should return a buffer with a specified mapped memory file name")
+  it('Should return a buffer with a specified mapped memory file name')
 
-  it("Should return undefined if it fails", function() {
+  it('Should return undefined if it fails', function() {
     const buffer = getBuffer(opts)
     
     assert(buffer === undefined)

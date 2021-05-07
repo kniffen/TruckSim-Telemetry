@@ -1,10 +1,10 @@
-import assert       from "assert"
-import sinon        from "sinon"
-import EventEmitter from "events"
+const assert = require('assert')
+const sinon = require('sinon')
+const EventEmitter = require('events')
 
-import navigation from "../../src/eventEmitters/navigation"
+const navigation = require('../../lib/eventEmitters/navigation')
 
-describe("eventEmitters/navigation()", function() {
+describe('eventEmitters/navigation()', function() {
 
   const telemetry = {
     navigation: new EventEmitter()
@@ -26,7 +26,7 @@ describe("eventEmitters/navigation()", function() {
     data[0] = createData()
     data[1] = createData()
   
-    telemetry.navigation.on("speed-limit", spies.speedLimit)
+    telemetry.navigation.on('speed-limit', spies.speedLimit)
 
     navigation(telemetry, data)
     data[0].navigation.speedLimit.value = 50
@@ -41,7 +41,7 @@ describe("eventEmitters/navigation()", function() {
     navigation(telemetry, data)
   })
 
-  it("Should emit speed-limit events", function() {
+  it('Should emit speed-limit events', function() {
     assert.equal(spies.speedLimit.args.length, 3)
     assert.deepEqual(spies.speedLimit.args[0], [{value: 50}, {value: 0}])
     assert.deepEqual(spies.speedLimit.args[1], [{value: 0},  {value: 50}])

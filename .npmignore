@@ -1,6 +1,6 @@
 build
 docs
-src
 tests
+devscripts
 
 **/*.tgz
