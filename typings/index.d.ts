@@ -622,6 +622,7 @@ declare module "trucksim-telemetry" {
     wheels: number;
     total: number;
   }
+<<<<<<< HEAD
 
   /* Game events*/
   export interface FineEventData {
@@ -709,5 +710,7 @@ declare module "trucksim-telemetry" {
     wheels:       number;
     total:        number;
 >>>>>>> parent of 1da9e5d (Fixed indentation)
+=======
+>>>>>>> parent of cf3babb (Added event data declarations)
   }
 }
