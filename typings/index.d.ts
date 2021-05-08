@@ -1,25 +1,28 @@
 declare module "trucksim-telemetry" {
-  declare function truckSimTelemetry(opts?: Options): Telemetry;
-  declare namespace truckSimTelemetry {
-    function getBuffer(    opts?: Options): any;
-    function getData(      opts?: Options): TelemetryData;
-    function getGame(      opts?: Options): Game;
-    function getControls(  opts?: Options): Controls;
+  function truckSimTelemetry(opts?: Options): Telemetry;
+  
+  namespace truckSimTelemetry {
+    function getBuffer(opts?: Options): any;
+    function getData(opts?: Options): TelemetryData;
+    function getGame(opts?: Options): Game;
+    function getControls(opts?: Options): Controls;
     function getNavigation(opts?: Options): Navigation;
-    function getJob(       opts?: Options): Job;
-    function getTrailers(  opts?: Options): Trailer[];
-    function getTrailer(   opts?: Options): Trailer;
-    function getTruck(     opts?: Options): Truck;
+    function getJob(opts?: Options): Job;
+    function getTrailers(opts?: Options): Trailer[];
+    function getTrailer(opts?: Options): Trailer;
+    function getTruck(opts?: Options): Truck;
   }
 
   export default truckSimTelemetry;
 
-  interface Options {
-    mmfName?: string
   }
 
-  interface WatchOptions {
-    interval?: number
+  export interface Options {
+    mmfName?: string;
+  }
+
+  export interface WatchOptions {
+    interval?: number;
   }
 
   export interface Telemetry {
