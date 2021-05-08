@@ -862,5 +862,88 @@ declare module "trucksim-telemetry" {
     wheels: number;
     total: number;
   }
+
+  /* Game events*/
+  export interface FineEventData {
+    offence: string;
+    amount: number;
+  }
+
+  export interface TollgateEventData {
+    amount: number;
+  }
+
+  export interface FerryEventData {
+    source: string;
+    destination: string;
+    target: string;
+    amount: number;
+  }
+
+  export interface TrainEventData {
+    source: string;
+    destination: string;
+    target: string;
+    amount: number;
+  }
+
+  export interface RefuelPaidEventData {
+    amount: number;
+  }
+
+  export interface JobStartedEventData {
+    autoLoaded: boolean;
+    deliveryTime: number;
+    plannedDistance: number;
+    cargo: string;
+    isSpecial: boolean;
+    source: string;
+    destination: string;
+    market: string;
+    income: number;
+  }
+
+  export interface JobCancelledEventData {
+    penalty: number;
+    startingTime: number;
+    finishingTime: number;
+    deliveryTime: number;
+    plannedDistance: number;
+    cargo: string;
+    isSpecial: boolean;
+    source: string;
+    destination: string;
+    market: string;
+    income: number;
+  }
+
+  export interface JobDeliveredEventData {
+    deliveryTime: number;
+    startingTime: number;
+    finishingTime: number;
+    earnedXP: number;
+    cargoDamage: number;
+    distance: number;
+    autoParked: boolean;
+    revenue: number;
+    plannedDistance: number;
+    cargo: string;
+    isSpecial: boolean;
+    source: string;
+    destination: string;
+    market: string;
+  }
+
+  export interface CruiseControlSpeed {
+    value: number;
+    kph: number;
+    mph: number;
+  }
+
+  export interface CruiseControlEventData {
+    enabled: boolean;
+    currentSpeed: number;
+    speedLimit: number;
+    cruiseControlSpeed: CruiseControlSpeed;
   }
 }
