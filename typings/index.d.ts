@@ -276,28 +276,28 @@ declare module "trucksim-telemetry" {
     truck: TruckEventEmitter;
 
     watch(options?: WatchOptions, callback?: (data: TelemetryData) => void): void;
-    stop():         void;
+    stop(): void;
 
-    getBuffer():     any;
-    getData():       TelemetryData;
-    getGame():       Game;
-    getControls():   Controls;
-    getJob():        Job;
+    getBuffer(): any;
+    getData(): TelemetryData;
+    getGame(): Game;
+    getControls(): Controls;
+    getJob(): Job;
     getNavigation(): Navigation;
-    getTruck():      Truck;
-    getTrailers():   Trailer[];
-    getTrailer():    Trailer;
+    getTruck(): Truck;
+    getTrailers(): Trailer[];
+    getTrailer(): Trailer;
   }
 
   export interface TelemetryData {
-    controls:   Controls;
-    game:       Game;
-    job:        Job;
+    controls: Controls;
+    game: Game;
+    job: Job;
     navigation: Navigation;
-    substances: Substances;
-    trailer:    Trailer;
-    trailers:   Trailer[];
-    truck:      Truck;
+    trailer: Trailer;
+    trailers: Trailer[];
+    truck: Truck;
+    substances?: Substances;
   }
   
   export type Substances = [
@@ -322,62 +322,62 @@ declare module "trucksim-telemetry" {
   /** Controls */
   export interface Controls {
     input: ControlsInput;
-    game:  ControlsGame;
+    game: ControlsGame;
   }
   export interface ControlsInput {
     steering: number;
     throttle: number;
-    brake:    number;
-    clutch:   number;
+    brake: number;
+    clutch: number;
   }
   export interface ControlsGame {
     steering: number;
     throttle: number;
-    brake:    number;
-    clutch:   number;
+    brake: number;
+    clutch: number;
   }
   
   /** Events */
   export interface Events {
-    job:        EventsJob;
+    job: EventsJob;
     refuelPaid: EventsRefuelPaid;
-    fine:       EventsFine;
-    ferry:      EventFerry;
-    train:      EventTrain;
-    tollgate:   EventTollgate;
-    refuel:     EventRefuel;
+    fine: EventsFine;
+    ferry: EventFerry;
+    train: EventTrain;
+    tollgate: EventTollgate;
+    refuel: EventRefuel;
   }
   
   /** Events job */
   export interface EventsJob {
     delivered: EventsJobDelivered;
-    started:   EventsJobStarted;
+    started: EventsJobStarted;
     cancelled: EventsJobCancelled;
-    finished:  EventsJobFinished;
+    finished: EventsJobFinished;
   }
   export interface EventsJobDelivered {
-    deliveryTime:  number;
-    startingTime:  number;
+    deliveryTime: number;
+    startingTime: number;
     finishingTime: number;
-    earnedXP:      number;
-    cargoDamage:   number;
-    distance:      EventsJobDeliveredDistance;
-    autoParked:    boolean;
-    revenue:       number;
-    active:        boolean;
+    earnedXP: number;
+    cargoDamage: number;
+    distance: EventsJobDeliveredDistance;
+    autoParked: boolean;
+    revenue: number;
+    active: boolean;
   }
   export interface EventsJobDeliveredDistance {
-    km:    number;
+    km: number;
     miles: number;
   }
   export interface EventsJobStarted {
     autoLoaded: boolean;
-    active:     boolean;
+    active: boolean;
   }
   export interface EventsJobCancelled {
-    penalty:       number;
-    active:        boolean;
-    startingTime:  number;
+    penalty: number;
+    active: boolean;
+    startingTime: number;
     finishingTime: number;
   }
   export interface EventsJobFinished {
@@ -397,32 +397,32 @@ declare module "trucksim-telemetry" {
     active: boolean;
   }
   export interface FineOffence {
-    id:   string;
+    id: string;
     name: string;
   }
   
   /** Travel (ferry & train) */
   export interface TravelSource {
     name: string;
-    id:   string;
+    id: string;
   }
   export interface TravelDestination {
     name: string;
-    id:   string;
+    id: string;
   }
   export interface EventFerry {
-    source:      TravelSource;
+    source: TravelSource;
     destination: TravelDestination;
-    target:      TravelDestination;
-    amount:      number;
-    active:      boolean;
+    target: TravelDestination;
+    amount: number;
+    active: boolean;
   }
   export interface EventTrain {
-    source:      TravelSource;
+    source: TravelSource;
     destination: TravelDestination;
-    target:      TravelDestination;
-    amount:      number;
-    active:      boolean;
+    target: TravelDestination;
+    amount: number;
+    active: boolean;
   }
   
   /** Event tollgate */
@@ -438,88 +438,88 @@ declare module "trucksim-telemetry" {
   
   /** Game */
   export interface Game {
-    sdkActive:           boolean;
-    paused:              boolean;
-    timestamp:           GameTimestamp;
+    sdkActive: boolean;
+    paused: boolean;
+    timestamp: GameTimestamp;
     simulationTimestamp: GameTimestamp;
-    renderTimestamp:     GameTimestamp;
-    pluginVersion:       number;
-    version:             string;
-    game:                GameNestedGame;
-    telemetryVersion:    string;
-    time:                GameTime;
-    maxTrailerCount:     number;
-    scale:               number;
+    renderTimestamp: GameTimestamp;
+    pluginVersion: number;
+    version: string;
+    game: GameNestedGame;
+    telemetryVersion: string;
+    time: GameTime;
+    maxTrailerCount: number;
+    scale: number;
   }
   export interface GameTimestamp {
     value: number;
   }
   export interface GameNestedGame {
-    id:   number;
+    id: number;
     name: string;
   }
   export interface GameTime {
     value: number;
-    unix:  number;
+    unix: number;
   }
   
   /** Job */
   export interface Job {
-    deliveryTime:    JobDeliveryTime;
+    deliveryTime: JobDeliveryTime;
     plannedDistance: JobPlannedDistance;
-    cargo:           JobCargo;
-    isSpecial:       boolean;
-    destination:     JobLocation;
-    source:          JobLocation;
-    market:          JobMarket;
-    income:          number;
+    cargo: JobCargo;
+    isSpecial: boolean;
+    destination: JobLocation;
+    source: JobLocation;
+    market: JobMarket;
+    income: number;
   }
   export interface JobDeliveryTime {
     value: number;
-    unix:  number;
+    unix: number;
   }
   export interface JobPlannedDistance {
-    km:    number;
+    km: number;
     miles: number;
   }
   export interface JobCargo {
-    mass:     number;
+    mass: number;
     unitMass: number;
-    damage:   number;
+    damage: number;
     isLoaded: boolean;
-    id:       string;
-    name:     string;
+    id: string;
+    name: string;
   }
   export interface JobCity {
-    id:   string;
+    id: string;
     name: string;
   }
   export interface Company {
-    id:   string;
+    id: string;
     name: string;
   }
   
   /** JobLocation used for source & destination */
   export interface JobLocation {
-    city:    JobCity;
+    city: JobCity;
     company: Company;
   }
   export interface JobMarket {
-    id:   string;
+    id: string;
     name: string;
   }
   
   /** Navigation */
   export interface Navigation {
     nextRestStop: number;
-    distance:     number;
-    time:         number;
-    speedLimit:   NavSpeedLimit;
+    distance: number;
+    time: number;
+    speedLimit: NavSpeedLimit;
   }
   export interface NavSpeedLimit {
     value: number;
-    kph:   number;
-    mph:   number;
+    kph: number;
+    mph: number;
   }
   
   /** Truck & Trailer Global */
@@ -529,14 +529,14 @@ declare module "trucksim-telemetry" {
     Z: number;
   }
   export interface WheelSubstance {
-    id:   number;
+    id: number;
     name: string;
   }
   
   export interface Acceleration {
-    linearVelocity:      Velocity;
-    angularVelocity:     Velocity;
-    linearAcceleration:  Velocity;
+    linearVelocity: Velocity;
+    angularVelocity: Velocity;
+    linearAcceleration: Velocity;
     angularAcceleration: Velocity;
   }
   export interface Velocity {
@@ -546,150 +546,149 @@ declare module "trucksim-telemetry" {
   }
   export interface Orientation {
     heading: number;
-    pitch:   number;
-    roll:    number;
+    pitch: number;
+    roll: number;
   }
   export interface Hook {
     position: Position;
   }
   
   export interface Model {
-    id:   string;
+    id: string;
     name: string;
   }
   export interface Make {
-    id:   string;
+    id: string;
     name: string;
   }
   export interface LicensePlate {
-    value:   string;
+    value: string;
     country: LicensePlateCountry;
   }
   export interface LicensePlateCountry {
     name: string;
-    id:   string;
+    id: string;
   }
   
   
   /** Trailer */
   export interface Trailer {
-    wheels:       TrailerWheel[];
-    attached:     boolean;
-    cargo:        TrailerDamageValue;
-    chassis:      TrailerDamageValue;
+    wheels: TrailerWheel[];
+    attached: boolean;
+    cargo: TrailerDamageValue;
+    chassis: TrailerDamageValue;
     acceleration: Acceleration;
-    hook:         Hook;
-    position:     Position;
-    orientation:  Orientation;
-    model:        Model;
-    accessoryId:  string;
-    bodyType:     string;
-    make:         Make;
-    brand:        Make;
-    chainType:    string;
+    hook: Hook;
+    position: Position;
+    orientation: Orientation;
+    model: Model;
+    accessoryId: string;
+    bodyType: string;
+    make: Make;
+    brand: Make;
+    chainType: string;
     licensePlate: LicensePlate;
-    damage:       TrailerDamage;
+    damage: TrailerDamage;
   }
   
   /** Trailer wheel */
   export interface TrailerWheel {
-    substance:      WheelSubstance;
-    radius:         number;
+    substance: WheelSubstance;
+    radius: number;
     suspDeflection: number;
-    velocity:       number;
-    steering:       number;
-    rotation:       number;
-    steerable:      boolean;
-    simulated:      boolean;
-    powered:        boolean;
-    liftable:       boolean;
-    onGround:       boolean;
-    position:       Position;
+    velocity: number;
+    steering: number;
+    rotation: number;
+    steerable: boolean;
+    simulated: boolean;
+    powered: boolean;
+    liftable: boolean;
+    onGround: boolean;
+    position: Position;
   }
   export interface TrailerWheelSubstance {
-    id:   number;
+    id: number;
     name: string;
   }
   export interface TrailerDamageValue {
     damage: number;
   }
   export interface TrailerDamage {
-    cargo:   number;
+    cargo: number;
     chassis: number;
-    wheels:  number;
-    total:   number;
+    wheels: number;
+    total: number;
   }
-  
-  
+    
   /** Truck */
   export interface Truck {
-    transmission:  Transmission;
-    brakes:        Brakes;
-    wheels:        TruckWheel[];
-    lights:        Lights;
-    fuel:          Fuel;
-    adBlue:        AdBlue;
-    engine:        Engine;
-    differential:  Differential;
-    speed:         Speed;
+    transmission: Transmission;
+    brakes: Brakes;
+    wheels: TruckWheel[];
+    lights: Lights;
+    fuel: Fuel;
+    adBlue: AdBlue;
+    engine: Engine;
+    differential: Differential;
+    speed: Speed;
     cruiseControl: CruiseControl;
-    cabin:         Cabin;
-    chassis:       Chassis;
-    odometer:      number;
-    electric:      Electric;
-    wipers:        Wipers;
-    head:          Head;
-    hook:          Hook;
-    acceleration:  Acceleration;
-    position:      Position;
-    orientation:   Orientation;
-    make:          Make;
-    brand:         Make;
-    model:         Model;
-    licensePlate:  LicensePlate;
-    damage:        TruckDamage;
+    cabin: Cabin;
+    chassis: Chassis;
+    odometer: number;
+    electric: Electric;
+    wipers: Wipers;
+    head: Head;
+    hook: Hook;
+    acceleration: Acceleration;
+    position: Position;
+    orientation: Orientation;
+    make: Make;
+    brand: Make;
+    model: Model;
+    licensePlate: LicensePlate;
+    damage: TruckDamage;
   }
   
   /** Transmission */
   export interface Transmission {
-    forwardGears:      number;
-    reverseGears:      number;
-    selectors:         number;
-    slot:              number;
-    slots:             TransmissionSlot[];
-    gear:              TransmissionGear;
+    forwardGears: number;
+    reverseGears: number;
+    selectors: number;
+    slot: number;
+    slots: TransmissionSlot[];
+    gear: TransmissionGear;
     gearRatiosForward: number[];
     gearRatiosReverse: number[];
-    damage:            number;
-    selector:          boolean[];
-    shifterType:       string;
+    damage: number;
+    selector: boolean[];
+    shifterType: string;
   }
   export interface TransmissionSlot {
     handlePosition: number;
-    selector:       number;
-    gear:           number;
+    selector: number;
+    gear: number;
   }
   export interface TransmissionGear {
-    selected:  number;
+    selected: number;
     displayed: number;
   }
   
   /** Breaks */
   export interface Brakes {
-    retarder:    Retarder;
+    retarder: Retarder;
     airPressure: AirPressure;
     temperature: Temperature;
-    parking:     Parking;
-    motor:       Motor;
+    parking: Parking;
+    motor: Motor;
   }
   export interface Retarder {
     steps: number;
     level: number;
   }
   export interface AirPressure {
-    warning:   AirPressureWarning;
+    warning: AirPressureWarning;
     emergency: AirPressureEmergency;
-    value:     number;
+    value: number;
   }
   export interface AirPressureWarning {
     factor:  number;
@@ -697,7 +696,7 @@ declare module "trucksim-telemetry" {
   }
   
   export interface AirPressureEmergency {
-    factor:  number;
+    factor: number;
     enabled: boolean;
   }
   export interface Temperature {
@@ -716,43 +715,43 @@ declare module "trucksim-telemetry" {
     substance: WheelSubstance;
     radius: number;
     suspDeflection: number;
-    velocity:       number;
-    steering:       number;
-    rotation:       number;
-    lift:           number;
-    liftOffset:     number;
-    position:       Position;
-    steerable:      boolean;
-    simulated:      boolean;
-    powered:        boolean;
-    liftable:       boolean;
-    onGround:       boolean;
-    damage:         number;
+    velocity: number;
+    steering: number;
+    rotation: number;
+    lift: number;
+    liftOffset: number;
+    position: Position;
+    steerable: boolean;
+    simulated: boolean;
+    powered: boolean;
+    liftable: boolean;
+    onGround: boolean;
+    damage: number;
   }
   
   /** Lights */
   export interface Lights {
-    auxFront:           AuxLight;
-    auxRoof:            AuxLight;
+    auxFront: AuxLight;
+    auxRoof: AuxLight;
     dashboardBacklight: number;
-    blinker:            Blinker;
-    parking:            Parking;
-    beamLow:            LightStatus;
-    beamHigh:           LightStatus;
-    beacon:             LightStatus;
-    brake:              LightStatus;
-    reverse:            LightStatus;
+    blinker: Blinker;
+    parking: Parking;
+    beamLow: LightStatus;
+    beamHigh: LightStatus;
+    beacon: LightStatus;
+    brake: LightStatus;
+    reverse: LightStatus;
   }
   export interface AuxLight {
     value: number;
   }
   export interface Blinker {
-    left:  BlinkerStatus;
+    left: BlinkerStatus;
     right: BlinkerStatus;
   }
   export interface BlinkerStatus {
     enabled: boolean;
-    active:  boolean;
+    active: boolean;
   }
   export interface LightStatus {
     enabled: boolean;
@@ -760,24 +759,24 @@ declare module "trucksim-telemetry" {
   
   /** Truck engine */
   export interface Engine {
-    oilPressure:      EngineStatus;
+    oilPressure: EngineStatus;
     waterTemperature: EngineStatus;
-    batteryVoltage:   EngineStatus;
-    rpm:              Rpm;
-    oilTemperature:   OilTemperature;
-    damage:           number;
-    enabled:          boolean;
+    batteryVoltage: EngineStatus;
+    rpm: Rpm;
+    oilTemperature: OilTemperature;
+    damage: number;
+    enabled: boolean;
   }
   export interface EngineWarning {
-    factor:  number;
+    factor: number;
     enabled: false;
   }
   export interface EngineStatus {
     warning: EngineWarning;
-    value:   number;
+    value: number;
   }
   export interface Rpm {
-    max:   number;
+    max: number;
     value: number;
   }
   export interface OilTemperature {
@@ -787,18 +786,18 @@ declare module "trucksim-telemetry" {
   
   /** Truck fuel */
   export interface Fuel {
-    capacity:       number;
-    warning:        EngineWarning;
-    value:          number;
+    capacity: number;
+    warning: EngineWarning;
+    value: number;
     avgConsumption: number;
-    range:          number;
+    range: number;
   }
   
   /** Truck adblue */
   export interface AdBlue {
     capacity: number;
-    warning:  EngineWarning;
-    value:    number;
+    warning: EngineWarning;
+    value: number;
   }
   
   /** Truck differential */
@@ -809,27 +808,27 @@ declare module "trucksim-telemetry" {
   /** Truck speed */
   export interface Speed {
     value: number;
-    kph:   number;
-    mph:   number;
+    kph: number;
+    mph: number;
   }
   
   /** Truck cruiseControl */
   export interface CruiseControl {
-    value:   number;
+    value: number;
     enabled: boolean;
-    kph:     number;
-    mph:     number;
+    kph: number;
+    mph: number;
   }
   
   /** Truck cabin */
   export interface Cabin {
-    damage:       number;
-    position:     Position;
+    damage: number;
+    position: Position;
     acceleration: Acceleration;
-    offset:       Offset;
+    offset: Offset;
   }
   export interface Offset {
-    position:    Position;
+    position: Position;
     orientation: Orientation;
   }
   
@@ -851,20 +850,18 @@ declare module "trucksim-telemetry" {
   /** Truck head */
   export interface Head {
     position: Position;
-    offset:   Offset;
+    offset: Offset;
   }
   
   /** Truck damage */
   export interface TruckDamage {
-    cabin:        number;
-    chassis:      number;
-    engine:       number;
+    cabin: number;
+    chassis: number;
+    engine: number;
     transmission: number;
-<<<<<<< HEAD
     wheels: number;
     total: number;
   }
-<<<<<<< HEAD
 
   /* Game events*/
   export interface FineEventData {
