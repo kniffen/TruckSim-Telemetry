@@ -15,6 +15,244 @@ declare module "trucksim-telemetry" {
 
   export default truckSimTelemetry;
 
+  interface EventEmitter {
+    addListener(eventName: string|symbol, listener: () => void): void;
+    emit(eventName: string|symbol, args?: any[]): boolean;
+    eventNames(): (string|symbol)[];
+    getMaxListeners(): number;
+    listenerCount(eventName: string|symbol): number;
+    listeners(eventName: string|symbol): () => any[];
+    off(eventName: string|symbol, listener: () => void): this;
+    on(eventName: string|symbol, listener: () => void): this;
+    once(eventName: string|symbol, listener: () => void): this;
+    prependListener(eventName: string|symbol, listener: () => void): this;
+    prependOnceListener(eventName: string|symbol, listener: () => void): this;
+    removeAllListeners(eventName: string|symbol[]): this;
+    removeListener(eventName: string|symbol, listener: () => void): this;
+    setMaxListeners(n: number): this;
+    rawListeners(eventName: string|symbol): () => any[];
+  }
+
+  interface GameEventEmitter extends EventEmitter{
+    // Pause event
+    addListener(eventName: 'pause', listener: (isPaused: boolean) => void): this;
+    on(eventName: 'pause', listener: (isPaused: boolean) => void): this;
+    once(eventName: 'pause', listener: (isPaused: boolean) => void): this;
+    prependListener(eventName: 'pause', listener: (isPaused: boolean) => void): this;
+    prependOnceListener(eventName: 'pause', listener: (isPaused: boolean) => void): this;
+
+    // Time change event
+    addListener(eventName: 'time-change', listener: (current: GameTime, previous: GameTime) => void): this;
+    on(eventName: 'time-change', listener: (current: GameTime, previous: GameTime) => void): this;
+    once(eventName: 'time-change', listener: (current: GameTime, previous: GameTime) => void): this;
+    prependListener(eventName: 'time-change', listener: (current: GameTime, previous: GameTime) => void): this;
+    prependOnceListener(eventName: 'time-change', listener: (current: GameTime, previous: GameTime) => void): this;
+  
+    // Fine event
+    addListener(eventName: 'fine', listener: (data: FineEventData) => void): this;
+    on(eventName: 'fine', listener: (data: FineEventData) => void): this;
+    once(eventName: 'fine', listener: (data: FineEventData) => void): this;
+    prependListener(eventName: 'fine', listener: (data: FineEventData) => void): this;
+    prependOnceListener(eventName: 'fine', listener: (data: FineEventData) => void): this;
+
+    // Tollgate event
+    addListener(eventName: 'tollgate', listener: (data: TollgateEventData) => void): this;
+    on(eventName: 'tollgate', listener: (data: TollgateEventData) => void): this;
+    once(eventName: 'tollgate', listener: (data: TollgateEventData) => void): this;
+    prependListener(eventName: 'tollgate', listener: (data: TollgateEventData) => void): this;
+    prependOnceListener(eventName: 'tollgate', listener: (data: TollgateEventData) => void): this;
+
+    // Ferry event
+    addListener(eventName: 'ferry', listener: (data: FerryEventData) => void): this;
+    on(eventName: 'ferry', listener: (data: FerryEventData) => void): this;
+    once(eventName: 'ferry', listener: (data: FerryEventData) => void): this;
+    prependListener(eventName: 'ferry', listener: (data: FerryEventData) => void): this;
+    prependOnceListener(eventName: 'ferry', listener: (data: FerryEventData) => void): this;
+
+    // Train event
+    addListener(eventName: 'train', listener: (data: TrainEventData) => void): this;
+    on(eventName: 'train', listener: (data: TrainEventData) => void): this;
+    once(eventName: 'train', listener: (data: TrainEventData) => void): this;
+    prependListener(eventName: 'train', listener: (data: TrainEventData) => void): this;
+    prependOnceListener(eventName: 'train', listener: (data: TrainEventData) => void): this;
+
+    // Refuel paid event
+    addListener(eventName: 'refuel-paid', listener: (data: RefuelPaidEventData) => void): this;
+    on(eventName: 'refuel-paid', listener: (data: RefuelPaidEventData) => void): this;
+    once(eventName: 'refuel-paid', listener: (data: RefuelPaidEventData) => void): this;
+    prependListener(eventName: 'refuel-paid', listener: (data: RefuelPaidEventData) => void): this;
+    prependOnceListener(eventName: 'refuel-paid', listener: (data: RefuelPaidEventData) => void): this;
+  }
+
+  interface JobEventEmitter extends EventEmitter{
+    // Job finished event
+    addListener(eventName: 'finished', listener: () => void): this;
+    on(eventName: 'finished', listener: () => void): this;
+    once(eventName: 'finished', listener: () => void): this;
+    prependListener(eventName: 'finished', listener: () => void): this;
+    prependOnceListener(eventName: 'finished', listener: () => void): this;
+
+    // Job started event
+    addListener(eventName: 'started', listener: (data: JobStartedEventData) => void): this;
+    on(eventName: 'started', listener: (data: JobStartedEventData) => void): this;
+    once(eventName: 'started', listener: (data: JobStartedEventData) => void): this;
+    prependListener(eventName: 'started', listener: (data: JobStartedEventData) => void): this;
+    prependOnceListener(eventName: 'started', listener: (data: JobStartedEventData) => void): this;
+    
+    // Job cancelled event
+    addListener(eventName: 'cancelled', listener: (data: JobCancelledEventData) => void): this;
+    on(eventName: 'cancelled', listener: (data: JobCancelledEventData) => void): this;
+    once(eventName: 'cancelled', listener: (data: JobCancelledEventData) => void): this;
+    prependListener(eventName: 'cancelled', listener: (data: JobCancelledEventData) => void): this;
+    prependOnceListener(eventName: 'cancelled', listener: (data: JobCancelledEventData) => void): this;
+
+    // Job delivered event
+    addListener(eventName: 'delivered', listener: (data: JobDeliveredEventData) => void): this;
+    on(eventName: 'delivered', listener: (data: JobDeliveredEventData) => void): this;
+    once(eventName: 'delivered', listener: (data: JobDeliveredEventData) => void): this;
+    prependListener(eventName: 'delivered', listener: (data: JobDeliveredEventData) => void): this;
+    prependOnceListener(eventName: 'delivered', listener: (data: JobDeliveredEventData) => void): this;
+  }
+
+  interface NavigationEventEmitter extends EventEmitter{
+    // Speed limit changed event
+    addListener(eventName: 'speed-limit', listener: (current: NavSpeedLimit, previous: NavSpeedLimit) => void): this;
+    on(eventName: 'speed-limit', listener: (data: NavSpeedLimit, previous: NavSpeedLimit) => void): this;
+    once(eventName: 'speed-limit', listener: (data: NavSpeedLimit, previous: NavSpeedLimit) => void): this;
+    prependListener(eventName: 'speed-limit', listener: (data: NavSpeedLimit, previous: NavSpeedLimit) => void): this;
+    prependOnceListener(eventName: 'speed-limit', listener: (data: NavSpeedLimit, previous: NavSpeedLimit) => void): this;
+  }
+
+  interface TrailersEventEmitter extends EventEmitter{
+    // Trailers coupling event
+    addListener(eventName: 'coupling', listener: (id: number, isAttached: boolean) => void): this;
+    on(eventName: 'coupling', listener: (id: number, isAttached: boolean) => void): this;
+    once(eventName: 'coupling', listener: (id: number, isAttached: boolean) => void): this;
+    prependListener(eventName: 'coupling', listener: (id: number, isAttached: boolean) => void): this;
+    prependOnceListener(eventName: 'coupling', listener: (id: number, isAttached: boolean) => void): this;
+
+    // Trailer damage event
+    addListener(eventName: 'damage', listener: (id: number, current: TrailerDamage, previous: TrailerDamage) => void): this;
+    on(eventName: 'damage', listener: (id: number, current: TrailerDamage, previous: TrailerDamage) => void): this;
+    once(eventName: 'damage', listener: (id: number, current: TrailerDamage, previous: TrailerDamage) => void): this;
+    prependListener(eventName: 'damage', listener: (id: number, current: TrailerDamage, previous: TrailerDamage) => void): this;
+    prependOnceListener(eventName: 'damage', listener: (id: number, current: TrailerDamage, previous: TrailerDamage) => void): this;
+  }
+
+  interface TrailerEventEmitter extends EventEmitter{
+    // Trailer coupling event
+    addListener(eventName: 'coupling', listener: (isAttached: boolean) => void): this;
+    on(eventName: 'coupling', listener: (isAttached: boolean) => void): this;
+    once(eventName: 'coupling', listener: (isAttached: boolean) => void): this;
+    prependListener(eventName: 'coupling', listener: (isAttached: boolean) => void): this;
+    prependOnceListener(eventName: 'coupling', listener: (isAttached: boolean) => void): this;
+
+    // Trailer damage event
+    addListener(eventName: 'damage', listener: (current: TrailerDamage, previous: TrailerDamage) => void): this;
+    on(eventName: 'damage', listener: (current: TrailerDamage, previous: TrailerDamage) => void): this;
+    once(eventName: 'damage', listener: (current: TrailerDamage, previous: TrailerDamage) => void): this;
+    prependListener(eventName: 'damage', listener: (current: TrailerDamage, previous: TrailerDamage) => void): this;
+    prependOnceListener(eventName: 'damage', listener: (current: TrailerDamage, previous: TrailerDamage) => void): this;
+  }
+
+  interface TruckEventEmitter extends EventEmitter{
+    // Truck damage event
+    addListener(eventName: 'damage', listener: (current: TruckDamage, previous: TruckDamage) => void): this;
+    on(eventName: 'damage', listener: (current: TruckDamage, previous: TruckDamage) => void): this;
+    once(eventName: 'damage', listener: (current: TruckDamage, previous: TruckDamage) => void): this;
+    prependListener(eventName: 'damage', listener: (current: TruckDamage, previous: TruckDamage) => void): this;
+    prependOnceListener(eventName: 'damage', listener: (current: TruckDamage, previous: TruckDamage) => void): this;
+    
+    // Truck cruise control toggle event
+    addListener(eventName: 'cruise-control', listener: (data: CruiseControlEventData) => void): this;
+    on(eventName: 'cruise-control', listener: (data: CruiseControlEventData) => void): this;
+    once(eventName: 'cruise-control', listener: (data: CruiseControlEventData) => void): this;
+    prependListener(eventName: 'cruise-control', listener: (data: CruiseControlEventData) => void): this;
+    prependOnceListener(eventName: 'cruise-control', listener: (data: CruiseControlEventData) => void): this;
+    
+    // Truck cruise control increase event
+    addListener(eventName: 'cruise-control-increase', listener: (data: CruiseControlEventData) => void): this;
+    on(eventName: 'cruise-control-increase', listener: (data: CruiseControlEventData) => void): this;
+    once(eventName: 'cruise-control-increase', listener: (data: CruiseControlEventData) => void): this;
+    prependListener(eventName: 'cruise-control-increase', listener: (data: CruiseControlEventData) => void): this;
+    prependOnceListener(eventName: 'cruise-control-increase', listener: (data: CruiseControlEventData) => void): this;
+    
+    // Truck cruise control decrease event
+    addListener(eventName: 'cruise-control-decrease', listener: (data: CruiseControlEventData) => void): this;
+    on(eventName: 'cruise-control-decrease', listener: (data: CruiseControlEventData) => void): this;
+    once(eventName: 'cruise-control-decrease', listener: (data: CruiseControlEventData) => void): this;
+    prependListener(eventName: 'cruise-control-decrease', listener: (data: CruiseControlEventData) => void): this;
+    prependOnceListener(eventName: 'cruise-control-decrease', listener: (data: CruiseControlEventData) => void): this;
+    
+    // Truck warning event
+    addListener(eventName: 'warning', listener: (id: string, enabled: boolean) => void): this;
+    on(eventName: 'warning', listener: (id: string, enabled: boolean) => void): this;
+    once(eventName: 'warning', listener: (id: string, enabled: boolean) => void): this;
+    prependListener(eventName: 'warning', listener: (id: string, enabled: boolean) => void): this;
+    prependOnceListener(eventName: 'warning', listener: (id: string, enabled: boolean) => void): this;
+
+    // Truck emergency event
+    addListener(eventName: 'emergency', listener: (id: string, current: boolean, previous: boolean) => void): this;
+    on(eventName: 'emergency', listener: (id: string, current: boolean, previous: boolean) => void): this;
+    once(eventName: 'emergency', listener: (id: string, current: boolean, previous: boolean) => void): this;
+    prependListener(eventName: 'emergency', listener: (id: string, current: boolean, previous: boolean) => void): this;
+    prependOnceListener(eventName: 'emergency', listener: (id: string, current: boolean, previous: boolean) => void): this;
+    
+    // Truck engine event
+    addListener(eventName: 'engine', listener: (enabled: boolean) => void): this;
+    on(eventName: 'engine', listener: (enabled: boolean) => void): this;
+    once(eventName: 'engine', listener: (enabled: boolean) => void): this;
+    prependListener(eventName: 'engine', listener: (enabled: boolean) => void): this;
+    prependOnceListener(eventName: 'engine', listener: (enabled: boolean) => void): this;
+    
+    // Truck electric event
+    addListener(eventName: 'electric', listener: (enabled: boolean) => void): this;
+    on(eventName: 'electric', listener: (enabled: boolean) => void): this;
+    once(eventName: 'electric', listener: (enabled: boolean) => void): this;
+    prependListener(eventName: 'electric', listener: (enabled: boolean) => void): this;
+    prependOnceListener(eventName: 'electric', listener: (enabled: boolean) => void): this;
+    
+    // Truck gear-change event
+    addListener(eventName: 'gear-change', listener: (current: TransmissionGear, previous: TransmissionGear) => void): this;
+    on(eventName: 'gear-change', listener: (current: TransmissionGear, previous: TransmissionGear) => void): this;
+    once(eventName: 'gear-change', listener: (current: TransmissionGear, previous: TransmissionGear) => void): this;
+    prependListener(eventName: 'gear-change', listener: (current: TransmissionGear, previous: TransmissionGear) => void): this;
+    prependOnceListener(eventName: 'gear-change', listener: (current: TransmissionGear, previous: TransmissionGear) => void): this;
+    
+    // Truck park event
+    addListener(eventName: 'park', listener: (enabled: boolean) => void): this;
+    on(eventName: 'park', listener: (enabled: boolean) => void): this;
+    once(eventName: 'park', listener: (enabled: boolean) => void): this;
+    prependListener(eventName: 'park', listener: (enabled: boolean) => void): this;
+    prependOnceListener(eventName: 'park', listener: (enabled: boolean) => void): this;
+    
+    // Truck retarder event
+    addListener(eventName: 'retarder', listener: (current: Retarder, previous: Retarder) => void): this;
+    on(eventName: 'retarder', listener: (current: Retarder, previous: Retarder) => void): this;
+    once(eventName: 'retarder', listener: (current: Retarder, previous: Retarder) => void): this;
+    prependListener(eventName: 'retarder', listener: (current: Retarder, previous: Retarder) => void): this;
+    prependOnceListener(eventName: 'retarder', listener: (current: Retarder, previous: Retarder) => void): this;
+    
+    // Truck wipers event
+    addListener(eventName: 'wipers', listener: (enabled: boolean) => void): this;
+    on(eventName: 'wipers', listener: (enabled: boolean) => void): this;
+    once(eventName: 'wipers', listener: (enabled: boolean) => void): this;
+    prependListener(eventName: 'wipers', listener: (enabled: boolean) => void): this;
+    prependOnceListener(eventName: 'wipers', listener: (enabled: boolean) => void): this;
+    
+    // Truck refuel-started event
+    addListener(eventName: 'refuel-started', listener: (data: Fuel) => void): this;
+    on(eventName: 'refuel-started', listener: (data: Fuel) => void): this;
+    once(eventName: 'refuel-started', listener: (data: Fuel) => void): this;
+    prependListener(eventName: 'refuel-started', listener: (data: Fuel) => void): this;
+    prependOnceListener(eventName: 'refuel-started', listener: (data: Fuel) => void): this;
+
+    // Truck refuel-stopped event
+    addListener(eventName: 'refuel-stopped', listener: (data: Fuel) => void): this;
+    on(eventName: 'refuel-stopped', listener: (data: Fuel) => void): this;
+    once(eventName: 'refuel-stopped', listener: (data: Fuel) => void): this;
+    prependListener(eventName: 'refuel-stopped', listener: (data: Fuel) => void): this;
+    prependOnceListener(eventName: 'refuel-stopped', listener: (data: Fuel) => void): this;
   }
 
   export interface Options {
@@ -28,13 +266,14 @@ declare module "trucksim-telemetry" {
   export interface Telemetry {
     opts: Options;
 
-    game:       any;
-    job:        any;
-    navigation: any;
-    trailers:   any;
-    truck:      any;
-
     data: TelemetryData;
+
+    game: GameEventEmitter;
+    job: JobEventEmitter;
+    navigation: NavigationEventEmitter;
+    trailers: TrailersEventEmitter;
+    trailer: TrailerEventEmitter;
+    truck: TruckEventEmitter;
 
     watch(options?: WatchOptions, callback?: (data: TelemetryData) => void): void;
     stop():         void;
@@ -709,11 +948,5 @@ declare module "trucksim-telemetry" {
     currentSpeed: number;
     speedLimit: number;
     cruiseControlSpeed: CruiseControlSpeed;
-=======
-    wheels:       number;
-    total:        number;
->>>>>>> parent of 1da9e5d (Fixed indentation)
-=======
->>>>>>> parent of cf3babb (Added event data declarations)
   }
 }
