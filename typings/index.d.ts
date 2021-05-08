@@ -192,11 +192,11 @@ declare module "trucksim-telemetry" {
     prependOnceListener(eventName: 'warning', listener: (id: string, enabled: boolean) => void): this;
 
     // Truck emergency event
-    addListener(eventName: 'emergency', listener: (id: string, current: boolean, previous: boolean) => void): this;
-    on(eventName: 'emergency', listener: (id: string, current: boolean, previous: boolean) => void): this;
-    once(eventName: 'emergency', listener: (id: string, current: boolean, previous: boolean) => void): this;
-    prependListener(eventName: 'emergency', listener: (id: string, current: boolean, previous: boolean) => void): this;
-    prependOnceListener(eventName: 'emergency', listener: (id: string, current: boolean, previous: boolean) => void): this;
+    addListener(eventName: 'emergency', listener: (id: string, enabled: boolean) => void): this;
+    on(eventName: 'emergency', listener: (id: string, enabled: boolean) => void): this;
+    once(eventName: 'emergency', listener: (id: string, enabled: boolean) => void): this;
+    prependListener(eventName: 'emergency', listener: (id: string, enabled: boolean) => void): this;
+    prependOnceListener(eventName: 'emergency', listener: (id: string, enabled: boolean) => void): this;
     
     // Truck engine event
     addListener(eventName: 'engine', listener: (enabled: boolean) => void): this;

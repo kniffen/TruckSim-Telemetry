@@ -57,7 +57,7 @@ telemetry.truck.prependListener('warning', truckWarningCallback)
 telemetry.truck.prependOnceListener('warning', truckWarningCallback)
 
 // Truck emergency event
-function truckEmergencyCallback(id: string, current: boolean, previous: boolean) {}
+function truckEmergencyCallback(id: string, enabled: boolean) {}
 
 telemetry.truck.addListener('emergency', truckEmergencyCallback)
 telemetry.truck.on('emergency', truckEmergencyCallback)
