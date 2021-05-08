@@ -6,6 +6,7 @@
   "types": "./typings/index.d.ts",
   "scripts": {
     "test": "npx mocha ./tests/**/*.test.js",
+    "test-typescript": "npx typescript",
     "generate-buffer": "node ./devscripts/generateBuffer.js",
     "generate-data": "node ./devscripts/generateData.js",
     "generate-data-docs": "node ./devscripts/generateData.js",
@@ -36,9 +37,11 @@
     "struct-fu": "^1.2.1"
   },
   "devDependencies": {
+    "@types/node": "^15.0.2",
     "live-server": "^1.2.1",
     "mocha": "^8.3.2",
     "node-gyp": "^7.1.2",
-    "sinon": "^9.2.4"
+    "sinon": "^9.2.4",
+    "typescript": "^4.2.4"
   }
 }
