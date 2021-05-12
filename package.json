@@ -4,6 +4,9 @@
   "description": "Telemetry data from the scs-sdk-plugin",
   "main": "lib/index.js",
   "types": "./typings/index.d.ts",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "scripts": {
     "test": "npx mocha ./tests/**/*.test.js",
     "test-typescript": "npx typescript",
