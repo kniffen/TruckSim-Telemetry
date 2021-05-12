@@ -15,9 +15,9 @@ declare module "trucksim-telemetry" {
   }
   
   export interface Acceleration {
-    linearVelocity: Velocity;
+    linearVelocity?: Velocity;
     angularVelocity: Velocity;
-    linearAcceleration: Velocity;
+    linearAcceleration?: Velocity;
     angularAcceleration: Velocity;
   }
   
