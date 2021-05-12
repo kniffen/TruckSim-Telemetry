@@ -1,36 +1,76 @@
 # Functions
 
-### getBuffer()
+### getBuffer(options?)
+| Parameter | Type                           | Optional | Restriction                      |
+| --------- | ------------------------------ | -------- | -------------------------------- |
+| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object | 
 **Returns: [scs-sdk-plugin memory buffer](https://github.com/RenCloud/scs-sdk-plugin)**
 
-### getData()
-**Returns: [data object](data.md#controls)**
+---
 
-### getGame()
-**Returns: [game data object](data.md#game)**
+### getData(options?)
+| Parameter | Type                           | Optional | Restriction                      |
+| --------- | ------------------------------ | -------- | -------------------------------- |
+| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+**Returns: [TelemetryData](typedefs.md#telemetrydata)**
 
-### getJob()
-**Returns: [job data object](data.md#job)**
+---
 
-### getNavigation()
-**Returns: [navigation data object](data.md#navigation)**
+### getGame(options?)
+| Parameter | Type                           | Optional | Restriction                      |
+| --------- | ------------------------------ | -------- | -------------------------------- |
+| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+**Returns: [Game](typedefs.md#game)**
 
-### getTrailers()
-**Returns: [trailers data object](data.md#trailers)**
+---
 
-### getTrailer()
-**Returns: [trailer data object](data.md#trailer)**
+### getJob(options?)
+| Parameter | Type                           | Optional | Restriction                      |
+| --------- | ------------------------------ | -------- | -------------------------------- |
+| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+**Returns: [Job](typedefs.md#job)**
 
-### getTruck()
-**Returns: [truck data object](data.md#truck)**
+---
 
-### watch({options}, update)
-**Use: starts watching the game for changes at every given interval**
+### getNavigation(options?)
+| Parameter | Type                           | Optional | Restriction                      |
+| --------- | ------------------------------ | -------- | -------------------------------- |
+| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+**Returns: [Navigation](typedefs.md#navigation)**
 
-| Option   | type     | Default | Minimum | Required |
-| -------- | -------- | ------- | ------- | -------- |
-| interval | integer  | 100(ms) | 10(ms)  | no       |
-| update   | function |         |         | no       |
+---
+
+### getTrailers(options?)
+| Parameter | Type                           | Optional | Restriction                      |
+| --------- | ------------------------------ | -------- | -------------------------------- |
+| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+**Returns: [Trailer[]](typedefs.md#Trailer)**
+
+---
+
+### getTrailer(options?)
+| Parameter | Type                           | Optional | Restriction                      |
+| --------- | ------------------------------ | -------- | -------------------------------- |
+| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+**Returns: [Trailer](typedefs.md#trailer)**
+
+---
+
+### getTruck(options?)
+| Parameter | Type                           | Optional | Restriction                      |
+| --------- | ------------------------------ | -------- | -------------------------------- |
+| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+**Returns: [Truck](typedefs.md#truck)**
+
+---
+
+### watch(options?, update?)
+| Parameter    | Type                                     | Optional | 
+| ------------ | ---------------------------------------- | -------- | 
+| watchOptions | [WatchOptions](typedefs.md#watchoptions) | YES      |
+| update       | [function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function) | YES |
+
+---
 
 #### Example
 ```javascript
