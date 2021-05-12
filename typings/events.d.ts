@@ -147,14 +147,9 @@ declare module "trucksim-telemetry" {
 
   export interface EventsCruiseControl {
     enabled: boolean;
-    currentSpeed: number;
-    speedLimit: number;
-    cruiseControlSpeed: CruiseControlSpeed;
+    currentSpeed: Speed;
+    speedLimit: Speed;
+    cruiseControlSpeed: Speed;
   }
 
-  export interface CruiseControlSpeed {
-    value: number;
-    kph: number;
-    mph: number;
-  }
 }
