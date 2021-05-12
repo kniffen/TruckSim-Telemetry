@@ -51,13 +51,13 @@ declare module "trucksim-telemetry" {
   
   export interface EventsRefuelPaid {
     amount: number;
-    active: boolean;
+    active?: boolean;
   }
   
   export interface EventsFine {
     offence: FineOffence;
     amount: number;
-    active: boolean;
+    active?: boolean;
   }
   
   export interface FineOffence {
@@ -80,7 +80,7 @@ declare module "trucksim-telemetry" {
     destination: TravelDestination;
     target: TravelDestination;
     amount: number;
-    active: boolean;
+    active?: boolean;
   }
   
   export interface EventTrain {
@@ -88,12 +88,12 @@ declare module "trucksim-telemetry" {
     destination: TravelDestination;
     target: TravelDestination;
     amount: number;
-    active: boolean;
+    active?: boolean;
   }
   
   export interface EventTollgate {
     amount: number;
-    active: boolean;
+    active?: boolean;
   }
   
   export interface EventRefuel {
@@ -102,86 +102,59 @@ declare module "trucksim-telemetry" {
 
   // The following is data given by event callbacks
 
-  export interface FineEventData {
-    offence: string;
-    amount: number;
-  }
-
-  export interface TollgateEventData {
-    amount: number;
-  }
-
-  export interface FerryEventData {
-    source: string;
-    destination: string;
-    target: string;
-    amount: number;
-  }
-
-  export interface TrainEventData {
-    source: string;
-    destination: string;
-    target: string;
-    amount: number;
-  }
-
-  export interface RefuelPaidEventData {
-    amount: number;
-  }
-
-  export interface JobStartedEventData {
+  export interface EventsJobStartedVerbose {
     autoLoaded: boolean;
-    deliveryTime: number;
-    plannedDistance: number;
-    cargo: string;
-    isSpecial: boolean;
-    source: string;
-    destination: string;
-    market: string;
+    cargo: JobCargo;
+    deliveryTime: JobDeliveryTime;
+    destination: JobLocation;
     income: number;
+    isSpecial: boolean;
+    market: JobMarket;
+    plannedDistance: JobPlannedDistance;
+    source: JobLocation;
   }
 
-  export interface JobCancelledEventData {
+  export interface EventsJobCancelledVerbose {
+    cargo: JobCargo;
+    deliveryTime: JobDeliveryTime;
+    destination: JobLocation;
+    finishingTime: number;
+    income: number;
+    isSpecial: boolean;
+    market: JobMarket;
     penalty: number;
+    plannedDistance: JobPlannedDistance;
+    source: JobLocation;
     startingTime: number;
-    finishingTime: number;
-    deliveryTime: number;
-    plannedDistance: number;
-    cargo: string;
-    isSpecial: boolean;
-    source: string;
-    destination: string;
-    market: string;
-    income: number;
   }
 
-  export interface JobDeliveredEventData {
-    deliveryTime: number;
-    startingTime: number;
-    finishingTime: number;
-    earnedXP: number;
-    cargoDamage: number;
-    distance: number;
+  export interface EventsJobDeliveredVerbose {
     autoParked: boolean;
-    revenue: number;
-    plannedDistance: number;
-    cargo: string;
+    cargo: JobCargo;
+    cargoDamage: number;
+    deliveryTime: number;
+    destination: JobLocation;
+    distance: EventsJobDeliveredDistance;
+    earnedXP: number;
+    finishingTime: number;
     isSpecial: boolean;
-    source: string;
-    destination: string;
-    market: string;
+    market: JobMarket;
+    plannedDistance: JobPlannedDistance;
+    revenue: number;
+    source: JobLocation;
+    startingTime: number;
+  }
+
+  export interface EventsCruiseControl {
+    enabled: boolean;
+    currentSpeed: number;
+    speedLimit: number;
+    cruiseControlSpeed: CruiseControlSpeed;
   }
 
   export interface CruiseControlSpeed {
     value: number;
     kph: number;
     mph: number;
-  }
-
-  export interface CruiseControlEventData {
-    enabled: boolean;
-    currentSpeed: number;
-    speedLimit: number;
-    cruiseControlSpeed: CruiseControlSpeed;
   }
 }
