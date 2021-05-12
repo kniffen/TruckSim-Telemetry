@@ -9,11 +9,9 @@
   },
   "scripts": {
     "test": "npx mocha ./tests/**/*.test.js",
-    "test-typescript": "npx typescript",
-    "generate-buffer": "node ./devscripts/generateBuffer.js",
-    "generate-data": "node ./devscripts/generateData.js",
-    "generate-data-docs": "node ./devscripts/generateData.js",
-    "docs": "node ./devscripts/liveServer.js"
+    "generate-test-buffer": "node ./scripts/generateTestBuffer.js",
+    "generate-test-data": "node ./scripts/generateTestData.js",
+    "docs": "node ./scripts/liveServer.js"
   },
   "gypfile": true,
   "repository": {
