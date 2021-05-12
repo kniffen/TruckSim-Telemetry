@@ -61,13 +61,14 @@ declare module "trucksim-telemetry" {
 
   export interface TelemetryData {
     controls: Controls;
+    events?: Events;
     game: Game;
     job: Job;
     navigation: Navigation;
+    substances?: Substances;
     trailer: Trailer;
     trailers: Trailer[];
     truck: Truck;
-    substances?: Substances;
   }
 
 }
