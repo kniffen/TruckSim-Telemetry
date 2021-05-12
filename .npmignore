@@ -1,7 +1,6 @@
 build
 docs
 tests
-devscripts
-tsconfig.json
+scripts
 
 **/*.tgz

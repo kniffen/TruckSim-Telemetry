@@ -1,5 +1,9 @@
 Changelog
 
+v0.14.0 - 2021-05-12
+- Added missing type declarations
+- Improved and fixed existing type declarations
+
 v0.13.1 - 2021-04-20
 - Hotfix: type declaration not working as intended
 
