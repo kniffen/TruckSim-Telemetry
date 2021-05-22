@@ -70,28 +70,28 @@ describe('getData()', function() {
     }
   })
 
-  it('Should return undefined if version number is less than 0', function() {
+  it('Should return "null" if version number is less than 0', function() {
     version = 0
     const test1 = getData(null, opts)
     version = -1
     const test2 = getData(null, opts)
 
     assert.deepEqual(getBufferStub.args, [[opts], [opts]])
-    assert.equal(test1, undefined)
-    assert.equal(test2, undefined)
+    assert.strictEqual(test1, null)
+    assert.strictEqual(test2, null)
   })
 
-  it('Should return undefined if there\'s no buffer', function() {
+  it('Should return "bull" if there is no buffer', function() {
     getBufferStub.restore()
 
     getBufferStub = sinon.stub(getBuffer, 'default').callsFake(function() {
-      return undefined
+      return null
     })
 
     const result = getData(null, opts)
     assert.ok(getBufferStub.called)
     assert.deepEqual(getBufferStub.args, [[opts]])
-    assert.equal(result, undefined)
+    assert.strictEqual(result, null)
   })
 
 })
