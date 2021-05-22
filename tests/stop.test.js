@@ -3,16 +3,28 @@ const sinon = require('sinon')
 
 const tst = require('../lib')
 
+const getData = require('../lib/getData')
+
 describe('stop()', function() {
 
   let clock = null
 
+  const testData = {
+    game:       {},
+    events:     {},
+    navigation: {},
+    trailers:   [],
+  }
+
   before(function() {
     clock = sinon.useFakeTimers();
+
+    sinon.stub(getData, 'default').callsFake(() => testData)
   })
 
   after(function() {
     clock.restore()
+    sinon.restore()
   })
 
   it('should actually stop and start the watcher', function() {
