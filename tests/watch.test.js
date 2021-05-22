@@ -47,6 +47,10 @@ describe('watch()', function() {
       {opts: undefined,            ticks: 100},
       {opts: null,                 ticks: 100},
       {opts: {},                   ticks: 100},
+      {opts: 'foo',                ticks: 100},
+      {opts: 200,                  ticks: 100},
+      {opts: true,                 ticks: 100},
+      {opts: [],                   ticks: 100},
       {opts: {interval: 200},      ticks: 200},
       {opts: {interval: '200'},    ticks: 200},
       {opts: {interval: 1},        ticks: 10}, 
@@ -61,14 +65,33 @@ describe('watch()', function() {
       clock.reset()
     }
 
-    assert.equal(getData.default.args.length, 14)
-    assert.deepStrictEqual(getData.default.args[0],  [null, {mmfName: 'Local\\SCSTelemetry'}])
-    assert.deepStrictEqual(getData.default.args[2],  [null, {mmfName: 'Local\\SCSTelemetry'}])
-    assert.deepStrictEqual(getData.default.args[4],  [null, {mmfName: 'Local\\SCSTelemetry'}])
-    assert.deepStrictEqual(getData.default.args[6],  [null, {mmfName: 'Local\\SCSTelemetry'}])
-    assert.deepStrictEqual(getData.default.args[8],  [null, {mmfName: 'Local\\SCSTelemetry'}])
-    assert.deepStrictEqual(getData.default.args[10], [null, {mmfName: 'Local\\SCSTelemetry'}])
-    assert.deepStrictEqual(getData.default.args[12], [null, {mmfName: 'Local\\SCSTelemetry'}])
+    assert.deepStrictEqual(
+      getData.default.args,
+      [
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+        [null, {mmfName: 'Local\\SCSTelemetry'}],
+      ]
+    )
 
     assert.equal(update.args.length, 0)
   })
