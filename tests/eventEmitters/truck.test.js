@@ -1,492 +1,344 @@
-const assert = require('assert')
-const sinon = require('sinon')
-const EventEmitter = require('events')
+const assert    = require('assert')
+const sinon     = require('sinon')
+const cloneDeep = require('lodash.clonedeep')
 
-const truck = require('../../lib/eventEmitters/truck')
+const tst = require('../../lib')
+
+const getData = require('../../lib/getData')
 
 describe('eventEmitters/truck()', function() {
 
-  const telemetry = {
-    truck: new EventEmitter()
-  }
+  let clock = null
 
-  const spies = {
-    damage:                sinon.spy(),
-    cruiseControl:         sinon.spy(),
-    cruiseControlIncrease: sinon.spy(),
-    cruiseControlDecrease: sinon.spy(),
-    warning:               sinon.spy(),
-    emergency:             sinon.spy(),
-    engine:                sinon.spy(),
-    electric:              sinon.spy(),
-    gearChange:            sinon.spy(),
-    park:                  sinon.spy(),
-    retarder:              sinon.spy(),
-    wipers:                sinon.spy(),
-    refuel:                sinon.spy(),
-    refuelStarted:         sinon.spy(),
-    refuelStopped:         sinon.spy(),
-  }
+  const telemetry = tst()
 
-  const data = []
-
-  const createData = () => ({
+  const testData = {
+    events: {
+      refuel: {
+        active: false,
+      }
+    },
+    game: {},
+    navigation: {
+      speedLimit: 1000,
+    },
+    trailers: [],
     truck: {
-      damage:{
-        total: 0.01
+      speed: 1001,
+      damage: {
+        total: 0.00,
       },
-      cruiseControl: {
+      electric: {
         enabled: false,
-        value:   0,
-        kph:     0,
-        mph:     0,
-      },
-      brakes: {
-        airPressure: {
-          warning:   {enabled: false},
-          emergency: {enabled: false}
-        },
-        parking: {
-          enabled: false
-        },
-        retarder: {
-          steps: 5,
-          level: 2
-        }
-      },
-      fuel: {
-        value: 485.2419738769531,
-        warning: {enabled: false}
-      },
-      speed: {
-       value: 22.345924377441406,
-       kph:   80,
-       mph:   50,
-      },
-      adBlue: {
-        warning: {enabled: false}
       },
       engine: {
         enabled: false,
         oilPressure: {
-          warning: {enabled: false}
+          warning: {enabled: false},
         },
         waterTemperature: {
-          warning: {enabled: false}
+          warning: {enabled: false},
         },
         batteryVoltage: {
-          warning: {enabled: false}
+          warning: {enabled: false},
         }
-      },
-      electric: {
-        enabled: false
       },
       transmission: {
-        gear: {
-          selected: 2
+        gear: {selected: 0},
+      },
+      brakes: {
+        parking:  {enabled: false},
+        retarder: {foo: 'bar'},
+        airPressure: {
+          warning:   {enabled: false},
+          emergency: {enabled: false},
         }
       },
-      wipers: {
-        enabled: false
-      }
-    },
-    navigation: {
-      speedLimit: {
-        value: 13.88888931274414,
-        kph:   50,
-        mph:   31,
-      }
-    },
-    events: {
-      refuel: {
-        active: false
+      fuel: {
+        volume: 2000,
+        warning: {enabled: false},
       },
-      refuelPaid: {
-        active: false,
-        amount: 0
+      adBlue: {
+        warning: {enabled: false},
+      },
+      wipers: {
+        enabled: false,
+      },
+      cruiseControl: {
+        enabled: false,
+        value:   1002,
+        kph:     1003,
+        mph:     1004,
       }
-    }
-  })
+    },
+  }
 
   before(function() {
-    telemetry.truck.on('damage',                   spies.damage)
-    telemetry.truck.on('cruise-control',           spies.cruiseControl)
-    telemetry.truck.on('cruise-control-increase',  spies.cruiseControlIncrease)
-    telemetry.truck.on('cruise-control-decrease',  spies.cruiseControlDecrease)
-    telemetry.truck.on('warning',                  spies.warning)
-    telemetry.truck.on('emergency',                spies.emergency)
-    telemetry.truck.on('engine',                   spies.engine)
-    telemetry.truck.on('electric',                 spies.electric)
-    telemetry.truck.on('gear-change',              spies.gearChange)
-    telemetry.truck.on('park',                     spies.park)
-    telemetry.truck.on('retarder',                 spies.retarder)
-    telemetry.truck.on('wipers',                   spies.wipers)
-    telemetry.truck.on('refuel-started',           spies.refuelStarted)
-    telemetry.truck.on('refuel-stopped',           spies.refuelStopped)
+    clock = sinon.useFakeTimers()
+    
+    sinon.spy(telemetry.truck, 'emit')
+
+    sinon
+      .stub(getData, 'default')
+      .callsFake(() => cloneDeep(testData))
+
+    telemetry.watch()
+
+    clock.tick(100)
+
+    testData.truck.cruiseControl.enabled      = true
+    testData.truck.cruiseControl.value        = 1003
+    testData.truck.damage.total               = 0.01
+    testData.truck.electric.enabled           = true
+    testData.truck.engine.enabled             = true
+    testData.truck.transmission.gear.selected = 1
+    testData.truck.brakes.parking.enabled     = true
+    testData.truck.brakes.retarder.foo        = 'baz'
+    testData.events.refuel.active             = true
+    testData.truck.wipers.enabled             = true
+
+    testData.truck.brakes.airPressure.warning.enabled      = true
+    testData.truck.fuel.warning.enabled                    = true
+    testData.truck.adBlue.warning.enabled                  = true
+    testData.truck.engine.oilPressure.warning.enabled      = true
+    testData.truck.engine.waterTemperature.warning.enabled = true
+    testData.truck.engine.batteryVoltage.warning.enabled   = true
+
+    testData.truck.brakes.airPressure.emergency.enabled = true
+
+    clock.tick(100)
+
+    testData.truck.cruiseControl.enabled      = false
+    testData.truck.cruiseControl.value        = 1002
+    testData.truck.damage.total               = 0.00
+    testData.truck.electric.enabled           = false
+    testData.truck.engine.enabled             = false
+    testData.truck.transmission.gear.selected = 0
+    testData.truck.brakes.parking.enabled     = true
+    testData.truck.brakes.retarder.foo        = 'qux'
+    testData.events.refuel.active             = false
+    testData.truck.wipers.enabled             = false
+
+    testData.truck.brakes.airPressure.warning.enabled      = false
+    testData.truck.fuel.warning.enabled                    = false
+    testData.truck.adBlue.warning.enabled                  = false
+    testData.truck.engine.oilPressure.warning.enabled      = false
+    testData.truck.engine.waterTemperature.warning.enabled = false
+    testData.truck.engine.batteryVoltage.warning.enabled   = false
+
+    testData.truck.brakes.airPressure.emergency.enabled = false
+
+    clock.tick(100)
   })
 
-  beforeEach(function() {
-    data[0] = createData()
-    data[1] = createData()
-
-    data[1].truck.speed = {
-      value: 35.564654231321859,
-      kph:   124,
-      mph:   65,
-    }
-    data[1].truck.cruiseControl = {
-      enabled: false,
-      value:   18.564457846511884,
-      kph:     50,
-      mph:     25,
-    }
-
-    sinon.reset()
+  after(function() {
+    telemetry.stop()
+    clock.restore()
+    sinon.restore()
   })
 
-  it('Should emit damage events', function() {
-    truck(telemetry, data)
-    data[0].truck.damage.total = 0.03
-    truck(telemetry, data)
-    data[1].truck.damage.total = 0.03
-    truck(telemetry, data)
-    data[0].truck.damage.total = 0.02
-    truck(telemetry, data)
-    data[0].truck.damage.total = 0.05
-    truck(telemetry, data)
-
-    assert.equal(spies.damage.args.length, 2)
-    assert.deepEqual(spies.damage.args[0], [{total: 0.03}, {total: 0.01}])
-    assert.deepEqual(spies.damage.args[1], [{total: 0.05}, {total: 0.03}])
+  it('Should emit "cruise-control" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'cruise-control'),
+      [
+        [
+          'cruise-control',
+          {
+            currentSpeed: 1001,
+            speedLimit:   1000,
+            enabled:      true,
+            cruiseControlSpeed: {
+              value: 1003,
+              kph:   1003,
+              mph:   1004,
+            }
+          }
+        ],
+        [
+          'cruise-control',
+          {
+            currentSpeed: 1001,
+            speedLimit:   1000,
+            enabled:      false,
+            cruiseControlSpeed: {
+              value: 1002,
+              kph:   1003,
+              mph:   1004,
+            }
+          }
+        ],
+      ]
+    )
   })
 
-  it('Should emit cruise-control events', function() {
-    truck(telemetry, data)
-    data[0].truck.cruiseControl.enabled = true
-    truck(telemetry, data)
-    data[1].truck.cruiseControl.enabled = true
-    truck(telemetry, data)
-    data[0].truck.cruiseControl.enabled = false
-    truck(telemetry, data)
-    data[0].truck.cruiseControl.enabled = true
-    truck(telemetry, data)
-
-    assert.equal( spies.cruiseControl.args.length, 2 )
-
-    assert.deepEqual( spies.cruiseControl.args[0][0], {
-      enabled: true,
-      cruiseControlSpeed: {
-        value: 0,
-        kph:   0,
-        mph:   0,
-      },
-      currentSpeed: {
-        value: 22.345924377441406,
-        kph:   80,
-        mph:   50,
-      },
-      speedLimit: {
-        value: 13.88888931274414,
-        kph:   50,
-        mph:   31,
-      }
-    } )
-
-    assert.deepEqual(spies.cruiseControl.args[1][0], {
-      enabled: false,
-      cruiseControlSpeed: {
-        value: 0,
-        kph:   0,
-        mph:   0,
-      },
-      currentSpeed: {
-        value: 22.345924377441406,
-        kph:   80,
-        mph:   50,
-      },
-      speedLimit: {
-        value: 13.88888931274414,
-        kph:   50,
-        mph:   31,
-      },
-    })
+  it('Should emit "cruise-control-increase" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'cruise-control-increase'),
+      [
+        [
+          'cruise-control-increase',
+          {
+            currentSpeed: 1001,
+            speedLimit:   1000,
+            enabled:      true,
+            cruiseControlSpeed: {
+              value: 1003,
+              kph:   1003,
+              mph:   1004,
+            }
+          }
+        ]
+      ]
+    )
   })
 
-  it('Should emit cruise-control-increase events', function() {
-    data[0].truck.cruiseControl.enabled = true
-    truck(telemetry, data)
-    data[0].truck.cruiseControl.value+=20
-    truck(telemetry, data)
-    data[1].truck.cruiseControl.value+=20
-    truck(telemetry, data)
-    data[0].truck.cruiseControl.value-=20
-    truck(telemetry, data)
-    data[0].truck.cruiseControl.value+=50
-    truck(telemetry, data)
-
-    assert.equal(spies.cruiseControlIncrease.args.length, 2)
-    assert.deepEqual(spies.cruiseControlIncrease.args[0][0], {
-      enabled: true,
-      cruiseControlSpeed: {
-        value: 20,
-        kph:   0,
-        mph:   0,
-      },
-      currentSpeed: {
-        value: 22.345924377441406,
-        kph:   80,
-        mph:   50,
-      },
-      speedLimit: {
-        value: 13.88888931274414,
-        kph:   50,
-        mph:   31,
-      },
-    })
-    assert.deepEqual(spies.cruiseControlIncrease.args[1][0], {
-      enabled: true,
-      cruiseControlSpeed: {
-        value: 50,
-        kph:   0,
-        mph:   0,
-      },
-      currentSpeed: {
-        value: 22.345924377441406,
-        kph:   80,
-        mph:   50,
-      },
-      speedLimit: {
-        value: 13.88888931274414,
-        kph:   50,
-        mph:   31,
-      },
-    })
+  it('Should emit "cruise-control-decrease" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'cruise-control-decrease'),
+      [
+        [
+          'cruise-control-decrease',
+          {
+            currentSpeed: 1001,
+            speedLimit:   1000,
+            enabled:      false,
+            cruiseControlSpeed: {
+              value: 1002,
+              kph:   1003,
+              mph:   1004,
+            }
+          }
+        ]
+      ]
+    )
   })
 
-  it('Should emit cruise-control-decrease events', function() {
-    data[0].truck.cruiseControl.enabled = true
-    data[0].truck.cruiseControl.value = 10
-    data[1].truck.cruiseControl.value = 10
-    truck(telemetry, data)
-    data[0].truck.cruiseControl.value--
-    truck(telemetry, data)
-    data[1].truck.cruiseControl.value--
-    truck(telemetry, data)
-    data[0].truck.cruiseControl.value++
-    truck(telemetry, data)
-    data[0].truck.cruiseControl.value-=5
-    truck(telemetry, data)
-
-    assert.equal(spies.cruiseControlDecrease.args.length, 2)
-    assert.deepEqual(spies.cruiseControlDecrease.args[0][0], {
-      enabled: true,
-      cruiseControlSpeed: {
-        value: 9,
-        kph:   0,
-        mph:   0,
-      },
-      currentSpeed: {
-        value: 22.345924377441406,
-        kph:   80,
-        mph:   50,
-      },
-      speedLimit: {
-        value: 13.88888931274414,
-        kph:   50,
-        mph:   31,
-      },
-    })
-    assert.deepEqual(spies.cruiseControlDecrease.args[1][0], {
-      enabled: true,
-      cruiseControlSpeed: {
-        value: 5,
-        kph:   0,
-        mph:   0,
-      },
-      currentSpeed: {
-        value: 22.345924377441406,
-        kph:   80,
-        mph:   50,
-      },
-      speedLimit: {
-        value: 13.88888931274414,
-        kph:   50,
-        mph:   31,
-      },
-    })
+  it('Should emit "damage" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'damage'),
+      [
+        ['damage', {total: 0.01}, {total: 0.00}],
+      ]
+    )
   })
 
-  it('Should emit warning events', function() {
-    truck(telemetry, data)
-    data[0].truck.brakes.airPressure.warning.enabled      = true
-    data[0].truck.fuel.warning.enabled                    = true
-    data[0].truck.adBlue.warning.enabled                  = true
-    data[0].truck.engine.oilPressure.warning.enabled      = true
-    data[0].truck.engine.waterTemperature.warning.enabled = true
-    data[0].truck.engine.batteryVoltage.warning.enabled   = true
-    truck(telemetry, data)
-    data[1].truck.brakes.airPressure.warning.enabled      = true
-    data[1].truck.fuel.warning.enabled                    = true
-    data[1].truck.adBlue.warning.enabled                  = true
-    data[1].truck.engine.oilPressure.warning.enabled      = true
-    data[1].truck.engine.waterTemperature.warning.enabled = true
-    data[1].truck.engine.batteryVoltage.warning.enabled   = true
-    data[0].truck.brakes.airPressure.warning.enabled      = false
-    data[0].truck.fuel.warning.enabled                    = false
-    data[0].truck.adBlue.warning.enabled                  = false
-    data[0].truck.engine.oilPressure.warning.enabled      = false
-    data[0].truck.engine.waterTemperature.warning.enabled = false
-    data[0].truck.engine.batteryVoltage.warning.enabled   = false
-    truck(telemetry, data)
-    data[0].truck.brakes.airPressure.warning.enabled      = true
-    data[0].truck.fuel.warning.enabled                    = true
-    data[0].truck.adBlue.warning.enabled                  = true
-    data[0].truck.engine.oilPressure.warning.enabled      = true
-    data[0].truck.engine.waterTemperature.warning.enabled = true
-    data[0].truck.engine.batteryVoltage.warning.enabled   = true
-    truck(telemetry, data)
-
-    assert.deepEqual(spies.warning.args, [
-      ['Air Pressure',      true],
-      ['Fuel',              true],
-      ['AdBlue',            true],
-      ['Oil Pressure',      true],
-      ['Water Temperature', true],
-      ['Battery Voltage',   true],
-      ['Air Pressure',      false],
-      ['Fuel',              false],
-      ['AdBlue',            false],
-      ['Oil Pressure',      false],
-      ['Water Temperature', false],
-      ['Battery Voltage',   false],
-    ])
+  it('Should emit "electric" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'electric'),
+      [
+        ['electric', true],
+        ['electric', false],
+      ]
+    )
   })
 
-  it('Should emit emergency events', function() {
-    truck(telemetry, data)
-    data[0].truck.brakes.airPressure.emergency.enabled = true
-    truck(telemetry, data)
-    data[1].truck.brakes.airPressure.emergency.enabled = true
-    data[0].truck.brakes.airPressure.emergency.enabled = false
-    truck(telemetry, data)
-    data[0].truck.brakes.airPressure.emergency.enabled = true
-    truck(telemetry, data)
-
-    assert.deepEqual(spies.emergency.args, [
-      ['Air Pressure',      true],
-      ['Air Pressure',      false],
-    ])
-
+  it('Should emit "engine" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'engine'),
+      [
+        ['engine', true],
+        ['engine', false],
+      ]
+    )
   })
 
-  it('Should emit engine events', function() {
-    truck(telemetry, data)
-    data[0].truck.engine.enabled = true
-    truck(telemetry, data)
-    data[1].truck.engine.enabled = true
-    data[0].truck.engine.enabled = false
-    truck(telemetry, data)
-    data[0].truck.engine.enabled = true
-    truck(telemetry, data)
-
-    assert.deepEqual(spies.engine.args, [[true], [false]])
-
+  it('Should emit "gear-change" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'gear-change'),
+      [
+        ['gear-change', {selected: 1}, {selected: 0}],
+        ['gear-change', {selected: 0}, {selected: 1}],
+      ]
+    )
   })
 
-  it('Should emit electric events', function() {
-    truck(telemetry, data)
-    data[0].truck.electric.enabled = true
-    truck(telemetry, data)
-    data[1].truck.electric.enabled = true
-    data[0].truck.electric.enabled = false
-    truck(telemetry, data)
-    data[0].truck.electric.enabled = true
-    truck(telemetry, data)
-
-    assert.deepEqual(spies.electric.args, [[true], [false]])
-
+  it('Should emit "park" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'park'),
+      [
+        ['park', true],
+      ]
+    )
   })
 
-  it('Should emit gear-change events', function() {
-    truck(telemetry, data)
-    data[0].truck.transmission.gear.selected++
-    truck(telemetry, data)
-    data[1].truck.transmission.gear.selected++
-    data[0].truck.transmission.gear.selected--
-    truck(telemetry, data)
-    data[0].truck.transmission.gear.selected++
-    truck(telemetry, data)
-
-    assert.deepEqual(spies.gearChange.args, [
-      [{selected: 3}, {selected: 2}],
-      [{selected: 2}, {selected: 3}],
-    ])
+  it('Should emit "retarder" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'retarder'),
+      [
+        ['retarder', {foo: 'baz'}, {foo: 'bar'}],
+        ['retarder', {foo: 'qux'}, {foo: 'baz'}],
+      ]
+    )
   })
 
-  it('Should emit park events', function() {
-    truck(telemetry, data)
-    data[0].truck.brakes.parking.enabled = true
-    truck(telemetry, data)
-    data[1].truck.brakes.parking.enabled = true
-    data[0].truck.brakes.parking.enabled = false
-    truck(telemetry, data)
-    data[0].truck.brakes.parking.enabled = true
-    truck(telemetry, data)
-
-    assert.deepEqual(spies.park.args, [[true], [false]])
-
+  it('Should emit "refuel-started" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'refuel-started'),
+      [
+        [
+          'refuel-started',
+          {
+            volume: 2000,
+            warning: {enabled: false},
+          }
+        ],
+      ]
+    )
   })
 
-  it('Should emit retarder events', function() {
-    truck(telemetry, data)
-    data[0].truck.brakes.retarder.level++
-    truck(telemetry, data)
-    data[1].truck.brakes.retarder.level++
-    data[0].truck.brakes.retarder.level--
-    truck(telemetry, data)
-    data[0].truck.brakes.retarder.level++
-    truck(telemetry, data)
-
-    assert.deepEqual(spies.retarder.args, [
-      [{steps: 5, level: 3}, {steps: 5, level: 2}],
-      [{steps: 5, level: 2}, {steps: 5, level: 3}],
-    ])
+  it('Should emit "refuel-stopped" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'refuel-stopped'),
+      [
+        [
+          'refuel-stopped',
+          {
+            volume: 2000,
+            warning: {enabled: false},
+          }
+        ],
+      ]
+    )
   })
 
-  it('Should emit wipers events', function() {
-    truck(telemetry, data)
-    data[0].truck.wipers.enabled = true
-    truck(telemetry, data)
-    data[1].truck.wipers.enabled = true
-    data[0].truck.wipers.enabled = false
-    truck(telemetry, data)
-    data[0].truck.wipers.enabled = true
-    truck(telemetry, data)
-
-    assert.deepEqual(spies.wipers.args, [[true], [false]])
+  it('Should emit "wipers" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'wipers'),
+      [
+        ['wipers', true],
+        ['wipers', false],
+      ]
+    )
   })
 
-  it('Should emit refuel events', function() {
-    truck(telemetry, data)
-    data[0].events.refuel.active = true
-    data[1].events.refuel.active = false
-    truck(telemetry, data)
-    data[0].events.refuel.active = false
-    data[1].events.refuel.active = true
-    data[0].truck.fuel.value     = 587.2515454132155
-    truck(telemetry, data)
+  it('Should emit "warning" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'warning'),
+      [
+        ['warning', 'Air Pressure',       true],
+        ['warning', 'Fuel',               true],
+        ['warning', 'AdBlue',             true],
+        ['warning', 'Oil Pressure',       true],
+        ['warning', 'Water Temperature',  true],
+        ['warning', 'Battery Voltage',    true],
+        ['warning', 'Air Pressure',      false],
+        ['warning', 'Fuel',              false],
+        ['warning', 'AdBlue',            false],
+        ['warning', 'Oil Pressure',      false],
+        ['warning', 'Water Temperature', false],
+        ['warning', 'Battery Voltage',   false],
+      ]
+    )
+  })
 
-    assert(spies.refuelStarted.calledOnce)
-    assert(spies.refuelStopped.calledOnce)
-
-    assert.deepEqual(spies.refuelStarted.args[0][0], {
-      value:        485.2419738769531,
-      warning:      {enabled: false}
-    })
-    assert.deepEqual(spies.refuelStopped.args[0][0], {
-      value:        587.2515454132155,
-      warning:      {enabled: false}
-    })
+  it('Should emit "emergency" events', function() {
+    assert.deepStrictEqual(
+      telemetry.truck.emit.args.filter(event => event[0] === 'emergency'),
+      [
+        ['emergency', 'Air Pressure', true],
+        ['emergency', 'Air Pressure', false],
+      ]
+    )
   })
 
 })

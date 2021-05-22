@@ -1,170 +1,238 @@
-const assert = require('assert')
-const sinon = require('sinon')
-const fs = require('fs')
-const path = require('path')
+const assert    = require('assert')
+const sinon     = require('sinon')
 const cloneDeep = require('lodash.clonedeep')
 
 const truckSimTelemetry = require('../lib')
 
-const watch = require('../lib/watch')
 const getData = require('../lib/getData')
-
-const eventEmittersGame = require('../lib/eventEmitters/game')
-const eventEmittersJob = require('../lib/eventEmitters/job')
-const eventEmittersNavigation = require('../lib/eventEmitters/navigation')
-const eventEmittersTruck = require('../lib/eventEmitters/truck')
-const eventEmittersTrailers = require('../lib/eventEmitters/trailers')
 
 describe('watch()', function() {
 
-  let clock, data, datas, update
-  const opts  = {mmfName: 'foobar'}
-  
-  const sandbox = sinon.createSandbox()
+  let clock    = null
+  let testData = null
 
   before(function() {
-    data = JSON.parse(fs.readFileSync(path.resolve(__dirname, './data/scs_sdk_plugin_parsed_data_10.json')))
-
     clock = sinon.useFakeTimers()
 
-    update = sandbox.spy()
-
-    sandbox.stub(getData, 'default').callsFake(function() {
-      return datas[getData.default.args.length - 1] || datas[0]
-    })
-
-    sandbox.stub(eventEmittersGame,       'default')
-    sandbox.stub(eventEmittersJob,        'default')
-    sandbox.stub(eventEmittersNavigation, 'default')
-    sandbox.stub(eventEmittersTruck,      'default')
-    sandbox.stub(eventEmittersTrailers,   'default')
+    sinon
+      .stub(getData, 'default')
+      .callsFake(() => cloneDeep(testData))
   })
 
   beforeEach(function() {
-    datas = [cloneDeep(data)]
-  })
-
-  afterEach(function() {
-    sandbox.resetHistory()
-  })
-
-  after(function() {
-    sandbox.restore()
-  })
-
-  it('Should ensure the opts object exists and the interval property is 100ms or more', function() {
-    const testCases = [
-      {opts: undefined,            tick: 100},
-      {opts: null,                 tick: 100},
-      {opts: {},                   tick: 100},
-      {opts: {interval: 200},      tick: 200},
-      {opts: {interval: '200'},    tick: 200},
-      {opts: {interval: 1},        tick: 10},
-      {opts: {interval: 'foobar'}, tick: 100},
-    ]
-
-    for (const testCase of testCases) {
-      const telemetry = truckSimTelemetry(opts)
-
-      watch(testCase.opts, update, telemetry)
-
-      clock.tick(testCase.tick)
-      telemetry.stop()
-      clock.reset()
-
-      assert.deepEqual(getData.default.args, [[null, opts], [null, opts]])
-
-      getData.default.resetHistory()
+    testData = {
+      game:       {},
+      events:     {},
+      navigation: {},
+      trailers:   [],
     }
   })
 
-  it('Should emit a connected and disconnected events when the SDK toggles', function() {
-    datas[1] = cloneDeep(data)
-    datas[2] = cloneDeep(data)
-
-    datas[1].game.sdkActive = false
-    datas[2].game.sdkActive = true
-
-    const telemetry = truckSimTelemetry(opts)
-    const spy       = sinon.spy()
-
-    telemetry.game.once('connected',    spy)
-    telemetry.game.once('disconnected', spy)
-
-    watch({interval: 10}, update, telemetry)
-    clock.tick(10)
-    telemetry.stop()
+  afterEach(function() {
     clock.reset()
+  })
 
-    assert.equal(spy.args.length, 2)
-    assert.equal(update.args.length, 1)
+  after(function() {
+    clock.restore()
+    sinon.restore()
+  })
+
+  it('Should ensure the opts object exists and the interval property is 100ms or more', function() {
+    const telemetry = truckSimTelemetry()
+    const update    = sinon.spy()
+
+    testData = null
+
+    const testCases = [
+      {opts: undefined,            ticks: 100},
+      {opts: null,                 ticks: 100},
+      {opts: {},                   ticks: 100},
+      {opts: {interval: 200},      ticks: 200},
+      {opts: {interval: '200'},    ticks: 200},
+      {opts: {interval: 1},        ticks: 10}, 
+      {opts: {interval: 'foobar'}, ticks: 100},
+    ]
+
+    for (const testCase of testCases) {
+      telemetry.watch(testCase.opts, update)
+
+      clock.tick(testCase.ticks)
+      telemetry.stop()
+      clock.reset()
+    }
+
+    assert.equal(getData.default.args.length, 14)
+    assert.deepStrictEqual(getData.default.args[0],  [null, {mmfName: 'Local\\SCSTelemetry'}])
+    assert.deepStrictEqual(getData.default.args[2],  [null, {mmfName: 'Local\\SCSTelemetry'}])
+    assert.deepStrictEqual(getData.default.args[4],  [null, {mmfName: 'Local\\SCSTelemetry'}])
+    assert.deepStrictEqual(getData.default.args[6],  [null, {mmfName: 'Local\\SCSTelemetry'}])
+    assert.deepStrictEqual(getData.default.args[8],  [null, {mmfName: 'Local\\SCSTelemetry'}])
+    assert.deepStrictEqual(getData.default.args[10], [null, {mmfName: 'Local\\SCSTelemetry'}])
+    assert.deepStrictEqual(getData.default.args[12], [null, {mmfName: 'Local\\SCSTelemetry'}])
+
+    assert.equal(update.args.length, 0)
+  })
+
+  it('Should emit a connected and disconnected events when the SDK toggles', function() {
+    const telemetry = truckSimTelemetry()
+
+    const gameEventEmitterStub = sinon.stub(telemetry.game, 'emit')
+
+    testData = {
+      game: {sdkActive: false},
+      events:     {},
+      navigation: {},
+      trailers:   [],
+    }
+
+    telemetry.watch()
+    clock.tick(100)
+    testData.game.sdkActive = true
+    clock.tick(100)
+    testData.game.sdkActive = false
+    clock.tick(100)
+    testData.game.sdkActive = true
+    clock.tick(100)
+    testData.game.sdkActive = false
+    clock.tick(100)
+    telemetry.stop()
+
+    assert.deepStrictEqual(gameEventEmitterStub.args, [
+      ['connected'],
+      ['disconnected'],
+      ['connected'],
+      ['disconnected'],
+    ])
+
+    gameEventEmitterStub.restore()
   })
 
   it('Should update the data properties of the telemetry object', function() {
-    const telemetry = truckSimTelemetry(opts)
+    const telemetry = truckSimTelemetry()
+    const update    = sinon.spy()
 
-    watch({interval: 10}, update, telemetry)
-    clock.tick(10)
+    testData.game       = {sdkActive: false}
+    testData.job        = {foo: 'bar'}
+    testData.navigation = {bar: 'foo'}
+    testData.trailers   = ['foo', 'qux']
+    testData.truck      = {quux: 'quuz'}
+
+    telemetry.watch(null, update)
+    clock.tick(500)
     telemetry.stop()
-    clock.reset()
 
-    assert.deepEqual(telemetry.data.game,       data.game)
-    assert.deepEqual(telemetry.data.controls,   data.controls)
-    assert.deepEqual(telemetry.data.job,        data.job)
-    assert.deepEqual(telemetry.data.navigation, data.navigation)
-    assert.deepEqual(telemetry.data.truck,      data.truck)
-    assert.deepEqual(telemetry.data.trailers,   data.trailers)
-    assert.deepEqual(telemetry.data.trailer,    data.trailer)
-  })
+    assert.deepStrictEqual(
+      telemetry.data,
+      {
+        controls:   {},
+        game:       {sdkActive: false},
+        job:        {foo: 'bar'},
+        navigation: {bar: 'foo'},
+        trailers:   ['foo', 'qux'],
+        trailer:    {},
+        truck:      {quux: 'quuz'},   
+      }
+   )
 
-  it('Should run event emitters', function() {
-    datas[1] = cloneDeep(data)
-
-    const telemetry = truckSimTelemetry(opts)
-
-    watch({interval: 10}, update, telemetry)
-    clock.tick(10)
-    telemetry.stop()
-    clock.reset()
-
-    assert.deepEqual(eventEmittersGame.default.args[0],       [telemetry, [datas[1], datas[0]]])
-    assert.deepEqual(eventEmittersJob.default.args[0],        [telemetry, [datas[1], datas[0]]])
-    assert.deepEqual(eventEmittersNavigation.default.args[0], [telemetry, [datas[1], datas[0]]])
-    assert.deepEqual(eventEmittersTruck.default.args[0],      [telemetry, [datas[1], datas[0]]])
-    assert.deepEqual(eventEmittersTrailers.default.args[0],   [telemetry, [datas[1], datas[0]]])
+    assert.deepStrictEqual(update.args, [
+      [testData],
+      [testData],
+      [testData],
+      [testData],
+      [testData],
+      [testData],
+    ])
   })
 
   it('Should quit early if a watcher already exists', function() {
-    const telemetry = truckSimTelemetry(opts)
+    const telemetry = truckSimTelemetry()
+    const update    = sinon.spy()
 
-    telemetry.watcher = 'foobar'
+    testData = {
+      game:       {sdkActive: false},
+      events:     {},
+      navigation: {},
+      trailers:   [],
+    }
 
-    watch({interval: 10}, update, telemetry)
-    clock.tick(10)
+    telemetry.watch(null, update)
+    telemetry.watch(null, update)
+    clock.tick(500)
+    telemetry.watch(null, update)
+    clock.tick(500)
     telemetry.stop()
-    clock.reset()
+    clock.tick(500)
 
-    assert.equal(getData.default.args.length, 0)
+    assert.equal(update.args.length, 11)
   })
 
-  it('Should handle there being no data', function() {
-    getData.default.restore()
-    sandbox.stub(getData, 'default').callsFake(function() {
-      return undefined
+  it('What happens in the update callback should not affect the data in event emitters', function() {
+    const telemetry = truckSimTelemetry()
+
+    telemetry.game.on('time-change', function(a, b) {
+      a.bar = 'baz'
+      b.baz = 'qux'
     })
 
-    const telemetry = truckSimTelemetry(opts)
+    sinon.stub(telemetry.game, 'emit')
 
-    watch({interval: 10}, update, telemetry)
-    clock.tick(10)
-    telemetry.stop()
-    clock.reset()
+    testData = {
+      game: {
+        time: {value: 0}
+      },
+      events: {},
+      navigation: {},
+      trailers: []
+    }
 
-    assert.equal(eventEmittersGame.default.args.length,       0)
-    assert.equal(eventEmittersJob.default.args.length,        0)
-    assert.equal(eventEmittersNavigation.default.args.length, 0)
-    assert.equal(eventEmittersTruck.default.args.length,      0)
-    assert.equal(eventEmittersTrailers.default.args.length,   0)
+    telemetry.watch(null, function(data) {
+      data.game.time.foo = 'foobar'
+    })
+
+    clock.tick(100)
+    testData.game.time.value = 1
+    clock.tick(100)
+    testData.game.time.value = 2
+    clock.tick(100)
+
+    assert.deepStrictEqual(telemetry.game.emit.args, [
+      ['time-change', {value: 1}, {value: 0}],
+      ['time-change', {value: 2}, {value: 1}],
+    ])
+
+    telemetry.game.emit.restore()
   })
 
+  it('What happens in event emitters should not affect the data in the update callback', function() {
+    const telemetry = truckSimTelemetry()
+
+    const update = sinon.spy()
+
+    telemetry.game.on('time-change', function(a, b) {
+      a.bar = 'baz'
+      b.baz = 'qux'
+    })
+
+    testData = {
+      game: {
+        time: {value: 0}
+      },
+      events: {},
+      navigation: {},
+      trailers: []
+    }
+
+    telemetry.watch(null, update)
+
+    clock.tick(100)
+    testData.game.time.value = 1
+    clock.tick(100)
+    testData.game.time.value = 2
+    clock.tick(100)
+
+    assert.deepStrictEqual(update.args[0][0].game.time, {value: 0})
+    assert.deepStrictEqual(update.args[1][0].game.time, {value: 0})
+    assert.deepStrictEqual(update.args[2][0].game.time, {value: 1})
+    assert.deepStrictEqual(update.args[3][0].game.time, {value: 2})
+  })
 })

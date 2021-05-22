@@ -1,140 +1,129 @@
 const assert = require('assert')
-const sinon = require('sinon')
-const EventEmitter = require('events')
-const fs = require('fs')
-const path = require('path')
+const sinon  = require('sinon')
+const fs     = require('fs')
+const path   = require('path')
 
-const truckSimTelemetry = require('../lib')
+const tst = require('../lib')
 
 const getBuffer = require('../lib/getBuffer')
-const getData = require('../lib/getData')
-
-const watch = require('../lib/watch')
-const stop = require('../lib/stop')
+const getData   = require('../lib/getData')
 
 describe('truckSimTelemetry()', function() {
-
-  let buffer, data
-  const defaultOpts = {
-    mmfName: 'Local\\SCSTelemetry'
-  }
-
-  const sandbox = sinon.createSandbox()
+  let testBuffer = null
+  let testData   = null
 
   before(function() {
-    buffer = fs.readFileSync(path.resolve(__dirname, './buffers/scs_sdk_plugin_buffer_10'))
-    data   = JSON.parse(fs.readFileSync(path.resolve(__dirname, './data/scs_sdk_plugin_parsed_data_10.json')))
+    testBuffer =
+      fs.readFileSync(path.resolve(__dirname, './buffers/scs_sdk_plugin_buffer_10'))
+    
+    testData =
+      JSON.parse(fs.readFileSync(path.resolve(__dirname, './data/scs_sdk_plugin_parsed_data_10.json')))
+    
+    sinon
+      .stub(getBuffer, 'default')
+      .callsFake(() => testBuffer)
 
-    sandbox.stub(getBuffer, 'default').callsFake(function() {
-      return buffer
-    })
-
-    sandbox.spy(getData, 'default')
+    sinon.spy(getData, 'default')
   })
 
   after(function() {
-    sandbox.restore()
+    sinon.restore()
   })
 
   afterEach(function() {
-    sandbox.resetHistory()
+    getBuffer.default.resetHistory()
+    getData.default.resetHistory()
   })
 
-  it('should return a telemetry object', function() {
-    const telemetry    = truckSimTelemetry()
-    const eventEmitter = new EventEmitter()
-    
-    assert.deepEqual(telemetry.game,       eventEmitter)
-    assert.deepEqual(telemetry.navigation, eventEmitter)
-    assert.deepEqual(telemetry.job,        eventEmitter)
-    assert.deepEqual(telemetry.truck,      eventEmitter)
-    assert.deepEqual(telemetry.trailers,   eventEmitter)
-    assert.deepEqual(telemetry.trailer,    eventEmitter)
+  it('Should contain various "get" functions', function() {
+    const buffer = tst.getBuffer()
+    const actualData = {}
 
-    assert.deepEqual(telemetry.data, {
-      game:       {},
-      controls:   {},
-      job:        {},
-      navigation: {},
-      truck:      {},
-      trailers:   {},
-      trailer:    {},
+    actualData.data       = tst.getData()
+    actualData.controls   = tst.getControls()
+    actualData.game       = tst.getGame({mmfName: 'foobar'})
+    actualData.job        = tst.getJob()
+    actualData.navigation = tst.getNavigation()
+    actualData.trailer    = tst.getTrailer()
+    actualData.trailers   = tst.getTrailers()
+    actualData.truck      = tst.getTruck()
+
+    assert.deepStrictEqual(getBuffer.default.args[0], [{mmfName: 'Local\\SCSTelemetry'}])
+    assert.deepStrictEqual(getBuffer.default.args[1], [{mmfName: 'Local\\SCSTelemetry'}])
+    assert.deepStrictEqual(getBuffer.default.args[3], [{mmfName: 'foobar'}])
+
+    assert.deepStrictEqual(getData.default.args, [
+      [null,         {mmfName: 'Local\\SCSTelemetry'}],
+      ['controls',   {mmfName: 'Local\\SCSTelemetry'}],
+      ['game',       {mmfName: 'foobar'}],
+      ['job',        {mmfName: 'Local\\SCSTelemetry'}],
+      ['navigation', {mmfName: 'Local\\SCSTelemetry'}],
+      ['trailer',    {mmfName: 'Local\\SCSTelemetry'}],
+      ['trailers',   {mmfName: 'Local\\SCSTelemetry'}],
+      ['truck',      {mmfName: 'Local\\SCSTelemetry'}],
+    ])
+
+    assert.deepStrictEqual(actualData.data,       testData)
+    assert.deepStrictEqual(actualData.controls,   testData.controls)
+    assert.deepStrictEqual(actualData.game,       testData.game)
+    assert.deepStrictEqual(actualData.navigation, testData.navigation)
+    assert.deepStrictEqual(actualData.trailers,   testData.trailers)
+    assert.deepStrictEqual(actualData.trailer,    testData.trailer)
+    assert.deepStrictEqual(actualData.truck,      testData.truck)
+  })
+
+  describe('The telemetry object it returns', function() {
+    it('Should contain telemetry data', function() {
+      const telemetry = tst()
+
+      assert.deepStrictEqual(telemetry.data, {
+        controls:   {},
+        game:       {},
+        job:        {},
+        navigation: {},
+        trailers:   [],
+        trailer:    {},
+        truck:      {},
+      })
     })
+    
+    it('Should contain various "get" functions', function() {
+      const telemetry1 = tst()
+      const telemetry2 = tst({mmfName: 'barfoo'})
+      const actualData = {}
 
-    assert.deepEqual(telemetry.opts, defaultOpts)
+      actualData.data       = telemetry1.getData()
+      actualData.controls   = telemetry1.getControls()
+      actualData.game       = telemetry2.getGame()
+      actualData.job        = telemetry2.getJob()
+      actualData.navigation = telemetry2.getNavigation()
+      actualData.trailer    = telemetry1.getTrailer()
+      actualData.trailers   = telemetry2.getTrailers()
+      actualData.truck      = telemetry1.getTruck()
 
-    assert.deepEqual(telemetry.getBuffer(),     buffer)
-    assert.deepEqual(telemetry.getData(),       data)
-    assert.deepEqual(telemetry.getGame(),       data.game)
-    assert.deepEqual(telemetry.getControls(),   data.controls)
-    assert.deepEqual(telemetry.getJob(),        data.job)
-    assert.deepEqual(telemetry.getNavigation(), data.navigation)
-    assert.deepEqual(telemetry.getTruck(),      data.truck)
-    assert.deepEqual(telemetry.getTrailers(),   data.trailers)
-    assert.deepEqual(telemetry.getTrailer(),    data.trailer)
+      assert.deepStrictEqual(getBuffer.default.args[0], [{mmfName: 'Local\\SCSTelemetry'}])
+      assert.deepStrictEqual(getBuffer.default.args[1], [{mmfName: 'Local\\SCSTelemetry'}])
+      assert.deepStrictEqual(getBuffer.default.args[3], [{mmfName: 'barfoo'}])
 
-    assert.deepEqual(getBuffer.default.args, [
-      [defaultOpts],
-      [defaultOpts],
-      [defaultOpts],
-      [defaultOpts],
-      [defaultOpts],
-      [defaultOpts],
-      [defaultOpts],
-      [defaultOpts],
-      [defaultOpts],
-    ])
+      assert.deepStrictEqual(getData.default.args, [
+        [null,         {mmfName: 'Local\\SCSTelemetry'}],
+        ['controls',   {mmfName: 'Local\\SCSTelemetry'}],
+        ['game',       {mmfName: 'barfoo'}],
+        ['job',        {mmfName: 'barfoo'}],
+        ['navigation', {mmfName: 'barfoo'}],
+        ['trailer',    {mmfName: 'Local\\SCSTelemetry'}],
+        ['trailers',   {mmfName: 'barfoo'}],
+        ['truck',      {mmfName: 'Local\\SCSTelemetry'}],
+      ])
 
-    assert.deepEqual(getData.default.args, [
-      [null,         defaultOpts],
-      ['game',       defaultOpts],
-      ['controls',   defaultOpts],
-      ['job',        defaultOpts],
-      ['navigation', defaultOpts],
-      ['truck',      defaultOpts],
-      ['trailers',   defaultOpts],
-      ['trailer',    defaultOpts],
-    ])
-  })
-
-  it('should accept options', function() {
-    const opts      = {mmfName: 'foobar'}
-    const telemetry = truckSimTelemetry(opts)
-  
-    assert.deepEqual(telemetry.opts, opts)
-
-    assert.deepEqual(telemetry.getBuffer(),     buffer)
-    assert.deepEqual(telemetry.getData(),       data)
-    assert.deepEqual(telemetry.getGame(),       data.game)
-    assert.deepEqual(telemetry.getControls(),   data.controls)
-    assert.deepEqual(telemetry.getJob(),        data.job)
-    assert.deepEqual(telemetry.getNavigation(), data.navigation)
-    assert.deepEqual(telemetry.getTruck(),      data.truck)
-    assert.deepEqual(telemetry.getTrailers(),   data.trailers)
-    assert.deepEqual(telemetry.getTrailer(),    data.trailer)
-
-    assert.deepEqual(getBuffer.default.args, [
-      [opts],
-      [opts],
-      [opts],
-      [opts],
-      [opts],
-      [opts],
-      [opts],
-      [opts],
-      [opts],
-    ])
-
-    assert.deepEqual(getData.default.args, [
-      [null,         opts],
-      ['game',       opts],
-      ['controls',   opts],
-      ['job',        opts],
-      ['navigation', opts],
-      ['truck',      opts],
-      ['trailers',   opts],
-      ['trailer',    opts],
-    ])
+      assert.deepStrictEqual(actualData.data,       testData)
+      assert.deepStrictEqual(actualData.controls,   testData.controls)
+      assert.deepStrictEqual(actualData.game,       testData.game)
+      assert.deepStrictEqual(actualData.navigation, testData.navigation)
+      assert.deepStrictEqual(actualData.trailers,   testData.trailers)
+      assert.deepStrictEqual(actualData.trailer,    testData.trailer)
+      assert.deepStrictEqual(actualData.truck,      testData.truck)
+    })
   })
 
 })

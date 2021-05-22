@@ -1,31 +1,44 @@
 const assert = require('assert')
 const sinon = require('sinon')
 
-const stop = require('../lib/stop')
+const tst = require('../lib')
 
 describe('stop()', function() {
 
-  let clock, telemetry, cb
+  let clock = null
 
   before(function() {
     clock = sinon.useFakeTimers();
-    cb    = sinon.spy()
-
-    telemetry = {
-      watcher: setInterval(cb, 1)
-    }
   })
 
   after(function() {
     clock.restore()
   })
 
-  it('Should stop a watcher interval', function() {
-    clock.tick(1)
-    stop(telemetry)
-    clock.tick(100)
+  it('should actually stop and start the watcher', function() {
+    const telemetry = tst()
+    let count = 0
+    
+    function callback() {
+      count++
+      if (count == 11) {
+        telemetry.stop()
+      }
+    }
+    
+    telemetry.watch({interval: 10}, callback)
+    clock.tick(200)
 
-    assert.equal(cb.args.length, 1)
+    assert.strictEqual(count, 11)
+
+    count = 0
+    telemetry.watch({interval: 10}, callback)
+    telemetry.watch({interval: 10}, callback)
+    clock.tick(50)
+    telemetry.stop()
+    clock.tick(200)
+
+    assert.strictEqual(count, 6)
   })
 
 })

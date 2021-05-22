@@ -1,177 +1,183 @@
-const assert = require('assert')
-const sinon = require('sinon')
-const EventEmitter = require('events')
+const assert    = require('assert')
+const sinon     = require('sinon')
+const cloneDeep = require('lodash.clonedeep')
 
-const job = require('../../lib/eventEmitters/job')
+const tst = require('../../lib')
+
+const getData = require('../../lib/getData')
 
 describe('eventEmitters/job()', function() {
 
-  const telemetry = {
-    job: new EventEmitter()
-  }
+  let clock    = null
 
-  const spies = {
-    cancelled: sinon.spy(),
-    delivered: sinon.spy(),
-    finished:  sinon.spy(),
-    started:   sinon.spy(),
-  }
-
-  const createData = () => ({
-    game: {
-      pluginVersion: 10
-    },
+  let testData = {
     events: {
       job: {
         finished:  {
-          active: false,
+          active: false
         },
         started:   {
           active:     false,
-          autoLoaded: false,
+          autoLoaded: true,
         },
         cancelled: {
           active:        false,
+          finishingTime: 1000,
           penalty:       1001,
           startingTime:  1002,
-          finishingTime: 1003,
         },
         delivered: {
-          active:        false,
-          autoParked:    false,
-          cargoDamage:   0.5,
-          deliveryTime:  2001,
-          startingTime:  2002,
-          finishingTime: 2003,
-          earnedXP:      2004,
-          distance:      2005,
-          revenue:       2006,
+          active:          false,
+          autoParked:      true,
+          cargoDamage:     2000,
+          deliveryTime:    2001,
+          distance:        2002,
+          earnedXP:        2003,
+          finishingTime:   2004,
+          revenue:         2005,
+          startingTime:    2006,
         },
       }
     },
     job: {
-      deliveryTime:    3001,
-      plannedDistance: 3002,
-      income:          3003,
       isSpecial:       true,
-      cargo:           {foo: 'foo'},
-      source:          {foo: 'bar'},
-      destination:     {foo: 'qux'},
-      market:          {foo: 'quux'},
-    }
-  })
+      cargo:           'foo',
+      market:          'bar',
+      deliveryTime:    3000,
+      income:          3001,
+      plannedDistance: 3002,
+      destination:     {foo: 'bar'},
+      source:          {bar: 'baz'},
+    },
+    game:     {},
+    trailers: [],
+    navigation: {},
+  }
+
+  const telemetry = tst()
 
   before(function() {
-    const data = [createData(), createData()]
+    clock = sinon.useFakeTimers()
+    sinon.spy(telemetry.job, 'emit')
 
-    data[1].job = {
-      deliveryTime:    4001,
-      plannedDistance: 4002,
-      income:          4002,
-      isSpecial:       false,
-      cargo:           {bar: 'foo'},
-      source:          {bar: 'bar'},
-      destination:     {bar: 'qux'},
-      market:          {bar: 'quux'},
+    sinon
+      .stub(getData, 'default')
+      .callsFake(() => cloneDeep(testData))
+
+    telemetry.watch()
+
+    clock.tick(100)
+
+    testData.events.job.finished.active  = true
+    testData.events.job.started.active   = true
+    testData.events.job.cancelled.active = true
+    testData.events.job.delivered.active = true
+
+    clock.tick(100)
+
+    testData.events.job.finished.active  = false
+    testData.events.job.started.active   = false
+    testData.events.job.cancelled.active = false
+    testData.events.job.delivered.active = false
+
+    clock.tick(100)
+
+    testData.events.job.finished.active  = true
+    testData.events.job.started.active   = true
+    testData.events.job.cancelled.active = true
+    testData.events.job.delivered.active = true
+
+    clock.tick(100)
+
+    telemetry.stop()
+  })
+
+  after(function() {
+    clock.restore()
+    sinon.restore()
+  })
+
+  it('Should emit "finished" events', function() {
+    assert.deepStrictEqual(
+      telemetry.job.emit.args.filter(event => event[0] === 'finished'),
+      [
+        ['finished'],
+        ['finished'],
+      ]
+    )
+  })
+  
+  it('Should emit "started" events', function() {
+    const expectedData = {
+      autoLoaded:      true,
+      isSpecial:       true,
+      cargo:           'foo',
+      market:          'bar',
+      deliveryTime:    3000,
+      income:          3001,
+      plannedDistance: 3002,
+      destination:     {foo: 'bar'},
+      source:          {bar: 'baz'},
     }
 
-    telemetry.job.on( 'cancelled', spies.cancelled )
-    telemetry.job.on( 'delivered', spies.delivered )
-    telemetry.job.on( 'finished',  spies.finished )
-    telemetry.job.on( 'started',   spies.started )
-
-    job( telemetry, data )
-
-    // Job finished
-    data[0].events.job.finished.active = true
-    data[1].events.job.finished.active = false
-    job( telemetry, data )
-    data[0].events.job.finished.active = false
-    data[1].events.job.finished.active = true
-    job( telemetry, data )
-
-    // Job started
-    data[0].events.job.started.active = true
-    data[1].events.job.started.active = false
-    job( telemetry, data )
-    data[0].events.job.started.active = false
-    data[1].events.job.started.active = true
-    job( telemetry, data )
-
-    // Job cancelled
-    data[0].events.job.cancelled.active = true
-    data[1].events.job.delivered.active = false
-    job( telemetry, data )
-    data[0].events.job.cancelled.active = false
-    data[1].events.job.delivered.active = true
-    job( telemetry, data )
-
-
-    // Job delivered
-    data[0].events.job.delivered.active = true
-    data[1].events.job.delivered.active = false
-    job( telemetry, data )
-    data[0].events.job.delivered.active = false
-    data[1].events.job.delivered.active = true
-    job( telemetry, data )
-  } )
-
-
-  it('Should emit finished events', function() {
-    assert.equal(spies.finished.args.length, 1)
-  } )
-
-
-  it( 'Should emit started events', function() {
-    assert.equal( spies.started.args.length, 1)
-    assert.deepEqual( spies.started.args[0][0], {
-      autoLoaded:      false,
-      deliveryTime:    3001,
-      plannedDistance: 3002,
-      cargo:           {foo: 'foo'},
+    assert.deepStrictEqual(
+      telemetry.job.emit.args.filter(event => event[0] === 'started'),
+      [
+        ['started', expectedData],
+        ['started', expectedData],
+      ]
+    )
+  })
+  
+  it('Should emit "cancelled" events', function() {
+    const expectedData = {
       isSpecial:       true,
-      source:          {foo: 'bar'},
-      destination:     {foo: 'qux'},
-      market:          {foo: 'quux'},
-      income:          3003,
-    } )
-  } )
-
-  it( 'Should emit cancelled events', function() {
-    assert.equal( spies.cancelled.args.length, 1 )
-    assert.deepEqual( spies.cancelled.args[0][0], {
-      penalty:         1001,
-      startingTime:    1002,
-      finishingTime:   1003,
-      deliveryTime:    4001,
-      plannedDistance: 4002,
-      cargo:           {bar: 'foo'},
-      isSpecial:       false,
-      source:          {bar: 'bar'},
-      destination:     {bar: 'qux'},
-      market:          {bar: 'quux'},
+      cargo:           'foo',
+      market:          'bar',
+      deliveryTime:    3000,
+      finishingTime:   1000,
       income:          0,
-    } )
-  } )
+      penalty:         1001,
+      plannedDistance: 3002,
+      startingTime:    1002,
+      destination:     {foo: 'bar'},
+      source:          {bar: 'baz'},
+    }
 
-  it( 'Should emit delivered events', function() {
-    assert.equal( spies.delivered.args.length, 1)
-    assert.deepEqual( spies.delivered.args[0][0], {
+    assert.deepStrictEqual(
+      telemetry.job.emit.args.filter(event => event[0] === 'cancelled'),
+      [
+        ['cancelled', expectedData],
+        ['cancelled', expectedData],
+      ]
+    )
+  })
+
+  it('Should emit "delivered" events', function() {
+    const expectedData = {
+      autoParked:      true,
+      isSpecial:       true,
+      cargo:           'foo',
+      market:          'bar',
+      cargoDamage:     2000,
       deliveryTime:    2001,
-      startingTime:    2002,
-      finishingTime:   2003,
-      earnedXP:        2004,
-      cargoDamage:     0.5,
-      distance:        2005,
-      autoParked:      false,
-      revenue:         2006,
-      plannedDistance: 4002,
-      cargo:           {bar: 'foo'},
-      isSpecial:       false,
-      source:          {bar: 'bar'},
-      destination:     {bar: 'qux'},
-      market:          {bar: 'quux'},
-    } )
-  } )
+      distance:        2002,
+      earnedXP:        2003,
+      finishingTime:   2004,
+      plannedDistance: 3002,
+      revenue:         2005,
+      startingTime:    2006,
+      destination:     {foo: 'bar'},
+      source:          {bar: 'baz'},
+    }
+
+    assert.deepStrictEqual(
+      telemetry.job.emit.args.filter(event => event[0] === 'delivered'),
+      [
+        ['delivered', expectedData],
+        ['delivered', expectedData],
+      ]
+    )
+  })
 
 })
