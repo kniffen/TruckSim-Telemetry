@@ -1,8 +1,8 @@
 const assert = require('assert')
 const sinon = require('sinon')
 
-const getBuffer = require('../lib/getBuffer')
-const scsSDKTelemetry = require('../build/Release/scsSDKTelemetry')
+const functions = require('../../lib/functions')
+const utils     = require('../../lib/utils')
 
 describe('getBuffer()', function() {
   let buffers
@@ -12,9 +12,9 @@ describe('getBuffer()', function() {
   }
 
   before(function() {
-    sinon.spy(getBuffer, 'default')
+    sinon.spy(functions, 'getBuffer')
 
-    buffer = getBuffer(opts)
+    buffer = functions.getBuffer(opts)
     
     // TODO: Figure out to make the following work
     // Current error: TypeError: Cannot redefine property: getArrayBuffer
@@ -30,7 +30,7 @@ describe('getBuffer()', function() {
 
   it('Should return a buffer with a specified mapped memory file name', function() {
     assert.deepStrictEqual(
-      getBuffer.default.args,
+      functions.getBuffer.args,
       [
         [{mmfName: 'foobar'}],
       ]

@@ -4,7 +4,7 @@ const cloneDeep = require('lodash.clonedeep')
 
 const tst = require('../../lib')
 
-const getData = require('../../lib/getData')
+const functions = require('../../lib/functions')
 
 describe('eventEmitters/navigation()', function() {
 
@@ -27,7 +27,10 @@ describe('eventEmitters/navigation()', function() {
     clock = sinon.useFakeTimers()
 
     sinon.spy(telemetry.navigation, 'emit')
-    sinon.stub(getData, 'default').callsFake(() => cloneDeep(testData))
+
+    sinon
+      .stub(functions, 'getData')
+      .callsFake(() => cloneDeep(testData))
     
     telemetry.watch()
     

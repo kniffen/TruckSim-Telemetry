@@ -3,35 +3,37 @@ const sinon = require('sinon')
 const fs = require('fs')
 const path = require('path')
 
-const getData = require('../lib/getData')
+const functions = require('../../lib/functions')
+const utils     = require('../../lib/utils')
 
-const getBuffer = require('../lib/getBuffer')
-const getPluginVersion = require('../lib/getPluginVersion')
-
-describe('getData()', function() {
+describe('functions.getData()', function() {
 
   let getBufferStub, getPluginVersionStub
-  let version, buffer, parsedData
+  let pluginVersion, buffer, parsedData
 
   const opts = {
     mmfName: 'foobar'
   }
 
   before(function() {
-    parsedData = JSON.parse(fs.readFileSync(path.resolve(__dirname, './data/scs_sdk_plugin_parsed_data_10.json')))
+    parsedData = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../data/scs_sdk_plugin_parsed_data_10.json')))
 
-    getBufferStub = sinon.stub(getBuffer, 'default').callsFake(function() {
-      buffer = fs.readFileSync(path.resolve(__dirname, './buffers/scs_sdk_plugin_buffer_10'))
-      return buffer
-    })
+    getBufferStub =
+      sinon
+        .stub(functions, 'getBuffer')
+        .callsFake(() => {
+          buffer = fs.readFileSync(path.resolve(__dirname, '../buffers/scs_sdk_plugin_buffer_10'))
+          return buffer
+        })
   
-    getPluginVersionStub = sinon.stub(getPluginVersion, 'default').callsFake(function() {
-      return version
-    })
+    getPluginVersionStub =
+      sinon
+        .stub(utils, 'getPluginVersion')
+        .callsFake(() => pluginVersion)
   })
 
   beforeEach(function() {
-    version = 10
+    pluginVersion = 10
   })
 
   after(function() {
@@ -45,15 +47,15 @@ describe('getData()', function() {
   })
 
   it('Should get parsed data from supported SDK versions', function() {
-    const result = getData(null, opts)
+    const result = functions.getData(null, opts)
 
-    assert.deepEqual(getBufferStub.args, [[opts]])
+    assert.deepStrictEqual(getBufferStub.args, [[opts]])
     assert.deepEqual(getPluginVersionStub.args, [[buffer]])
     assert.deepEqual(result, parsedData)
   })
 
   it('Should return data for a specified property', function() {
-    const result = getData('game', opts)
+    const result = functions.getData('game', opts)
   
     assert.deepEqual(getBufferStub.args, [[opts]])
     assert.deepEqual(getPluginVersionStub.args, [[buffer]])
@@ -61,9 +63,9 @@ describe('getData()', function() {
   })
 
   it('Should throw an error for unsupported SDK versions', function() {
-    version = 1234
+    pluginVersion = 1234
     try {
-      const result = getData(null, opts)
+      const result = functions.getData(null, opts)
     } catch (err) {
       assert.deepEqual(getBufferStub.args, [[opts]])
       assert.equal(err.message, 'SCS-SDK-Plugin version 1234 is not supported')
@@ -71,10 +73,10 @@ describe('getData()', function() {
   })
 
   it('Should return "null" if version number is less than 0', function() {
-    version = 0
-    const test1 = getData(null, opts)
-    version = -1
-    const test2 = getData(null, opts)
+    pluginVersion = 0
+    const test1 = functions.getData(null, opts)
+    pluginVersion = -1
+    const test2 = functions.getData(null, opts)
 
     assert.deepEqual(getBufferStub.args, [[opts], [opts]])
     assert.strictEqual(test1, null)
@@ -84,11 +86,12 @@ describe('getData()', function() {
   it('Should return "bull" if there is no buffer', function() {
     getBufferStub.restore()
 
-    getBufferStub = sinon.stub(getBuffer, 'default').callsFake(function() {
-      return null
-    })
+    getBufferStub = 
+      sinon
+        .stub(functions, 'getBuffer')
+        .callsFake(() => null)
 
-    const result = getData(null, opts)
+    const result = functions.getData(null, opts)
     assert.ok(getBufferStub.called)
     assert.deepEqual(getBufferStub.args, [[opts]])
     assert.strictEqual(result, null)

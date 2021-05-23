@@ -4,7 +4,7 @@ const cloneDeep = require('lodash.clonedeep')
 
 const tst = require('../../lib')
 
-const getData = require('../../lib/getData')
+const functions = require('../../lib/functions')
 
 describe('eventEmitters/truck()', function() {
 
@@ -79,7 +79,7 @@ describe('eventEmitters/truck()', function() {
     sinon.spy(telemetry.truck, 'emit')
 
     sinon
-      .stub(getData, 'default')
+      .stub(functions, 'getData')
       .callsFake(() => cloneDeep(testData))
 
     telemetry.watch()

@@ -2,11 +2,11 @@ const assert    = require('assert')
 const sinon     = require('sinon')
 const cloneDeep = require('lodash.clonedeep')
 
-const tst = require('../lib')
+const tst = require('../../lib')
 
-const getData = require('../lib/getData')
+const functions = require('../../lib/functions')
 
-describe('stop()', function() {
+describe('functions.stop()', function() {
 
   let clock = null
 
@@ -21,7 +21,7 @@ describe('stop()', function() {
     clock = sinon.useFakeTimers();
 
     sinon
-      .stub(getData, 'default')
+      .stub(functions, 'getData')
       .callsFake(() => cloneDeep(testData))
   })
 

@@ -1,20 +1,20 @@
 const assert = require('assert')
 const sinon = require('sinon')
 
-const parseOptions = require('../lib/parseOptions')
+const utils = require('../../lib/utils')
 
-describe('parseOptions()', function() {
+describe('utils.parseOptions()', function() {
 
   it('Should parse option objects', function() {
     const actual = [
-      parseOptions(),
-      parseOptions(null),
-      parseOptions(undefined),
-      parseOptions('foo'),
-      parseOptions(1234),
-      parseOptions([]),
-      parseOptions({}),
-      parseOptions({mmfName: 'bar'}),
+      utils.parseOptions(),
+      utils.parseOptions(null),
+      utils.parseOptions(undefined),
+      utils.parseOptions('foo'),
+      utils.parseOptions(1234),
+      utils.parseOptions([]),
+      utils.parseOptions({}),
+      utils.parseOptions({mmfName: 'bar'}),
     ]
 
     const expected = [

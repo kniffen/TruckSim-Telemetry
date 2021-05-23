@@ -2,9 +2,9 @@ const assert    = require('assert')
 const sinon     = require('sinon')
 const cloneDeep = require('lodash.clonedeep')
 
-const truckSimTelemetry = require('../lib')
+const truckSimTelemetry = require('../../lib')
 
-const getData = require('../lib/getData')
+const functions = require('../../lib/functions')
 
 describe('watch()', function() {
 
@@ -15,7 +15,7 @@ describe('watch()', function() {
     clock = sinon.useFakeTimers()
 
     sinon
-      .stub(getData, 'default')
+      .stub(functions, 'getData')
       .callsFake(() => cloneDeep(testData))
   })
 
@@ -66,7 +66,7 @@ describe('watch()', function() {
     }
 
     assert.deepStrictEqual(
-      getData.default.args,
+      functions.getData.args,
       [
         [null, {mmfName: 'Local\\SCSTelemetry'}],
         [null, {mmfName: 'Local\\SCSTelemetry'}],
