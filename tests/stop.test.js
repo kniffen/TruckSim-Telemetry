@@ -1,5 +1,6 @@
-const assert = require('assert')
-const sinon = require('sinon')
+const assert    = require('assert')
+const sinon     = require('sinon')
+const cloneDeep = require('lodash.clonedeep')
 
 const tst = require('../lib')
 
@@ -19,7 +20,9 @@ describe('stop()', function() {
   before(function() {
     clock = sinon.useFakeTimers();
 
-    sinon.stub(getData, 'default').callsFake(() => testData)
+    sinon
+      .stub(getData, 'default')
+      .callsFake(() => cloneDeep(testData))
   })
 
   after(function() {
@@ -29,28 +32,40 @@ describe('stop()', function() {
 
   it('should actually stop and start the watcher', function() {
     const telemetry = tst()
-    let count = 0
     
-    function callback() {
-      count++
-      if (count == 11) {
+    testData.foo = 0
+   
+    const callback = sinon.spy(function(data) {
+      if (callback.args.length == 11) {
         telemetry.stop()
       }
-    }
+    })
     
     telemetry.watch({interval: 10}, callback)
-    clock.tick(200)
 
-    assert.strictEqual(count, 11)
+    for (let i = 0; i < 20; i++) {
+      clock.tick(10)
+      testData.foo++
+    }
 
-    count = 0
+    assert.strictEqual(callback.args.length, 11)
+    
+    testData.foo = 0
+    callback.resetHistory()
+
     telemetry.watch({interval: 10}, callback)
     telemetry.watch({interval: 10}, callback)
-    clock.tick(50)
+    
+    for (let i = 0; i < 5; i++) {
+      clock.tick(10)
+      testData.foo++
+    }
+
     telemetry.stop()
+    
     clock.tick(200)
 
-    assert.strictEqual(count, 6)
+    assert.strictEqual(callback.args.length, 4)
   })
 
 })

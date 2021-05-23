@@ -134,21 +134,27 @@ describe('watch()', function() {
     const telemetry = truckSimTelemetry()
     const update    = sinon.spy()
 
-    testData.game       = {sdkActive: false}
+    testData.game       = {paused: false}
     testData.job        = {foo: 'bar'}
     testData.navigation = {bar: 'foo'}
     testData.trailers   = ['foo', 'qux']
     testData.truck      = {quux: 'quuz'}
 
     telemetry.watch(null, update)
+    
+    clock.tick(100)
+    testData.game.paused = true
+    clock.tick(100)
+    testData.game.paused = false
     clock.tick(500)
+
     telemetry.stop()
 
     assert.deepStrictEqual(
       telemetry.data,
       {
         controls:   {},
-        game:       {sdkActive: false},
+        game:       {paused: false},
         job:        {foo: 'bar'},
         navigation: {bar: 'foo'},
         trailers:   ['foo', 'qux'],
@@ -157,14 +163,31 @@ describe('watch()', function() {
       }
    )
 
-    assert.deepStrictEqual(update.args, [
-      [testData],
-      [testData],
-      [testData],
-      [testData],
-      [testData],
-      [testData],
-    ])
+    assert.deepStrictEqual(
+      update.args,
+      [
+        [
+          {
+            events:     {},
+            game:       {paused: true},
+            job:        {foo: 'bar'},
+            navigation: {bar: 'foo'},
+            trailers:   ['foo', 'qux'],
+            truck:      {quux: 'quuz'},   
+          }
+        ],
+        [
+          {
+            events:     {},
+            game:       {paused: false},
+            job:        {foo: 'bar'},
+            navigation: {bar: 'foo'},
+            trailers:   ['foo', 'qux'],
+            truck:      {quux: 'quuz'},   
+          }
+        ],
+      ]
+    )
   })
 
   it('Should quit early if a watcher already exists', function() {
@@ -172,7 +195,7 @@ describe('watch()', function() {
     const update    = sinon.spy()
 
     testData = {
-      game:       {sdkActive: false},
+      game:       {paused: false},
       events:     {},
       navigation: {},
       trailers:   [],
@@ -181,12 +204,15 @@ describe('watch()', function() {
     telemetry.watch(null, update)
     telemetry.watch(null, update)
     clock.tick(500)
+    testData.game.paused = true
     telemetry.watch(null, update)
+    clock.tick(500)
+    testData.game.paused = false
     clock.tick(500)
     telemetry.stop()
     clock.tick(500)
 
-    assert.equal(update.args.length, 11)
+    assert.equal(update.args.length, 2)
   })
 
   it('What happens in the update callback should not affect the data in event emitters', function() {
@@ -253,9 +279,34 @@ describe('watch()', function() {
     testData.game.time.value = 2
     clock.tick(100)
 
-    assert.deepStrictEqual(update.args[0][0].game.time, {value: 0})
-    assert.deepStrictEqual(update.args[1][0].game.time, {value: 0})
-    assert.deepStrictEqual(update.args[2][0].game.time, {value: 1})
-    assert.deepStrictEqual(update.args[3][0].game.time, {value: 2})
+    assert.deepStrictEqual(update.args[0][0].game.time, {value: 1})
+    assert.deepStrictEqual(update.args[1][0].game.time, {value: 2})
   })
+
+  it('Should only run the update callback when the state changes', function() {
+    const telemetry = truckSimTelemetry()
+    const update    = sinon.spy()
+
+    telemetry.watch(null, update)
+
+    clock.tick(200)
+
+    testData = {
+      game:       {paused: false},
+      events:     {},
+      navigation: {},
+      trailers:   [],
+    }
+
+    clock.tick(200)
+
+    testData.paused = true
+    clock.tick(500)
+
+    testData.paused = false
+    clock.tick(500)
+
+    assert.deepStrictEqual(update.args.length, 3)
+  })
+
 })
