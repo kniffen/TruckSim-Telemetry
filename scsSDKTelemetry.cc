@@ -4,7 +4,7 @@
 HANDLE hMapFileSCSTelemetry;
 LPVOID pBuf = NULL;
 
-napi_value GetArrayBuffer(napi_env env, napi_callback_info info) {
+napi_value GetBuffer(napi_env env, napi_callback_info info) {
   char* mmf_name;
   size_t argc = 1;
   size_t mmf_name_size;
@@ -27,11 +27,10 @@ napi_value GetArrayBuffer(napi_env env, napi_callback_info info) {
   if (hMapFileSCSTelemetry) {
     pBuf = MapViewOfFile(hMapFileSCSTelemetry, FILE_MAP_ALL_ACCESS, 0, 0, mmf_size);  
   } else {
-    napi_throw_error(env, NULL, "Unable to get array buffer");
+    napi_throw_error(env, NULL, "Unable to get buffer");
     return nullptr;
   }
-
-  status = napi_create_external_arraybuffer(env, pBuf, mmf_size, NULL, NULL, &buffer);
+  status = napi_create_external_buffer(env, mmf_size, pBuf, NULL, NULL, &buffer);
 
   return buffer;
 }
@@ -42,7 +41,7 @@ napi_value GetArrayBuffer(napi_env env, napi_callback_info info) {
 napi_value Init(napi_env env, napi_value exports) {
   napi_status status;
   
-  napi_property_descriptor desc = DECLARE_NAPI_METHOD("getArrayBuffer", GetArrayBuffer);
+  napi_property_descriptor desc = DECLARE_NAPI_METHOD("getBuffer", GetBuffer);
   status = napi_define_properties(env, exports, 1, &desc);
   
   return exports;

@@ -15,8 +15,8 @@ describe('getBuffer()', function() {
     sinon.spy(functions, 'getBuffer')
 
     sinon
-      .stub(utils, 'getArrayBuffer')
-      .callsFake(() => new ArrayBuffer(8))
+      .stub(utils, 'getBuffer')
+      .callsFake(() => Buffer.from([1,2,3,4]))
 
     buffer = functions.getBuffer(opts)
   })
@@ -28,7 +28,7 @@ describe('getBuffer()', function() {
   it('Should return a buffer', function() {
     assert.ok(Buffer.isBuffer(buffer))
 
-    assert.deepStrictEqual(buffer.toJSON().data, [0,0,0,0,0,0,0,0])
+    assert.deepStrictEqual(buffer.toJSON().data, [1,2,3,4])
   })
 
   it('Should return a buffer with a specified mapped memory file name', function() {
@@ -39,11 +39,11 @@ describe('getBuffer()', function() {
       ]
     )
 
-    assert.deepStrictEqual(utils.getArrayBuffer.args, [['foobar']])
+    assert.deepStrictEqual(utils.getBuffer.args, [['foobar']])
   })
 
   it('Should return "null" if it fails', function() {
-    utils.getArrayBuffer.restore()
+    utils.getBuffer.restore()
 
     buffer = functions.getBuffer(opts)
 
