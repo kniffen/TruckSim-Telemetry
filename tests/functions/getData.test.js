@@ -83,7 +83,7 @@ describe('functions.getData()', function() {
     assert.strictEqual(test2, null)
   })
 
-  it('Should return "bull" if there is no buffer', function() {
+  it('Should return "null" if there is no buffer', function() {
     getBufferStub.restore()
 
     getBufferStub = 
