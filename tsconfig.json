@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "typeRoots": ["./node_modules/@types"],
+    "noImplicitAny": true,
+    "skipLibCheck": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "target": "es5",
+  },
+  "include": ["tests/typescript/**/*.ts"],
+  "exclude": ["node_modules"],
+}
