@@ -179,7 +179,7 @@
 | Name | Type | Optional |
 | ---- | ---- | -------- |
 | factor | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| enabled | [191](typedefs.md#191) | NO |
+| enabled | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
 
 ---
 
@@ -682,13 +682,14 @@
 | Name | Type | Optional |
 | ---- | ---- | -------- |
 | controls | [Controls](typedefs.md#Controls) | NO |
+| events | [Events](typedefs.md#Events) | YES |
 | game | [Game](typedefs.md#Game) | NO |
 | job | [Job](typedefs.md#Job) | NO |
 | navigation | [Navigation](typedefs.md#Navigation) | NO |
+| substances | [Substances](typedefs.md#Substances) | YES |
 | trailer | [Trailer](typedefs.md#Trailer) | NO |
 | trailers | [178](typedefs.md#178) | NO |
 | truck | [Truck](typedefs.md#Truck) | NO |
-| substances | [Substances](typedefs.md#Substances) | YES |
 
 ---
 
