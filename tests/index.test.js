@@ -6,6 +6,7 @@ const path   = require('path')
 const tst = require('../lib')
 
 const functions = require('../lib/functions')
+const utils     = require('../lib/utils')
 
 describe('truckSimTelemetry()', function() {
   let testBuffer = null
@@ -19,7 +20,7 @@ describe('truckSimTelemetry()', function() {
       JSON.parse(fs.readFileSync(path.resolve(__dirname, './data/scs_sdk_plugin_parsed_data_10.json')))
     
     sinon
-      .stub(functions, 'getBuffer')
+      .stub(utils, 'getBuffer')
       .callsFake(() => testBuffer)
 
     sinon.spy(functions, 'getData')
@@ -30,7 +31,9 @@ describe('truckSimTelemetry()', function() {
   })
 
   afterEach(function() {
-    functions.getBuffer.resetHistory()
+    if (utils.getBuffer.resetHistory)
+      utils.getBuffer.resetHistory()
+
     functions.getData.resetHistory()
   })
 
@@ -47,9 +50,9 @@ describe('truckSimTelemetry()', function() {
     actualData.trailers   = tst.getTrailers()
     actualData.truck      = tst.getTruck()
 
-    assert.deepStrictEqual(functions.getBuffer.args[0], [{mmfName: 'Local\\SCSTelemetry'}])
-    assert.deepStrictEqual(functions.getBuffer.args[1], [{mmfName: 'Local\\SCSTelemetry'}])
-    assert.deepStrictEqual(functions.getBuffer.args[3], [{mmfName: 'foobar'}])
+    assert.deepStrictEqual(utils.getBuffer.args[0], ['Local\\SCSTelemetry'])
+    assert.deepStrictEqual(utils.getBuffer.args[1], ['Local\\SCSTelemetry'])
+    assert.deepStrictEqual(utils.getBuffer.args[3], ['foobar'])
 
     assert.deepStrictEqual(functions.getData.args, [
       [null,         {mmfName: 'Local\\SCSTelemetry'}],
@@ -100,9 +103,9 @@ describe('truckSimTelemetry()', function() {
       actualData.trailers   = telemetry2.getTrailers()
       actualData.truck      = telemetry1.getTruck()
 
-      assert.deepStrictEqual(functions.getBuffer.args[0], [{mmfName: 'Local\\SCSTelemetry'}])
-      assert.deepStrictEqual(functions.getBuffer.args[1], [{mmfName: 'Local\\SCSTelemetry'}])
-      assert.deepStrictEqual(functions.getBuffer.args[3], [{mmfName: 'barfoo'}])
+      assert.deepStrictEqual(utils.getBuffer.args[0], ['Local\\SCSTelemetry'])
+      assert.deepStrictEqual(utils.getBuffer.args[1], ['Local\\SCSTelemetry'])
+      assert.deepStrictEqual(utils.getBuffer.args[3], ['barfoo'])
 
       assert.deepStrictEqual(functions.getData.args, [
         [null,         {mmfName: 'Local\\SCSTelemetry'}],
@@ -122,6 +125,17 @@ describe('truckSimTelemetry()', function() {
       assert.deepStrictEqual(actualData.trailers,   testData.trailers)
       assert.deepStrictEqual(actualData.trailer,    testData.trailer)
       assert.deepStrictEqual(actualData.truck,      testData.truck)
+    })
+  })
+
+  describe('No buffer', function() {
+    it('Should return "null" if the getFunction is called, but there is no buffer', function() {
+      utils.getBuffer.restore()
+
+      const telemetry = tst()
+
+      assert.strictEqual(tst.getBuffer(), null)
+      assert.strictEqual(telemetry.getBuffer(), null)
     })
   })
 

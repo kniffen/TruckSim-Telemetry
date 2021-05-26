@@ -20,7 +20,7 @@ describe('functions.getData()', function() {
 
     getBufferStub =
       sinon
-        .stub(functions, 'getBuffer')
+        .stub(utils, 'getBuffer')
         .callsFake(() => {
           buffer = fs.readFileSync(path.resolve(__dirname, '../buffers/scs_sdk_plugin_buffer_10'))
           return buffer
@@ -49,7 +49,7 @@ describe('functions.getData()', function() {
   it('Should get parsed data from supported SDK versions', function() {
     const result = functions.getData(null, opts)
 
-    assert.deepStrictEqual(getBufferStub.args, [[opts]])
+    assert.deepStrictEqual(getBufferStub.args, [[opts.mmfName]])
     assert.deepEqual(getPluginVersionStub.args, [[buffer]])
     assert.deepEqual(result, parsedData)
   })
@@ -57,7 +57,7 @@ describe('functions.getData()', function() {
   it('Should return data for a specified property', function() {
     const result = functions.getData('game', opts)
   
-    assert.deepEqual(getBufferStub.args, [[opts]])
+    assert.deepEqual(getBufferStub.args, [[opts.mmfName]])
     assert.deepEqual(getPluginVersionStub.args, [[buffer]])
     assert.deepEqual(result, parsedData.game)
   })
@@ -67,7 +67,7 @@ describe('functions.getData()', function() {
     try {
       const result = functions.getData(null, opts)
     } catch (err) {
-      assert.deepEqual(getBufferStub.args, [[opts]])
+      assert.deepEqual(getBufferStub.args, [[opts.mmfName]])
       assert.equal(err.message, 'SCS-SDK-Plugin version 1234 is not supported')
     }
   })
@@ -78,7 +78,7 @@ describe('functions.getData()', function() {
     pluginVersion = -1
     const test2 = functions.getData(null, opts)
 
-    assert.deepEqual(getBufferStub.args, [[opts], [opts]])
+    assert.deepEqual(getBufferStub.args, [[opts.mmfName], [opts.mmfName]])
     assert.strictEqual(test1, null)
     assert.strictEqual(test2, null)
   })
@@ -88,12 +88,12 @@ describe('functions.getData()', function() {
 
     getBufferStub = 
       sinon
-        .stub(functions, 'getBuffer')
+        .stub(utils, 'getBuffer')
         .callsFake(() => null)
 
     const result = functions.getData(null, opts)
     assert.ok(getBufferStub.called)
-    assert.deepEqual(getBufferStub.args, [[opts]])
+    assert.deepEqual(getBufferStub.args, [[opts.mmfName]])
     assert.strictEqual(result, null)
   })
 
