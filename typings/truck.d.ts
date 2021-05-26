@@ -154,7 +154,7 @@ declare module "trucksim-telemetry" {
   
   export interface EngineWarning {
     factor: number;
-    enabled: false;
+    enabled: boolean;
   }
   
   export interface EngineStatus {
