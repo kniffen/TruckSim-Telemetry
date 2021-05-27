@@ -1,5 +1,17 @@
 Changelog
 
+v0.15.0 - 2021-05-27
+- Added optional solution to improve memory usage (check readme for details)
+- Added missing "lift" and "liftOffset" values to trailer wheels
+- Added data for additional trailers (max of 10, previously 7)
+- Improved kilometers to miles conversion 
+- Fixed renderTimestamp value
+- Fixed various type declarations
+- Fixed trailer damage values
+- Fixed job timestamps values
+- Changed job time related property name to more accurately reflect what they mean
+- Changed return value of getBuffer and getData functions from "undefined" to "null" if there's no buffer/data
+
 v0.14.0 - 2021-05-12
 - Added missing type declarations
 - Improved and fixed existing type declarations
