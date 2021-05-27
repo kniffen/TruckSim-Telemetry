@@ -31,7 +31,15 @@ Install the module via NPM
 Check the [Documentation](https://trucksimtelemetry.knifftech.org) page for [examples](https://trucksimtelemetry.knifftech.org/#/examples)
 
 
-### Demo
+## Known issues
+**High memory usage**<br/>
+This is due converting a lot of buffer data to JSON at a high interval.<br/>
+To help with this you can use the `--expose-gc` flag with the node process you are running TruckSim-Telemetry on.<br/>
+This will expose the node/V8 garbage collector and if TruckSim-Telemetry detect it, it will force the garbage collector to run every time the data is converted.<br/>
+However this is not recommended as it can cause performance issues.
+
+
+## Demo
 To help visualize the data you can use this [Demo app](https://github.com/kniffen/TruckSim-Telemetry-Demo)
 
 ![demo screenshot](https://raw.githubusercontent.com/kniffen/TruckSim-Telemetry-Demo/master/screenshot.jpg)
