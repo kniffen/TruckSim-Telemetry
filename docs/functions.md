@@ -1,70 +1,70 @@
 # Functions
 
-### getBuffer(options?)
+### getBuffer(options)
 | Parameter | Type                           | Optional | Restriction                      |
 | --------- | ------------------------------ | -------- | -------------------------------- |
-| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object | 
+| options   | [Options](typedefs.md#options) | YES      |  | 
 **Returns: [scs-sdk-plugin memory buffer](https://github.com/RenCloud/scs-sdk-plugin)**
 
 ---
 
-### getData(options?)
+### getData(options)
 | Parameter | Type                           | Optional | Restriction                      |
 | --------- | ------------------------------ | -------- | -------------------------------- |
-| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+| options   | [Options](typedefs.md#options) | YES      |  |
 **Returns: [TelemetryData](typedefs.md#telemetrydata)**
 
 ---
 
-### getGame(options?)
+### getGame(options)
 | Parameter | Type                           | Optional | Restriction                      |
 | --------- | ------------------------------ | -------- | -------------------------------- |
-| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+| options   | [Options](typedefs.md#options) | YES      |  |
 **Returns: [Game](typedefs.md#game)**
 
 ---
 
-### getJob(options?)
+### getJob(options)
 | Parameter | Type                           | Optional | Restriction                      |
 | --------- | ------------------------------ | -------- | -------------------------------- |
-| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+| options   | [Options](typedefs.md#options) | YES      |  |
 **Returns: [Job](typedefs.md#job)**
 
 ---
 
-### getNavigation(options?)
+### getNavigation(options)
 | Parameter | Type                           | Optional | Restriction                      |
 | --------- | ------------------------------ | -------- | -------------------------------- |
-| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+| options   | [Options](typedefs.md#options) | YES      |  |
 **Returns: [Navigation](typedefs.md#navigation)**
 
 ---
 
-### getTrailers(options?)
+### getTrailers(options)
 | Parameter | Type                           | Optional | Restriction                      |
 | --------- | ------------------------------ | -------- | -------------------------------- |
-| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+| options   | [Options](typedefs.md#options) | YES      |  |
 **Returns: [Trailer[]](typedefs.md#Trailer)**
 
 ---
 
-### getTrailer(options?)
+### getTrailer(options)
 | Parameter | Type                           | Optional | Restriction                      |
 | --------- | ------------------------------ | -------- | -------------------------------- |
-| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+| options   | [Options](typedefs.md#options) | YES      |  |
 **Returns: [Trailer](typedefs.md#trailer)**
 
 ---
 
-### getTruck(options?)
+### getTruck(options)
 | Parameter | Type                           | Optional | Restriction                      |
 | --------- | ------------------------------ | -------- | -------------------------------- |
-| options   | [Options](typedefs.mf#options) | YES      | Not available on observer object |
+| options   | [Options](typedefs.md#options) | YES      |  |
 **Returns: [Truck](typedefs.md#truck)**
 
 ---
 
-### watch(options?, update?)
+### watch(options, update)
 | Parameter    | Type                                     | Optional | 
 | ------------ | ---------------------------------------- | -------- | 
 | watchOptions | [WatchOptions](typedefs.md#watchoptions) | YES      |
@@ -74,9 +74,9 @@
 
 #### Example
 ```javascript
-const truckSimTelemetry = require("trucksim-telemetry")
+const tst = require("trucksim-telemetry")
 
-const telemetry = truckSimTelemetry()
+const telemetry = tst()
 
 telemetry.game.on("time-change", function(current, previous) {
   // current  == current in-game time
@@ -88,14 +88,16 @@ telemetry.watch({interval: 50}, function() {
 })
 ```
 
+---
+
 ### stop()
 **Use: stop watching the game for changes**
 
 #### Example
 ```javascript
-const truckSimTelemetry = require("trucksim-telemetry")
+const tst = require("trucksim-telemetry")
 
-const telemetry = truckSimTelemetry()
+const telemetry = tst()
 
 telemetry.game.once("time-change", function(current, previous) {
   // current  == current in-game time

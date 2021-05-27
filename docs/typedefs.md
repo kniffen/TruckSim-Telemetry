@@ -2,9 +2,9 @@
 ### Acceleration
 | Name | Type | Optional |
 | ---- | ---- | -------- |
-| linearVelocity | [Velocity](typedefs.md#Velocity) | NO |
+| linearVelocity | [Velocity](typedefs.md#Velocity) | YES |
 | angularVelocity | [Velocity](typedefs.md#Velocity) | NO |
-| linearAcceleration | [Velocity](typedefs.md#Velocity) | NO |
+| linearAcceleration | [Velocity](typedefs.md#Velocity) | YES |
 | angularAcceleration | [Velocity](typedefs.md#Velocity) | NO |
 
 ---
@@ -267,8 +267,8 @@
 | ---- | ---- | -------- |
 | penalty | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | active | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
-| startingTime | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| finishingTime | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+| startedTimestamp | [JobTimestamp](typedefs.md#JobTimestamp) | NO |
+| cancelledTimestamp | [JobTimestamp](typedefs.md#JobTimestamp) | NO |
 
 ---
 
@@ -276,25 +276,25 @@
 | Name | Type | Optional |
 | ---- | ---- | -------- |
 | cargo | [JobCargo](typedefs.md#JobCargo) | NO |
-| deliveryTime | [JobDeliveryTime](typedefs.md#JobDeliveryTime) | NO |
+| expectedDeliveryTimestamp | [JobTimestamp](typedefs.md#JobTimestamp) | NO |
 | destination | [JobLocation](typedefs.md#JobLocation) | NO |
-| finishingTime | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+| cancelledTimestamp | [JobTimestamp](typedefs.md#JobTimestamp) | NO |
 | income | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | isSpecial | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
 | market | [JobMarket](typedefs.md#JobMarket) | NO |
 | penalty | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | plannedDistance | [JobPlannedDistance](typedefs.md#JobPlannedDistance) | NO |
 | source | [JobLocation](typedefs.md#JobLocation) | NO |
-| startingTime | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+| startedTimestamp | [JobTimestamp](typedefs.md#JobTimestamp) | NO |
 
 ---
 
 ### EventsJobDelivered
 | Name | Type | Optional |
 | ---- | ---- | -------- |
-| deliveryTime | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| startingTime | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| finishingTime | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+| timeTaken | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+| startedTimestamp | [JobTimestamp](typedefs.md#JobTimestamp) | NO |
+| deliveredTimestamp | [JobTimestamp](typedefs.md#JobTimestamp) | NO |
 | earnedXP | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | cargoDamage | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | distance | [EventsJobDeliveredDistance](typedefs.md#EventsJobDeliveredDistance) | NO |
@@ -316,19 +316,20 @@
 | Name | Type | Optional |
 | ---- | ---- | -------- |
 | autoParked | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
+| isSpecial | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
 | cargo | [JobCargo](typedefs.md#JobCargo) | NO |
+| market | [JobMarket](typedefs.md#JobMarket) | NO |
 | cargoDamage | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| deliveryTime | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| destination | [JobLocation](typedefs.md#JobLocation) | NO |
 | distance | [EventsJobDeliveredDistance](typedefs.md#EventsJobDeliveredDistance) | NO |
 | earnedXP | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| finishingTime | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| isSpecial | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
-| market | [JobMarket](typedefs.md#JobMarket) | NO |
+| expectedDeliveryTimestamp | [JobTimestamp](typedefs.md#JobTimestamp) | NO |
+| deliveredTimestamp | [JobTimestamp](typedefs.md#JobTimestamp) | NO |
 | plannedDistance | [JobPlannedDistance](typedefs.md#JobPlannedDistance) | NO |
 | revenue | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+| startedTimestamp | [JobTimestamp](typedefs.md#JobTimestamp) | NO |
+| timeTaken | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+| destination | [JobLocation](typedefs.md#JobLocation) | NO |
 | source | [JobLocation](typedefs.md#JobLocation) | NO |
-| startingTime | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 
 ---
 
@@ -352,7 +353,7 @@
 | ---- | ---- | -------- |
 | autoLoaded | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
 | cargo | [JobCargo](typedefs.md#JobCargo) | NO |
-| deliveryTime | [JobDeliveryTime](typedefs.md#JobDeliveryTime) | NO |
+| expectedDeliveryTimestamp | [JobTimestamp](typedefs.md#JobTimestamp) | NO |
 | destination | [JobLocation](typedefs.md#JobLocation) | NO |
 | income | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | isSpecial | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
@@ -398,9 +399,9 @@
 | simulationTimestamp | [GameTimestamp](typedefs.md#GameTimestamp) | NO |
 | renderTimestamp | [GameTimestamp](typedefs.md#GameTimestamp) | NO |
 | pluginVersion | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| version | [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | NO |
+| version | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | game | [GameNestedGame](typedefs.md#GameNestedGame) | NO |
-| telemetryVersion | [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | NO |
+| telemetryVersion | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | time | [GameTime](typedefs.md#GameTime) | NO |
 | maxTrailerCount | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | scale | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
@@ -448,7 +449,7 @@
 ### Job
 | Name | Type | Optional |
 | ---- | ---- | -------- |
-| deliveryTime | [JobDeliveryTime](typedefs.md#JobDeliveryTime) | NO |
+| expectedDeliveryTimestamp | [JobTimestamp](typedefs.md#JobTimestamp) | NO |
 | plannedDistance | [JobPlannedDistance](typedefs.md#JobPlannedDistance) | NO |
 | cargo | [JobCargo](typedefs.md#JobCargo) | NO |
 | isSpecial | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
@@ -479,14 +480,6 @@
 
 ---
 
-### JobDeliveryTime
-| Name | Type | Optional |
-| ---- | ---- | -------- |
-| value | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| unix | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-
----
-
 ### JobLocation
 | Name | Type | Optional |
 | ---- | ---- | -------- |
@@ -508,6 +501,14 @@
 | ---- | ---- | -------- |
 | km | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | miles | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+
+---
+
+### JobTimestamp
+| Name | Type | Optional |
+| ---- | ---- | -------- |
+| value | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+| unix | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 
 ---
 
@@ -742,18 +743,20 @@
 ### TrailerWheel
 | Name | Type | Optional |
 | ---- | ---- | -------- |
-| substance | [WheelSubstance](typedefs.md#WheelSubstance) | NO |
-| radius | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| suspDeflection | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| velocity | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| steering | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| rotation | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| steerable | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
-| simulated | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
-| powered | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
+| lift | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | liftable | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
+| liftOffset | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | onGround | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
 | position | [Position](typedefs.md#Position) | NO |
+| powered | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
+| radius | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+| rotation | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+| simulated | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
+| steerable | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
+| steering | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+| substance | [WheelSubstance](typedefs.md#WheelSubstance) | NO |
+| suspDeflection | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+| velocity | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 
 ---
 

@@ -2,18 +2,18 @@
 
 ### Getting data
 ```javascript
-const truckSimTelemetry = require("trucksim-telemetry")
+const tst = require("trucksim-telemetry")
 
-const data = truckSimTelemetry.getData()
+const data = tst.getData()
 
 console.log(data.game.paused) // -> boolean true:false
 ```
 
 ### Events
 ```javascript
-const truckSimTelemetry = require("trucksim-telemetry")
+const tst = require("trucksim-telemetry")
 
-const telemetry = truckSimTelemetry()
+const telemetry = tst()
 
 telemetry.game.on("time-change", function(current, previous) {
   // current  == { value: 7309, unix: 784140000 }
@@ -34,9 +34,9 @@ telemetry.stop()
 **The update callback runs every time the state of the game changes**
 
 ```javascript
-const truckSimTelemetry = require("trucksim-telemetry")
+const tst = require("trucksim-telemetry")
 
-const telemetry = truckSimTelemetry()
+const telemetry = tst()
 
 function update(data) {
   console.log(data.truck.speed) // => current truck speed object
@@ -48,17 +48,17 @@ telemetry.watch({interval: 50}, update)
 ### Functions
 If you don't need to use events or the update loop you can just get what you need by calling one of these functions
 ```javascript
-const truckSimTelemetry = require("trucksim-telemetry")
+const tst = require("trucksim-telemetry")
 
-truckSimTelemetry.getBuffer()     // -> Original memory buffer from the plugin
-truckSimTelemetry.getData()       // -> Parsed data
-truckSimTelemetry.getGame()       // -> Parsed game data
-truckSimTelemetry.getControls()   // -> Parsed controls data
-truckSimTelemetry.getTruck()      // -> Parsed truck data
-truckSimTelemetry.getTrailers()   // -> Parsed trailers data
-truckSimTelemetry.getTrailer()    // -> Parsed trailer data
-truckSimTelemetry.getJob()        // -> Parsed job data
-truckSimTelemetry.getNavigation() // -> Parsed navigational data
+tst.getBuffer()     // -> Original memory buffer from the plugin
+tst.getData()       // -> Parsed data
+tst.getGame()       // -> Parsed game data
+tst.getControls()   // -> Parsed controls data
+tst.getTruck()      // -> Parsed truck data
+tst.getTrailers()   // -> Parsed trailers data
+tst.getTrailer()    // -> Parsed trailer data
+tst.getJob()        // -> Parsed job data
+tst.getNavigation() // -> Parsed navigational data
 ```
 
 ### Mapped memory file name
@@ -67,28 +67,28 @@ You can set this as an optional parameter, but do keep in mind that you may have
 
 #### Option 1
 ```javascript
-const truckSimTelemetry = require("trucksim-telemetry")
+const tst = require("trucksim-telemetry")
 
 const options = {
   mmfName: "Local\\MyTelemetry" // Default is "Local\\SCSTelemetry"
 }
 
 // Get raw buffer from the plugin
-const buffer = truckSimTelemetry.getBuffer(options)
+const buffer = tst.getBuffer(options)
 
 // Get parsed data
-const data = truckSimTelemetry.getData(options)
+const data = tst.getData(options)
 ```
 
 #### Option 2
 ```javascript
-const truckSimTelemetry = require("trucksim-telemetry")
+const tst = require("trucksim-telemetry")
 
 const options = {
   mmfName: "Local\\MyTelemetry" // Default is "Local\\SCSTelemetry"
 }
 
-const telemetry = truckSimTelemetry(options)
+const telemetry = tst(options)
 
 // Get parsed data
 const data = telemetry.getData()
