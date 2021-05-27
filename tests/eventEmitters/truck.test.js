@@ -6,72 +6,54 @@ const tst = require('../../lib')
 
 const functions = require('../../lib/functions')
 
+const getFakeData = require('../getFakeData')
+
 describe('eventEmitters/truck()', function() {
 
   let clock = null
 
   const telemetry = tst()
 
-  const testData = {
-    events: {
-      refuel: {
-        active: false,
-      }
-    },
-    game: {},
-    navigation: {
-      speedLimit: 1000,
-    },
-    trailers: [],
-    truck: {
-      speed: 1001,
-      damage: {
-        total: 0.00,
-      },
-      electric: {
-        enabled: false,
-      },
-      engine: {
-        enabled: false,
-        oilPressure: {
-          warning: {enabled: false},
-        },
-        waterTemperature: {
-          warning: {enabled: false},
-        },
-        batteryVoltage: {
-          warning: {enabled: false},
-        }
-      },
-      transmission: {
-        gear: {selected: 0},
-      },
-      brakes: {
-        parking:  {enabled: false},
-        retarder: {foo: 'bar'},
-        airPressure: {
-          warning:   {enabled: false},
-          emergency: {enabled: false},
-        }
-      },
-      fuel: {
-        volume: 2000,
-        warning: {enabled: false},
-      },
-      adBlue: {
-        warning: {enabled: false},
-      },
-      wipers: {
-        enabled: false,
-      },
-      cruiseControl: {
-        enabled: false,
-        value:   1002,
-        kph:     1003,
-        mph:     1004,
-      }
-    },
-  }
+  const testData = getFakeData(function(data) {
+    data.events.refuel.active = false
+
+    data.navigation.speedLimit = 1000
+
+    data.truck.speed.value = 1001
+    data.truck.speed.kph = 1002
+    data.truck.speed.mph = 1003
+
+
+    data.truck.damage.total = 0.00
+    data.truck.electric.enabled = false
+    data.truck.engine.enabled = false
+    data.truck.engine.oilPressure.warning.enabled = false
+    data.truck.engine.waterTemperature.warning.enabled = false
+    data.truck.engine.batteryVoltage.warning.enabled = false
+    data.truck.transmission.gear.selected = 0
+    data.truck.transmission.gear.displayed = 0
+    data.truck.brakes.parking.enabled = false
+    data.truck.brakes.retarder.level = 0
+    data.truck.brakes.retarder.steps = 0
+
+    data.truck.brakes.airPressure.warning.enabled = false
+    data.truck.brakes.airPressure.emergency.enabled = false
+    
+    data.truck.fuel.volume = 2000
+    data.truck.fuel.avgConsumption = 2001
+    data.truck.fuel.capacity = 2002
+    data.truck.fuel.range = 2003
+    data.truck.fuel.value = 2004
+    data.truck.fuel.warning.enabled = false
+    data.truck.fuel.warning.factor = 2004
+
+    data.truck.adBlue.warning.enabled = false
+    data.truck.wipers.enabled = false
+    data.truck.cruiseControl.enabled = false
+    data.truck.cruiseControl.value = 1002
+    data.truck.cruiseControl.kph = 1003
+    data.truck.cruiseControl.mph = 1004
+  })
 
   before(function() {
     clock = sinon.useFakeTimers()
@@ -93,7 +75,7 @@ describe('eventEmitters/truck()', function() {
     testData.truck.engine.enabled             = true
     testData.truck.transmission.gear.selected = 1
     testData.truck.brakes.parking.enabled     = true
-    testData.truck.brakes.retarder.foo        = 'baz'
+    testData.truck.brakes.retarder.level      += 1
     testData.events.refuel.active             = true
     testData.truck.wipers.enabled             = true
 
@@ -115,7 +97,7 @@ describe('eventEmitters/truck()', function() {
     testData.truck.engine.enabled             = false
     testData.truck.transmission.gear.selected = 0
     testData.truck.brakes.parking.enabled     = true
-    testData.truck.brakes.retarder.foo        = 'qux'
+    testData.truck.brakes.retarder.steps      += 1
     testData.events.refuel.active             = false
     testData.truck.wipers.enabled             = false
 
@@ -144,7 +126,11 @@ describe('eventEmitters/truck()', function() {
         [
           'cruise-control',
           {
-            currentSpeed: 1001,
+            currentSpeed: {
+              value: 1001,
+              kph:   1002,
+              mph:   1003,
+            },
             speedLimit:   1000,
             enabled:      true,
             cruiseControlSpeed: {
@@ -157,7 +143,11 @@ describe('eventEmitters/truck()', function() {
         [
           'cruise-control',
           {
-            currentSpeed: 1001,
+            currentSpeed: {
+              value: 1001,
+              kph:   1002,
+              mph:   1003,
+            },
             speedLimit:   1000,
             enabled:      false,
             cruiseControlSpeed: {
@@ -178,7 +168,11 @@ describe('eventEmitters/truck()', function() {
         [
           'cruise-control-increase',
           {
-            currentSpeed: 1001,
+            currentSpeed: {
+              value: 1001,
+              kph:   1002,
+              mph:   1003,
+            },
             speedLimit:   1000,
             enabled:      true,
             cruiseControlSpeed: {
@@ -199,7 +193,11 @@ describe('eventEmitters/truck()', function() {
         [
           'cruise-control-decrease',
           {
-            currentSpeed: 1001,
+            currentSpeed: {
+              value: 1001,
+              kph:   1002,
+              mph:   1003,
+            },
             speedLimit:   1000,
             enabled:      false,
             cruiseControlSpeed: {
@@ -214,12 +212,13 @@ describe('eventEmitters/truck()', function() {
   })
 
   it('Should emit "damage" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'damage'),
-      [
-        ['damage', {total: 0.01}, {total: 0.00}],
-      ]
-    )
+    const truckDamageEvents = telemetry.truck.emit.args.filter(event => event[0] === 'damage')
+    const truckTotalDamage = truckDamageEvents.map(event => ([
+      event[1].total,
+      event[2].total,
+    ]))
+
+    assert.deepStrictEqual(truckTotalDamage, [[0.01, 0.00]])
   })
 
   it('Should emit "electric" events', function() {
@@ -246,8 +245,8 @@ describe('eventEmitters/truck()', function() {
     assert.deepStrictEqual(
       telemetry.truck.emit.args.filter(event => event[0] === 'gear-change'),
       [
-        ['gear-change', {selected: 1}, {selected: 0}],
-        ['gear-change', {selected: 0}, {selected: 1}],
+        ['gear-change', {selected: 1, displayed: 0}, {selected: 0, displayed: 0}],
+        ['gear-change', {selected: 0, displayed: 0}, {selected: 1, displayed: 0}],
       ]
     )
   })
@@ -265,8 +264,8 @@ describe('eventEmitters/truck()', function() {
     assert.deepStrictEqual(
       telemetry.truck.emit.args.filter(event => event[0] === 'retarder'),
       [
-        ['retarder', {foo: 'baz'}, {foo: 'bar'}],
-        ['retarder', {foo: 'qux'}, {foo: 'baz'}],
+        ['retarder', {level: 1, steps: 0}, {level: 0, steps: 0}],
+        ['retarder', {level: 1, steps: 1}, {level: 1, steps: 0}],
       ]
     )
   })
@@ -279,7 +278,14 @@ describe('eventEmitters/truck()', function() {
           'refuel-started',
           {
             volume: 2000,
-            warning: {enabled: false},
+            avgConsumption: 2001,
+            capacity: 2002,
+            range: 2003,
+            value: 2004,
+            warning: {
+              enabled: false,
+              factor:  2004,
+            },
           }
         ],
       ]
@@ -294,7 +300,14 @@ describe('eventEmitters/truck()', function() {
           'refuel-stopped',
           {
             volume: 2000,
-            warning: {enabled: false},
+            avgConsumption: 2001,
+            capacity: 2002,
+            range: 2003,
+            value: 2004,
+            warning: {
+              enabled: false,
+              factor:  2004,
+            },
           }
         ],
       ]

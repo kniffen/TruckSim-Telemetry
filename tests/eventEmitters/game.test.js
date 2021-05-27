@@ -6,25 +6,24 @@ const tst = require('../../lib')
 
 const functions = require('../../lib/functions')
 
+const getFakeData = require('../getFakeData')
+
 describe('eventEmitters/game()', function() {
 
   let clock = null
 
-  let testData = {
-    events: {
-      ferry:      {active: false, destination: 'foo'},
-      fine:       {active: false, bar: 'baz'},
-      refuelPaid: {active: false, baz: 'qux'},
-      tollgate:   {active: false, qux: 'quux'},
-      train:      {active: false, destination: 'quuz'},
-    },
-    game: {
-      paused: false,
-      time: {foo: 'bar'}
-    },
-    trailers: [],
-    navigation: {},
-  }
+  const testData = getFakeData(function(data) {
+    data.events.ferry.active      = false
+    data.events.train.active      = false
+    data.events.fine.active       = false
+    data.events.refuelPaid.active = false
+    data.events.tollgate.active   = false
+
+    data.game.paused = false
+
+    data.game.time.value = 0
+    data.game.time.unix  = 0
+  })
 
   const telemetry = tst()
 
@@ -42,7 +41,7 @@ describe('eventEmitters/game()', function() {
     clock.tick(100)
 
     testData.game.paused = true
-    testData.game.time = {bar: 'foo'}
+    testData.game.time.value++
 
     testData.events.ferry.active      = true
     testData.events.fine.active       = true
@@ -53,7 +52,7 @@ describe('eventEmitters/game()', function() {
     clock.tick(100)
 
     testData.game.paused = false
-    testData.game.time.bar = 'baz'
+    testData.game.time.value++
 
     testData.events.ferry.active      = false
     testData.events.fine.active       = false
@@ -64,7 +63,7 @@ describe('eventEmitters/game()', function() {
     clock.tick(100)
 
     testData.game.paused = true
-    testData.game.time = {bar: 'qux'}
+    testData.game.time.value++
 
     testData.events.ferry.active      = true
     testData.events.fine.active       = true
@@ -96,59 +95,86 @@ describe('eventEmitters/game()', function() {
     const timeChangeEvents = telemetry.game.emit.args.filter(event => event[0] === 'time-change')
 
     assert.deepStrictEqual(timeChangeEvents, [
-      ['time-change', {bar: 'foo'}, {foo: 'bar'}],
-      ['time-change', {bar: 'baz'}, {bar: 'foo'}],
-      ['time-change', {bar: 'qux'}, {bar: 'baz'}],
+      ['time-change', {value: 1, unix: 0}, {value: 0, unix: 0}],
+      ['time-change', {value: 2, unix: 0}, {value: 1, unix: 0}],
+      ['time-change', {value: 3, unix: 0}, {value: 2, unix: 0}],
     ])
   })
 
   it('Should emit "ferry" events', function() {
+    const expected = {
+      amount: 0,
+      destination: {id: '', name: ''},
+      source:      {id: '', name: ''},
+      target:      {id: '', name: ''},
+    }
+
     const ferryEvents = telemetry.game.emit.args.filter(event => event[0] === 'ferry')
 
     assert.deepStrictEqual(ferryEvents, [
-      ['ferry', {destination: 'foo', target: 'foo'}],
-      ['ferry', {destination: 'foo', target: 'foo'}],
+      ['ferry', expected],
+      ['ferry', expected],
     ])
   })
 
   
   it('Should emit "fine" events', function() {
+    const expected = {
+      amount: 0,
+      offence: {id: '', name: ''}
+    }
+
     assert.deepStrictEqual(
       telemetry.game.emit.args.filter(event => event[0] === 'fine'),
       [
-        ['fine', {bar: 'baz'}],
-        ['fine', {bar: 'baz'}],
+        ['fine', expected],
+        ['fine', expected],
       ]
    )
   })
 
   it('Should emit "refuel-paid" events', function() {
+    const expected = {
+      amount: 0,
+    }
+
     assert.deepStrictEqual(
       telemetry.game.emit.args.filter(event => event[0] === 'refuel-paid'),
       [
-        ['refuel-paid', {baz: 'qux'}],
-        ['refuel-paid', {baz: 'qux'}],
+        ['refuel-paid', expected],
+        ['refuel-paid', expected],
       ]
    )
   } )
 
 
   it('Should emit "tollgate" events', function() {
+     const expected = {
+      amount: 0,
+    }
+
     assert.deepStrictEqual(
       telemetry.game.emit.args.filter(event => event[0] === 'tollgate'),
       [
-        ['tollgate', {qux: 'quux'}],
-        ['tollgate', {qux: 'quux'}],
+        ['tollgate', expected],
+        ['tollgate', expected],
     ])
   })
 
 
   it('Should emit "train" events', function() {
+    const expected = {
+      amount: 0,
+      destination: {id: '', name: ''},
+      source:      {id: '', name: ''},
+      target:      {id: '', name: ''},
+    }
+
     assert.deepStrictEqual(
       telemetry.game.emit.args.filter(event => event[0] === 'train'),
       [
-        ['train', {destination: 'quuz', target: 'quuz'}],
-        ['train', {destination: 'quuz', target: 'quuz'}],
+        ['train', expected],
+        ['train', expected],
       ]
    )
   })

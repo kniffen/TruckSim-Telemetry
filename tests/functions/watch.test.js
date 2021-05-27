@@ -6,6 +6,8 @@ const truckSimTelemetry = require('../../lib')
 
 const functions = require('../../lib/functions')
 
+const getFakeData = require('../getFakeData')
+
 describe('watch()', function() {
 
   let clock    = null
@@ -20,12 +22,7 @@ describe('watch()', function() {
   })
 
   beforeEach(function() {
-    testData = {
-      game:       {},
-      events:     {},
-      navigation: {},
-      trailers:   [],
-    }
+    testData = getFakeData()
   })
 
   afterEach(function() {
@@ -134,60 +131,28 @@ describe('watch()', function() {
     const telemetry = truckSimTelemetry()
     const update    = sinon.spy()
 
-    testData.game       = {paused: false}
-    testData.job        = {foo: 'bar'}
-    testData.navigation = {bar: 'foo'}
-    testData.trailers   = ['foo', 'qux']
-    testData.truck      = {quux: 'quuz'}
+    testData.game.paused = false
 
     telemetry.watch(null, update)
     
     clock.tick(100)
+    
+    assert.strictEqual(telemetry.data.game.paused, false)
+
     testData.game.paused = true
     clock.tick(100)
+    
+    assert.strictEqual(telemetry.data.game.paused, true)
+    
     testData.game.paused = false
     clock.tick(500)
 
     telemetry.stop()
 
-    assert.deepStrictEqual(
-      telemetry.data,
-      {
-        controls:   {},
-        game:       {paused: false},
-        job:        {foo: 'bar'},
-        navigation: {bar: 'foo'},
-        trailers:   ['foo', 'qux'],
-        trailer:    {},
-        truck:      {quux: 'quuz'},   
-      }
-   )
+    assert.strictEqual(telemetry.data.game.paused, false)
 
-    assert.deepStrictEqual(
-      update.args,
-      [
-        [
-          {
-            events:     {},
-            game:       {paused: true},
-            job:        {foo: 'bar'},
-            navigation: {bar: 'foo'},
-            trailers:   ['foo', 'qux'],
-            truck:      {quux: 'quuz'},   
-          }
-        ],
-        [
-          {
-            events:     {},
-            game:       {paused: false},
-            job:        {foo: 'bar'},
-            navigation: {bar: 'foo'},
-            trailers:   ['foo', 'qux'],
-            truck:      {quux: 'quuz'},   
-          }
-        ],
-      ]
-    )
+    assert.strictEqual(update.args[0][0].game.paused, true)
+    assert.strictEqual(update.args[1][0].game.paused, false)
   })
 
   it('Should quit early if a watcher already exists', function() {
@@ -291,19 +256,13 @@ describe('watch()', function() {
 
     clock.tick(200)
 
-    testData = {
-      game:       {paused: false},
-      events:     {},
-      navigation: {},
-      trailers:   [],
-    }
-
+    testData.game.paused = false
     clock.tick(200)
 
-    testData.paused = true
+    testData.game.paused = true
     clock.tick(500)
 
-    testData.paused = false
+    testData.game.paused = false
     clock.tick(500)
 
     assert.deepStrictEqual(update.args.length, 3)

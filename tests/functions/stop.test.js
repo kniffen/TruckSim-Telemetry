@@ -6,16 +6,13 @@ const tst = require('../../lib')
 
 const functions = require('../../lib/functions')
 
+const getFakeData = require('../getFakeData')
+
 describe('functions.stop()', function() {
 
   let clock = null
 
-  const testData = {
-    game:       {},
-    events:     {},
-    navigation: {},
-    trailers:   [],
-  }
+  const testData = getFakeData()
 
   before(function() {
     clock = sinon.useFakeTimers();

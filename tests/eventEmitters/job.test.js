@@ -6,53 +6,42 @@ const tst = require('../../lib')
 
 const functions = require('../../lib/functions')
 
+const getFakeData = require('../getFakeData')
+
 describe('eventEmitters/job()', function() {
 
   let clock = null
 
-  let testData = {
-    events: {
-      job: {
-        finished:  {
-          active: false
-        },
-        started:   {
-          active:     false,
-          autoLoaded: true,
-        },
-        cancelled: {
-          active:             false,
-          deliveredTimestamp: 1000,
-          penalty:            2000,
-          startedTimestamp:   3000,
-        },
-        delivered: {
-          active:             false,
-          autoParked:         true,
-          cargoDamage:        4000,
-          timeTaken:          5000,
-          distance:           6000,
-          earnedXP:           7000,
-          deliveredTimestamp: 8000,
-          revenue:            9000,
-          startedTimestamp:   1100,
-        },
-      }
-    },
-    job: {
-      isSpecial:                  true,
-      cargo:                     'foo',
-      market:                    'bar',
-      expectedDeliveryTimestamp: 2100,
-      income:                    3100,
-      plannedDistance:           4100,
-      destination:               {foo: 'baz'},
-      source:                    {bar: 'qux'},
-    },
-    game:     {},
-    trailers: [],
-    navigation: {},
-  }
+  const testData = getFakeData(function(data) {
+    data.events.job.finished.active = false
+
+    data.events.job.started.active     = false
+    data.events.job.started.autoLoaded = true
+
+    data.events.job.cancelled.active             = false
+    data.events.job.cancelled.cancelledTimestamp = 1000
+    data.events.job.cancelled.penalty            = 2000
+    data.events.job.cancelled.startedTimestamp   = 3000
+
+    data.events.job.delivered.active             = false
+    data.events.job.delivered.autoParked         = true
+    data.events.job.delivered.cargoDamage        = 4000
+    data.events.job.delivered.timeTaken          = 5000
+    data.events.job.delivered.distance           = 6000
+    data.events.job.delivered.earnedXP           = 7000
+    data.events.job.delivered.deliveredTimestamp = 8000
+    data.events.job.delivered.revenue            = 9000
+    data.events.job.delivered.startedTimestamp   = 1100
+
+    data.job.isSpecial                 = true
+    data.job.cargo                     = 'foo'
+    data.job.market                    = 'bar'
+    data.job.expectedDeliveryTimestamp = 2100
+    data.job.income                    = 3100
+    data.job.plannedDistance           = 4100
+    data.job.destination               =  {foo: 'baz'}
+    data.job.source                    =  {bar: 'qux'}
+  })
 
   const telemetry = tst()
 
@@ -165,7 +154,7 @@ describe('eventEmitters/job()', function() {
         cargo:                     'oof',
         market:                    'rab',
         expectedDeliveryTimestamp: 2101,
-        deliveredTimestamp:        1000,
+        cancelledTimestamp:        1000,
         income:                    0,
         penalty:                   2000,
         plannedDistance:           4101,
@@ -178,7 +167,7 @@ describe('eventEmitters/job()', function() {
         cargo:                     'oof',
         market:                    'rab',
         expectedDeliveryTimestamp: 2103,
-        deliveredTimestamp:        1000,
+        cancelledTimestamp:        1000,
         income:                    0,
         penalty:                   2000,
         plannedDistance:           4103,

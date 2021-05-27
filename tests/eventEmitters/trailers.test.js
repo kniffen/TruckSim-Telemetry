@@ -6,26 +6,20 @@ const tst = require('../../lib')
 
 const functions = require('../../lib/functions')
 
+const getFakeData = require('../getFakeData')
+
 describe('eventEmitters/trailers()', function() {
 
   let clock = null
   const telemetry = tst()
 
-  const testData = {
-    trailers: [
-      {
-        attached: false,
-        damage:   {total: 0.00},
-      },
-      {
-        attached: true,
-        damage:   {total: 0.01},
-      }
-    ],
-    events:     {},
-    game:       {},
-    navigation: {},
-  }
+  const testData = getFakeData(function(data) {
+    data.trailers[0].attached = false
+    data.trailers[0].damage.total = 0.00
+
+    data.trailers[1].attached = true
+    data.trailers[1].damage.total = 0.01
+  })
 
   before(function() {
     clock = sinon.useFakeTimers()
@@ -88,20 +82,27 @@ describe('eventEmitters/trailers()', function() {
   })
 
   it('Should emit "damage" events', function() {
-    assert.deepStrictEqual(
-      telemetry.trailers.emit.args.filter(event => event[0] === 'damage'),
-      [
-        ['damage', 0, {total: 0.01}, {total: 0.00}],
-        ['damage', 1, {total: 0.02}, {total: 0.01}],
-      ]
-    )
+    const trailersDamageEvents = telemetry.trailers.emit.args.filter(event => event[0] === 'damage')
+    const trailersTotalDamage = trailersDamageEvents.map(event => ([
+      event[1], 
+      event[2].total,
+      event[3].total,
+    ]))
 
-    assert.deepStrictEqual(
-      telemetry.trailer.emit.args.filter(event => event[0] === 'damage'),
-      [
-        ['damage', {total: 0.01}, {total: 0.00}],
-      ]
-    )
+    assert.deepStrictEqual(trailersTotalDamage, [
+      [0, 0.01, 0.00],
+      [1, 0.02, 0.01],
+    ])
+
+    const trailerDamageEvents = telemetry.trailer.emit.args.filter(event => event[0] === 'damage')
+    const trailerTotalDamage = trailerDamageEvents.map(event => ([
+      event[1].total,
+      event[2].total,
+    ]))
+
+    assert.deepStrictEqual(trailerTotalDamage, [
+      [0.01, 0.00],
+    ])
   })
 
 })

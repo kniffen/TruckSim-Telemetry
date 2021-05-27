@@ -6,21 +6,18 @@ const tst = require('../../lib')
 
 const functions = require('../../lib/functions')
 
+const getFakeData = require('../getFakeData')
+
 describe('eventEmitters/navigation()', function() {
 
   let clock = null
-  
-  let testData = {
-    navigation: {
-      speedLimit: {
-        value: 0
-      }
-    },
-    game:     {},
-    events:   {},
-    trailers: [],
-  }
-  
+
+  const testData = getFakeData(function(data) {
+    data.navigation.speedLimit.value = 0
+    data.navigation.speedLimit.kph   = 0
+    data.navigation.speedLimit.mph   = 0
+  })
+    
   const telemetry = tst()
 
   before(function() {
@@ -58,10 +55,10 @@ describe('eventEmitters/navigation()', function() {
 
   it('Should emit speed-limit events', function() {
     assert.deepStrictEqual(telemetry.navigation.emit.args, [
-      ['speed-limit', {value: 50}, {value:  0}],
-      ['speed-limit', {value:  0}, {value: 50}],
-      ['speed-limit', {value: 50}, {value:  0}],
-      ['speed-limit', {value: 80}, {value: 50}],
+      ['speed-limit', {value: 50, kph: 0, mph: 0}, {value:  0, kph: 0, mph: 0}],
+      ['speed-limit', {value:  0, kph: 0, mph: 0}, {value: 50, kph: 0, mph: 0}],
+      ['speed-limit', {value: 50, kph: 0, mph: 0}, {value:  0, kph: 0, mph: 0}],
+      ['speed-limit', {value: 80, kph: 0, mph: 0}, {value: 50, kph: 0, mph: 0}],
     ])
   })
   

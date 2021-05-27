@@ -8,6 +8,8 @@ const tst = require('../lib')
 const functions = require('../lib/functions')
 const utils     = require('../lib/utils')
 
+const getFakeData = require('./getFakeData')
+
 describe('truckSimTelemetry()', function() {
   let testBuffer = null
   let testData   = null
@@ -15,9 +17,8 @@ describe('truckSimTelemetry()', function() {
   before(function() {
     testBuffer =
       fs.readFileSync(path.resolve(__dirname, './buffers/scs_sdk_plugin_buffer_10'))
-    
-    testData =
-      JSON.parse(fs.readFileSync(path.resolve(__dirname, './data/scs_sdk_plugin_parsed_data_10.json')))
+
+    testData = getFakeData()
     
     sinon
       .stub(utils, 'getBuffer')
