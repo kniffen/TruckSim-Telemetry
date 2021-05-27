@@ -73,9 +73,9 @@ const eventsJobStartedVerbose: EventsJobStartedVerbose =
 const eventsJobCancelledVerbose: EventsJobCancelledVerbose =
   Object.assign(
     {
-      penalty:       events.job.cancelled.penalty,
-      startingTime:  events.job.cancelled.startingTime,
-      finishingTime: events.job.cancelled.finishingTime,
+      penalty:            events.job.cancelled.penalty,
+      startedTimestamp:   events.job.cancelled.startedTimestamp,
+      cancelledTimestamp: events.job.cancelled.cancelledTimestamp,
     },
     job
   )
@@ -83,14 +83,14 @@ const eventsJobCancelledVerbose: EventsJobCancelledVerbose =
 const eventsJobDeliveredVerbose: EventsJobDeliveredVerbose =
   Object.assign(
     {
-      deliveryTime:  events.job.delivered.deliveryTime,
-      startingTime:  events.job.delivered.startingTime,
-      finishingTime: events.job.delivered.finishingTime,
-      earnedXP:      events.job.delivered.earnedXP,
-      cargoDamage:   events.job.delivered.cargoDamage,
-      distance:      events.job.delivered.distance,
-      autoParked:    events.job.delivered.autoParked,
-      revenue:       events.job.delivered.revenue,
+      autoParked:         events.job.delivered.autoParked,
+      cargoDamage:        events.job.delivered.cargoDamage,
+      distance:           events.job.delivered.distance,
+      earnedXP:           events.job.delivered.earnedXP,
+      deliveredTimestamp: events.job.delivered.deliveredTimestamp,
+      revenue:            events.job.delivered.revenue,
+      startedTimestamp:   events.job.delivered.startedTimestamp,
+      timeTaken:          events.job.delivered.timeTaken,
     },
     job
   )
