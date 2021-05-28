@@ -6,9 +6,9 @@ declare module "trucksim-telemetry" {
     simulationTimestamp: GameTimestamp;
     renderTimestamp: GameTimestamp;
     pluginVersion: number;
-    version: string;
+    version: number;
     game: GameNestedGame;
-    telemetryVersion: string;
+    telemetryVersion: number;
     time: GameTime;
     maxTrailerCount: number;
     scale: number;

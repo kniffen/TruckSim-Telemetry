@@ -1,9 +1,9 @@
 const path = require('path')
 const fs   = require('fs')
 
-const getBuffer  = require('../lib/getBuffer')
+const getBuffer  = require('../lib/utils/getBuffer')
 const converters = require('../lib/converters')
-const parseData  = require('../lib/parseData')
+const parseData  = require('../lib/parser/parseData')
 
 try {
 

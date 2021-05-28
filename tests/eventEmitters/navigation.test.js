@@ -1,51 +1,65 @@
-const assert = require('assert')
-const sinon = require('sinon')
-const EventEmitter = require('events')
+const assert    = require('assert')
+const sinon     = require('sinon')
+const cloneDeep = require('lodash.clonedeep')
 
-const navigation = require('../../lib/eventEmitters/navigation')
+const tst = require('../../lib')
+
+const functions = require('../../lib/functions')
+
+const getFakeData = require('../getFakeData')
 
 describe('eventEmitters/navigation()', function() {
 
-  const telemetry = {
-    navigation: new EventEmitter()
-  }
+  let clock = null
 
-  const spies = {
-    speedLimit: sinon.spy()
-  }
-
-  const data = []
-
-  const createData = () => ({
-    navigation: {
-      speedLimit: {value: 0}
-    }
+  const testData = getFakeData(function(data) {
+    data.navigation.speedLimit.value = 0
+    data.navigation.speedLimit.kph   = 0
+    data.navigation.speedLimit.mph   = 0
   })
+    
+  const telemetry = tst()
 
   before(function() {
-    data[0] = createData()
-    data[1] = createData()
-  
-    telemetry.navigation.on('speed-limit', spies.speedLimit)
+    clock = sinon.useFakeTimers()
 
-    navigation(telemetry, data)
-    data[0].navigation.speedLimit.value = 50
-    navigation(telemetry, data)
-    data[0].navigation.speedLimit.value = 0
-    navigation(telemetry, data)
-    data[1].navigation.speedLimit.value = 0
-    navigation(telemetry, data)
-    data[1].navigation.speedLimit.value = 50
-    navigation(telemetry, data)
-    data[0].navigation.speedLimit.value = 60
-    navigation(telemetry, data)
+    sinon.spy(telemetry.navigation, 'emit')
+
+    sinon
+      .stub(functions, 'getData')
+      .callsFake(() => cloneDeep(testData))
+    
+    telemetry.watch()
+    
+    clock.tick(100)
+
+    testData.navigation.speedLimit.value = 50
+    clock.tick(100)
+
+    testData.navigation.speedLimit.value = 0
+    clock.tick(100)
+
+    testData.navigation.speedLimit.value = 50
+    clock.tick(100)
+
+    testData.navigation.speedLimit.value = 80
+    clock.tick(100)
+
+    telemetry.stop()
+  })
+
+  after(function() {
+    clock.restore()
+    sinon.restore()
   })
 
   it('Should emit speed-limit events', function() {
-    assert.equal(spies.speedLimit.args.length, 3)
-    assert.deepEqual(spies.speedLimit.args[0], [{value: 50}, {value: 0}])
-    assert.deepEqual(spies.speedLimit.args[1], [{value: 0},  {value: 50}])
-    assert.deepEqual(spies.speedLimit.args[2], [{value: 60}, {value: 50}])
+    assert.deepStrictEqual(telemetry.navigation.emit.args, [
+      ['speed-limit', {value: 50, kph: 0, mph: 0}, {value:  0, kph: 0, mph: 0}],
+      ['speed-limit', {value:  0, kph: 0, mph: 0}, {value: 50, kph: 0, mph: 0}],
+      ['speed-limit', {value: 50, kph: 0, mph: 0}, {value:  0, kph: 0, mph: 0}],
+      ['speed-limit', {value: 80, kph: 0, mph: 0}, {value: 50, kph: 0, mph: 0}],
+    ])
   })
-
+  
 })

@@ -19,18 +19,20 @@ declare module "trucksim-telemetry" {
   }
   
   export interface TrailerWheel {
-    substance: WheelSubstance;
-    radius: number;
-    suspDeflection: number;
-    velocity: number;
-    steering: number;
-    rotation: number;
-    steerable: boolean;
-    simulated: boolean;
-    powered: boolean;
+    lift: number;
     liftable: boolean;
+    liftOffset: number;
     onGround: boolean;
     position: Position;
+    powered: boolean;
+    radius: number;
+    rotation: number;
+    simulated: boolean;
+    steerable: boolean;
+    steering: number;
+    substance: WheelSubstance;
+    suspDeflection: number;
+    velocity: number;
   }
   
   export interface TrailerWheelSubstance {

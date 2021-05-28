@@ -1,90 +1,108 @@
-const assert = require('assert')
-const sinon = require('sinon')
-const EventEmitter = require('events')
+const assert    = require('assert')
+const sinon     = require('sinon')
+const cloneDeep = require('lodash.clonedeep')
 
-const trailers = require('../../lib/eventEmitters/trailers')
+const tst = require('../../lib')
+
+const functions = require('../../lib/functions')
+
+const getFakeData = require('../getFakeData')
 
 describe('eventEmitters/trailers()', function() {
 
-  const telemetry = {
-    trailers: new EventEmitter(),
-    trailer:  new EventEmitter(),
-  }
+  let clock = null
+  const telemetry = tst()
 
-  const spies = {
-    trailers: {
-      coupling: sinon.spy(),
-      damage:   sinon.spy(),
-    },
-    trailer: {
-      coupling: sinon.spy(),
-      damage:   sinon.spy(),
-    },
-  }
+  const testData = getFakeData(function(data) {
+    data.trailers[0].attached = false
+    data.trailers[0].damage.total = 0.00
 
-  const data = []
-
-  const createData = () => ({
-    trailers: [
-      {attached: true,  damage: {total: 0.01}},
-      {attached: false, damage: {total: 0.02}},
-      {attached: true,  damage: {total: 0.03}},
-    ]
+    data.trailers[1].attached = true
+    data.trailers[1].damage.total = 0.01
   })
 
   before(function() {
-    data[0] = createData()
-    data[1] = createData()
-  
-    telemetry.trailers.on('coupling', spies.trailers.coupling)
-    telemetry.trailers.on('damage',   spies.trailers.damage)
-    
-    telemetry.trailer.on('coupling', spies.trailer.coupling)
-    telemetry.trailer.on('damage',   spies.trailer.damage)
+    clock = sinon.useFakeTimers()
 
-    trailers(telemetry, data)
-    data[0].trailers[0].attached = false
-    data[0].trailers[1].attached = true
-    data[0].trailers[0].damage.total = 0.03
-    data[0].trailers[2].damage.total = 0.02
-    trailers(telemetry, data)
-    data[0].trailers[0].attached = true
-    data[0].trailers[1].attached = false
-    data[1].trailers[0].damage.total = 0.03
-    trailers(telemetry, data)
-    data[1].trailers[0].attached = true
-    data[1].trailers[1].attached = false
-    data[1].trailers[0].damage.total = 0.02
-    data[1].trailers[2].damage.total = 0.01
-    trailers(telemetry, data)
-    data[0].trailers[0].attached = true
-    data[0].trailers[1].attached = false
-    data[0].trailers[0].damage.total = 0.00
-    data[0].trailers[2].damage.total = 0.05
-    trailers(telemetry, data)
+    sinon.spy(telemetry.trailers, 'emit')
+    sinon.spy(telemetry.trailer,  'emit')
+
+    sinon
+      .stub(functions, 'getData')
+      .callsFake(() => cloneDeep(testData))
+
+    telemetry.watch()
+
+    clock.tick(100)
+
+    testData.trailers[0].attached     = true
+    testData.trailers[0].damage.total = 0.01
+    testData.trailers[1].attached     = false
+    testData.trailers[1].damage.total = 0.02
+
+    clock.tick(100)
+
+    testData.trailers[0].attached     = true
+    testData.trailers[0].damage.total = 0.00
+    testData.trailers[1].attached     = false
+    testData.trailers[1].damage.total = 0.00
+
+    clock.tick(100)
+
+    testData.trailers[0].attached = false
+    testData.trailers[1].attached = true
+
+    clock.tick(100)
   })
 
-  it('Should emit coupling events', function() {
-    assert.equal(spies.trailers.coupling.args.length, 2)
-    assert.equal(spies.trailer.coupling.args.length, 1)
-
-    assert.deepEqual(spies.trailers.coupling.args[0], [0, false])
-    assert.deepEqual(spies.trailers.coupling.args[1], [1, true])
-
-    assert.deepEqual(spies.trailer.coupling.args[0][0], false)
+  after(function() {
+    telemetry.stop()
+    clock.restore()
+    sinon.restore()
   })
 
-  it('Should emit damage events', function() {
-    assert.equal(spies.trailers.damage.args.length, 4)
-    assert.equal(spies.trailer.damage.args.length, 2)
+  it('Should emit "coupling" events', function() {
+    assert.deepStrictEqual(
+      telemetry.trailers.emit.args.filter(event => event[0] === 'coupling'),
+      [
+        ['coupling', 0, true],
+        ['coupling', 1, false],
+        ['coupling', 0, false],
+        ['coupling', 1, true],
+      ]
+    )
 
-    assert.deepEqual(spies.trailers.damage.args[0], [0, {total: 0.03}, {total: 0.01}])
-    assert.deepEqual(spies.trailers.damage.args[1], [0, {total: 0.03}, {total: 0.02}])
-    assert.deepEqual(spies.trailers.damage.args[2], [2, {total: 0.02}, {total: 0.01}])
-    assert.deepEqual(spies.trailers.damage.args[3], [2, {total: 0.05}, {total: 0.01}])
-  
-    assert.deepEqual(spies.trailer.damage.args[0], [{total: 0.03}, {total: 0.01}])
-    assert.deepEqual(spies.trailer.damage.args[1], [{total: 0.03}, {total: 0.02}])
+    assert.deepStrictEqual(
+      telemetry.trailer.emit.args.filter(event => event[0] === 'coupling'),
+      [
+        ['coupling', true],
+        ['coupling', false],
+      ]
+    )
+  })
+
+  it('Should emit "damage" events', function() {
+    const trailersDamageEvents = telemetry.trailers.emit.args.filter(event => event[0] === 'damage')
+    const trailersTotalDamage = trailersDamageEvents.map(event => ([
+      event[1], 
+      event[2].total,
+      event[3].total,
+    ]))
+
+    assert.deepStrictEqual(trailersTotalDamage, [
+      [0, 0.01, 0.00],
+      [1, 0.02, 0.01],
+    ])
+
+    const trailerDamageEvents = telemetry.trailer.emit.args.filter(event => event[0] === 'damage')
+    const trailerTotalDamage = trailerDamageEvents.map(event => ([
+      event[1].total,
+      event[2].total,
+    ]))
+
+    assert.deepStrictEqual(trailerTotalDamage, [
+      [0.01, 0.00],
+    ])
   })
 
 })

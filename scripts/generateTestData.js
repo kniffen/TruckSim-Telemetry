@@ -2,7 +2,7 @@ const path = require('path')
 const fs   = require('fs')
 
 const converters = require('../lib/converters')
-const parseData  = require('../lib/parseData')
+const parseData  = require('../lib/parser/parseData')
 
 const version = 10
 

@@ -1,140 +1,182 @@
-const assert = require('assert')
-const sinon = require('sinon')
-const EventEmitter = require('events')
+const assert    = require('assert')
+const sinon     = require('sinon')
+const cloneDeep = require('lodash.clonedeep')
 
-const game = require('../../lib/eventEmitters/game')
+const tst = require('../../lib')
+
+const functions = require('../../lib/functions')
+
+const getFakeData = require('../getFakeData')
 
 describe('eventEmitters/game()', function() {
 
-  const telemetry = {
-    game: new EventEmitter()
-  }
+  let clock = null
 
-  const spies = {
-    pause:       sinon.spy(),
-    timeChange:  sinon.spy(),
-    fine:        sinon.spy(),
-    tollgate:    sinon.spy(),
-    ferry:       sinon.spy(),
-    train:       sinon.spy(),
-    refuelPaid:  sinon.spy()
-  }
+  const testData = getFakeData(function(data) {
+    data.events.ferry.active      = false
+    data.events.train.active      = false
+    data.events.fine.active       = false
+    data.events.refuelPaid.active = false
+    data.events.tollgate.active   = false
 
-  const createData = () => ({
-    game: {
-      paused:        false,
-      time:          100,
-      pluginVersion: 10
-    },
-    events: {
-      fine:        {active: false, amount: 100, offence: 'foobar'},
-      tollgate:    {active: false, amount: 200},
-      ferry:       {active: false, amount: 300, source: 'foo', destination: 'bar'},
-      train:       {active: false, amount: 400, source: 'foo', destination: 'bar'},
-      refuelPaid:  {active: false, amount: 500}
-    }
+    data.game.paused = false
+
+    data.game.time.value = 0
+    data.game.time.unix  = 0
   })
+
+  const telemetry = tst()
 
   before(function() {
-    const data = [createData(), createData()]
+    clock = sinon.useFakeTimers()
+    
+    sinon.spy(telemetry.game, 'emit')
 
-    telemetry.game.on('pause',        spies.pause)
-    telemetry.game.on('time-change',  spies.timeChange)
-    telemetry.game.on('fine',         spies.fine)
-    telemetry.game.on('tollgate',     spies.tollgate)
-    telemetry.game.on('ferry',        spies.ferry)
-    telemetry.game.on('train',        spies.train)
-    telemetry.game.on('refuel-paid',  spies.refuelPaid)
-
-    game(telemetry, data)
-
-    data[0].game.paused            = true
-    data[0].game.time             += 10
-    data[0].events.fine.active     = true
-    data[0].events.tollgate.active = true
-    data[0].events.ferry.active    = true
-    data[0].events.train.active    = true
-    game(telemetry, data)
-
-    data[0].game.paused            = false
-    data[1].game.time++
-    data[0].events.fine.active     = false
-    data[0].events.tollgate.active = false
-    data[0].events.ferry.active    = false
-    data[0].events.train.active    = false
-    game(telemetry, data)
-
-    data[1].game.paused            = true
-    data[1].game.time             += 9
-    data[1].events.fine.active     = true
-    data[1].events.tollgate.active = true
-    data[1].events.ferry.active    = true
-    data[1].events.train.active    = true
-    game(telemetry, data)
-
-    data[1].game.paused            = false
-    data[1].game.time             -= 5
-    data[1].events.fine.active     = false
-    data[1].events.tollgate.active = false
-    data[1].events.ferry.active    = false
-    data[1].events.train.active    = false
-    game(telemetry, data)
-  })
-
-  it('Should emit pause events', function() {
-    assert.equal(spies.pause.args.length, 2)
-    assert.equal(spies.pause.args[0][0], true)
-    assert.equal(spies.pause.args[1][0], false)
-  })
+    sinon
+      .stub(functions, 'getData')
+      .callsFake(() => cloneDeep(testData))
   
-  it('Should emit time-change events', function() {
-    assert.equal(spies.timeChange.args.length, 3)
-    assert.deepEqual(spies.timeChange.args[0], [110, 100])
-    assert.deepEqual(spies.timeChange.args[1], [110, 101])
-    assert.deepEqual(spies.timeChange.args[2], [110, 105])
-  })
-  
-  it('Should emit fine events', function() {
-    assert.equal(spies.fine.args.length, 1)
-    assert.deepEqual(spies.fine.args[0][0], {offence: 'foobar', amount: 100})
-  })
-  
-  it('Should emit tollgate events', function() {
-    assert.equal(spies.tollgate.args.length, 1)
-    assert.deepEqual(spies.tollgate.args[0][0], {amount: 200})
-  })
-  
-  it('Should emit ferry events', function() {
-    assert.equal(spies.ferry.args.length, 1)
-    assert.deepEqual(spies.ferry.args[0][0], {
-      source:      'foo',
-      destination: 'bar',
-      target:      'bar',
-      amount:      300,
-    })
+    telemetry.watch()
+
+    clock.tick(100)
+
+    testData.game.paused = true
+    testData.game.time.value++
+
+    testData.events.ferry.active      = true
+    testData.events.fine.active       = true
+    testData.events.refuelPaid.active = true
+    testData.events.tollgate.active   = true
+    testData.events.train.active      = true
+
+    clock.tick(100)
+
+    testData.game.paused = false
+    testData.game.time.value++
+
+    testData.events.ferry.active      = false
+    testData.events.fine.active       = false
+    testData.events.refuelPaid.active = false
+    testData.events.tollgate.active   = false
+    testData.events.train.active      = false
+
+    clock.tick(100)
+
+    testData.game.paused = true
+    testData.game.time.value++
+
+    testData.events.ferry.active      = true
+    testData.events.fine.active       = true
+    testData.events.refuelPaid.active = true
+    testData.events.tollgate.active   = true
+    testData.events.train.active      = true
+
+    clock.tick(100)
+
+    telemetry.stop()
   })
 
-  it('Should emit train events', function() {
-    assert.equal(spies.train.args.length, 1)
-    assert.deepEqual(spies.train.args[0][0], {
-      source:      'foo',
-      destination: 'bar',
-      target:      'bar',
-      amount:      400,
-    })
+  after(function() {
+    clock.restore()
+    sinon.restore()
   })
 
-  it('Should emit refuel-paid events', function() {
-    const data = [createData(), createData()]
+  it('Should emit "pause" events', function() {
+    const pauseEvents = telemetry.game.emit.args.filter(event => event[0] === 'pause')
 
-    game(telemetry, data)
-    data[0].events.refuelPaid.active = true
-    data[0].events.refuelPaid.amount = 600
-    game(telemetry, data)
-  
-    assert.deepEqual(spies.refuelPaid.args[0], [
-      {amount: 600}
+    assert.deepStrictEqual(pauseEvents, [
+      ['pause', true],
+      ['pause', false],
+      ['pause', true],
     ])
+  })
+
+  it('Should emit "time-change" events', function() {
+    const timeChangeEvents = telemetry.game.emit.args.filter(event => event[0] === 'time-change')
+
+    assert.deepStrictEqual(timeChangeEvents, [
+      ['time-change', {value: 1, unix: 0}, {value: 0, unix: 0}],
+      ['time-change', {value: 2, unix: 0}, {value: 1, unix: 0}],
+      ['time-change', {value: 3, unix: 0}, {value: 2, unix: 0}],
+    ])
+  })
+
+  it('Should emit "ferry" events', function() {
+    const expected = {
+      amount: 0,
+      destination: {id: '', name: ''},
+      source:      {id: '', name: ''},
+      target:      {id: '', name: ''},
+    }
+
+    const ferryEvents = telemetry.game.emit.args.filter(event => event[0] === 'ferry')
+
+    assert.deepStrictEqual(ferryEvents, [
+      ['ferry', expected],
+      ['ferry', expected],
+    ])
+  })
+
+  
+  it('Should emit "fine" events', function() {
+    const expected = {
+      amount: 0,
+      offence: {id: '', name: ''}
+    }
+
+    assert.deepStrictEqual(
+      telemetry.game.emit.args.filter(event => event[0] === 'fine'),
+      [
+        ['fine', expected],
+        ['fine', expected],
+      ]
+   )
+  })
+
+  it('Should emit "refuel-paid" events', function() {
+    const expected = {
+      amount: 0,
+    }
+
+    assert.deepStrictEqual(
+      telemetry.game.emit.args.filter(event => event[0] === 'refuel-paid'),
+      [
+        ['refuel-paid', expected],
+        ['refuel-paid', expected],
+      ]
+   )
+  } )
+
+
+  it('Should emit "tollgate" events', function() {
+     const expected = {
+      amount: 0,
+    }
+
+    assert.deepStrictEqual(
+      telemetry.game.emit.args.filter(event => event[0] === 'tollgate'),
+      [
+        ['tollgate', expected],
+        ['tollgate', expected],
+    ])
+  })
+
+
+  it('Should emit "train" events', function() {
+    const expected = {
+      amount: 0,
+      destination: {id: '', name: ''},
+      source:      {id: '', name: ''},
+      target:      {id: '', name: ''},
+    }
+
+    assert.deepStrictEqual(
+      telemetry.game.emit.args.filter(event => event[0] === 'train'),
+      [
+        ['train', expected],
+        ['train', expected],
+      ]
+   )
   })
 
 })

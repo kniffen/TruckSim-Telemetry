@@ -1,6 +1,6 @@
 declare module "trucksim-telemetry" {
   export interface Job {
-    deliveryTime: JobDeliveryTime;
+    expectedDeliveryTimestamp: JobTimestamp;
     plannedDistance: JobPlannedDistance;
     cargo: JobCargo;
     isSpecial: boolean;
@@ -10,7 +10,7 @@ declare module "trucksim-telemetry" {
     income: number;
   }
 
-  export interface JobDeliveryTime {
+  export interface JobTimestamp {
     value: number;
     unix: number;
   }

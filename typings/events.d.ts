@@ -17,9 +17,9 @@ declare module "trucksim-telemetry" {
   }
   
   export interface EventsJobDelivered {
-    deliveryTime: number;
-    startingTime: number;
-    finishingTime: number;
+    timeTaken: number;
+    startedTimestamp: JobTimestamp;
+    deliveredTimestamp: JobTimestamp;
     earnedXP: number;
     cargoDamage: number;
     distance: EventsJobDeliveredDistance;
@@ -41,8 +41,8 @@ declare module "trucksim-telemetry" {
   export interface EventsJobCancelled {
     penalty: number;
     active: boolean;
-    startingTime: number;
-    finishingTime: number;
+    startedTimestamp: JobTimestamp;
+    cancelledTimestamp: JobTimestamp;
   }
   
   export interface EventsJobFinished {
@@ -105,7 +105,7 @@ declare module "trucksim-telemetry" {
   export interface EventsJobStartedVerbose {
     autoLoaded: boolean;
     cargo: JobCargo;
-    deliveryTime: JobDeliveryTime;
+    expectedDeliveryTimestamp: JobTimestamp;
     destination: JobLocation;
     income: number;
     isSpecial: boolean;
@@ -116,33 +116,34 @@ declare module "trucksim-telemetry" {
 
   export interface EventsJobCancelledVerbose {
     cargo: JobCargo;
-    deliveryTime: JobDeliveryTime;
+    expectedDeliveryTimestamp: JobTimestamp;
     destination: JobLocation;
-    finishingTime: number;
+    cancelledTimestamp: JobTimestamp;
     income: number;
     isSpecial: boolean;
     market: JobMarket;
     penalty: number;
     plannedDistance: JobPlannedDistance;
     source: JobLocation;
-    startingTime: number;
+    startedTimestamp: JobTimestamp;
   }
 
   export interface EventsJobDeliveredVerbose {
     autoParked: boolean;
+    isSpecial: boolean;
     cargo: JobCargo;
+    market: JobMarket;
     cargoDamage: number;
-    deliveryTime: number;
-    destination: JobLocation;
     distance: EventsJobDeliveredDistance;
     earnedXP: number;
-    finishingTime: number;
-    isSpecial: boolean;
-    market: JobMarket;
+    expectedDeliveryTimestamp: JobTimestamp;
+    deliveredTimestamp: JobTimestamp;
     plannedDistance: JobPlannedDistance;
     revenue: number;
+    startedTimestamp: JobTimestamp;
+    timeTaken: number;
+    destination: JobLocation;
     source: JobLocation;
-    startingTime: number;
   }
 
   export interface EventsCruiseControl {
