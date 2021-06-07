@@ -38,6 +38,9 @@ To help with this you can use the `--expose-gc` flag with the node process you a
 This will expose the node/V8 garbage collector and if TruckSim-Telemetry detect it, it will force the garbage collector to run every time the data is converted.<br/>
 However this is not recommended as it can cause performance issues.
 
+**Trailer damage values**<br/>
+The current version of the **[scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin)** does not provide the damage value for the trailer's body, as such the total damage value is also incorrect.
+
 
 ## Demo
 To help visualize the data you can use this [Demo app](https://github.com/kniffen/TruckSim-Telemetry-Demo)
