@@ -8,7 +8,7 @@ TruckSim-Telemetry is a node module that takes telemetry data for Euro Truck Sim
 [![Discord](https://img.shields.io/discord/125702694538051584.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/S6NRp5P)
 
 ## Documentation
-Read the full documentation over at http://trucksimtelemetry.knifftech.org/
+Read the full documentation over at https://tst.kniffen.dev
 
 ## Getting started
 
@@ -28,7 +28,7 @@ Install the module via NPM
 
 ## Examples
 
-Check the [Documentation](https://trucksimtelemetry.knifftech.org) page for [examples](https://trucksimtelemetry.knifftech.org/#/examples)
+Check the [Documentation](https://tst.kniffen.dev) page for [examples](https://tst.kniffen.dev/#/examples)
 
 
 ## Known issues
