@@ -7,7 +7,7 @@ const parseData  = require('../lib/parser/parseData')
 
 try {
 
-  const buffer = getBuffer({mmfName: 'Local\\SCSTelemetry'})
+  const buffer = getBuffer('Local\\SCSTelemetry')
   const data   = parseData(converters[10](buffer))
 
   const folderPath = path.resolve(__dirname, '../tests/buffers')
