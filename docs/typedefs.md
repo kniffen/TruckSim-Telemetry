@@ -144,6 +144,14 @@
 | Name | Type | Optional |
 | ---- | ---- | -------- |
 | ratio | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
+| lock | [DifferentialLock](typedefs.md#DifferentialLock) | YES |
+
+---
+
+### DifferentialLock
+| Name | Type | Optional |
+| ---- | ---- | -------- |
+| enabled | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
 
 ---
 
@@ -528,6 +536,21 @@
 
 ---
 
+### LiftAxle
+| Name | Type | Optional |
+| ---- | ---- | -------- |
+| enabled | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
+| indicator | [LiftAxleIndicator](typedefs.md#LiftAxleIndicator) | NO |
+
+---
+
+### LiftAxleIndicator
+| Name | Type | Optional |
+| ---- | ---- | -------- |
+| enabled | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
+
+---
+
 ### LightStatus
 | Name | Type | Optional |
 | ---- | ---- | -------- |
@@ -548,6 +571,7 @@
 | beacon | [LightStatus](typedefs.md#LightStatus) | NO |
 | brake | [LightStatus](typedefs.md#LightStatus) | NO |
 | reverse | [LightStatus](typedefs.md#LightStatus) | NO |
+| hazard | [LightStatus](typedefs.md#LightStatus) | YES |
 
 ---
 
@@ -670,12 +694,12 @@
 | ---- | ---- | -------- |
 | opts | [Options](typedefs.md#Options) | NO |
 | data | [TelemetryData](typedefs.md#TelemetryData) | NO |
-| game | [128](typedefs.md#128) | NO |
-| job | [128](typedefs.md#128) | NO |
-| navigation | [128](typedefs.md#128) | NO |
-| trailers | [128](typedefs.md#128) | NO |
-| trailer | [128](typedefs.md#128) | NO |
-| truck | [128](typedefs.md#128) | NO |
+| game | [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) | NO |
+| job | [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) | NO |
+| navigation | [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) | NO |
+| trailers | [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) | NO |
+| trailer | [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) | NO |
+| truck | [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) | NO |
 
 ---
 
@@ -689,7 +713,7 @@
 | navigation | [Navigation](typedefs.md#Navigation) | NO |
 | substances | [Substances](typedefs.md#Substances) | YES |
 | trailer | [Trailer](typedefs.md#Trailer) | NO |
-| trailers | [178](typedefs.md#178) | NO |
+| trailers | [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) | NO |
 | truck | [Truck](typedefs.md#Truck) | NO |
 
 ---
@@ -704,7 +728,7 @@
 ### Trailer
 | Name | Type | Optional |
 | ---- | ---- | -------- |
-| wheels | [178](typedefs.md#178) | NO |
+| wheels | [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) | NO |
 | attached | [Boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | NO |
 | cargo | [TrailerDamageValue](typedefs.md#TrailerDamageValue) | NO |
 | chassis | [TrailerDamageValue](typedefs.md#TrailerDamageValue) | NO |
@@ -720,6 +744,7 @@
 | chainType | [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | NO |
 | licensePlate | [LicensePlate](typedefs.md#LicensePlate) | NO |
 | damage | [TrailerDamage](typedefs.md#TrailerDamage) | NO |
+| liftAxle | [LiftAxle](typedefs.md#LiftAxle) | YES |
 
 ---
 
@@ -775,12 +800,12 @@
 | reverseGears | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | selectors | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
 | slot | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| slots | [178](typedefs.md#178) | NO |
+| slots | [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) | NO |
 | gear | [TransmissionGear](typedefs.md#TransmissionGear) | NO |
-| gearRatiosForward | [178](typedefs.md#178) | NO |
-| gearRatiosReverse | [178](typedefs.md#178) | NO |
+| gearRatiosForward | [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) | NO |
+| gearRatiosReverse | [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) | NO |
 | damage | [Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) | NO |
-| selector | [178](typedefs.md#178) | NO |
+| selector | [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) | NO |
 | shifterType | [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) | NO |
 
 ---
@@ -823,7 +848,7 @@
 | ---- | ---- | -------- |
 | transmission | [Transmission](typedefs.md#Transmission) | NO |
 | brakes | [Brakes](typedefs.md#Brakes) | NO |
-| wheels | [178](typedefs.md#178) | NO |
+| wheels | [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array) | NO |
 | lights | [Lights](typedefs.md#Lights) | NO |
 | fuel | [Fuel](typedefs.md#Fuel) | NO |
 | adBlue | [AdBlue](typedefs.md#AdBlue) | NO |
@@ -846,6 +871,7 @@
 | model | [Model](typedefs.md#Model) | NO |
 | licensePlate | [LicensePlate](typedefs.md#LicensePlate) | NO |
 | damage | [TruckDamage](typedefs.md#TruckDamage) | NO |
+| liftAxle | [LiftAxle](typedefs.md#LiftAxle) | YES |
 
 ---
 
