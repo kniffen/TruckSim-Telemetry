@@ -16,6 +16,7 @@ declare module "trucksim-telemetry" {
     chainType: string;
     licensePlate: LicensePlate;
     damage: TrailerDamage;
+    liftAxle?: LiftAxle;
   }
   
   export interface TrailerWheel {

@@ -16,7 +16,7 @@ describe('truckSimTelemetry()', function() {
 
   before(function() {
     testBuffer =
-      fs.readFileSync(path.resolve(__dirname, './buffers/scs_sdk_plugin_buffer_10'))
+      fs.readFileSync(path.resolve(__dirname, './buffers/scs_sdk_plugin_buffer_11'))
 
     testData = getFakeData()
     

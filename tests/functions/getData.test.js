@@ -16,13 +16,13 @@ describe('functions.getData()', function() {
   }
 
   before(function() {
-    parsedData = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../data/scs_sdk_plugin_parsed_data_10.json')))
+    parsedData = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../data/scs_sdk_plugin_parsed_data_11.json')))
 
     getBufferStub =
       sinon
         .stub(utils, 'getBuffer')
         .callsFake(() => {
-          buffer = fs.readFileSync(path.resolve(__dirname, '../buffers/scs_sdk_plugin_buffer_10'))
+          buffer = fs.readFileSync(path.resolve(__dirname, '../buffers/scs_sdk_plugin_buffer_11'))
           return buffer
         })
   
@@ -33,7 +33,7 @@ describe('functions.getData()', function() {
   })
 
   beforeEach(function() {
-    pluginVersion = 10
+    pluginVersion = 11
   })
 
   after(function() {

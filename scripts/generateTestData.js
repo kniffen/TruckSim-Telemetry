@@ -4,7 +4,7 @@ const fs   = require('fs')
 const converters = require('../lib/converters')
 const parseData  = require('../lib/parser/parseData')
 
-const version = 10
+const version = 11
 
 const bufferFilePath =
   path.resolve(__dirname, `../tests/buffers/scs_sdk_plugin_buffer_${version}`)

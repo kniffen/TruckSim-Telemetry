@@ -13,7 +13,16 @@ describe('parseData()', function() {
     const expected = JSON.parse( fs.readFileSync( path.resolve(__dirname, '../data/scs_sdk_plugin_parsed_data_10.json' ) ) )
     const actual   = parseData( rawData )
 
-    assert.deepEqual( actual, expected )
+    assert.deepStrictEqual( actual, expected )
+  })
+
+  it('Should parse SDK 1.11 data', function() {
+    const buffer   = fs.readFileSync( path.resolve( __dirname, '../buffers/scs_sdk_plugin_buffer_11' ) )
+    const rawData  = converters[11]( buffer )
+    const expected = JSON.parse( fs.readFileSync( path.resolve(__dirname, '../data/scs_sdk_plugin_parsed_data_11.json' ) ) )
+    const actual   = parseData( rawData )
+
+    assert.deepStrictEqual( actual, expected )
   })
 
 })

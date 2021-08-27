@@ -25,6 +25,7 @@ declare module "trucksim-telemetry" {
     model: Model;
     licensePlate: LicensePlate;
     damage: TruckDamage;
+    liftAxle?: LiftAxle;
   }
   
   export interface Transmission {
@@ -122,6 +123,7 @@ declare module "trucksim-telemetry" {
     beacon: LightStatus;
     brake: LightStatus;
     reverse: LightStatus;
+    hazard?: LightStatus;
   }
   
   export interface AuxLight {
@@ -187,7 +189,13 @@ declare module "trucksim-telemetry" {
   
   export interface Differential {
     ratio: number;
+    lock?: DifferentialLock;
   }
+
+  export interface DifferentialLock {
+    enabled: boolean;
+  }
+
   
   export interface Speed {
     value: number;

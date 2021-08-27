@@ -56,4 +56,13 @@ declare module "trucksim-telemetry" {
     name: string;
     id: string;
   }
+
+  export interface LiftAxle {
+    enabled: boolean;
+    indicator: LiftAxleIndicator;
+  }
+
+  export interface LiftAxleIndicator {
+    enabled: boolean;
+  }
 }

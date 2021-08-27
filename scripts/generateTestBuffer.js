@@ -8,7 +8,7 @@ const parseData  = require('../lib/parser/parseData')
 try {
 
   const buffer = getBuffer('Local\\SCSTelemetry')
-  const data   = parseData(converters[10](buffer))
+  const data   = parseData(converters[11](buffer))
 
   const folderPath = path.resolve(__dirname, '../tests/buffers')
   const filePath   = path.resolve(folderPath, `scs_sdk_plugin_buffer_${data.game.pluginVersion}`)
