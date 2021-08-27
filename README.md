@@ -15,6 +15,7 @@ Read the full documentation over at https://tst.kniffen.dev
 ### Prerequisites
 #### Download and install the **[scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin)** by **[RenCloud](https://github.com/RenCloud)**
 Supported plugin versions (Limited meaning some data and/or events may be inaccurate)
+- v1.11.0
 - v1.10.6
 - v1.10.5 (Limited)
 - v1.10.4 (Limited)
