@@ -108,6 +108,7 @@ describe('eventEmitters/job()', function() {
       [
         ['finished'],
         ['finished'],
+        ['finished'],
       ]
     )
   })
@@ -177,12 +178,16 @@ describe('eventEmitters/job()', function() {
       }
     ]
 
+    assert.equal(telemetry.job.emit.args.filter(a => a[0] === 'cancelled').length, 3)
+
     assert.deepStrictEqual(
-      telemetry.job.emit.args.filter(event => event[0] === 'cancelled'),
-      [
-        ['cancelled', expectedData[0]],
-        ['cancelled', expectedData[1]],
-      ]
+      telemetry.job.emit.args.filter(event => event[0] === 'cancelled')[0],
+      ['cancelled', expectedData[0]],
+    )
+
+    assert.deepStrictEqual(
+      telemetry.job.emit.args.filter(event => event[0] === 'cancelled')[2],
+      ['cancelled', expectedData[1]],
     )
   })
 
@@ -224,12 +229,16 @@ describe('eventEmitters/job()', function() {
       }
     ]
 
+    assert.equal(telemetry.job.emit.args.filter(a => a[0] === 'delivered').length, 3)
+
     assert.deepStrictEqual(
-      telemetry.job.emit.args.filter(event => event[0] === 'delivered'),
-      [
-        ['delivered', expectedData[0]],
-        ['delivered', expectedData[1]],
-      ]
+      telemetry.job.emit.args.filter(event => event[0] === 'delivered')[0],
+      ['delivered', expectedData[0]],
+    )
+
+    assert.deepStrictEqual(
+      telemetry.job.emit.args.filter(event => event[0] === 'delivered')[2],
+      ['delivered', expectedData[1]],
     )
   })
 

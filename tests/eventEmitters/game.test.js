@@ -114,6 +114,7 @@ describe('eventEmitters/game()', function() {
     assert.deepStrictEqual(ferryEvents, [
       ['ferry', expected],
       ['ferry', expected],
+      ['ferry', expected],
     ])
   })
 
@@ -129,6 +130,7 @@ describe('eventEmitters/game()', function() {
       [
         ['fine', expected],
         ['fine', expected],
+        ['fine', expected],
       ]
    )
   })
@@ -141,6 +143,7 @@ describe('eventEmitters/game()', function() {
     assert.deepStrictEqual(
       telemetry.game.emit.args.filter(event => event[0] === 'refuel-paid'),
       [
+        ['refuel-paid', expected],
         ['refuel-paid', expected],
         ['refuel-paid', expected],
       ]
@@ -158,6 +161,7 @@ describe('eventEmitters/game()', function() {
       [
         ['tollgate', expected],
         ['tollgate', expected],
+        ['tollgate', expected],
     ])
   })
 
@@ -173,6 +177,7 @@ describe('eventEmitters/game()', function() {
     assert.deepStrictEqual(
       telemetry.game.emit.args.filter(event => event[0] === 'train'),
       [
+        ['train', expected],
         ['train', expected],
         ['train', expected],
       ]
