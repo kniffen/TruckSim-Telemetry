@@ -33,6 +33,10 @@ Check the [Documentation](https://tst.kniffen.dev) page for [examples](https://t
 
 
 ## Known issues
+**refuel-paid event not emitting**
+This seems to be a problem with the plugin.
+It seems to only trigger once per game.
+
 **High memory usage**<br/>
 This is due converting a lot of buffer data to JSON at a high interval.<br/>
 To help with this you can use the `--expose-gc` flag with the node process you are running TruckSim-Telemetry on.<br/>
