@@ -33,17 +33,34 @@ Check the [Documentation](https://tst.kniffen.dev) page for [examples](https://t
 
 
 ## Known issues
-**refuel-paid event not emitting**
+### refuel-paid event not emitting
 This seems to be a problem with the plugin.
 It seems to only trigger once per game.
 
-**High memory usage**<br/>
-This is due converting a lot of buffer data to JSON at a high interval.<br/>
-To help with this you can use the `--expose-gc` flag with the node process you are running TruckSim-Telemetry on.<br/>
-This will expose the node/V8 garbage collector and if TruckSim-Telemetry detect it, it will force the garbage collector to run every time the data is converted.<br/>
-However this is not recommended as it can cause performance issues.
+### Electron and React or Vue (webpack)
+An common issue reported by people is getting the following error message when trying to use the module with React or Vue.<br />
+`Module not found: Error: Can't resolve '../../build/Release/scsTelemetry' ...`<br/>
+This seems to be webpack related, and adding the following alias to your webpack.config.js file should resolve it
+```JS
+// webpack.config.js
+module.exports = {
+  resolve: {
+    alias: {
+      "../../build/Release/scsSDKTelemetry": "../../build/Release/scsSDKTelemetry.node"
+    }
+  }
+}
+```
 
-**Trailer damage values**<br/>
+For Electron you may or __may not__ additionally have to set the following preferences when creating your browser window
+```JS
+webPreferences: {
+  nodeIntegration: true,
+  contextIsolation: false,
+}
+```
+
+### Trailer damage values
 The current version of the **[scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin)** does not provide the damage value for the trailer's body, as such the total damage value is also incorrect.
 
 
