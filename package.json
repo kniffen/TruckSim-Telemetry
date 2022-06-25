@@ -11,9 +11,7 @@
     "test": "npx mocha ./tests/**/*.test.js",
     "test-ts": "npx ts-node ./tests/typescript/index.test.ts",
     "generate-test-buffer": "node ./scripts/generateTestBuffer.js",
-    "generate-test-data": "node ./scripts/generateTestData.js",
-    "generate-typedefs": "node ./scripts/generateTypedefs.js",
-    "docs": "node ./scripts/liveServer.js"
+    "generate-test-data": "node ./scripts/generateTestData.js"
   },
   "gypfile": true,
   "repository": {
