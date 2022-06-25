@@ -55,7 +55,7 @@
 ### tollgate
 | Parameter    | Type                                    |
 | ------------ | --------------------------------------- |
-| tollgateData | [EventTrain](typedefs.md#EventTollgate) |
+| tollgateData | [EventTollgate](typedefs.md#EventTollgate) |
 
 ---
 
