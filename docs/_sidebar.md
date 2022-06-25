@@ -1,7 +1,0 @@
-* [Welcome](/)
-* [Changelog](changelog.md)
-* [Examples](examples.md)
-* [Functions](functions.md)
-* [Events](events.md)
-* [Typedefs](typedefs.md)
-* [Demo](https://github.com/kniffen/TruckSim-Telemetry-Demo)
