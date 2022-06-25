@@ -41,7 +41,7 @@ It seems to only trigger once per game.
 An common issue reported by people is getting the following error message when trying to use the module with React or Vue.<br />
 `Module not found: Error: Can't resolve '../../build/Release/scsTelemetry' ...`<br/>
 This seems to be webpack related, and adding the following alias to your webpack.config.js file should resolve it
-```JS
+```javascript
 // webpack.config.js
 module.exports = {
   resolve: {
@@ -53,7 +53,7 @@ module.exports = {
 ```
 
 For Electron you may or __may not__ additionally have to set the following preferences when creating your browser window
-```JS
+```javascript
 webPreferences: {
   nodeIntegration: true,
   contextIsolation: false,
