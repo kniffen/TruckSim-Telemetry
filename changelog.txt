@@ -1,5 +1,8 @@
 Changelog
 
+v0.16.2 - 2022-11-08
+- Fix speed convertion (reverse), thanks to giflw
+
 v0.16.1 - 2022-02-23
 - Fixed some events only emitting 50% of the time 
 
