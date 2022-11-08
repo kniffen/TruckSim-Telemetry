@@ -2,6 +2,7 @@ declare module "trucksim-telemetry" {
   export interface Trailer {
     wheels: TrailerWheel[];
     attached: boolean;
+    body?: TrailerDamageValue;
     cargo: TrailerDamageValue;
     chassis: TrailerDamageValue;
     acceleration: Acceleration;
@@ -46,6 +47,7 @@ declare module "trucksim-telemetry" {
   }
   
   export interface TrailerDamage {
+    body?: number;
     cargo: number;
     chassis: number;
     wheels: number;

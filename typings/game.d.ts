@@ -5,6 +5,7 @@ declare module "trucksim-telemetry" {
     timestamp: GameTimestamp;
     simulationTimestamp: GameTimestamp;
     renderTimestamp: GameTimestamp;
+    multiplayerTimeOffset?: GameTimestamp;
     pluginVersion: number;
     version: number;
     game: GameNestedGame;
