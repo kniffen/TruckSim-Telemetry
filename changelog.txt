@@ -1,5 +1,8 @@
 Changelog
 
+v0.17.0 - 2022-11-08
+- Added support for plugin version 1.11.1
+
 v0.16.2 - 2022-11-08
 - Fix speed convertion (reverse), thanks to giflw
 
