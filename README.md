@@ -15,9 +15,9 @@ Read the full documentation over at https://tst.kniffen.dev
 ### Prerequisites
 #### Download and install the 󠀠󠀠󠀠󠀠[scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin) by [RenCloud](https://github.com/RenCloud)
 Supported plugin versions (Limited meaning some data and/or events may be inaccurate)
-- v1.11.1 (TruckSim-Telemetry >= 0.17.0)
-- v1.11.0 (TruckSim-Telemetry <= 0.16.2)
-- v1.10.6 (TruckSim-Telemetry <= 0.16.2)
+- v1.12.0
+- v1.11.0
+- v1.10.6
 - v1.10.5 (Limited)
 - v1.10.4 (Limited)
 
