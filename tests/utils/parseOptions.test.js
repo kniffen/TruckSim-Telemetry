@@ -1,20 +1,17 @@
-const assert = require('assert')
-const sinon = require('sinon')
-
-const utils = require('../../lib/utils')
+const parseOptions = require('../../lib/utils/parseOptions')
 
 describe('utils.parseOptions()', function() {
 
   it('Should parse option objects', function() {
     const actual = [
-      utils.parseOptions(),
-      utils.parseOptions(null),
-      utils.parseOptions(undefined),
-      utils.parseOptions('foo'),
-      utils.parseOptions(1234),
-      utils.parseOptions([]),
-      utils.parseOptions({}),
-      utils.parseOptions({mmfName: 'bar'}),
+      parseOptions(),
+      parseOptions(null),
+      parseOptions(undefined),
+      parseOptions('foo'),
+      parseOptions(1234),
+      parseOptions([]),
+      parseOptions({}),
+      parseOptions({mmfName: 'bar'}),
     ]
 
     const expected = [
@@ -28,7 +25,7 @@ describe('utils.parseOptions()', function() {
       {mmfName: 'bar'},
     ]
 
-    assert.deepEqual(actual, expected)
+    expect(actual).toEqual(expected)
   })
 
 })

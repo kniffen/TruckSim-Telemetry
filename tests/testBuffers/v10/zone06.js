@@ -1,0 +1,40 @@
+const createWriter = require('../createWriter.js')
+const { wheelCount } = require('./constants.js')
+
+const start  = 1640
+const end    = 2000
+const writer = createWriter(Buffer.alloc(end-start))
+
+writer.writeFloatLE(0)                // cabinPositionX (Vector)
+writer.writeFloatLE(1.5)              // cabinPositionY (Vector)
+writer.writeFloatLE(-2.5)             // cabinPositionZ (Vector)
+writer.writeFloatLE(-0.5)             // headPositionX (Vector)
+writer.writeFloatLE(1.2)              // headPositionY (Vector)
+writer.writeFloatLE(0.3)              // headPositionZ (Vector)
+writer.writeFloatLE(0)                // truckHookPositionX (Vector)
+writer.writeFloatLE(1)                // truckHookPositionY (Vector)
+writer.writeFloatLE(1.09)             // truckHookPositionZ (Vector)
+writer.writeFloatLE(0.99, wheelCount) // truckWheelPositionX (Vector)
+writer.writeFloatLE(0.5, wheelCount)  // truckWheelPositionY (Vector)
+writer.writeFloatLE(-2, wheelCount)   // truckWheelPositionZ (Vector)
+
+writer.writeFloatLE(-0.0001) // lv_accelerationX (meters per second)
+writer.writeFloatLE(0)       // lv_accelerationY (meters per second)
+writer.writeFloatLE(0.00001) // lv_accelerationZ (meters per second)
+writer.writeFloatLE(-0.0002) // av_accelerationX (meters per second)
+writer.writeFloatLE(0)       // av_accelerationY (meters per second)
+writer.writeFloatLE(0.00002) // av_accelerationZ (meters per second)
+writer.writeFloatLE(-0.0003) // accelerationX (meters per second^2)
+writer.writeFloatLE(0)       // accelerationY (meters per second^2)
+writer.writeFloatLE(0.00003) // accelerationZ (meters per second^2)
+writer.writeFloatLE(-0.0004) // aa_accelerationX (rotations per second^2)
+writer.writeFloatLE(0)       // aa_accelerationY (rotations per second^2)
+writer.writeFloatLE(0.00004) // aa_accelerationZ (rotations per second^2)
+writer.writeFloatLE(-0.0005) // cabinAVX (rotations per second)
+writer.writeFloatLE(0)       // cabinAVY (rotations per second)
+writer.writeFloatLE(0.00005) // cabinAVZ (rotations per second)
+writer.writeFloatLE(-0.0006) // cabinAAX (meters per second^2)
+writer.writeFloatLE(0)       // cabinAAY (meters per second^2)
+writer.writeFloatLE(0.00006) // cabinAAZ (meters per second^2)
+
+module.exports = writer.buffer

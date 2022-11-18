@@ -1,245 +1,243 @@
-const assert    = require('assert')
-const sinon     = require('sinon')
 const cloneDeep = require('lodash.clonedeep')
 
 const tst = require('../../lib')
 
-const functions = require('../../lib/functions')
+const testBuffers = require('../testBuffers')
+const converters = require('../../lib/converters')
+const getDataMock = require('../../lib/functions/getData')
+const parser = require('../../lib/parser/parseData.js')
 
-const getFakeData = require('../getFakeData')
+jest.mock('../../lib/functions/getData', () => jest.fn())
 
 describe('eventEmitters/job()', function() {
-
-  let clock = null
-
-  const testData = getFakeData(function(data) {
-    data.events.job.finished.active = false
-
-    data.events.job.started.active     = false
-    data.events.job.started.autoLoaded = true
-
-    data.events.job.cancelled.active             = false
-    data.events.job.cancelled.cancelledTimestamp = 1000
-    data.events.job.cancelled.penalty            = 2000
-    data.events.job.cancelled.startedTimestamp   = 3000
-
-    data.events.job.delivered.active             = false
-    data.events.job.delivered.autoParked         = true
-    data.events.job.delivered.cargoDamage        = 4000
-    data.events.job.delivered.timeTaken          = 5000
-    data.events.job.delivered.distance           = 6000
-    data.events.job.delivered.earnedXP           = 7000
-    data.events.job.delivered.deliveredTimestamp = 8000
-    data.events.job.delivered.revenue            = 9000
-    data.events.job.delivered.startedTimestamp   = 1100
-
-    data.job.isSpecial                 = true
-    data.job.cargo                     = 'foo'
-    data.job.market                    = 'bar'
-    data.job.expectedDeliveryTimestamp = 2100
-    data.job.income                    = 3100
-    data.job.plannedDistance           = 4100
-    data.job.destination               =  {foo: 'baz'}
-    data.job.source                    =  {bar: 'qux'}
-  })
-
   const telemetry = tst()
+  let testData = null
 
-  before(function() {
-    clock = sinon.useFakeTimers()
-    sinon.spy(telemetry.job, 'emit')
+  beforeAll(function() {
+    jest.useFakeTimers()
+    jest.spyOn(telemetry.job, 'emit')
 
-    sinon
-      .stub(functions, 'getData')
-      .callsFake(() => {
-        const data = cloneDeep(testData)
-
-        testData.job.isSpecial = !testData.job.isSpecial
-
-        testData.job.cargo  = testData.job.cargo  == 'foo' ? 'oof' : 'foo' 
-        testData.job.market = testData.job.market == 'bar' ? 'rab' : 'bar' 
-
-        testData.job.expectedDeliveryTimestamp++
-        testData.job.income++
-        testData.job.plannedDistance++
-        
-        testData.job.destination.foo = testData.job.destination.foo == 'baz' ? 'zab' : 'baz'
-        testData.job.source.bar      = testData.job.source.bar      == 'qux' ? 'xuq' : 'qux'
-
-        return data
-      })
-
-    telemetry.watch()
-
-    clock.tick(100)
-
-    testData.events.job.finished.active  = true
-    testData.events.job.started.active   = true
-    testData.events.job.cancelled.active = true
-    testData.events.job.delivered.active = true
-
-    clock.tick(100)
-
-    testData.events.job.finished.active  = false
-    testData.events.job.started.active   = false
-    testData.events.job.cancelled.active = false
-    testData.events.job.delivered.active = false
-
-    clock.tick(100)
-
-    testData.events.job.finished.active  = true
-    testData.events.job.started.active   = true
-    testData.events.job.cancelled.active = true
-    testData.events.job.delivered.active = true
-
-    clock.tick(100)
-
-    telemetry.stop()
+    getDataMock.mockImplementation(() => cloneDeep(testData))
   })
 
-  after(function() {
-    clock.restore()
-    sinon.restore()
+  beforeEach(function() {
+    testData = parser(converters[12](testBuffers[12]))
+  })
+
+  afterEach(function() {
+    telemetry.job.emit.mockReset()
+  })
+
+  afterAll(function() {
+    jest.restoreAllMocks()
+    jest.useRealTimers()
   })
 
   it('Should emit "finished" events', function() {
-    assert.deepStrictEqual(
-      telemetry.job.emit.args.filter(event => event[0] === 'finished'),
-      [
-        ['finished'],
-        ['finished'],
-        ['finished'],
-      ]
-    )
+    testData.events.job.finished.active = false
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.events.job.finished.active  = true
+    jest.advanceTimersByTime(100)
+    testData.events.job.finished.active  = false
+    jest.advanceTimersByTime(100)
+    testData.events.job.finished.active  = true
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    expect(telemetry.job.emit).toHaveBeenCalledTimes(3)
+    expect(telemetry.job.emit).toHaveBeenNthCalledWith(1, 'finished')
+    expect(telemetry.job.emit).toHaveBeenNthCalledWith(2, 'finished')
+    expect(telemetry.job.emit).toHaveBeenNthCalledWith(3, 'finished')
   })
   
   it('Should emit "started" events', function() {
-    const expectedData = [
-      {
-        autoLoaded:                true,
-        isSpecial:                 true,
-        cargo:                     'foo',
-        market:                    'bar',
-        expectedDeliveryTimestamp: 2102,
-        income:                    3102,
-        plannedDistance:           4102,
-        destination:               {foo: 'baz'},
-        source:                    {bar: 'qux'},
-      },
-      {
-        autoLoaded:                true,
-        isSpecial:                 true,
-        cargo:                     'foo',
-        market:                    'bar',
-        expectedDeliveryTimestamp: 2104,
-        income:                    3104,
-        plannedDistance:           4104,
-        destination:               {foo: 'baz'},
-        source:                    {bar: 'qux'},
-      }
-    ]
+    testData.events.job.started.active = false
 
-    assert.deepStrictEqual(
-      telemetry.job.emit.args.filter(event => event[0] === 'started'),
-      [
-        ['started', expectedData[0]],
-        ['started', expectedData[1]],
-      ]
-    )
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.events.job.started.active  = true
+    jest.advanceTimersByTime(100)
+    testData.events.job.started.active  = false
+    jest.advanceTimersByTime(100)
+    testData.events.job.started.active  = true
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    const expected = {
+      autoLoaded: true,
+      isSpecial: true,
+      income: 957530112,
+      expectedDeliveryTimestamp: {
+        value: 120,
+        unix: 352800000
+      },
+      plannedDistance: {
+        km: 100,
+        miles: 62
+      },
+      market: {
+        id: 'jobMarket',
+        name: 'JobMarket',
+      },
+      source: {
+        city: {id: 'citySrcId', name: 'citySrc'},
+        company: {id: 'compSrcId', name: 'compSrc'},
+      },
+      destination: {
+        city: {id: 'cityDstId', name: 'cityDst'},
+        company: {id: 'compDstId', name: 'compDst'},
+      },
+      cargo: {
+        damage: 0.30000001192092896,
+        id: "cargoId",
+        isLoaded: true,
+        mass: 20000.599609375,
+        name: "cargo",
+        unitMass: 645.5999755859375,
+      },
+    }
+
+    expect(telemetry.job.emit).toHaveBeenCalledTimes(2)
+    expect(telemetry.job.emit).toHaveBeenNthCalledWith(1, 'started', expected)
+    expect(telemetry.job.emit).toHaveBeenNthCalledWith(2, 'started', expected)
   })
   
   it('Should emit "cancelled" events', function() {
-    const expectedData = [
-      {
-        isSpecial:                 false,
-        cargo:                     'oof',
-        market:                    'rab',
-        expectedDeliveryTimestamp: 2101,
-        cancelledTimestamp:        1000,
-        income:                    0,
-        penalty:                   2000,
-        plannedDistance:           4101,
-        startedTimestamp:          3000,
-        destination:               {foo: 'zab'},
-        source:                    {bar: 'xuq'},
+    testData.events.job.cancelled.active = false
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.events.job.cancelled.active  = true
+    jest.advanceTimersByTime(100)
+    testData.events.job.cancelled.active  = false
+    jest.advanceTimersByTime(100)
+    testData.events.job.cancelled.active  = true
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    const expected = {
+      isSpecial: true,
+      income: 0,
+      penalty: 1000000000000000,
+      startedTimestamp: {
+        value: 230,
+        unix: 359400000
       },
-      {
-        isSpecial:                 false,
-        cargo:                     'oof',
-        market:                    'rab',
-        expectedDeliveryTimestamp: 2103,
-        cancelledTimestamp:        1000,
-        income:                    0,
-        penalty:                   2000,
-        plannedDistance:           4103,
-        startedTimestamp:          3000,
-        destination:               {foo: 'zab'},
-        source:                    {bar: 'xuq'},
-      }
-    ]
+      cancelledTimestamp: {
+        value: 310,
+        unix: 364200000
+      },
+      expectedDeliveryTimestamp: {
+        value: 120,
+        unix: 352800000
+      },
+      plannedDistance: {
+        km: 100,
+        miles: 62
+      },
+      market: {
+        id: 'jobMarket',
+        name: 'JobMarket',
+      },
+      source: {
+        city: {id: 'citySrcId', name: 'citySrc'},
+        company: {id: 'compSrcId', name: 'compSrc'},
+      },
+      destination: {
+        city: {id: 'cityDstId', name: 'cityDst'},
+        company: {id: 'compDstId', name: 'compDst'},
+      },
+      cargo: {
+        damage: 0.30000001192092896,
+        id: "cargoId",
+        isLoaded: true,
+        mass: 20000.599609375,
+        name: "cargo",
+        unitMass: 645.5999755859375,
+      },
+    }
 
-    assert.equal(telemetry.job.emit.args.filter(a => a[0] === 'cancelled').length, 3)
-
-    assert.deepStrictEqual(
-      telemetry.job.emit.args.filter(event => event[0] === 'cancelled')[0],
-      ['cancelled', expectedData[0]],
-    )
-
-    assert.deepStrictEqual(
-      telemetry.job.emit.args.filter(event => event[0] === 'cancelled')[2],
-      ['cancelled', expectedData[1]],
-    )
+    expect(telemetry.job.emit).toHaveBeenCalledTimes(3)
+    expect(telemetry.job.emit).toHaveBeenNthCalledWith(1, 'cancelled', expected)
+    expect(telemetry.job.emit).toHaveBeenNthCalledWith(2, 'cancelled', expected)
+    expect(telemetry.job.emit).toHaveBeenNthCalledWith(3, 'cancelled', expected)
   })
 
   it('Should emit "delivered" events', function() {
-    const expectedData = [
-      {
-        autoParked:                true,
-        isSpecial:                 false,
-        cargo:                     'oof',
-        market:                    'rab',
-        cargoDamage:               4000,
-        distance:                  6000,
-        earnedXP:                  7000,
-        expectedDeliveryTimestamp: 2101,
-        deliveredTimestamp:        8000,
-        plannedDistance:           4101,
-        revenue:                   9000,
-        startedTimestamp:          1100,
-        timeTaken:                 5000,
-        destination:               {foo: 'zab'},
-        source:                    {bar: 'xuq'},
+    testData.events.job.delivered.active = false
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.events.job.delivered.active  = true
+    jest.advanceTimersByTime(100)
+    testData.events.job.delivered.active  = false
+    jest.advanceTimersByTime(100)
+    testData.events.job.delivered.active  = true
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    const expected = {
+      autoParked: true,
+      isSpecial: true,
+      revenue: 1100000000000000,
+      earnedXP: 50,
+      timeTaken: 10800000,
+      cargoDamage: 0.6000000238418579,
+      distance: {
+        km: 1500.0999755859375,
+        miles: 932
       },
-      {
-        autoParked:                true,
-        isSpecial:                 false,
-        cargo:                     'oof',
-        market:                    'rab',
-        cargoDamage:               4000,
-        distance:                  6000,
-        earnedXP:                  7000,
-        expectedDeliveryTimestamp: 2103,
-        deliveredTimestamp:        8000,
-        plannedDistance:           4103,
-        revenue:                   9000,
-        startedTimestamp:          1100,
-        timeTaken:                 5000,
-        destination:               {foo: 'zab'},
-        source:                    {bar: 'xuq'},
-      }
-    ]
+      startedTimestamp: {
+        value: 230,
+        unix: 359400000
+      },
+      deliveredTimestamp: {
+        value: 310,
+        unix: 364200000
+      },
+      expectedDeliveryTimestamp: {
+        value: 120,
+        unix: 352800000
+      },
+      plannedDistance: {
+        km: 100,
+        miles: 62
+      },
+      market: {
+        id: 'jobMarket',
+        name: 'JobMarket',
+      },
+      source: {
+        city: {id: 'citySrcId', name: 'citySrc'},
+        company: {id: 'compSrcId', name: 'compSrc'},
+      },
+      destination: {
+        city: {id: 'cityDstId', name: 'cityDst'},
+        company: {id: 'compDstId', name: 'compDst'},
+      },
+      cargo: {
+        damage: 0.30000001192092896,
+        id: "cargoId",
+        isLoaded: true,
+        mass: 20000.599609375,
+        name: "cargo",
+        unitMass: 645.5999755859375,
+      },
+    }
 
-    assert.equal(telemetry.job.emit.args.filter(a => a[0] === 'delivered').length, 3)
-
-    assert.deepStrictEqual(
-      telemetry.job.emit.args.filter(event => event[0] === 'delivered')[0],
-      ['delivered', expectedData[0]],
-    )
-
-    assert.deepStrictEqual(
-      telemetry.job.emit.args.filter(event => event[0] === 'delivered')[2],
-      ['delivered', expectedData[1]],
-    )
+    expect(telemetry.job.emit).toHaveBeenCalledTimes(3)
+    expect(telemetry.job.emit).toHaveBeenNthCalledWith(1, 'delivered', expected)
+    expect(telemetry.job.emit).toHaveBeenNthCalledWith(2, 'delivered', expected)
+    expect(telemetry.job.emit).toHaveBeenNthCalledWith(3, 'delivered', expected)
   })
-
 })

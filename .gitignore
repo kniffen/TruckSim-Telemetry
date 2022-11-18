@@ -9,5 +9,5 @@ build
 **/*.tgz
 
 # Test data
-tests/buffers/*
-tests/data/*
+tests/typescript/data/*
+coverage

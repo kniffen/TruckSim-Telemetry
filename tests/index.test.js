@@ -1,85 +1,78 @@
-const assert = require('assert')
-const sinon  = require('sinon')
-const fs     = require('fs')
-const path   = require('path')
-
 const tst = require('../lib')
-
+const converters = require('../lib/converters')
 const functions = require('../lib/functions')
-const utils     = require('../lib/utils')
+const parseData = require('../lib/parser/parseData.js')
+const getBufferMock = require('../lib/utils/getBuffer.js')
 
-const getFakeData = require('./getFakeData')
+const testBuffers = require('./testBuffers')
+
+jest.mock('../lib/utils/getBuffer', () => jest.fn())
 
 describe('truckSimTelemetry()', function() {
-  let testBuffer = null
-  let testData   = null
+  const testBuffer = testBuffers[12]
+  const testData = parseData(converters[12](testBuffer))
+  const getDataSpy = jest.spyOn(functions, 'getData')
 
-  before(function() {
-    testBuffer =
-      fs.readFileSync(path.resolve(__dirname, './buffers/scs_sdk_plugin_buffer_11'))
-
-    testData = getFakeData()
-    
-    sinon
-      .stub(utils, 'getBuffer')
-      .callsFake(() => testBuffer)
-
-    sinon.spy(functions, 'getData')
+  beforeAll(function() {
+    getBufferMock.mockReturnValue(testBuffer)
   })
 
-  after(function() {
-    sinon.restore()
-  })
-
-  afterEach(function() {
-    if (utils.getBuffer.resetHistory)
-      utils.getBuffer.resetHistory()
-
-    functions.getData.resetHistory()
+  afterAll(function() {
+    jest.restoreAllMocks()
   })
 
   it('Should contain various "get" functions', function() {
-    const buffer = tst.getBuffer()
-    const actualData = {}
+    const opts = {
+      mmfName: 'foobar'
+    }
 
-    actualData.data       = tst.getData()
-    actualData.controls   = tst.getControls()
-    actualData.game       = tst.getGame({mmfName: 'foobar'})
-    actualData.job        = tst.getJob()
-    actualData.navigation = tst.getNavigation()
-    actualData.trailer    = tst.getTrailer()
-    actualData.trailers   = tst.getTrailers()
-    actualData.truck      = tst.getTruck()
+    const buffer         = [tst.getBuffer(),     tst.getBuffer(opts)]
+    
+    const data           = [tst.getData(),       tst.getData(opts)]
+    const gameData       = [tst.getGame(),       tst.getGame(opts)]
+    const constrolsData  = [tst.getControls(),   tst.getControls(opts)]
+    const jobData        = [tst.getJob(),        tst.getJob(opts)]
+    const navigationData = [tst.getNavigation(), tst.getNavigation(opts)]
+    const trailerData    = [tst.getTrailer(),    tst.getTrailer(opts)]
+    const trailersData   = [tst.getTrailers(),   tst.getTrailers(opts)]
+    const truckData      = [tst.getTruck(),      tst.getTruck(opts)]
 
-    assert.deepStrictEqual(utils.getBuffer.args[0], ['Local\\SCSTelemetry'])
-    assert.deepStrictEqual(utils.getBuffer.args[1], ['Local\\SCSTelemetry'])
-    assert.deepStrictEqual(utils.getBuffer.args[3], ['foobar'])
+    expect(getBufferMock).toHaveBeenNthCalledWith(1, 'Local\\SCSTelemetry')
+    expect(getBufferMock).toHaveBeenNthCalledWith(2, 'foobar')
 
-    assert.deepStrictEqual(functions.getData.args, [
-      [null,         {mmfName: 'Local\\SCSTelemetry'}],
-      ['controls',   {mmfName: 'Local\\SCSTelemetry'}],
-      ['game',       {mmfName: 'foobar'}],
-      ['job',        {mmfName: 'Local\\SCSTelemetry'}],
-      ['navigation', {mmfName: 'Local\\SCSTelemetry'}],
-      ['trailer',    {mmfName: 'Local\\SCSTelemetry'}],
-      ['trailers',   {mmfName: 'Local\\SCSTelemetry'}],
-      ['truck',      {mmfName: 'Local\\SCSTelemetry'}],
-    ])
+    expect(getDataSpy).toHaveBeenNthCalledWith(1,  null,         {mmfName: 'Local\\SCSTelemetry'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(2,  null,         {mmfName: 'foobar'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(3,  'game',       {mmfName: 'Local\\SCSTelemetry'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(4,  'game',       {mmfName: 'foobar'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(5,  'controls',   {mmfName: 'Local\\SCSTelemetry'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(6,  'controls',   {mmfName: 'foobar'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(7,  'job',        {mmfName: 'Local\\SCSTelemetry'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(8,  'job',        {mmfName: 'foobar'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(9,  'navigation', {mmfName: 'Local\\SCSTelemetry'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(10, 'navigation', {mmfName: 'foobar'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(11, 'trailer',    {mmfName: 'Local\\SCSTelemetry'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(12, 'trailer',    {mmfName: 'foobar'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(13, 'trailers',   {mmfName: 'Local\\SCSTelemetry'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(14, 'trailers',   {mmfName: 'foobar'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(15, 'truck',      {mmfName: 'Local\\SCSTelemetry'})
+    expect(getDataSpy).toHaveBeenNthCalledWith(16, 'truck',      {mmfName: 'foobar'})
 
-    assert.deepStrictEqual(actualData.data,       testData)
-    assert.deepStrictEqual(actualData.controls,   testData.controls)
-    assert.deepStrictEqual(actualData.game,       testData.game)
-    assert.deepStrictEqual(actualData.navigation, testData.navigation)
-    assert.deepStrictEqual(actualData.trailers,   testData.trailers)
-    assert.deepStrictEqual(actualData.trailer,    testData.trailer)
-    assert.deepStrictEqual(actualData.truck,      testData.truck)
+    expect(buffer).toEqual([testBuffer, testBuffer])
+    expect(data).toEqual([testData, testData])
+    expect(gameData).toEqual([testData.game, testData.game])
+    expect(constrolsData).toEqual([testData.controls, testData.controls])
+    expect(jobData).toEqual([testData.job, testData.job])
+    expect(navigationData).toEqual([testData.navigation, testData.navigation])
+    expect(trailerData).toEqual([testData.trailer, testData.trailer])
+    expect(trailersData).toEqual([testData.trailers, testData.trailers])
+    expect(truckData).toEqual([testData.truck, testData.truck])
   })
 
   describe('The telemetry object it returns', function() {
     it('Should contain telemetry data', function() {
       const telemetry = tst()
 
-      assert.deepStrictEqual(telemetry.data, {
+      expect(telemetry.data).toEqual({
         controls:   {},
         game:       {},
         job:        {},
@@ -92,52 +85,63 @@ describe('truckSimTelemetry()', function() {
     
     it('Should contain various "get" functions', function() {
       const telemetry1 = tst()
-      const telemetry2 = tst({mmfName: 'barfoo'})
-      const actualData = {}
+      const telemetry2 = tst({mmfName: 'foobar'})
 
-      actualData.data       = telemetry1.getData()
-      actualData.controls   = telemetry1.getControls()
-      actualData.game       = telemetry2.getGame()
-      actualData.job        = telemetry2.getJob()
-      actualData.navigation = telemetry2.getNavigation()
-      actualData.trailer    = telemetry1.getTrailer()
-      actualData.trailers   = telemetry2.getTrailers()
-      actualData.truck      = telemetry1.getTruck()
+      const opts = {
+        mmfName: 'foobar'
+      }
 
-      assert.deepStrictEqual(utils.getBuffer.args[0], ['Local\\SCSTelemetry'])
-      assert.deepStrictEqual(utils.getBuffer.args[1], ['Local\\SCSTelemetry'])
-      assert.deepStrictEqual(utils.getBuffer.args[3], ['barfoo'])
+      const buffer         = [telemetry1.getBuffer(), telemetry2.getBuffer(opts)]
+    
+      const data           = [telemetry1.getData(),       telemetry2.getData(opts)]
+      const gameData       = [telemetry1.getGame(),       telemetry2.getGame(opts)]
+      const constrolsData  = [telemetry1.getControls(),   telemetry2.getControls(opts)]
+      const jobData        = [telemetry1.getJob(),        telemetry2.getJob(opts)]
+      const navigationData = [telemetry1.getNavigation(), telemetry2.getNavigation(opts)]
+      const trailerData    = [telemetry1.getTrailer(),    telemetry2.getTrailer(opts)]
+      const trailersData   = [telemetry1.getTrailers(),   telemetry2.getTrailers(opts)]
+      const truckData      = [telemetry1.getTruck(),      telemetry2.getTruck(opts)]
 
-      assert.deepStrictEqual(functions.getData.args, [
-        [null,         {mmfName: 'Local\\SCSTelemetry'}],
-        ['controls',   {mmfName: 'Local\\SCSTelemetry'}],
-        ['game',       {mmfName: 'barfoo'}],
-        ['job',        {mmfName: 'barfoo'}],
-        ['navigation', {mmfName: 'barfoo'}],
-        ['trailer',    {mmfName: 'Local\\SCSTelemetry'}],
-        ['trailers',   {mmfName: 'barfoo'}],
-        ['truck',      {mmfName: 'Local\\SCSTelemetry'}],
-      ])
+      expect(getBufferMock).toHaveBeenNthCalledWith(1, 'Local\\SCSTelemetry')
+      expect(getBufferMock).toHaveBeenNthCalledWith(2, 'foobar')
 
-      assert.deepStrictEqual(actualData.data,       testData)
-      assert.deepStrictEqual(actualData.controls,   testData.controls)
-      assert.deepStrictEqual(actualData.game,       testData.game)
-      assert.deepStrictEqual(actualData.navigation, testData.navigation)
-      assert.deepStrictEqual(actualData.trailers,   testData.trailers)
-      assert.deepStrictEqual(actualData.trailer,    testData.trailer)
-      assert.deepStrictEqual(actualData.truck,      testData.truck)
+      expect(getDataSpy).toHaveBeenNthCalledWith(1,  null,         {mmfName: 'Local\\SCSTelemetry'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(2,  null,         {mmfName: 'foobar'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(3,  'game',       {mmfName: 'Local\\SCSTelemetry'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(4,  'game',       {mmfName: 'foobar'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(5,  'controls',   {mmfName: 'Local\\SCSTelemetry'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(6,  'controls',   {mmfName: 'foobar'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(7,  'job',        {mmfName: 'Local\\SCSTelemetry'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(8,  'job',        {mmfName: 'foobar'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(9,  'navigation', {mmfName: 'Local\\SCSTelemetry'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(10, 'navigation', {mmfName: 'foobar'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(11, 'trailer',    {mmfName: 'Local\\SCSTelemetry'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(12, 'trailer',    {mmfName: 'foobar'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(13, 'trailers',   {mmfName: 'Local\\SCSTelemetry'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(14, 'trailers',   {mmfName: 'foobar'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(15, 'truck',      {mmfName: 'Local\\SCSTelemetry'})
+      expect(getDataSpy).toHaveBeenNthCalledWith(16, 'truck',      {mmfName: 'foobar'})
+
+      expect(buffer).toEqual([testBuffer, testBuffer])
+      expect(data).toEqual([testData, testData])
+      expect(gameData).toEqual([testData.game, testData.game])
+      expect(constrolsData).toEqual([testData.controls, testData.controls])
+      expect(jobData).toEqual([testData.job, testData.job])
+      expect(navigationData).toEqual([testData.navigation, testData.navigation])
+      expect(trailerData).toEqual([testData.trailer, testData.trailer])
+      expect(trailersData).toEqual([testData.trailers, testData.trailers])
+      expect(truckData).toEqual([testData.truck, testData.truck])
     })
   })
 
   describe('No buffer', function() {
     it('Should return "null" if the getFunction is called, but there is no buffer', function() {
-      utils.getBuffer.restore()
+      getBufferMock.mockReturnValue(null)
 
       const telemetry = tst()
 
-      assert.strictEqual(tst.getBuffer(), null)
-      assert.strictEqual(telemetry.getBuffer(), null)
+      expect(tst.getBuffer()).toEqual(null)
+      expect(telemetry.getBuffer()).toEqual(null)
     })
   })
-
 })

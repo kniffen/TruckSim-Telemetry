@@ -15,7 +15,7 @@ import {
   EventsCruiseControl,
 } from "trucksim-telemetry"
 
-import * as data from './data/v10.json'
+import * as data from './data/v12.json'
 
 const controls: Controls = data.controls
 const events: Events = data.events

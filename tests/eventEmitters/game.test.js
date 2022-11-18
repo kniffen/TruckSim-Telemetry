@@ -1,187 +1,220 @@
-const assert    = require('assert')
-const sinon     = require('sinon')
 const cloneDeep = require('lodash.clonedeep')
 
 const tst = require('../../lib')
 
-const functions = require('../../lib/functions')
+const testBuffers = require('../testBuffers')
+const converters = require('../../lib/converters')
+const getDataMock = require('../../lib/functions/getData')
+const parser = require('../../lib/parser/parseData.js')
 
-const getFakeData = require('../getFakeData')
+jest.mock('../../lib/functions/getData', () => jest.fn())
 
 describe('eventEmitters/game()', function() {
-
-  let clock = null
-
-  const testData = getFakeData(function(data) {
-    data.events.ferry.active      = false
-    data.events.train.active      = false
-    data.events.fine.active       = false
-    data.events.refuelPaid.active = false
-    data.events.tollgate.active   = false
-
-    data.game.paused = false
-
-    data.game.time.value = 0
-    data.game.time.unix  = 0
-  })
-
   const telemetry = tst()
+  let testData = null
 
-  before(function() {
-    clock = sinon.useFakeTimers()
-    
-    sinon.spy(telemetry.game, 'emit')
+  beforeAll(function() {
+    jest.useFakeTimers()
+    jest.spyOn(telemetry.game, 'emit')
 
-    sinon
-      .stub(functions, 'getData')
-      .callsFake(() => cloneDeep(testData))
-  
-    telemetry.watch()
-
-    clock.tick(100)
-
-    testData.game.paused = true
-    testData.game.time.value++
-
-    testData.events.ferry.active      = true
-    testData.events.fine.active       = true
-    testData.events.refuelPaid.active = true
-    testData.events.tollgate.active   = true
-    testData.events.train.active      = true
-
-    clock.tick(100)
-
-    testData.game.paused = false
-    testData.game.time.value++
-
-    testData.events.ferry.active      = false
-    testData.events.fine.active       = false
-    testData.events.refuelPaid.active = false
-    testData.events.tollgate.active   = false
-    testData.events.train.active      = false
-
-    clock.tick(100)
-
-    testData.game.paused = true
-    testData.game.time.value++
-
-    testData.events.ferry.active      = true
-    testData.events.fine.active       = true
-    testData.events.refuelPaid.active = true
-    testData.events.tollgate.active   = true
-    testData.events.train.active      = true
-
-    clock.tick(100)
-
-    telemetry.stop()
+    getDataMock.mockImplementation(() => cloneDeep(testData))
   })
 
-  after(function() {
-    clock.restore()
-    sinon.restore()
+  beforeEach(function() {
+    testData = parser(converters[12](testBuffers[12]))
+  })
+
+  afterEach(function() {
+    telemetry.game.emit.mockReset()
+  })
+
+  afterAll(function() {
+    jest.restoreAllMocks()
+    jest.useRealTimers()
   })
 
   it('Should emit "pause" events', function() {
-    const pauseEvents = telemetry.game.emit.args.filter(event => event[0] === 'pause')
+    testData.game.paused = false
 
-    assert.deepStrictEqual(pauseEvents, [
-      ['pause', true],
-      ['pause', false],
-      ['pause', true],
-    ])
+    telemetry.watch()
+    
+    jest.advanceTimersByTime(100)
+    testData.game.paused = true
+    jest.advanceTimersByTime(100)
+    testData.game.paused = false
+    jest.advanceTimersByTime(100)
+    testData.game.paused = true
+    jest.advanceTimersByTime(100)
+    
+    telemetry.stop()
+
+    expect(telemetry.game.emit).toHaveBeenCalledTimes(4)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(1, 'connected')
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(2, 'pause', true)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(3, 'pause', false)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(4, 'pause', true)
   })
 
   it('Should emit "time-change" events', function() {
-    const timeChangeEvents = telemetry.game.emit.args.filter(event => event[0] === 'time-change')
+    testData.game.time.value = 0
+    testData.game.time.unix  = 0
 
-    assert.deepStrictEqual(timeChangeEvents, [
-      ['time-change', {value: 1, unix: 0}, {value: 0, unix: 0}],
-      ['time-change', {value: 2, unix: 0}, {value: 1, unix: 0}],
-      ['time-change', {value: 3, unix: 0}, {value: 2, unix: 0}],
-    ])
+    telemetry.watch()
+    
+    jest.advanceTimersByTime(100)
+    testData.game.time.value++
+    jest.advanceTimersByTime(100)
+    testData.game.time.value++
+    jest.advanceTimersByTime(100)
+    testData.game.time.value++
+    jest.advanceTimersByTime(100)
+    
+    telemetry.stop()
+
+    expect(telemetry.game.emit).toHaveBeenCalledTimes(4)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(1, 'connected')
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(2, 'time-change', {value: 1, unix: 0}, {value: 0, unix: 0})
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(3, 'time-change', {value: 2, unix: 0}, {value: 1, unix: 0})
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(4, 'time-change', {value: 3, unix: 0}, {value: 2, unix: 0})
   })
 
   it('Should emit "ferry" events', function() {
+    testData.events.ferry.active = false
+    
+    telemetry.watch()
+    
+    jest.advanceTimersByTime(100)
+    testData.events.ferry.active = true
+    jest.advanceTimersByTime(100)
+    testData.events.ferry.active = false
+    jest.advanceTimersByTime(100)
+    testData.events.ferry.active = true
+    jest.advanceTimersByTime(100)
+    
+    telemetry.stop()
+    
     const expected = {
-      amount: 0,
-      destination: {id: '', name: ''},
-      source:      {id: '', name: ''},
-      target:      {id: '', name: ''},
+      amount: 1400000000000000,
+      destination: {id: 'ferryTargetId', name: 'ferryTargetName'},
+      source:      {id: 'ferrySourceId', name: 'ferrySourceName'},
+      target:      {id: 'ferryTargetId', name: 'ferryTargetName'},
     }
 
-    const ferryEvents = telemetry.game.emit.args.filter(event => event[0] === 'ferry')
-
-    assert.deepStrictEqual(ferryEvents, [
-      ['ferry', expected],
-      ['ferry', expected],
-      ['ferry', expected],
-    ])
+    expect(telemetry.game.emit).toHaveBeenCalledTimes(4)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(1, 'connected')
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(2, 'ferry', expected)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(3, 'ferry', expected)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(4, 'ferry', expected)
   })
 
   
   it('Should emit "fine" events', function() {
+    testData.events.fine.active = false
+
+    telemetry.watch()
+    
+    jest.advanceTimersByTime(100)
+    testData.events.fine.active = true
+    jest.advanceTimersByTime(100)
+    testData.events.fine.active = false
+    jest.advanceTimersByTime(100)
+    testData.events.fine.active = true
+    jest.advanceTimersByTime(100)
+    
+    telemetry.stop()
+    
     const expected = {
-      amount: 0,
-      offence: {id: '', name: ''}
+      amount: 1200000000000000,
+      offence: {id: 'fineOffence', name: 'FineOffence'}
     }
 
-    assert.deepStrictEqual(
-      telemetry.game.emit.args.filter(event => event[0] === 'fine'),
-      [
-        ['fine', expected],
-        ['fine', expected],
-        ['fine', expected],
-      ]
-   )
+    expect(telemetry.game.emit).toHaveBeenCalledTimes(4)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(1, 'connected')
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(2, 'fine', expected)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(3, 'fine', expected)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(4, 'fine', expected)
   })
 
   it('Should emit "refuel-paid" events', function() {
+    testData.events.refuelPaid.active = false
+    
+    telemetry.watch()
+    
+    jest.advanceTimersByTime(100)
+    testData.events.refuelPaid.active = true
+    jest.advanceTimersByTime(100)
+    testData.events.refuelPaid.active = false
+    jest.advanceTimersByTime(100)
+    testData.events.refuelPaid.active = true
+    jest.advanceTimersByTime(100)
+    
+    telemetry.stop()
+
     const expected = {
-      amount: 0,
+      amount: 200.10000610351562
     }
 
-    assert.deepStrictEqual(
-      telemetry.game.emit.args.filter(event => event[0] === 'refuel-paid'),
-      [
-        ['refuel-paid', expected],
-        ['refuel-paid', expected],
-        ['refuel-paid', expected],
-      ]
-   )
-  } )
+    expect(telemetry.game.emit).toHaveBeenCalledTimes(4)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(1, 'connected')
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(2, 'refuel-paid', expected)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(3, 'refuel-paid', expected)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(4, 'refuel-paid', expected)
+  })
 
 
   it('Should emit "tollgate" events', function() {
+    testData.events.tollgate.active = false
+    
+    telemetry.watch()
+    
+    jest.advanceTimersByTime(100)
+    testData.events.tollgate.active = true
+    jest.advanceTimersByTime(100)
+    testData.events.tollgate.active = false
+    jest.advanceTimersByTime(100)
+    testData.events.tollgate.active = true
+    jest.advanceTimersByTime(100)
+    
+    telemetry.stop()
+
      const expected = {
-      amount: 0,
+      amount: 1300000000000000,
     }
 
-    assert.deepStrictEqual(
-      telemetry.game.emit.args.filter(event => event[0] === 'tollgate'),
-      [
-        ['tollgate', expected],
-        ['tollgate', expected],
-        ['tollgate', expected],
-    ])
+    expect(telemetry.game.emit).toHaveBeenCalledTimes(4)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(1, 'connected')
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(2, 'tollgate', expected)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(3, 'tollgate', expected)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(4, 'tollgate', expected)
   })
 
 
   it('Should emit "train" events', function() {
+    testData.events.train.active = false
+    
+    telemetry.watch()
+    
+    jest.advanceTimersByTime(100)
+    testData.events.train.active = true
+    jest.advanceTimersByTime(100)
+    testData.events.train.active = false
+    jest.advanceTimersByTime(100)
+    testData.events.train.active = true
+    jest.advanceTimersByTime(100)
+    
+    telemetry.stop()
+
     const expected = {
-      amount: 0,
-      destination: {id: '', name: ''},
-      source:      {id: '', name: ''},
-      target:      {id: '', name: ''},
+      amount: 1500000000000000,
+      destination: {id: 'trainTargetId', name: 'trainTargetName'},
+      source:      {id: 'trainSourceId', name: 'trainSourceName'},
+      target:      {id: 'trainTargetId', name: 'trainTargetName'},
     }
 
-    assert.deepStrictEqual(
-      telemetry.game.emit.args.filter(event => event[0] === 'train'),
-      [
-        ['train', expected],
-        ['train', expected],
-        ['train', expected],
-      ]
-   )
+    expect(telemetry.game.emit).toHaveBeenCalledTimes(4)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(1, 'connected')
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(2, 'train', expected)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(3, 'train', expected)
+    expect(telemetry.game.emit).toHaveBeenNthCalledWith(4, 'train', expected)
   })
-
 })

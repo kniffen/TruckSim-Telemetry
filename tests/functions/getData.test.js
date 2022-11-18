@@ -1,100 +1,65 @@
-const assert = require('assert')
-const sinon = require('sinon')
-const fs = require('fs')
-const path = require('path')
+const getData = require('../../lib/functions/getData.js')
+const getPluginVersionMock = require('../../lib/utils/getPluginVersion.js')
+const getBufferMock = require('../../lib/utils/getBuffer.js')
+const testBuffers = require('../testBuffers')
 
-const functions = require('../../lib/functions')
-const utils     = require('../../lib/utils')
+jest.mock('../../lib/utils/getPluginVersion.js', () => jest.fn())
+jest.mock('../../lib/utils/getBuffer.js', () => jest.fn())
 
 describe('functions.getData()', function() {
-
-  let getBufferStub, getPluginVersionStub
-  let pluginVersion, buffer, parsedData
-
   const opts = {
     mmfName: 'foobar'
   }
 
-  before(function() {
-    parsedData = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../data/scs_sdk_plugin_parsed_data_11.json')))
-
-    getBufferStub =
-      sinon
-        .stub(utils, 'getBuffer')
-        .callsFake(() => {
-          buffer = fs.readFileSync(path.resolve(__dirname, '../buffers/scs_sdk_plugin_buffer_11'))
-          return buffer
-        })
-  
-    getPluginVersionStub =
-      sinon
-        .stub(utils, 'getPluginVersion')
-        .callsFake(() => pluginVersion)
-  })
-
   beforeEach(function() {
-    pluginVersion = 11
+    getPluginVersionMock.mockReturnValue(12)
+    getBufferMock.mockReturnValue(testBuffers[12])
   })
 
-  after(function() {
-    getBufferStub.restore()
-    getPluginVersionStub.restore()
-  })
-
-  afterEach(function() {
-    getBufferStub.resetHistory()
-    getPluginVersionStub.resetHistory()
+  afterAll(function() {
+    jest.restoreAllMocks()
   })
 
   it('Should get parsed data from supported SDK versions', function() {
-    const result = functions.getData(null, opts)
+    getPluginVersionMock.mockReturnValue(10)
+    getBufferMock.mockReturnValue(testBuffers[10])
+    expect(getData(null, opts)).toBeTruthy()
 
-    assert.deepStrictEqual(getBufferStub.args, [[opts.mmfName]])
-    assert.deepEqual(getPluginVersionStub.args, [[buffer]])
-    assert.deepEqual(result, parsedData)
+    getPluginVersionMock.mockReturnValue(11)
+    getBufferMock.mockReturnValue(testBuffers[11])
+    expect(getData(null, opts)).toBeTruthy()
+
+    getPluginVersionMock.mockReturnValue(12)
+    getBufferMock.mockReturnValue(testBuffers[12])
+    expect(getData(null, opts)).toBeTruthy()
   })
 
   it('Should return data for a specified property', function() {
-    const result = functions.getData('game', opts)
-  
-    assert.deepEqual(getBufferStub.args, [[opts.mmfName]])
-    assert.deepEqual(getPluginVersionStub.args, [[buffer]])
-    assert.deepEqual(result, parsedData.game)
+    const data = getData(null, opts)
+    const gameData = getData('game', opts)
+
+    expect(data).not.toEqual(gameData)
+    expect(gameData).toEqual(data.game)
   })
 
   it('Should throw an error for unsupported SDK versions', function() {
-    pluginVersion = 1234
-    try {
-      const result = functions.getData(null, opts)
-    } catch (err) {
-      assert.deepEqual(getBufferStub.args, [[opts.mmfName]])
-      assert.equal(err.message, 'SCS-SDK-Plugin version 1234 is not supported')
-    }
+    getPluginVersionMock.mockReturnValue(99)
+    expect(() => {
+      getData(null, opts)
+    }).toThrow('SCS-SDK-Plugin version 99 is not supported')
   })
 
-  it('Should return "null" if version number is less than 0', function() {
-    pluginVersion = 0
-    const test1 = functions.getData(null, opts)
-    pluginVersion = -1
-    const test2 = functions.getData(null, opts)
+  it('Should return "null" if version number is 0 or less than 0', function() {
+    getPluginVersionMock.mockReturnValue(0)
+    expect(getData(null, opts)).toEqual(null)
 
-    assert.deepEqual(getBufferStub.args, [[opts.mmfName], [opts.mmfName]])
-    assert.strictEqual(test1, null)
-    assert.strictEqual(test2, null)
+    getPluginVersionMock.mockReturnValue(-1)
+    expect(getData(null, opts)).toEqual(null)
   })
 
   it('Should return "null" if there is no buffer', function() {
-    getBufferStub.restore()
-
-    getBufferStub = 
-      sinon
-        .stub(utils, 'getBuffer')
-        .callsFake(() => null)
-
-    const result = functions.getData(null, opts)
-    assert.ok(getBufferStub.called)
-    assert.deepEqual(getBufferStub.args, [[opts.mmfName]])
-    assert.strictEqual(result, null)
+    getBufferMock.mockReturnValue(null)
+    expect(getData(null, opts)).toEqual(null)
   })
 
 })

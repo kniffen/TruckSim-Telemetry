@@ -1,108 +1,104 @@
-const assert    = require('assert')
-const sinon     = require('sinon')
 const cloneDeep = require('lodash.clonedeep')
 
 const tst = require('../../lib')
 
-const functions = require('../../lib/functions')
+const testBuffers = require('../testBuffers')
+const converters = require('../../lib/converters')
+const getDataMock = require('../../lib/functions/getData')
+const parser = require('../../lib/parser/parseData.js')
 
-const getFakeData = require('../getFakeData')
+jest.mock('../../lib/functions/getData', () => jest.fn())
 
 describe('eventEmitters/trailers()', function() {
-
-  let clock = null
   const telemetry = tst()
+  let testData = null
 
-  const testData = getFakeData(function(data) {
-    data.trailers[0].attached = false
-    data.trailers[0].damage.total = 0.00
+  beforeAll(function() {
+    jest.useFakeTimers()
+    jest.spyOn(telemetry.trailers, 'emit')
+    jest.spyOn(telemetry.trailer, 'emit')
 
-    data.trailers[1].attached = true
-    data.trailers[1].damage.total = 0.01
+    getDataMock.mockImplementation(() => cloneDeep(testData))
   })
 
-  before(function() {
-    clock = sinon.useFakeTimers()
-
-    sinon.spy(telemetry.trailers, 'emit')
-    sinon.spy(telemetry.trailer,  'emit')
-
-    sinon
-      .stub(functions, 'getData')
-      .callsFake(() => cloneDeep(testData))
-
-    telemetry.watch()
-
-    clock.tick(100)
-
-    testData.trailers[0].attached     = true
-    testData.trailers[0].damage.total = 0.01
-    testData.trailers[1].attached     = false
-    testData.trailers[1].damage.total = 0.02
-
-    clock.tick(100)
-
-    testData.trailers[0].attached     = true
-    testData.trailers[0].damage.total = 0.00
-    testData.trailers[1].attached     = false
-    testData.trailers[1].damage.total = 0.00
-
-    clock.tick(100)
-
-    testData.trailers[0].attached = false
-    testData.trailers[1].attached = true
-
-    clock.tick(100)
+  beforeEach(function() {
+    testData = parser(converters[12](testBuffers[12]))
   })
 
-  after(function() {
-    telemetry.stop()
-    clock.restore()
-    sinon.restore()
+  afterEach(function() {
+    telemetry.trailers.emit.mockReset()
+    telemetry.trailer.emit.mockReset()
+  })
+
+  afterAll(function() {
+    jest.restoreAllMocks()
+    jest.useRealTimers()
   })
 
   it('Should emit "coupling" events', function() {
-    assert.deepStrictEqual(
-      telemetry.trailers.emit.args.filter(event => event[0] === 'coupling'),
-      [
-        ['coupling', 0, true],
-        ['coupling', 1, false],
-        ['coupling', 0, false],
-        ['coupling', 1, true],
-      ]
-    )
+    testData.trailers[0].attached = false
+    testData.trailers[1].attached = true
 
-    assert.deepStrictEqual(
-      telemetry.trailer.emit.args.filter(event => event[0] === 'coupling'),
-      [
-        ['coupling', true],
-        ['coupling', false],
-      ]
-    )
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.trailers[0].attached = true
+    testData.trailers[1].attached = false
+    jest.advanceTimersByTime(100)
+    testData.trailers[0].attached = true
+    testData.trailers[1].attached = false
+    jest.advanceTimersByTime(100)
+    testData.trailers[0].attached = false
+    testData.trailers[1].attached = true
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    expect(telemetry.trailers.emit).toHaveBeenCalledTimes(4)
+    expect(telemetry.trailers.emit).toHaveBeenNthCalledWith(1, 'coupling', 0, true)
+    expect(telemetry.trailers.emit).toHaveBeenNthCalledWith(2, 'coupling', 1, false)
+    expect(telemetry.trailers.emit).toHaveBeenNthCalledWith(3, 'coupling', 0, false)
+    expect(telemetry.trailers.emit).toHaveBeenNthCalledWith(4, 'coupling', 1, true)
+
+    expect(telemetry.trailer.emit).toHaveBeenCalledTimes(2)
+    expect(telemetry.trailer.emit).toHaveBeenNthCalledWith(1, 'coupling', true)
+    expect(telemetry.trailer.emit).toHaveBeenNthCalledWith(2, 'coupling', false)
   })
 
   it('Should emit "damage" events', function() {
-    const trailersDamageEvents = telemetry.trailers.emit.args.filter(event => event[0] === 'damage')
-    const trailersTotalDamage = trailersDamageEvents.map(event => ([
-      event[1], 
-      event[2].total,
-      event[3].total,
-    ]))
+    testData.trailers[0].damage.total = 0.00
+    testData.trailers[1].damage.total = 0.01
 
-    assert.deepStrictEqual(trailersTotalDamage, [
-      [0, 0.01, 0.00],
-      [1, 0.02, 0.01],
-    ])
+    telemetry.watch()
 
-    const trailerDamageEvents = telemetry.trailer.emit.args.filter(event => event[0] === 'damage')
-    const trailerTotalDamage = trailerDamageEvents.map(event => ([
-      event[1].total,
-      event[2].total,
-    ]))
+    jest.advanceTimersByTime(100)
+    testData.trailers[0].damage.total = 0.01
+    testData.trailers[1].damage.total = 0.02
+    jest.advanceTimersByTime(100)
+    testData.trailers[0].damage.total = 0.00
+    testData.trailers[1].damage.total = 0.00
+    jest.advanceTimersByTime(100)
 
-    assert.deepStrictEqual(trailerTotalDamage, [
-      [0.01, 0.00],
-    ])
+    telemetry.stop()
+
+    const expected = {
+      cargo:   0.20000000298023224,
+      chassis: 0.30000001192092896,
+      wheels:  0.4000000059604645,
+      body:    0.5,
+      total:   0.00
+    }
+
+    expect(telemetry.trailers.emit).toHaveBeenCalledTimes(2)
+    expect(telemetry.trailers.emit).toHaveBeenNthCalledWith(
+      1, 'damage', 0, {...expected, total: 0.01}, expected
+    )
+    expect(telemetry.trailers.emit).toHaveBeenNthCalledWith(
+      2, 'damage', 1, {...expected, total: 0.02}, {...expected, total: 0.01}
+    )
+
+    expect(telemetry.trailer.emit).toHaveBeenCalledTimes(1)
+    expect(telemetry.trailer.emit).toHaveBeenNthCalledWith(1, 'damage', {...expected, total: 0.01}, expected)
   })
 
 })

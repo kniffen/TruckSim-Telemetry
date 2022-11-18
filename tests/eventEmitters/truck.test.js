@@ -1,357 +1,407 @@
-const assert    = require('assert')
-const sinon     = require('sinon')
 const cloneDeep = require('lodash.clonedeep')
 
 const tst = require('../../lib')
 
-const functions = require('../../lib/functions')
+const testBuffers = require('../testBuffers')
+const converters = require('../../lib/converters')
+const getDataMock = require('../../lib/functions/getData')
+const parser = require('../../lib/parser/parseData.js')
 
-const getFakeData = require('../getFakeData')
+jest.mock('../../lib/functions/getData', () => jest.fn())
 
 describe('eventEmitters/truck()', function() {
-
-  let clock = null
-
   const telemetry = tst()
+  let testData = null
 
-  const testData = getFakeData(function(data) {
-    data.events.refuel.active = false
+  beforeAll(function() {
+    jest.useFakeTimers()
+    jest.spyOn(telemetry.truck, 'emit')
 
-    data.navigation.speedLimit = 1000
-
-    data.truck.speed.value = 1001
-    data.truck.speed.kph = 1002
-    data.truck.speed.mph = 1003
-
-
-    data.truck.damage.total = 0.00
-    data.truck.electric.enabled = false
-    data.truck.engine.enabled = false
-    data.truck.engine.oilPressure.warning.enabled = false
-    data.truck.engine.waterTemperature.warning.enabled = false
-    data.truck.engine.batteryVoltage.warning.enabled = false
-    data.truck.transmission.gear.selected = 0
-    data.truck.transmission.gear.displayed = 0
-    data.truck.brakes.parking.enabled = false
-    data.truck.brakes.retarder.level = 0
-    data.truck.brakes.retarder.steps = 0
-
-    data.truck.brakes.airPressure.warning.enabled = false
-    data.truck.brakes.airPressure.emergency.enabled = false
-    
-    data.truck.fuel.volume = 2000
-    data.truck.fuel.avgConsumption = 2001
-    data.truck.fuel.capacity = 2002
-    data.truck.fuel.range = 2003
-    data.truck.fuel.value = 2004
-    data.truck.fuel.warning.enabled = false
-    data.truck.fuel.warning.factor = 2004
-
-    data.truck.adBlue.warning.enabled = false
-    data.truck.wipers.enabled = false
-    data.truck.cruiseControl.enabled = false
-    data.truck.cruiseControl.value = 1002
-    data.truck.cruiseControl.kph = 1003
-    data.truck.cruiseControl.mph = 1004
+    getDataMock.mockImplementation(() => cloneDeep(testData))
   })
 
-  before(function() {
-    clock = sinon.useFakeTimers()
-    
-    sinon.spy(telemetry.truck, 'emit')
-
-    sinon
-      .stub(functions, 'getData')
-      .callsFake(() => cloneDeep(testData))
-
-    telemetry.watch()
-
-    clock.tick(100)
-
-    testData.truck.cruiseControl.enabled      = true
-    testData.truck.cruiseControl.value        = 1003
-    testData.truck.damage.total               = 0.01
-    testData.truck.electric.enabled           = true
-    testData.truck.engine.enabled             = true
-    testData.truck.transmission.gear.selected = 1
-    testData.truck.brakes.parking.enabled     = true
-    testData.truck.brakes.retarder.level      += 1
-    testData.events.refuel.active             = true
-    testData.truck.wipers.enabled             = true
-
-    testData.truck.brakes.airPressure.warning.enabled      = true
-    testData.truck.fuel.warning.enabled                    = true
-    testData.truck.adBlue.warning.enabled                  = true
-    testData.truck.engine.oilPressure.warning.enabled      = true
-    testData.truck.engine.waterTemperature.warning.enabled = true
-    testData.truck.engine.batteryVoltage.warning.enabled   = true
-
-    testData.truck.brakes.airPressure.emergency.enabled = true
-
-    clock.tick(100)
-
-    testData.truck.cruiseControl.enabled      = false
-    testData.truck.cruiseControl.value        = 1002
-    testData.truck.damage.total               = 0.00
-    testData.truck.electric.enabled           = false
-    testData.truck.engine.enabled             = false
-    testData.truck.transmission.gear.selected = 0
-    testData.truck.brakes.parking.enabled     = true
-    testData.truck.brakes.retarder.steps      += 1
-    testData.events.refuel.active             = false
-    testData.truck.wipers.enabled             = false
-
-    testData.truck.brakes.airPressure.warning.enabled      = false
-    testData.truck.fuel.warning.enabled                    = false
-    testData.truck.adBlue.warning.enabled                  = false
-    testData.truck.engine.oilPressure.warning.enabled      = false
-    testData.truck.engine.waterTemperature.warning.enabled = false
-    testData.truck.engine.batteryVoltage.warning.enabled   = false
-
-    testData.truck.brakes.airPressure.emergency.enabled = false
-
-    clock.tick(100)
+  beforeEach(function() {
+    testData = parser(converters[12](testBuffers[12]))
   })
 
-  after(function() {
-    telemetry.stop()
-    clock.restore()
-    sinon.restore()
+  afterEach(function() {
+    telemetry.truck.emit.mockReset()
+  })
+
+  afterAll(function() {
+    jest.restoreAllMocks()
+    jest.useRealTimers()
   })
 
   it('Should emit "cruise-control" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'cruise-control'),
-      [
-        [
-          'cruise-control',
-          {
-            currentSpeed: {
-              value: 1001,
-              kph:   1002,
-              mph:   1003,
-            },
-            speedLimit:   1000,
-            enabled:      true,
-            cruiseControlSpeed: {
-              value: 1003,
-              kph:   1003,
-              mph:   1004,
-            }
-          }
-        ],
-        [
-          'cruise-control',
-          {
-            currentSpeed: {
-              value: 1001,
-              kph:   1002,
-              mph:   1003,
-            },
-            speedLimit:   1000,
-            enabled:      false,
-            cruiseControlSpeed: {
-              value: 1002,
-              kph:   1003,
-              mph:   1004,
-            }
-          }
-        ],
-      ]
-    )
+    testData.truck.cruiseControl.enabled = false
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.truck.cruiseControl.enabled = true
+    jest.advanceTimersByTime(100)
+    testData.truck.cruiseControl.enabled = false
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    const expected = {
+      cruiseControlSpeed: {
+        kph: 0,
+        mph: 0,
+        value: 0.10000000149011612,
+      },
+      currentSpeed: {
+        kph: 60,
+        mph: 38,
+        value: 16.766700744628906,
+      },
+      enabled: true,
+      speedLimit: {
+        kph: 80,
+        mph: 50,
+        value: 22.322200775146484,
+      }
+    }
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(2)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(1, 'cruise-control', {...expected, enabled: true})
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(2, 'cruise-control', {...expected, enabled: false})
   })
 
   it('Should emit "cruise-control-increase" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'cruise-control-increase'),
-      [
-        [
-          'cruise-control-increase',
-          {
-            currentSpeed: {
-              value: 1001,
-              kph:   1002,
-              mph:   1003,
-            },
-            speedLimit:   1000,
-            enabled:      true,
-            cruiseControlSpeed: {
-              value: 1003,
-              kph:   1003,
-              mph:   1004,
-            }
-          }
-        ]
-      ]
-    )
+    testData.truck.cruiseControl.value = 0
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.truck.cruiseControl.value = 8.33333
+    jest.advanceTimersByTime(100)
+    testData.truck.cruiseControl.value = 0
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    const expected = {
+      cruiseControlSpeed: {
+        kph: 0,
+        mph: 0,
+        value: 8.33333,
+      },
+      currentSpeed: {
+        kph: 60,
+        mph: 38,
+        value: 16.766700744628906,
+      },
+      enabled: true,
+      speedLimit: {
+        kph: 80,
+        mph: 50,
+        value: 22.322200775146484,
+      }
+    }
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(1)
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('cruise-control-increase', expected)
   })
 
   it('Should emit "cruise-control-decrease" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'cruise-control-decrease'),
-      [
-        [
-          'cruise-control-decrease',
-          {
-            currentSpeed: {
-              value: 1001,
-              kph:   1002,
-              mph:   1003,
-            },
-            speedLimit:   1000,
-            enabled:      false,
-            cruiseControlSpeed: {
-              value: 1002,
-              kph:   1003,
-              mph:   1004,
-            }
-          }
-        ]
-      ]
-    )
+    testData.truck.cruiseControl.value = 16.6667
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.truck.cruiseControl.value = 8.33333
+    jest.advanceTimersByTime(100)
+    testData.truck.cruiseControl.value = 0
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    const expected = {
+      cruiseControlSpeed: {
+        kph: 0,
+        mph: 0,
+        value: 8.33333,
+      },
+      currentSpeed: {
+        kph: 60,
+        mph: 38,
+        value: 16.766700744628906,
+      },
+      enabled: true,
+      speedLimit: {
+        kph: 80,
+        mph: 50,
+        value: 22.322200775146484,
+      }
+    }
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(1)
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('cruise-control-decrease', expected)
   })
 
   it('Should emit "damage" events', function() {
-    const truckDamageEvents = telemetry.truck.emit.args.filter(event => event[0] === 'damage')
-    const truckTotalDamage = truckDamageEvents.map(event => ([
-      event[1].total,
-      event[2].total,
-    ]))
+    testData.truck.damage.total = 0.00
 
-    assert.deepStrictEqual(truckTotalDamage, [[0.01, 0.00]])
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.truck.damage.total = 0.01
+    jest.advanceTimersByTime(100)
+    testData.truck.damage.total = 0.00
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    const expected = {
+      total:        0.01,
+      engine:       0.20000000298023224,
+      transmission: 0.30000001192092896,
+      cabin:        0.4000000059604645,
+      chassis:      0.5,
+      wheels:       0.6000000238418579,
+    }
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(1)
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('damage', expected, {...expected, total: 0})
   })
 
   it('Should emit "electric" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'electric'),
-      [
-        ['electric', true],
-        ['electric', false],
-      ]
-    )
+    testData.truck.electric.enabled = false
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.truck.electric.enabled = true
+    jest.advanceTimersByTime(100)
+    testData.truck.electric.enabled = false
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(2)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(1, 'electric', true)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(2, 'electric', false)
   })
 
   it('Should emit "engine" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'engine'),
-      [
-        ['engine', true],
-        ['engine', false],
-      ]
-    )
+    testData.truck.engine.enabled = false
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.truck.engine.enabled = true
+    jest.advanceTimersByTime(100)
+    testData.truck.engine.enabled = false
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(2)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(1, 'engine', true)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(2, 'engine', false)
   })
 
   it('Should emit "gear-change" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'gear-change'),
-      [
-        ['gear-change', {selected: 1, displayed: 0}, {selected: 0, displayed: 0}],
-        ['gear-change', {selected: 0, displayed: 0}, {selected: 1, displayed: 0}],
-      ]
+    testData.truck.transmission.gear.selected = 0
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.truck.transmission.gear.selected = 1
+    jest.advanceTimersByTime(100)
+    testData.truck.transmission.gear.selected = 0
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(2)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(
+      1, 'gear-change', {selected: 1, displayed: 2}, {selected: 0, displayed: 2}
+    )
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(
+      2, 'gear-change', {selected: 0, displayed: 2}, {selected: 1, displayed: 2}
     )
   })
 
   it('Should emit "park" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'park'),
-      [
-        ['park', true],
-      ]
-    )
+    testData.truck.brakes.parking.enabled = false
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.truck.brakes.parking.enabled = true
+    jest.advanceTimersByTime(100)
+    testData.truck.brakes.parking.enabled = false
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(2)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(1, 'park', true)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(2, 'park', false)
   })
 
   it('Should emit "retarder" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'retarder'),
-      [
-        ['retarder', {level: 1, steps: 0}, {level: 0, steps: 0}],
-        ['retarder', {level: 1, steps: 1}, {level: 1, steps: 0}],
-      ]
+    testData.truck.brakes.retarder.steps = 0
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.truck.brakes.retarder.steps += 1
+    jest.advanceTimersByTime(100)
+    testData.truck.brakes.retarder.steps -= 1
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(2)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(
+      1, 'retarder', {level: 0, steps: 1}, {level: 0, steps: 0}
+    )
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(
+      2, 'retarder', {level: 0, steps: 0}, {level: 0, steps: 1}
     )
   })
 
   it('Should emit "refuel-started" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'refuel-started'),
-      [
-        [
-          'refuel-started',
-          {
-            volume: 2000,
-            avgConsumption: 2001,
-            capacity: 2002,
-            range: 2003,
-            value: 2004,
-            warning: {
-              enabled: false,
-              factor:  2004,
-            },
-          }
-        ],
-      ]
-    )
+    testData.events.refuel.active = false
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.events.refuel.active = true
+    jest.advanceTimersByTime(100)
+    testData.events.refuel.active = false
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    const expected = {
+      avgConsumption: 10.600000381469727,
+      capacity: 500.1000061035156,
+      range: 650.5999755859375,
+      value: 300.6000061035156,
+      warning: {
+        enabled: true,
+        factor:  0.25,
+      },
+    }
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(2)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(1, 'refuel-started', expected)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(2, 'refuel-stopped', expect.anything())
   })
 
   it('Should emit "refuel-stopped" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'refuel-stopped'),
-      [
-        [
-          'refuel-stopped',
-          {
-            volume: 2000,
-            avgConsumption: 2001,
-            capacity: 2002,
-            range: 2003,
-            value: 2004,
-            warning: {
-              enabled: false,
-              factor:  2004,
-            },
-          }
-        ],
-      ]
-    )
+    testData.events.refuel.active = true
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.events.refuel.active = false
+    jest.advanceTimersByTime(100)
+    testData.events.refuel.active = true
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    const expected = {
+      avgConsumption: 10.600000381469727,
+      capacity: 500.1000061035156,
+      range: 650.5999755859375,
+      value: 300.6000061035156,
+      warning: {
+        enabled: true,
+        factor:  0.25,
+      },
+    }
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(2)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(1, 'refuel-stopped', expected)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(2, 'refuel-started', expect.anything())
   })
 
   it('Should emit "wipers" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'wipers'),
-      [
-        ['wipers', true],
-        ['wipers', false],
-      ]
-    )
+    testData.truck.wipers.enabled = false
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    testData.truck.wipers.enabled = true
+    jest.advanceTimersByTime(100)
+    testData.truck.wipers.enabled = false
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(2)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(1, 'wipers', true)
+    expect(telemetry.truck.emit).toHaveBeenNthCalledWith(2, 'wipers', false)
   })
 
   it('Should emit "warning" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'warning'),
-      [
-        ['warning', 'Air Pressure',       true],
-        ['warning', 'Fuel',               true],
-        ['warning', 'AdBlue',             true],
-        ['warning', 'Oil Pressure',       true],
-        ['warning', 'Water Temperature',  true],
-        ['warning', 'Battery Voltage',    true],
-        ['warning', 'Air Pressure',      false],
-        ['warning', 'Fuel',              false],
-        ['warning', 'AdBlue',            false],
-        ['warning', 'Oil Pressure',      false],
-        ['warning', 'Water Temperature', false],
-        ['warning', 'Battery Voltage',   false],
-      ]
-    )
+    const setWarnings = (value) => {
+      testData.truck.engine.oilPressure.warning.enabled      = value
+      testData.truck.engine.waterTemperature.warning.enabled = value
+      testData.truck.engine.batteryVoltage.warning.enabled   = value
+      testData.truck.brakes.airPressure.warning.enabled      = value
+      testData.truck.fuel.warning.enabled                    = value
+      testData.truck.adBlue.warning.enabled                  = value
+    }
+
+    setWarnings(false)
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    setWarnings(true)
+    jest.advanceTimersByTime(100)
+    setWarnings(false)
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(12)
+
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('warning', 'Air Pressure',      true)
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('warning', 'Fuel',              true)
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('warning', 'AdBlue',            true)
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('warning', 'Oil Pressure',      true)
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('warning', 'Water Temperature', true)
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('warning', 'Battery Voltage',   true)
+
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('warning', 'Air Pressure',      false)
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('warning', 'Fuel',              false)
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('warning', 'AdBlue',            false)
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('warning', 'Oil Pressure',      false)
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('warning', 'Water Temperature', false)
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('warning', 'Battery Voltage',   false)
   })
 
   it('Should emit "emergency" events', function() {
-    assert.deepStrictEqual(
-      telemetry.truck.emit.args.filter(event => event[0] === 'emergency'),
-      [
-        ['emergency', 'Air Pressure', true],
-        ['emergency', 'Air Pressure', false],
-      ]
-    )
-  })
+    const setEmergency = (value) => {
+      testData.truck.brakes.airPressure.emergency.enabled = value
+    }
 
+    setEmergency(false)
+
+    telemetry.watch()
+
+    jest.advanceTimersByTime(100)
+    setEmergency(true)
+    jest.advanceTimersByTime(100)
+    setEmergency(false)
+    jest.advanceTimersByTime(100)
+
+    telemetry.stop()
+
+    expect(telemetry.truck.emit).toHaveBeenCalledTimes(2)
+
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('emergency', 'Air Pressure', true)
+
+    expect(telemetry.truck.emit).toHaveBeenCalledWith('emergency', 'Air Pressure', false)
+  })
 })

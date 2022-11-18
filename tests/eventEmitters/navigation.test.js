@@ -1,65 +1,68 @@
-const assert    = require('assert')
-const sinon     = require('sinon')
 const cloneDeep = require('lodash.clonedeep')
 
 const tst = require('../../lib')
 
-const functions = require('../../lib/functions')
+const testBuffers = require('../testBuffers')
+const converters = require('../../lib/converters')
+const getDataMock = require('../../lib/functions/getData')
+const parser = require('../../lib/parser/parseData.js')
 
-const getFakeData = require('../getFakeData')
+jest.mock('../../lib/functions/getData', () => jest.fn())
 
 describe('eventEmitters/navigation()', function() {
-
-  let clock = null
-
-  const testData = getFakeData(function(data) {
-    data.navigation.speedLimit.value = 0
-    data.navigation.speedLimit.kph   = 0
-    data.navigation.speedLimit.mph   = 0
-  })
-    
   const telemetry = tst()
+  let testData = null
 
-  before(function() {
-    clock = sinon.useFakeTimers()
+  beforeAll(function() {
+    jest.useFakeTimers()
+    jest.spyOn(telemetry.navigation, 'emit')
 
-    sinon.spy(telemetry.navigation, 'emit')
+    getDataMock.mockImplementation(() => cloneDeep(testData))
+  })
 
-    sinon
-      .stub(functions, 'getData')
-      .callsFake(() => cloneDeep(testData))
-    
-    telemetry.watch()
-    
-    clock.tick(100)
+  beforeEach(function() {
+    testData = parser(converters[12](testBuffers[12]))
+  })
 
-    testData.navigation.speedLimit.value = 50
-    clock.tick(100)
+  afterEach(function() {
+    telemetry.navigation.emit.mockReset()
+  })
 
+  afterAll(function() {
+    jest.restoreAllMocks()
+    jest.useRealTimers()
+  })
+ 
+  it('Should emit speed-limit events', function() {
     testData.navigation.speedLimit.value = 0
-    clock.tick(100)
 
-    testData.navigation.speedLimit.value = 50
-    clock.tick(100)
+    telemetry.watch()
 
-    testData.navigation.speedLimit.value = 80
-    clock.tick(100)
+    jest.advanceTimersByTime(100)
+    testData.navigation.speedLimit.value = 60
+    jest.advanceTimersByTime(100)
+    testData.navigation.speedLimit.value = 0
+    jest.advanceTimersByTime(100)
+    testData.navigation.speedLimit.value = 60
+    jest.advanceTimersByTime(100)
+    testData.navigation.speedLimit.value = 100
+    jest.advanceTimersByTime(100)
 
     telemetry.stop()
-  })
 
-  after(function() {
-    clock.restore()
-    sinon.restore()
-  })
+    expect(telemetry.navigation.emit).toHaveBeenCalledTimes(4)
 
-  it('Should emit speed-limit events', function() {
-    assert.deepStrictEqual(telemetry.navigation.emit.args, [
-      ['speed-limit', {value: 50, kph: 0, mph: 0}, {value:  0, kph: 0, mph: 0}],
-      ['speed-limit', {value:  0, kph: 0, mph: 0}, {value: 50, kph: 0, mph: 0}],
-      ['speed-limit', {value: 50, kph: 0, mph: 0}, {value:  0, kph: 0, mph: 0}],
-      ['speed-limit', {value: 80, kph: 0, mph: 0}, {value: 50, kph: 0, mph: 0}],
-    ])
+    expect(telemetry.navigation.emit).toHaveBeenNthCalledWith(
+      1, 'speed-limit', {value: 60, kph: 80, mph: 50}, {value:  0, kph: 80, mph: 50}
+    )
+    expect(telemetry.navigation.emit).toHaveBeenNthCalledWith(
+      2, 'speed-limit', {value:  0, kph: 80, mph: 50}, {value: 60, kph: 80, mph: 50}
+    )
+    expect(telemetry.navigation.emit).toHaveBeenNthCalledWith(
+      3, 'speed-limit', {value: 60, kph: 80, mph: 50}, {value:  0, kph: 80, mph: 50}
+    )
+    expect(telemetry.navigation.emit).toHaveBeenNthCalledWith(
+      4, 'speed-limit', {value: 100, kph: 80, mph: 50}, {value: 60, kph: 80, mph: 50}
+    )
   })
-  
 })

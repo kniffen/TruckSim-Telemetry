@@ -1,68 +1,56 @@
-const assert    = require('assert')
-const sinon     = require('sinon')
-const cloneDeep = require('lodash.clonedeep')
-
+const getBufferMock = require('../../lib/utils/getBuffer.js')
 const tst = require('../../lib')
+const testBuffers = require('../testBuffers')
 
-const functions = require('../../lib/functions')
-
-const getFakeData = require('../getFakeData')
+jest.mock('../../lib/utils/getBuffer.js', () => jest.fn())
 
 describe('functions.stop()', function() {
+  const testBuffer = Buffer.from(testBuffers[12])
 
-  let clock = null
-
-  const testData = getFakeData()
-
-  before(function() {
-    clock = sinon.useFakeTimers();
-
-    sinon
-      .stub(functions, 'getData')
-      .callsFake(() => cloneDeep(testData))
+  beforeAll(function() {
+    jest.useFakeTimers()
+    getBufferMock.mockReturnValue(testBuffer)
   })
 
-  after(function() {
-    clock.restore()
-    sinon.restore()
+  afterAll(function() {
+    jest.useRealTimers()
+    jest.restoreAllMocks()
   })
 
   it('should actually stop and start the watcher', function() {
     const telemetry = tst()
-    
-    testData.foo = 0
-   
-    const callback = sinon.spy(function(data) {
-      if (callback.args.length == 11) {
-        telemetry.stop()
-      }
+    let count = 0
+  
+    const callback = jest.fn((data) => {
+      if (9 <= count) telemetry.stop()
+      count++
     })
     
     telemetry.watch({interval: 10}, callback)
 
     for (let i = 0; i < 20; i++) {
-      clock.tick(10)
-      testData.foo++
+      testBuffer.writeUInt8(i % 2)
+      jest.advanceTimersByTime(10)
     }
 
-    assert.strictEqual(callback.args.length, 11)
-    
-    testData.foo = 0
-    callback.resetHistory()
+    expect(callback).toHaveBeenCalledTimes(10)
+
+    count = 0
+    callback.mockClear()
 
     telemetry.watch({interval: 10}, callback)
     telemetry.watch({interval: 10}, callback)
-    
+
     for (let i = 0; i < 5; i++) {
-      clock.tick(10)
-      testData.foo++
+      testBuffer.writeUInt8(i % 2)
+      jest.advanceTimersByTime(10)
     }
 
     telemetry.stop()
     
-    clock.tick(200)
+    jest.advanceTimersByTime(200)
 
-    assert.strictEqual(callback.args.length, 4)
+    expect(callback).toHaveBeenCalledTimes(5)
   })
 
 })

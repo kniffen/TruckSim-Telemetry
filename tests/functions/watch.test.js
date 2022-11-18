@@ -1,44 +1,33 @@
-const assert    = require('assert')
-const sinon     = require('sinon')
-const cloneDeep = require('lodash.clonedeep')
-
-const truckSimTelemetry = require('../../lib')
-
+const tst = require('../../lib')
+const converters = require('../../lib/converters')
+const parseData = require('../../lib/parser/parseData')
 const functions = require('../../lib/functions')
+const getBufferMock = require('../../lib/utils/getBuffer')
+const testBuffers = require('../testBuffers')
 
-const getFakeData = require('../getFakeData')
+jest.mock('../../lib/utils/getBuffer', () => jest.fn())
 
 describe('watch()', function() {
+  let testBuffer = null
+  const getDataSpy = jest.spyOn(functions, 'getData')
 
-  let clock    = null
-  let testData = null
-
-  before(function() {
-    clock = sinon.useFakeTimers()
-
-    sinon
-      .stub(functions, 'getData')
-      .callsFake(() => cloneDeep(testData))
+  beforeAll(function() {
+    jest.useFakeTimers()
+    getBufferMock.mockImplementation(() => testBuffer)
   })
 
   beforeEach(function() {
-    testData = getFakeData()
+    testBuffer = Buffer.from(testBuffers[12])
   })
 
-  afterEach(function() {
-    clock.reset()
-  })
-
-  after(function() {
-    clock.restore()
-    sinon.restore()
+  afterAll(function() {
+    jest.useRealTimers()
+    jest.restoreAllMocks()
   })
 
   it('Should ensure the opts object exists and the interval property is 100ms or more', function() {
-    const telemetry = truckSimTelemetry()
-    const update    = sinon.spy()
-
-    testData = null
+    const telemetry = tst()
+    const update = jest.fn()
 
     const testCases = [
       {opts: undefined,            ticks: 100},
@@ -54,218 +43,149 @@ describe('watch()', function() {
       {opts: {interval: 'foobar'}, ticks: 100},
     ]
 
-    for (const testCase of testCases) {
-      telemetry.watch(testCase.opts, update)
-
-      clock.tick(testCase.ticks)
+    for (const { opts, ticks } of testCases) {
+      jest.setSystemTime(0)
+      telemetry.watch(opts, update)
+      jest.advanceTimersByTime(ticks)
       telemetry.stop()
-      clock.reset()
     }
 
-    assert.deepStrictEqual(
-      functions.getData.args,
-      [
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-        [null, {mmfName: 'Local\\SCSTelemetry'}],
-      ]
-    )
+    for (let i = 1; i <= testCases.length; i++) {
+      expect(getDataSpy).toHaveBeenNthCalledWith(i, null, {mmfName: 'Local\\SCSTelemetry'})
+    }
 
-    assert.equal(update.args.length, 0)
+    expect(update).toHaveBeenCalledTimes(0)
   })
 
   it('Should emit a connected and disconnected events when the SDK toggles', function() {
-    const telemetry = truckSimTelemetry()
-
-    const gameEventEmitterStub = sinon.stub(telemetry.game, 'emit')
-
-    testData = {
-      game: {sdkActive: false},
-      events:     {},
-      navigation: {},
-      trailers:   [],
-    }
+    const telemetry = tst()
+    const gameEventSpy = jest.spyOn(telemetry.game, 'emit')
 
     telemetry.watch()
-    clock.tick(100)
-    testData.game.sdkActive = true
-    clock.tick(100)
-    testData.game.sdkActive = false
-    clock.tick(100)
-    testData.game.sdkActive = true
-    clock.tick(100)
-    testData.game.sdkActive = false
-    clock.tick(100)
-    telemetry.stop()
 
-    assert.deepStrictEqual(gameEventEmitterStub.args, [
-      ['connected'],
-      ['disconnected'],
-      ['connected'],
-      ['disconnected'],
-    ])
-
-    gameEventEmitterStub.restore()
-  })
-
-  it('Should update the data properties of the telemetry object', function() {
-    const telemetry = truckSimTelemetry()
-    const update    = sinon.spy()
-
-    testData.game.paused = false
-
-    telemetry.watch(null, update)
-    
-    clock.tick(100)
-    
-    assert.strictEqual(telemetry.data.game.paused, false)
-
-    testData.game.paused = true
-    clock.tick(100)
-    
-    assert.strictEqual(telemetry.data.game.paused, true)
-    
-    testData.game.paused = false
-    clock.tick(500)
+    jest.advanceTimersByTime(100)
+    testBuffer.writeUInt8(1, 0) // sskActive: true
+    jest.advanceTimersByTime(1000)
+    testBuffer.writeUInt8(0, 0) // sskActive: false
+    jest.advanceTimersByTime(1000)
+    testBuffer.writeUInt8(1, 0) // sskActive: true
+    jest.advanceTimersByTime(100)
 
     telemetry.stop()
 
-    assert.strictEqual(telemetry.data.game.paused, false)
-
-    assert.strictEqual(update.args[0][0].game.paused, true)
-    assert.strictEqual(update.args[1][0].game.paused, false)
+    expect(gameEventSpy).toHaveBeenCalledTimes(3)
+    expect(gameEventSpy).toHaveBeenNthCalledWith(1, 'connected')
+    expect(gameEventSpy).toHaveBeenNthCalledWith(2, 'disconnected')
+    expect(gameEventSpy).toHaveBeenNthCalledWith(3, 'connected')
   })
 
   it('Should quit early if a watcher already exists', function() {
-    const telemetry = truckSimTelemetry()
-    const update    = sinon.spy()
+    const telemetry = tst()
+    const update = jest.fn()
 
-    testData = {
-      game:       {paused: false},
-      events:     {},
-      navigation: {},
-      trailers:   [],
-    }
+    testBuffer.writeUInt8(1, 0) // sskActive: true
+    testBuffer.writeUInt8(0, 4) // paused: false
 
     telemetry.watch(null, update)
     telemetry.watch(null, update)
-    clock.tick(500)
-    testData.game.paused = true
+    jest.advanceTimersByTime(500)
+    testBuffer.writeUInt8(1, 4) // paused: true
     telemetry.watch(null, update)
-    clock.tick(500)
-    testData.game.paused = false
-    clock.tick(500)
+    jest.advanceTimersByTime(500)
+    testBuffer.writeUInt8(0, 4) // paused: false
+    jest.advanceTimersByTime(500)
     telemetry.stop()
-    clock.tick(500)
+    jest.advanceTimersByTime(500)
 
-    assert.equal(update.args.length, 2)
+    expect(update).toHaveBeenCalledTimes(2)
   })
 
   it('What happens in the update callback should not affect the data in event emitters', function() {
-    const telemetry = truckSimTelemetry()
+    const telemetry = tst()
+    const gameEmitSpy = jest.spyOn(telemetry.game, 'emit')
 
-    telemetry.game.on('time-change', function(a, b) {
-      a.bar = 'baz'
-      b.baz = 'qux'
-    })
-
-    sinon.stub(telemetry.game, 'emit')
-
-    testData = {
-      game: {
-        time: {value: 0}
-      },
-      events: {},
-      navigation: {},
-      trailers: []
-    }
+    testBuffer.writeUInt8(0, 0) // sskActive: false
+    testBuffer.writeUInt32LE(0, 64) // time_abs: 0
 
     telemetry.watch(null, function(data) {
       data.game.time.foo = 'foobar'
     })
 
-    clock.tick(100)
-    testData.game.time.value = 1
-    clock.tick(100)
-    testData.game.time.value = 2
-    clock.tick(100)
+    jest.advanceTimersByTime(100)
+    testBuffer.writeUInt32LE(1, 64) // time_abs: 1
+    jest.advanceTimersByTime(100)
+    testBuffer.writeUInt32LE(2, 64) // time_abs: 2
+    jest.advanceTimersByTime(100)
 
-    assert.deepStrictEqual(telemetry.game.emit.args, [
-      ['time-change', {value: 1}, {value: 0}],
-      ['time-change', {value: 2}, {value: 1}],
-    ])
+    telemetry.stop()
 
-    telemetry.game.emit.restore()
+    expect(gameEmitSpy).toHaveBeenCalledTimes(2)
+
+    expect(gameEmitSpy).toHaveBeenNthCalledWith(
+      1,
+      'time-change',
+      {value: 1, unix: 345660000},
+      {value: 0, unix: 345600000}
+    )
+
+    expect(gameEmitSpy).toHaveBeenNthCalledWith(
+      2,
+      'time-change',
+      {value: 2, unix: 345720000},
+      {value: 1, unix: 345660000}
+    )
   })
 
   it('What happens in event emitters should not affect the data in the update callback', function() {
-    const telemetry = truckSimTelemetry()
+    const telemetry = tst()
+    const updateSpy = jest.fn()
+    const testData = parseData(converters[12](testBuffer))
 
-    const update = sinon.spy()
+    testBuffer.writeUInt32LE(0, 64) // time_abs: 0
 
-    telemetry.game.on('time-change', function(a, b) {
+    telemetry.game.on('time-change', (a, b) => {
       a.bar = 'baz'
       b.baz = 'qux'
     })
 
-    testData = {
-      game: {
-        time: {value: 0}
-      },
-      events: {},
-      navigation: {},
-      trailers: []
-    }
+    telemetry.watch(null, updateSpy)
 
-    telemetry.watch(null, update)
+    jest.advanceTimersByTime(100)
+    testBuffer.writeUInt32LE(1, 64) // time_abs: 1
+    jest.advanceTimersByTime(100)
+    testBuffer.writeUInt32LE(2, 64) // time_abs: 2
+    jest.advanceTimersByTime(100)
 
-    clock.tick(100)
-    testData.game.time.value = 1
-    clock.tick(100)
-    testData.game.time.value = 2
-    clock.tick(100)
+    telemetry.stop()
 
-    assert.deepStrictEqual(update.args[0][0].game.time, {value: 1})
-    assert.deepStrictEqual(update.args[1][0].game.time, {value: 2})
+    expect(updateSpy).toHaveBeenCalledTimes(2)
+
+    expect(updateSpy).toHaveBeenNthCalledWith(
+      1,
+      {
+        ...testData,
+        game: {
+          ...testData.game,
+          time: {
+            value: 1,
+            unix: 345660000
+          }
+        }
+      }
+    )
+
+    expect(updateSpy).toHaveBeenNthCalledWith(
+      2,
+      {
+        ...testData,
+        game: {
+          ...testData.game,
+          time: {
+            value: 2,
+            unix: 345720000
+          }
+        }
+      }
+    )
   })
-
-  it('Should only run the update callback when the state changes', function() {
-    const telemetry = truckSimTelemetry()
-    const update    = sinon.spy()
-
-    telemetry.watch(null, update)
-
-    clock.tick(200)
-
-    testData.game.paused = false
-    clock.tick(200)
-
-    testData.game.paused = true
-    clock.tick(500)
-
-    testData.game.paused = false
-    clock.tick(500)
-
-    assert.deepStrictEqual(update.args.length, 3)
-  })
-
 })
