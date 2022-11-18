@@ -195,7 +195,7 @@ describe('eventEmitters/job()', function() {
       cargoDamage: 0.6000000238418579,
       distance: {
         km: 1500.0999755859375,
-        miles: 932
+        miles: 932.1189103050235
       },
       startedTimestamp: {
         value: 230,
