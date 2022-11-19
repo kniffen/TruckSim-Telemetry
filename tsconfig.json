@@ -5,8 +5,7 @@
     "skipLibCheck": false,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "target": "es5",
+    "target": "es6",
   },
-  "include": ["tests/typescript/**/*.ts"],
   "exclude": ["node_modules"],
 }

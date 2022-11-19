@@ -8,6 +8,5 @@ build
 # Dist
 **/*.tgz
 
-# Test data
-tests/typescript/data/*
+# Tests
 coverage
