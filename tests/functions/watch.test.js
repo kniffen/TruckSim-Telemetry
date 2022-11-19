@@ -1,5 +1,5 @@
 const tst = require('../../lib')
-const converters = require('../../lib/converters')
+const { converter } = require('../../lib/converter')
 const parseData = require('../../lib/parser/parseData')
 const functions = require('../../lib/functions')
 const getBufferMock = require('../../lib/utils/getBuffer')
@@ -9,6 +9,7 @@ jest.mock('../../lib/utils/getBuffer', () => jest.fn())
 
 describe('watch()', function() {
   let testBuffer = null
+  const version = 12
   const getDataSpy = jest.spyOn(functions, 'getData')
 
   beforeAll(function() {
@@ -17,7 +18,7 @@ describe('watch()', function() {
   })
 
   beforeEach(function() {
-    testBuffer = Buffer.from(testBuffers[12])
+    testBuffer = Buffer.from(testBuffers[version])
   })
 
   afterAll(function() {
@@ -139,7 +140,7 @@ describe('watch()', function() {
   it('What happens in event emitters should not affect the data in the update callback', function() {
     const telemetry = tst()
     const updateSpy = jest.fn()
-    const testData = parseData(converters[12](testBuffer))
+    const testData = parseData(converter(version, testBuffer))
 
     testBuffer.writeUInt32LE(0, 64) // time_abs: 0
 
