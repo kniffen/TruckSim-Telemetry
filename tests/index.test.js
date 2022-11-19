@@ -1,5 +1,5 @@
 const tst = require('../lib')
-const converters = require('../lib/converters')
+const { converter } = require('../lib/converter')
 const functions = require('../lib/functions')
 const parseData = require('../lib/parser/parseData.js')
 const getBufferMock = require('../lib/utils/getBuffer.js')
@@ -9,8 +9,9 @@ const testBuffers = require('./testBuffers')
 jest.mock('../lib/utils/getBuffer', () => jest.fn())
 
 describe('truckSimTelemetry()', function() {
-  const testBuffer = testBuffers[12]
-  const testData = parseData(converters[12](testBuffer))
+  const version = 12
+  const testBuffer = testBuffers[version]
+  const testData = parseData(converter(version, testBuffer))
   const getDataSpy = jest.spyOn(functions, 'getData')
 
   beforeAll(function() {

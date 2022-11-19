@@ -3,7 +3,7 @@ const cloneDeep = require('lodash.clonedeep')
 const tst = require('../../lib')
 
 const testBuffers = require('../testBuffers')
-const converters = require('../../lib/converters')
+const { converter } = require('../../lib/converter')
 const getDataMock = require('../../lib/functions/getData')
 const parser = require('../../lib/parser/parseData.js')
 
@@ -21,7 +21,8 @@ describe('eventEmitters/truck()', function() {
   })
 
   beforeEach(function() {
-    testData = parser(converters[12](testBuffers[12]))
+    const version = 12
+    testData = parser(converter(version, testBuffers[version]))
   })
 
   afterEach(function() {

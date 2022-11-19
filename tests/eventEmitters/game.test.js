@@ -3,7 +3,7 @@ const cloneDeep = require('lodash.clonedeep')
 const tst = require('../../lib')
 
 const testBuffers = require('../testBuffers')
-const converters = require('../../lib/converters')
+const { converter } = require('../../lib/converter')
 const getDataMock = require('../../lib/functions/getData')
 const parser = require('../../lib/parser/parseData.js')
 
@@ -21,7 +21,8 @@ describe('eventEmitters/game()', function() {
   })
 
   beforeEach(function() {
-    testData = parser(converters[12](testBuffers[12]))
+    const version = 12
+    testData = parser(converter(version, testBuffers[version]))
   })
 
   afterEach(function() {
@@ -125,7 +126,7 @@ describe('eventEmitters/game()', function() {
     
     const expected = {
       amount: 1200000000000000,
-      offence: {id: 'fineOffence', name: 'FineOffence'}
+      offence: {id: 'fine_offence', name: 'Fine Offence'}
     }
 
     expect(telemetry.game.emit).toHaveBeenCalledTimes(4)

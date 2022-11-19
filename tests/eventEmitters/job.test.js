@@ -3,7 +3,7 @@ const cloneDeep = require('lodash.clonedeep')
 const tst = require('../../lib')
 
 const testBuffers = require('../testBuffers')
-const converters = require('../../lib/converters')
+const { converter } = require('../../lib/converter')
 const getDataMock = require('../../lib/functions/getData')
 const parser = require('../../lib/parser/parseData.js')
 
@@ -21,7 +21,8 @@ describe('eventEmitters/job()', function() {
   })
 
   beforeEach(function() {
-    testData = parser(converters[12](testBuffers[12]))
+    const version = 12
+    testData = parser(converter(version, testBuffers[version]))
   })
 
   afterEach(function() {
@@ -82,8 +83,8 @@ describe('eventEmitters/job()', function() {
         miles: 62
       },
       market: {
-        id: 'jobMarket',
-        name: 'JobMarket',
+        id: 'job_market',
+        name: 'Job Market',
       },
       source: {
         city: {id: 'citySrcId', name: 'citySrc'},
@@ -144,8 +145,8 @@ describe('eventEmitters/job()', function() {
         miles: 62
       },
       market: {
-        id: 'jobMarket',
-        name: 'JobMarket',
+        id: 'job_market',
+        name: 'Job Market',
       },
       source: {
         city: {id: 'citySrcId', name: 'citySrc'},
@@ -195,7 +196,7 @@ describe('eventEmitters/job()', function() {
       cargoDamage: 0.6000000238418579,
       distance: {
         km: 1500.0999755859375,
-        miles: 932
+        miles: 932.1189103050235
       },
       startedTimestamp: {
         value: 230,
@@ -214,8 +215,8 @@ describe('eventEmitters/job()', function() {
         miles: 62
       },
       market: {
-        id: 'jobMarket',
-        name: 'JobMarket',
+        id: 'job_market',
+        name: 'Job Market',
       },
       source: {
         city: {id: 'citySrcId', name: 'citySrc'},
