@@ -1,5 +1,11 @@
 Changelog
 
+V0.19.0 - 2022-11-19
+- General improvement data conversion and parsing
+- Fixed parsing of big numbers (timestamps, multiplayer time offset, job cancelled penalty, job delivered revenue, fine amount, tollgate amount, ferry amount and train amount)
+- Fixed Cruise control decrease event triggering when cruise control speed falls to 0
+- Fixed miles value for job distance not being floating point
+
 V0.18.0 - 2022-11-11
 - Removed support for plugin version 1.11.1
 - Added support for plugin version 1.12
