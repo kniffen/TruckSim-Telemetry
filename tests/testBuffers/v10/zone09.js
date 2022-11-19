@@ -26,9 +26,9 @@ writer.writeString('truckLicensePlate',          stringSize) // truckLicensePlat
 writer.writeString('truckLicensePlateCountryId', stringSize) // truckLicensePlateCountryId
 writer.writeString('truckLicensePlateCountry',   stringSize) // truckLicensePlateCountry
 
-writer.writeString('jobMarket', 32) // jobMarket
+writer.writeString('job_market', 32) // jobMarket
 
-writer.writeString('fineOffence',     32)         // fineOffence
+writer.writeString('fine_offence',     32)         // fineOffence
 writer.writeString('ferrySourceName', stringSize) // ferrySourceName
 writer.writeString('ferryTargetName', stringSize) // ferryTargetName
 writer.writeString('ferrySourceId',   stringSize) // ferrySourceId

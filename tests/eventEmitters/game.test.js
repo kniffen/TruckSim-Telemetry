@@ -125,7 +125,7 @@ describe('eventEmitters/game()', function() {
     
     const expected = {
       amount: 1200000000000000,
-      offence: {id: 'fineOffence', name: 'FineOffence'}
+      offence: {id: 'fine_offence', name: 'Fine Offence'}
     }
 
     expect(telemetry.game.emit).toHaveBeenCalledTimes(4)

@@ -82,8 +82,8 @@ describe('eventEmitters/job()', function() {
         miles: 62
       },
       market: {
-        id: 'jobMarket',
-        name: 'JobMarket',
+        id: 'job_market',
+        name: 'Job Market',
       },
       source: {
         city: {id: 'citySrcId', name: 'citySrc'},
@@ -144,8 +144,8 @@ describe('eventEmitters/job()', function() {
         miles: 62
       },
       market: {
-        id: 'jobMarket',
-        name: 'JobMarket',
+        id: 'job_market',
+        name: 'Job Market',
       },
       source: {
         city: {id: 'citySrcId', name: 'citySrc'},
@@ -214,8 +214,8 @@ describe('eventEmitters/job()', function() {
         miles: 62
       },
       market: {
-        id: 'jobMarket',
-        name: 'JobMarket',
+        id: 'job_market',
+        name: 'Job Market',
       },
       source: {
         city: {id: 'citySrcId', name: 'citySrc'},
