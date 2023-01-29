@@ -1,5 +1,8 @@
 Changelog
 
+V0.19.1 - 2023-01-29
+- Updated license
+
 V0.19.0 - 2022-11-19
 - General improvement data conversion and parsing
 - Fixed parsing of big numbers (timestamps, multiplayer time offset, job cancelled penalty, job delivered revenue, fine amount, tollgate amount, ferry amount and train amount)
