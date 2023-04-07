@@ -5,7 +5,7 @@ const start  = 4400
 const end    = 6000
 const writer = createWriter(Buffer.alloc(end-start))
 
-for (let i = 1; i <= 25; i++) {
+for (let i = 1; 25 >= i; i++) {
   writer.writeString(`substances-${i}`, stringSize)
 }
 
