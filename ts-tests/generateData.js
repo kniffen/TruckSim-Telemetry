@@ -1,9 +1,9 @@
 const path = require('path')
 const fs   = require('fs')
 
-const testBuffers = require('../testBuffers')
-const { converter } = require('../../lib/converter')
-const parser      = require('../../lib/parser/parseData')
+const testBuffers = require('../test-buffers')
+const { converter } = require('../lib/converter')
+const parser      = require('../lib/parser/parseData')
 
 const dataDirPath = path.resolve(__dirname, 'data')
 

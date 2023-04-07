@@ -7,6 +7,6 @@
     "esModuleInterop": true,
     "target": "es5",
   },
-  "include": ["tests/typescript/**/*.ts"],
+  "include": ["ts-tests/**/*.ts"],
   "exclude": ["node_modules"],
 }

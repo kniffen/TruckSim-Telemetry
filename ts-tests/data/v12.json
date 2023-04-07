@@ -1,0 +1,3327 @@
+{
+   "game": {
+      "sdkActive": true,
+      "paused": true,
+      "timestamp": {
+         "value": 1000000000000000
+      },
+      "simulationTimestamp": {
+         "value": 1100000000000000
+      },
+      "renderTimestamp": {
+         "value": 1200000000000000
+      },
+      "multiplayerTimeOffset": {
+         "value": 1300000000000000
+      },
+      "pluginVersion": 12,
+      "version": 1.18,
+      "game": {
+         "id": 1,
+         "name": "ets2"
+      },
+      "telemetryVersion": 1.14,
+      "time": {
+         "value": 60,
+         "unix": 349200000
+      },
+      "maxTrailerCount": 10,
+      "scale": 3.0999999046325684
+   },
+   "truck": {
+      "transmission": {
+         "forwardGears": 12,
+         "reverseGears": 2,
+         "selectors": 1,
+         "slot": 1,
+         "slots": [
+            {
+               "handlePosition": 2,
+               "selector": 3,
+               "gear": 0
+            },
+            {
+               "handlePosition": 3,
+               "selector": 4,
+               "gear": 1
+            },
+            {
+               "handlePosition": 4,
+               "selector": 5,
+               "gear": 2
+            },
+            {
+               "handlePosition": 5,
+               "selector": 6,
+               "gear": 3
+            },
+            {
+               "handlePosition": 6,
+               "selector": 7,
+               "gear": 4
+            },
+            {
+               "handlePosition": 7,
+               "selector": 8,
+               "gear": 5
+            },
+            {
+               "handlePosition": 8,
+               "selector": 9,
+               "gear": 6
+            },
+            {
+               "handlePosition": 9,
+               "selector": 10,
+               "gear": 7
+            },
+            {
+               "handlePosition": 10,
+               "selector": 11,
+               "gear": 8
+            },
+            {
+               "handlePosition": 11,
+               "selector": 12,
+               "gear": 9
+            },
+            {
+               "handlePosition": 12,
+               "selector": 13,
+               "gear": 10
+            },
+            {
+               "handlePosition": 13,
+               "selector": 14,
+               "gear": 11
+            },
+            {
+               "handlePosition": 14,
+               "selector": 15,
+               "gear": 12
+            },
+            {
+               "handlePosition": 15,
+               "selector": 16,
+               "gear": 13
+            },
+            {
+               "handlePosition": 16,
+               "selector": 17,
+               "gear": 14
+            },
+            {
+               "handlePosition": 17,
+               "selector": 18,
+               "gear": 15
+            },
+            {
+               "handlePosition": 18,
+               "selector": 19,
+               "gear": 16
+            },
+            {
+               "handlePosition": 19,
+               "selector": 20,
+               "gear": 17
+            },
+            {
+               "handlePosition": 20,
+               "selector": 21,
+               "gear": 18
+            },
+            {
+               "handlePosition": 21,
+               "selector": 22,
+               "gear": 19
+            },
+            {
+               "handlePosition": 22,
+               "selector": 23,
+               "gear": 20
+            },
+            {
+               "handlePosition": 23,
+               "selector": 24,
+               "gear": 21
+            },
+            {
+               "handlePosition": 24,
+               "selector": 25,
+               "gear": 22
+            },
+            {
+               "handlePosition": 25,
+               "selector": 26,
+               "gear": 23
+            },
+            {
+               "handlePosition": 26,
+               "selector": 27,
+               "gear": 24
+            },
+            {
+               "handlePosition": 27,
+               "selector": 28,
+               "gear": 25
+            },
+            {
+               "handlePosition": 28,
+               "selector": 29,
+               "gear": 26
+            },
+            {
+               "handlePosition": 29,
+               "selector": 30,
+               "gear": 27
+            },
+            {
+               "handlePosition": 30,
+               "selector": 31,
+               "gear": 28
+            },
+            {
+               "handlePosition": 31,
+               "selector": 32,
+               "gear": 29
+            },
+            {
+               "handlePosition": 32,
+               "selector": 33,
+               "gear": 30
+            },
+            {
+               "handlePosition": 33,
+               "selector": 34,
+               "gear": 31
+            }
+         ],
+         "gear": {
+            "selected": 1,
+            "displayed": 2
+         },
+         "gearRatiosForward": [
+            10.199999809265137,
+            10.300000190734863,
+            10.399999618530273,
+            10.5,
+            10.600000381469727,
+            10.699999809265137,
+            10.800000190734863,
+            10.899999618530273,
+            11,
+            11.100000381469727,
+            11.199999809265137,
+            11.300000190734863,
+            11.399999618530273,
+            11.5,
+            11.600000381469727,
+            11.699999809265137,
+            11.800000190734863,
+            11.899999618530273,
+            12,
+            12.100000381469727,
+            12.199999809265137,
+            12.300000190734863,
+            12.399999618530273,
+            12.5
+         ],
+         "gearRatiosReverse": [
+            -14.399999618530273,
+            -14.300000190734863,
+            -14.199999809265137,
+            -14.100000381469727,
+            -14,
+            -13.899999618530273,
+            -13.800000190734863,
+            -13.699999809265137
+         ],
+         "damage": 0.30000001192092896,
+         "selector": [
+            true,
+            false
+         ],
+         "shifterType": "shifterType"
+      },
+      "brakes": {
+         "retarder": {
+            "steps": 5,
+            "level": 0
+         },
+         "airPressure": {
+            "warning": {
+               "factor": 60.599998474121094,
+               "enabled": true
+            },
+            "emergency": {
+               "factor": 34.599998474121094,
+               "enabled": true
+            },
+            "value": 145.60000610351562
+         },
+         "temperature": {
+            "value": 25.600000381469727
+         },
+         "parking": {
+            "enabled": true
+         },
+         "motor": {
+            "enabled": true
+         }
+      },
+      "wheels": [
+         {
+            "substance": {
+               "id": 1,
+               "name": "substances-2"
+            },
+            "radius": 0.6000000238418579,
+            "suspDeflection": 0.10100000351667404,
+            "velocity": 0.10001000016927719,
+            "steering": 0.10000000149011612,
+            "rotation": 0.6000000238418579,
+            "lift": 0.10000000149011612,
+            "liftOffset": 0.10000000149011612,
+            "position": {
+               "X": 1.090000033378601,
+               "Y": 0.6000000238418579,
+               "Z": -1.899999976158142
+            },
+            "steerable": true,
+            "simulated": true,
+            "powered": true,
+            "liftable": true,
+            "onGround": true,
+            "damage": 0.6000000238418579
+         },
+         {
+            "substance": {
+               "id": 2,
+               "name": "substances-3"
+            },
+            "radius": 0.699999988079071,
+            "suspDeflection": 0.20100000500679016,
+            "velocity": 0.2000100016593933,
+            "steering": 0.20000000298023224,
+            "rotation": 0.699999988079071,
+            "lift": 0.20000000298023224,
+            "liftOffset": 0.20000000298023224,
+            "position": {
+               "X": 1.190000057220459,
+               "Y": 0.699999988079071,
+               "Z": -1.7999999523162842
+            },
+            "steerable": false,
+            "simulated": false,
+            "powered": false,
+            "liftable": false,
+            "onGround": false,
+            "damage": 0.6000000238418579
+         },
+         {
+            "substance": {
+               "id": 3,
+               "name": "substances-4"
+            },
+            "radius": 0.800000011920929,
+            "suspDeflection": 0.3009999990463257,
+            "velocity": 0.30000999569892883,
+            "steering": 0.30000001192092896,
+            "rotation": 0.800000011920929,
+            "lift": 0.30000001192092896,
+            "liftOffset": 0.30000001192092896,
+            "position": {
+               "X": 1.2899999618530273,
+               "Y": 0.800000011920929,
+               "Z": -1.7000000476837158
+            },
+            "steerable": true,
+            "simulated": true,
+            "powered": true,
+            "liftable": true,
+            "onGround": true,
+            "damage": 0.6000000238418579
+         },
+         {
+            "substance": {
+               "id": 4,
+               "name": "substances-5"
+            },
+            "radius": 0.8999999761581421,
+            "suspDeflection": 0.4009999930858612,
+            "velocity": 0.40000998973846436,
+            "steering": 0.4000000059604645,
+            "rotation": 0.8999999761581421,
+            "lift": 0.4000000059604645,
+            "liftOffset": 0.4000000059604645,
+            "position": {
+               "X": 1.3899999856948853,
+               "Y": 0.8999999761581421,
+               "Z": -1.600000023841858
+            },
+            "steerable": false,
+            "simulated": false,
+            "powered": false,
+            "liftable": false,
+            "onGround": false,
+            "damage": 0.6000000238418579
+         },
+         {
+            "substance": {
+               "id": 5,
+               "name": "substances-6"
+            },
+            "radius": 1,
+            "suspDeflection": 0.5009999871253967,
+            "velocity": 0.5000100135803223,
+            "steering": 0.5,
+            "rotation": 1,
+            "lift": 0.5,
+            "liftOffset": 0.5,
+            "position": {
+               "X": 1.4900000095367432,
+               "Y": 1,
+               "Z": -1.5
+            },
+            "steerable": true,
+            "simulated": true,
+            "powered": true,
+            "liftable": true,
+            "onGround": true,
+            "damage": 0.6000000238418579
+         },
+         {
+            "substance": {
+               "id": 6,
+               "name": "substances-7"
+            },
+            "radius": 1.100000023841858,
+            "suspDeflection": 0.6010000109672546,
+            "velocity": 0.6000099778175354,
+            "steering": 0.6000000238418579,
+            "rotation": 1.100000023841858,
+            "lift": 0.6000000238418579,
+            "liftOffset": 0.6000000238418579,
+            "position": {
+               "X": 1.590000033378601,
+               "Y": 1.100000023841858,
+               "Z": -1.399999976158142
+            },
+            "steerable": false,
+            "simulated": false,
+            "powered": false,
+            "liftable": false,
+            "onGround": false,
+            "damage": 0.6000000238418579
+         }
+      ],
+      "lights": {
+         "auxFront": {
+            "value": 1
+         },
+         "auxRoof": {
+            "value": 0
+         },
+         "dashboardBacklight": 0.6000000238418579,
+         "blinker": {
+            "left": {
+               "enabled": true,
+               "active": true
+            },
+            "right": {
+               "enabled": true,
+               "active": true
+            }
+         },
+         "parking": {
+            "enabled": true
+         },
+         "beamLow": {
+            "enabled": true
+         },
+         "beamHigh": {
+            "enabled": true
+         },
+         "beacon": {
+            "enabled": true
+         },
+         "brake": {
+            "enabled": true
+         },
+         "reverse": {
+            "enabled": true
+         },
+         "hazard": {
+            "enabled": true
+         }
+      },
+      "fuel": {
+         "capacity": 500.1000061035156,
+         "warning": {
+            "factor": 0.25,
+            "enabled": true
+         },
+         "value": 300.6000061035156,
+         "avgConsumption": 10.600000381469727,
+         "range": 650.5999755859375
+      },
+      "adBlue": {
+         "capacity": 80.0999984741211,
+         "warning": {
+            "factor": 0.25,
+            "enabled": true
+         },
+         "value": 50.599998474121094
+      },
+      "engine": {
+         "oilPressure": {
+            "warning": {
+               "factor": 10.600000381469727,
+               "enabled": true
+            },
+            "value": 35.599998474121094
+         },
+         "waterTemperature": {
+            "warning": {
+               "factor": 105.0999984741211,
+               "enabled": true
+            },
+            "value": 60.099998474121094
+         },
+         "batteryVoltage": {
+            "warning": {
+               "factor": 23.600000381469727,
+               "enabled": true
+            },
+            "value": 12.100000381469727
+         },
+         "rpm": {
+            "max": 2500.10009765625,
+            "value": 550.5999755859375
+         },
+         "oilTemperature": {
+            "value": 80.5999984741211
+         },
+         "damage": 0.20000000298023224,
+         "enabled": true
+      },
+      "differential": {
+         "ratio": 2.5999999046325684,
+         "lock": {
+            "enabled": true
+         }
+      },
+      "speed": {
+         "value": 16.766700744628906,
+         "kph": 60,
+         "mph": 38
+      },
+      "cruiseControl": {
+         "value": 0.10000000149011612,
+         "kph": 0,
+         "mph": 0,
+         "enabled": true
+      },
+      "cabin": {
+         "damage": 0.4000000059604645,
+         "position": {
+            "X": 0.10000000149011612,
+            "Y": 1.600000023841858,
+            "Z": -2.4000000953674316
+         },
+         "acceleration": {
+            "angularVelocity": {
+               "X": 0.09950000047683716,
+               "Y": 0.10000000149011612,
+               "Z": 0.10005000233650208
+            },
+            "angularAcceleration": {
+               "X": 0.09939999878406525,
+               "Y": 0.10000000149011612,
+               "Z": 0.10006000101566315
+            }
+         },
+         "offset": {
+            "position": {
+               "X": 0.10100000351667404,
+               "Y": 0.10010000318288803,
+               "Z": 0.10001000016927719
+            },
+            "orientation": {
+               "heading": 5.599999904632568,
+               "pitch": 4.599999904632568,
+               "roll": 3.5999999046325684
+            }
+         }
+      },
+      "chassis": {
+         "damage": 0.5
+      },
+      "odometer": 2500.10009765625,
+      "electric": {
+         "enabled": true
+      },
+      "wipers": {
+         "enabled": true
+      },
+      "liftAxle": {
+         "enabled": true,
+         "indicator": {
+            "enabled": true
+         }
+      },
+      "head": {
+         "position": {
+            "X": -0.4000000059604645,
+            "Y": 1.2999999523162842,
+            "Z": 0.4000000059604645
+         },
+         "offset": {
+            "position": {
+               "X": 0.10000000149011612,
+               "Y": -0.4000000059604645,
+               "Z": 0.6000000238418579
+            },
+            "orientation": {
+               "heading": 0.10499999672174454,
+               "pitch": 0.05000000074505806,
+               "roll": 0.10000000149011612
+            }
+         }
+      },
+      "hook": {
+         "position": {
+            "X": 0.10000000149011612,
+            "Y": 1.100000023841858,
+            "Z": 1.190000057220459
+         }
+      },
+      "acceleration": {
+         "linearVelocity": {
+            "X": 0.09989999979734421,
+            "Y": 0.10000000149011612,
+            "Z": 0.10001000016927719
+         },
+         "angularVelocity": {
+            "X": 0.0997999981045723,
+            "Y": 0.10000000149011612,
+            "Z": 0.10001999884843826
+         },
+         "linearAcceleration": {
+            "X": 0.09969999641180038,
+            "Y": 0.10000000149011612,
+            "Z": 0.10002999752759933
+         },
+         "angularAcceleration": {
+            "X": 0.09960000216960907,
+            "Y": 0.10000000149011612,
+            "Z": 0.100040003657341
+         }
+      },
+      "position": {
+         "X": 15000.1,
+         "Y": -1.9,
+         "Z": -29999.9
+      },
+      "orientation": {
+         "heading": 0.6,
+         "pitch": 0.1,
+         "roll": 1.3
+      },
+      "make": {
+         "id": "truckBrandId",
+         "name": "truckBrand"
+      },
+      "model": {
+         "id": "truckId",
+         "name": "truckName"
+      },
+      "licensePlate": {
+         "value": "truckLicensePlate",
+         "country": {
+            "id": "truckLicensePlateCountryId",
+            "name": "truckLicensePlateCountry"
+         }
+      },
+      "damage": {
+         "cabin": 0.4000000059604645,
+         "chassis": 0.5,
+         "engine": 0.20000000298023224,
+         "transmission": 0.30000001192092896,
+         "wheels": 0.6000000238418579,
+         "total": 0.6000000238418579
+      },
+      "brand": {
+         "id": "truckBrandId",
+         "name": "truckBrand"
+      }
+   },
+   "job": {
+      "expectedDeliveryTimestamp": {
+         "value": 120,
+         "unix": 352800000
+      },
+      "plannedDistance": {
+         "km": 100,
+         "miles": 62
+      },
+      "cargo": {
+         "mass": 20000.599609375,
+         "unitMass": 645.5999755859375,
+         "damage": 0.30000001192092896,
+         "isLoaded": true,
+         "id": "cargoId",
+         "name": "cargo"
+      },
+      "isSpecial": true,
+      "destination": {
+         "city": {
+            "id": "cityDstId",
+            "name": "cityDst"
+         },
+         "company": {
+            "id": "compDstId",
+            "name": "compDst"
+         }
+      },
+      "source": {
+         "city": {
+            "id": "citySrcId",
+            "name": "citySrc"
+         },
+         "company": {
+            "id": "compSrcId",
+            "name": "compSrc"
+         }
+      },
+      "market": {
+         "id": "job_market",
+         "name": "Job Market"
+      },
+      "income": 957530112
+   },
+   "trailer": {
+      "wheels": [
+         {
+            "substance": {
+               "id": 1,
+               "name": "substances-2"
+            },
+            "lift": 0.10000000149011612,
+            "liftOffset": 0.10000000149011612,
+            "radius": 0.6000000238418579,
+            "rotation": 0.6000000238418579,
+            "steering": 0.10000000149011612,
+            "suspDeflection": 0.10100000351667404,
+            "velocity": 0.10010000318288803,
+            "liftable": true,
+            "onGround": true,
+            "powered": true,
+            "simulated": true,
+            "steerable": true,
+            "position": {
+               "X": -0.4000000059604645,
+               "Y": 0.6000000238418579,
+               "Z": 1.600000023841858
+            }
+         },
+         {
+            "substance": {
+               "id": 2,
+               "name": "substances-3"
+            },
+            "lift": 0.20000000298023224,
+            "liftOffset": 0.20000000298023224,
+            "radius": 0.699999988079071,
+            "rotation": 0.699999988079071,
+            "steering": 0.20000000298023224,
+            "suspDeflection": 0.20100000500679016,
+            "velocity": 0.20010000467300415,
+            "liftable": false,
+            "onGround": false,
+            "powered": false,
+            "simulated": false,
+            "steerable": false,
+            "position": {
+               "X": -0.30000001192092896,
+               "Y": 0.699999988079071,
+               "Z": 1.7000000476837158
+            }
+         },
+         {
+            "substance": {
+               "id": 3,
+               "name": "substances-4"
+            },
+            "lift": 0.30000001192092896,
+            "liftOffset": 0.30000001192092896,
+            "radius": 0.800000011920929,
+            "rotation": 0.800000011920929,
+            "steering": 0.30000001192092896,
+            "suspDeflection": 0.3009999990463257,
+            "velocity": 0.3000999987125397,
+            "liftable": true,
+            "onGround": true,
+            "powered": true,
+            "simulated": true,
+            "steerable": true,
+            "position": {
+               "X": -0.20000000298023224,
+               "Y": 0.800000011920929,
+               "Z": 1.7999999523162842
+            }
+         },
+         {
+            "substance": {
+               "id": 4,
+               "name": "substances-5"
+            },
+            "lift": 0.4000000059604645,
+            "liftOffset": 0.4000000059604645,
+            "radius": 0.8999999761581421,
+            "rotation": 0.8999999761581421,
+            "steering": 0.4000000059604645,
+            "suspDeflection": 0.4009999930858612,
+            "velocity": 0.4000999927520752,
+            "liftable": false,
+            "onGround": false,
+            "powered": false,
+            "simulated": false,
+            "steerable": false,
+            "position": {
+               "X": -0.10000000149011612,
+               "Y": 0.8999999761581421,
+               "Z": 1.899999976158142
+            }
+         },
+         {
+            "substance": {
+               "id": 5,
+               "name": "substances-6"
+            },
+            "lift": 0.5,
+            "liftOffset": 0.5,
+            "radius": 1,
+            "rotation": 1,
+            "steering": 0.5,
+            "suspDeflection": 0.5009999871253967,
+            "velocity": 0.5001000165939331,
+            "liftable": true,
+            "onGround": true,
+            "powered": true,
+            "simulated": true,
+            "steerable": true,
+            "position": {
+               "X": 0,
+               "Y": 1,
+               "Z": 2
+            }
+         },
+         {
+            "substance": {
+               "id": 6,
+               "name": "substances-7"
+            },
+            "lift": 0.6000000238418579,
+            "liftOffset": 0.6000000238418579,
+            "radius": 1.100000023841858,
+            "rotation": 1.100000023841858,
+            "steering": 0.6000000238418579,
+            "suspDeflection": 0.6010000109672546,
+            "velocity": 0.6000999808311462,
+            "liftable": false,
+            "onGround": false,
+            "powered": false,
+            "simulated": false,
+            "steerable": false,
+            "position": {
+               "X": 0.10000000149011612,
+               "Y": 1.100000023841858,
+               "Z": 2.0999999046325684
+            }
+         }
+      ],
+      "attached": true,
+      "cargo": {
+         "damage": 0.20000000298023224
+      },
+      "chassis": {
+         "damage": 0.30000001192092896
+      },
+      "body": {
+         "damage": 0.5
+      },
+      "acceleration": {
+         "linearVelocity": {
+            "X": 0.10100000351667404,
+            "Y": 0.10000000149011612,
+            "Z": 0.10010000318288803
+         },
+         "angularVelocity": {
+            "X": 0.10199999809265137,
+            "Y": 0.10000000149011612,
+            "Z": 0.10019999742507935
+         },
+         "linearAcceleration": {
+            "X": 0.09700000286102295,
+            "Y": 0.10000000149011612,
+            "Z": 0.10029999911785126
+         },
+         "angularAcceleration": {
+            "X": 0.10400000214576721,
+            "Y": 0.10000000149011612,
+            "Z": 0.10040000081062317
+         }
+      },
+      "hook": {
+         "position": {
+            "X": 0.10000000149011612,
+            "Y": 1.100000023841858,
+            "Z": -5.400000095367432
+         }
+      },
+      "position": {
+         "X": 1600.1,
+         "Y": -1.4,
+         "Z": -30499.9
+      },
+      "orientation": {
+         "heading": 0.6,
+         "pitch": 0.0995,
+         "roll": 5.6
+      },
+      "model": {
+         "id": "id",
+         "name": "name"
+      },
+      "accessoryId": "cargoAcessoryId",
+      "bodyType": "bodyType",
+      "make": {
+         "id": "brandId",
+         "name": "brand"
+      },
+      "chainType": "chainType",
+      "licensePlate": {
+         "value": "licensePlate",
+         "country": {
+            "name": "licensePlateCountry",
+            "id": "licensePlateCountryId"
+         }
+      },
+      "damage": {
+         "cargo": 0.20000000298023224,
+         "chassis": 0.30000001192092896,
+         "wheels": 0.4000000059604645,
+         "body": 0.5,
+         "total": 0.5
+      },
+      "liftAxle": {
+         "enabled": true,
+         "indicator": {
+            "enabled": true
+         }
+      },
+      "brand": {
+         "id": "brandId",
+         "name": "brand"
+      }
+   },
+   "events": {
+      "job": {
+         "delivered": {
+            "timeTaken": 10800000,
+            "startedTimestamp": {
+               "value": 230,
+               "unix": 359400000
+            },
+            "deliveredTimestamp": {
+               "value": 310,
+               "unix": 364200000
+            },
+            "earnedXP": 50,
+            "cargoDamage": 0.6000000238418579,
+            "distance": {
+               "km": 1500.0999755859375,
+               "miles": 932.1189103050235
+            },
+            "autoParked": true,
+            "revenue": 1100000000000000,
+            "active": true
+         },
+         "started": {
+            "autoLoaded": true,
+            "active": true
+         },
+         "cancelled": {
+            "penalty": 1000000000000000,
+            "active": true,
+            "startedTimestamp": {
+               "value": 230,
+               "unix": 359400000
+            },
+            "cancelledTimestamp": {
+               "value": 310,
+               "unix": 364200000
+            }
+         },
+         "finished": {
+            "active": true
+         }
+      },
+      "refuelPaid": {
+         "amount": 200.10000610351562,
+         "active": true
+      },
+      "fine": {
+         "offence": {
+            "id": "fine_offence",
+            "name": "Fine Offence"
+         },
+         "amount": 1200000000000000,
+         "active": true
+      },
+      "ferry": {
+         "source": {
+            "name": "ferrySourceName",
+            "id": "ferrySourceId"
+         },
+         "destination": {
+            "name": "ferryTargetName",
+            "id": "ferryTargetId"
+         },
+         "amount": 1400000000000000,
+         "active": true,
+         "target": {
+            "name": "ferryTargetName",
+            "id": "ferryTargetId"
+         }
+      },
+      "train": {
+         "source": {
+            "name": "trainSourceName",
+            "id": "trainSourceId"
+         },
+         "destination": {
+            "name": "trainTargetName",
+            "id": "trainTargetId"
+         },
+         "amount": 1500000000000000,
+         "active": true,
+         "target": {
+            "name": "trainTargetName",
+            "id": "trainTargetId"
+         }
+      },
+      "tollgate": {
+         "amount": 1300000000000000,
+         "active": true
+      },
+      "refuel": {
+         "active": true
+      }
+   },
+   "navigation": {
+      "nextRestStop": 3600000,
+      "distance": 500.1000061035156,
+      "time": 30100.000381469727,
+      "speedLimit": {
+         "value": 22.322200775146484,
+         "kph": 80,
+         "mph": 50
+      }
+   },
+   "controls": {
+      "input": {
+         "steering": -0.4000000059604645,
+         "throttle": 0.6000000238418579,
+         "brake": 0.20000000298023224,
+         "clutch": 0.30000001192092896
+      },
+      "game": {
+         "steering": 0,
+         "throttle": -0.10000000149011612,
+         "brake": -0.30000001192092896,
+         "clutch": -0.4000000059604645
+      }
+   },
+   "substances": [
+      "substances-1",
+      "substances-2",
+      "substances-3",
+      "substances-4",
+      "substances-5",
+      "substances-6",
+      "substances-7",
+      "substances-8",
+      "substances-9",
+      "substances-10",
+      "substances-11",
+      "substances-12",
+      "substances-13",
+      "substances-14",
+      "substances-15",
+      "substances-16"
+   ],
+   "trailers": [
+      {
+         "wheels": [
+            {
+               "substance": {
+                  "id": 1,
+                  "name": "substances-2"
+               },
+               "lift": 0.10000000149011612,
+               "liftOffset": 0.10000000149011612,
+               "radius": 0.6000000238418579,
+               "rotation": 0.6000000238418579,
+               "steering": 0.10000000149011612,
+               "suspDeflection": 0.10100000351667404,
+               "velocity": 0.10010000318288803,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.4000000059604645,
+                  "Y": 0.6000000238418579,
+                  "Z": 1.600000023841858
+               }
+            },
+            {
+               "substance": {
+                  "id": 2,
+                  "name": "substances-3"
+               },
+               "lift": 0.20000000298023224,
+               "liftOffset": 0.20000000298023224,
+               "radius": 0.699999988079071,
+               "rotation": 0.699999988079071,
+               "steering": 0.20000000298023224,
+               "suspDeflection": 0.20100000500679016,
+               "velocity": 0.20010000467300415,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.30000001192092896,
+                  "Y": 0.699999988079071,
+                  "Z": 1.7000000476837158
+               }
+            },
+            {
+               "substance": {
+                  "id": 3,
+                  "name": "substances-4"
+               },
+               "lift": 0.30000001192092896,
+               "liftOffset": 0.30000001192092896,
+               "radius": 0.800000011920929,
+               "rotation": 0.800000011920929,
+               "steering": 0.30000001192092896,
+               "suspDeflection": 0.3009999990463257,
+               "velocity": 0.3000999987125397,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.20000000298023224,
+                  "Y": 0.800000011920929,
+                  "Z": 1.7999999523162842
+               }
+            },
+            {
+               "substance": {
+                  "id": 4,
+                  "name": "substances-5"
+               },
+               "lift": 0.4000000059604645,
+               "liftOffset": 0.4000000059604645,
+               "radius": 0.8999999761581421,
+               "rotation": 0.8999999761581421,
+               "steering": 0.4000000059604645,
+               "suspDeflection": 0.4009999930858612,
+               "velocity": 0.4000999927520752,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.10000000149011612,
+                  "Y": 0.8999999761581421,
+                  "Z": 1.899999976158142
+               }
+            },
+            {
+               "substance": {
+                  "id": 5,
+                  "name": "substances-6"
+               },
+               "lift": 0.5,
+               "liftOffset": 0.5,
+               "radius": 1,
+               "rotation": 1,
+               "steering": 0.5,
+               "suspDeflection": 0.5009999871253967,
+               "velocity": 0.5001000165939331,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 2
+               }
+            },
+            {
+               "substance": {
+                  "id": 6,
+                  "name": "substances-7"
+               },
+               "lift": 0.6000000238418579,
+               "liftOffset": 0.6000000238418579,
+               "radius": 1.100000023841858,
+               "rotation": 1.100000023841858,
+               "steering": 0.6000000238418579,
+               "suspDeflection": 0.6010000109672546,
+               "velocity": 0.6000999808311462,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": 0.10000000149011612,
+                  "Y": 1.100000023841858,
+                  "Z": 2.0999999046325684
+               }
+            }
+         ],
+         "attached": true,
+         "cargo": {
+            "damage": 0.20000000298023224
+         },
+         "chassis": {
+            "damage": 0.30000001192092896
+         },
+         "body": {
+            "damage": 0.5
+         },
+         "acceleration": {
+            "linearVelocity": {
+               "X": 0.10100000351667404,
+               "Y": 0.10000000149011612,
+               "Z": 0.10010000318288803
+            },
+            "angularVelocity": {
+               "X": 0.10199999809265137,
+               "Y": 0.10000000149011612,
+               "Z": 0.10019999742507935
+            },
+            "linearAcceleration": {
+               "X": 0.09700000286102295,
+               "Y": 0.10000000149011612,
+               "Z": 0.10029999911785126
+            },
+            "angularAcceleration": {
+               "X": 0.10400000214576721,
+               "Y": 0.10000000149011612,
+               "Z": 0.10040000081062317
+            }
+         },
+         "hook": {
+            "position": {
+               "X": 0.10000000149011612,
+               "Y": 1.100000023841858,
+               "Z": -5.400000095367432
+            }
+         },
+         "position": {
+            "X": 1600.1,
+            "Y": -1.4,
+            "Z": -30499.9
+         },
+         "orientation": {
+            "heading": 0.6,
+            "pitch": 0.0995,
+            "roll": 5.6
+         },
+         "model": {
+            "id": "id",
+            "name": "name"
+         },
+         "accessoryId": "cargoAcessoryId",
+         "bodyType": "bodyType",
+         "make": {
+            "id": "brandId",
+            "name": "brand"
+         },
+         "chainType": "chainType",
+         "licensePlate": {
+            "value": "licensePlate",
+            "country": {
+               "name": "licensePlateCountry",
+               "id": "licensePlateCountryId"
+            }
+         },
+         "damage": {
+            "cargo": 0.20000000298023224,
+            "chassis": 0.30000001192092896,
+            "wheels": 0.4000000059604645,
+            "body": 0.5,
+            "total": 0.5
+         },
+         "liftAxle": {
+            "enabled": true,
+            "indicator": {
+               "enabled": true
+            }
+         },
+         "brand": {
+            "id": "brandId",
+            "name": "brand"
+         }
+      },
+      {
+         "wheels": [
+            {
+               "substance": {
+                  "id": 1,
+                  "name": "substances-2"
+               },
+               "lift": 0.10000000149011612,
+               "liftOffset": 0.10000000149011612,
+               "radius": 0.6000000238418579,
+               "rotation": 0.6000000238418579,
+               "steering": 0.10000000149011612,
+               "suspDeflection": 0.10100000351667404,
+               "velocity": 0.10010000318288803,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.4000000059604645,
+                  "Y": 0.6000000238418579,
+                  "Z": 1.600000023841858
+               }
+            },
+            {
+               "substance": {
+                  "id": 2,
+                  "name": "substances-3"
+               },
+               "lift": 0.20000000298023224,
+               "liftOffset": 0.20000000298023224,
+               "radius": 0.699999988079071,
+               "rotation": 0.699999988079071,
+               "steering": 0.20000000298023224,
+               "suspDeflection": 0.20100000500679016,
+               "velocity": 0.20010000467300415,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.30000001192092896,
+                  "Y": 0.699999988079071,
+                  "Z": 1.7000000476837158
+               }
+            },
+            {
+               "substance": {
+                  "id": 3,
+                  "name": "substances-4"
+               },
+               "lift": 0.30000001192092896,
+               "liftOffset": 0.30000001192092896,
+               "radius": 0.800000011920929,
+               "rotation": 0.800000011920929,
+               "steering": 0.30000001192092896,
+               "suspDeflection": 0.3009999990463257,
+               "velocity": 0.3000999987125397,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.20000000298023224,
+                  "Y": 0.800000011920929,
+                  "Z": 1.7999999523162842
+               }
+            },
+            {
+               "substance": {
+                  "id": 4,
+                  "name": "substances-5"
+               },
+               "lift": 0.4000000059604645,
+               "liftOffset": 0.4000000059604645,
+               "radius": 0.8999999761581421,
+               "rotation": 0.8999999761581421,
+               "steering": 0.4000000059604645,
+               "suspDeflection": 0.4009999930858612,
+               "velocity": 0.4000999927520752,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.10000000149011612,
+                  "Y": 0.8999999761581421,
+                  "Z": 1.899999976158142
+               }
+            },
+            {
+               "substance": {
+                  "id": 5,
+                  "name": "substances-6"
+               },
+               "lift": 0.5,
+               "liftOffset": 0.5,
+               "radius": 1,
+               "rotation": 1,
+               "steering": 0.5,
+               "suspDeflection": 0.5009999871253967,
+               "velocity": 0.5001000165939331,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 2
+               }
+            },
+            {
+               "substance": {
+                  "id": 6,
+                  "name": "substances-7"
+               },
+               "lift": 0.6000000238418579,
+               "liftOffset": 0.6000000238418579,
+               "radius": 1.100000023841858,
+               "rotation": 1.100000023841858,
+               "steering": 0.6000000238418579,
+               "suspDeflection": 0.6010000109672546,
+               "velocity": 0.6000999808311462,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": 0.10000000149011612,
+                  "Y": 1.100000023841858,
+                  "Z": 2.0999999046325684
+               }
+            }
+         ],
+         "attached": true,
+         "cargo": {
+            "damage": 0.20000000298023224
+         },
+         "chassis": {
+            "damage": 0.30000001192092896
+         },
+         "body": {
+            "damage": 0.5
+         },
+         "acceleration": {
+            "linearVelocity": {
+               "X": 0.10100000351667404,
+               "Y": 0.10000000149011612,
+               "Z": 0.10010000318288803
+            },
+            "angularVelocity": {
+               "X": 0.10199999809265137,
+               "Y": 0.10000000149011612,
+               "Z": 0.10019999742507935
+            },
+            "linearAcceleration": {
+               "X": 0.09700000286102295,
+               "Y": 0.10000000149011612,
+               "Z": 0.10029999911785126
+            },
+            "angularAcceleration": {
+               "X": 0.10400000214576721,
+               "Y": 0.10000000149011612,
+               "Z": 0.10040000081062317
+            }
+         },
+         "hook": {
+            "position": {
+               "X": 0.10000000149011612,
+               "Y": 1.100000023841858,
+               "Z": -5.400000095367432
+            }
+         },
+         "position": {
+            "X": 1600.1,
+            "Y": -1.4,
+            "Z": -30499.9
+         },
+         "orientation": {
+            "heading": 0.6,
+            "pitch": 0.0995,
+            "roll": 5.6
+         },
+         "model": {
+            "id": "id",
+            "name": "name"
+         },
+         "accessoryId": "cargoAcessoryId",
+         "bodyType": "bodyType",
+         "make": {
+            "id": "brandId",
+            "name": "brand"
+         },
+         "chainType": "chainType",
+         "licensePlate": {
+            "value": "licensePlate",
+            "country": {
+               "name": "licensePlateCountry",
+               "id": "licensePlateCountryId"
+            }
+         },
+         "damage": {
+            "cargo": 0.20000000298023224,
+            "chassis": 0.30000001192092896,
+            "wheels": 0.4000000059604645,
+            "body": 0.5,
+            "total": 0.5
+         },
+         "liftAxle": {
+            "enabled": true,
+            "indicator": {
+               "enabled": true
+            }
+         },
+         "brand": {
+            "id": "brandId",
+            "name": "brand"
+         }
+      },
+      {
+         "wheels": [
+            {
+               "substance": {
+                  "id": 1,
+                  "name": "substances-2"
+               },
+               "lift": 0.10000000149011612,
+               "liftOffset": 0.10000000149011612,
+               "radius": 0.6000000238418579,
+               "rotation": 0.6000000238418579,
+               "steering": 0.10000000149011612,
+               "suspDeflection": 0.10100000351667404,
+               "velocity": 0.10010000318288803,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.4000000059604645,
+                  "Y": 0.6000000238418579,
+                  "Z": 1.600000023841858
+               }
+            },
+            {
+               "substance": {
+                  "id": 2,
+                  "name": "substances-3"
+               },
+               "lift": 0.20000000298023224,
+               "liftOffset": 0.20000000298023224,
+               "radius": 0.699999988079071,
+               "rotation": 0.699999988079071,
+               "steering": 0.20000000298023224,
+               "suspDeflection": 0.20100000500679016,
+               "velocity": 0.20010000467300415,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.30000001192092896,
+                  "Y": 0.699999988079071,
+                  "Z": 1.7000000476837158
+               }
+            },
+            {
+               "substance": {
+                  "id": 3,
+                  "name": "substances-4"
+               },
+               "lift": 0.30000001192092896,
+               "liftOffset": 0.30000001192092896,
+               "radius": 0.800000011920929,
+               "rotation": 0.800000011920929,
+               "steering": 0.30000001192092896,
+               "suspDeflection": 0.3009999990463257,
+               "velocity": 0.3000999987125397,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.20000000298023224,
+                  "Y": 0.800000011920929,
+                  "Z": 1.7999999523162842
+               }
+            },
+            {
+               "substance": {
+                  "id": 4,
+                  "name": "substances-5"
+               },
+               "lift": 0.4000000059604645,
+               "liftOffset": 0.4000000059604645,
+               "radius": 0.8999999761581421,
+               "rotation": 0.8999999761581421,
+               "steering": 0.4000000059604645,
+               "suspDeflection": 0.4009999930858612,
+               "velocity": 0.4000999927520752,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.10000000149011612,
+                  "Y": 0.8999999761581421,
+                  "Z": 1.899999976158142
+               }
+            },
+            {
+               "substance": {
+                  "id": 5,
+                  "name": "substances-6"
+               },
+               "lift": 0.5,
+               "liftOffset": 0.5,
+               "radius": 1,
+               "rotation": 1,
+               "steering": 0.5,
+               "suspDeflection": 0.5009999871253967,
+               "velocity": 0.5001000165939331,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 2
+               }
+            },
+            {
+               "substance": {
+                  "id": 6,
+                  "name": "substances-7"
+               },
+               "lift": 0.6000000238418579,
+               "liftOffset": 0.6000000238418579,
+               "radius": 1.100000023841858,
+               "rotation": 1.100000023841858,
+               "steering": 0.6000000238418579,
+               "suspDeflection": 0.6010000109672546,
+               "velocity": 0.6000999808311462,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": 0.10000000149011612,
+                  "Y": 1.100000023841858,
+                  "Z": 2.0999999046325684
+               }
+            }
+         ],
+         "attached": true,
+         "cargo": {
+            "damage": 0.20000000298023224
+         },
+         "chassis": {
+            "damage": 0.30000001192092896
+         },
+         "body": {
+            "damage": 0.5
+         },
+         "acceleration": {
+            "linearVelocity": {
+               "X": 0.10100000351667404,
+               "Y": 0.10000000149011612,
+               "Z": 0.10010000318288803
+            },
+            "angularVelocity": {
+               "X": 0.10199999809265137,
+               "Y": 0.10000000149011612,
+               "Z": 0.10019999742507935
+            },
+            "linearAcceleration": {
+               "X": 0.09700000286102295,
+               "Y": 0.10000000149011612,
+               "Z": 0.10029999911785126
+            },
+            "angularAcceleration": {
+               "X": 0.10400000214576721,
+               "Y": 0.10000000149011612,
+               "Z": 0.10040000081062317
+            }
+         },
+         "hook": {
+            "position": {
+               "X": 0.10000000149011612,
+               "Y": 1.100000023841858,
+               "Z": -5.400000095367432
+            }
+         },
+         "position": {
+            "X": 1600.1,
+            "Y": -1.4,
+            "Z": -30499.9
+         },
+         "orientation": {
+            "heading": 0.6,
+            "pitch": 0.0995,
+            "roll": 5.6
+         },
+         "model": {
+            "id": "id",
+            "name": "name"
+         },
+         "accessoryId": "cargoAcessoryId",
+         "bodyType": "bodyType",
+         "make": {
+            "id": "brandId",
+            "name": "brand"
+         },
+         "chainType": "chainType",
+         "licensePlate": {
+            "value": "licensePlate",
+            "country": {
+               "name": "licensePlateCountry",
+               "id": "licensePlateCountryId"
+            }
+         },
+         "damage": {
+            "cargo": 0.20000000298023224,
+            "chassis": 0.30000001192092896,
+            "wheels": 0.4000000059604645,
+            "body": 0.5,
+            "total": 0.5
+         },
+         "liftAxle": {
+            "enabled": true,
+            "indicator": {
+               "enabled": true
+            }
+         },
+         "brand": {
+            "id": "brandId",
+            "name": "brand"
+         }
+      },
+      {
+         "wheels": [
+            {
+               "substance": {
+                  "id": 1,
+                  "name": "substances-2"
+               },
+               "lift": 0.10000000149011612,
+               "liftOffset": 0.10000000149011612,
+               "radius": 0.6000000238418579,
+               "rotation": 0.6000000238418579,
+               "steering": 0.10000000149011612,
+               "suspDeflection": 0.10100000351667404,
+               "velocity": 0.10010000318288803,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.4000000059604645,
+                  "Y": 0.6000000238418579,
+                  "Z": 1.600000023841858
+               }
+            },
+            {
+               "substance": {
+                  "id": 2,
+                  "name": "substances-3"
+               },
+               "lift": 0.20000000298023224,
+               "liftOffset": 0.20000000298023224,
+               "radius": 0.699999988079071,
+               "rotation": 0.699999988079071,
+               "steering": 0.20000000298023224,
+               "suspDeflection": 0.20100000500679016,
+               "velocity": 0.20010000467300415,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.30000001192092896,
+                  "Y": 0.699999988079071,
+                  "Z": 1.7000000476837158
+               }
+            },
+            {
+               "substance": {
+                  "id": 3,
+                  "name": "substances-4"
+               },
+               "lift": 0.30000001192092896,
+               "liftOffset": 0.30000001192092896,
+               "radius": 0.800000011920929,
+               "rotation": 0.800000011920929,
+               "steering": 0.30000001192092896,
+               "suspDeflection": 0.3009999990463257,
+               "velocity": 0.3000999987125397,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.20000000298023224,
+                  "Y": 0.800000011920929,
+                  "Z": 1.7999999523162842
+               }
+            },
+            {
+               "substance": {
+                  "id": 4,
+                  "name": "substances-5"
+               },
+               "lift": 0.4000000059604645,
+               "liftOffset": 0.4000000059604645,
+               "radius": 0.8999999761581421,
+               "rotation": 0.8999999761581421,
+               "steering": 0.4000000059604645,
+               "suspDeflection": 0.4009999930858612,
+               "velocity": 0.4000999927520752,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.10000000149011612,
+                  "Y": 0.8999999761581421,
+                  "Z": 1.899999976158142
+               }
+            },
+            {
+               "substance": {
+                  "id": 5,
+                  "name": "substances-6"
+               },
+               "lift": 0.5,
+               "liftOffset": 0.5,
+               "radius": 1,
+               "rotation": 1,
+               "steering": 0.5,
+               "suspDeflection": 0.5009999871253967,
+               "velocity": 0.5001000165939331,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 2
+               }
+            },
+            {
+               "substance": {
+                  "id": 6,
+                  "name": "substances-7"
+               },
+               "lift": 0.6000000238418579,
+               "liftOffset": 0.6000000238418579,
+               "radius": 1.100000023841858,
+               "rotation": 1.100000023841858,
+               "steering": 0.6000000238418579,
+               "suspDeflection": 0.6010000109672546,
+               "velocity": 0.6000999808311462,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": 0.10000000149011612,
+                  "Y": 1.100000023841858,
+                  "Z": 2.0999999046325684
+               }
+            }
+         ],
+         "attached": true,
+         "cargo": {
+            "damage": 0.20000000298023224
+         },
+         "chassis": {
+            "damage": 0.30000001192092896
+         },
+         "body": {
+            "damage": 0.5
+         },
+         "acceleration": {
+            "linearVelocity": {
+               "X": 0.10100000351667404,
+               "Y": 0.10000000149011612,
+               "Z": 0.10010000318288803
+            },
+            "angularVelocity": {
+               "X": 0.10199999809265137,
+               "Y": 0.10000000149011612,
+               "Z": 0.10019999742507935
+            },
+            "linearAcceleration": {
+               "X": 0.09700000286102295,
+               "Y": 0.10000000149011612,
+               "Z": 0.10029999911785126
+            },
+            "angularAcceleration": {
+               "X": 0.10400000214576721,
+               "Y": 0.10000000149011612,
+               "Z": 0.10040000081062317
+            }
+         },
+         "hook": {
+            "position": {
+               "X": 0.10000000149011612,
+               "Y": 1.100000023841858,
+               "Z": -5.400000095367432
+            }
+         },
+         "position": {
+            "X": 1600.1,
+            "Y": -1.4,
+            "Z": -30499.9
+         },
+         "orientation": {
+            "heading": 0.6,
+            "pitch": 0.0995,
+            "roll": 5.6
+         },
+         "model": {
+            "id": "id",
+            "name": "name"
+         },
+         "accessoryId": "cargoAcessoryId",
+         "bodyType": "bodyType",
+         "make": {
+            "id": "brandId",
+            "name": "brand"
+         },
+         "chainType": "chainType",
+         "licensePlate": {
+            "value": "licensePlate",
+            "country": {
+               "name": "licensePlateCountry",
+               "id": "licensePlateCountryId"
+            }
+         },
+         "damage": {
+            "cargo": 0.20000000298023224,
+            "chassis": 0.30000001192092896,
+            "wheels": 0.4000000059604645,
+            "body": 0.5,
+            "total": 0.5
+         },
+         "liftAxle": {
+            "enabled": true,
+            "indicator": {
+               "enabled": true
+            }
+         },
+         "brand": {
+            "id": "brandId",
+            "name": "brand"
+         }
+      },
+      {
+         "wheels": [
+            {
+               "substance": {
+                  "id": 1,
+                  "name": "substances-2"
+               },
+               "lift": 0.10000000149011612,
+               "liftOffset": 0.10000000149011612,
+               "radius": 0.6000000238418579,
+               "rotation": 0.6000000238418579,
+               "steering": 0.10000000149011612,
+               "suspDeflection": 0.10100000351667404,
+               "velocity": 0.10010000318288803,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.4000000059604645,
+                  "Y": 0.6000000238418579,
+                  "Z": 1.600000023841858
+               }
+            },
+            {
+               "substance": {
+                  "id": 2,
+                  "name": "substances-3"
+               },
+               "lift": 0.20000000298023224,
+               "liftOffset": 0.20000000298023224,
+               "radius": 0.699999988079071,
+               "rotation": 0.699999988079071,
+               "steering": 0.20000000298023224,
+               "suspDeflection": 0.20100000500679016,
+               "velocity": 0.20010000467300415,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.30000001192092896,
+                  "Y": 0.699999988079071,
+                  "Z": 1.7000000476837158
+               }
+            },
+            {
+               "substance": {
+                  "id": 3,
+                  "name": "substances-4"
+               },
+               "lift": 0.30000001192092896,
+               "liftOffset": 0.30000001192092896,
+               "radius": 0.800000011920929,
+               "rotation": 0.800000011920929,
+               "steering": 0.30000001192092896,
+               "suspDeflection": 0.3009999990463257,
+               "velocity": 0.3000999987125397,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.20000000298023224,
+                  "Y": 0.800000011920929,
+                  "Z": 1.7999999523162842
+               }
+            },
+            {
+               "substance": {
+                  "id": 4,
+                  "name": "substances-5"
+               },
+               "lift": 0.4000000059604645,
+               "liftOffset": 0.4000000059604645,
+               "radius": 0.8999999761581421,
+               "rotation": 0.8999999761581421,
+               "steering": 0.4000000059604645,
+               "suspDeflection": 0.4009999930858612,
+               "velocity": 0.4000999927520752,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.10000000149011612,
+                  "Y": 0.8999999761581421,
+                  "Z": 1.899999976158142
+               }
+            },
+            {
+               "substance": {
+                  "id": 5,
+                  "name": "substances-6"
+               },
+               "lift": 0.5,
+               "liftOffset": 0.5,
+               "radius": 1,
+               "rotation": 1,
+               "steering": 0.5,
+               "suspDeflection": 0.5009999871253967,
+               "velocity": 0.5001000165939331,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 2
+               }
+            },
+            {
+               "substance": {
+                  "id": 6,
+                  "name": "substances-7"
+               },
+               "lift": 0.6000000238418579,
+               "liftOffset": 0.6000000238418579,
+               "radius": 1.100000023841858,
+               "rotation": 1.100000023841858,
+               "steering": 0.6000000238418579,
+               "suspDeflection": 0.6010000109672546,
+               "velocity": 0.6000999808311462,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": 0.10000000149011612,
+                  "Y": 1.100000023841858,
+                  "Z": 2.0999999046325684
+               }
+            }
+         ],
+         "attached": true,
+         "cargo": {
+            "damage": 0.20000000298023224
+         },
+         "chassis": {
+            "damage": 0.30000001192092896
+         },
+         "body": {
+            "damage": 0.5
+         },
+         "acceleration": {
+            "linearVelocity": {
+               "X": 0.10100000351667404,
+               "Y": 0.10000000149011612,
+               "Z": 0.10010000318288803
+            },
+            "angularVelocity": {
+               "X": 0.10199999809265137,
+               "Y": 0.10000000149011612,
+               "Z": 0.10019999742507935
+            },
+            "linearAcceleration": {
+               "X": 0.09700000286102295,
+               "Y": 0.10000000149011612,
+               "Z": 0.10029999911785126
+            },
+            "angularAcceleration": {
+               "X": 0.10400000214576721,
+               "Y": 0.10000000149011612,
+               "Z": 0.10040000081062317
+            }
+         },
+         "hook": {
+            "position": {
+               "X": 0.10000000149011612,
+               "Y": 1.100000023841858,
+               "Z": -5.400000095367432
+            }
+         },
+         "position": {
+            "X": 1600.1,
+            "Y": -1.4,
+            "Z": -30499.9
+         },
+         "orientation": {
+            "heading": 0.6,
+            "pitch": 0.0995,
+            "roll": 5.6
+         },
+         "model": {
+            "id": "id",
+            "name": "name"
+         },
+         "accessoryId": "cargoAcessoryId",
+         "bodyType": "bodyType",
+         "make": {
+            "id": "brandId",
+            "name": "brand"
+         },
+         "chainType": "chainType",
+         "licensePlate": {
+            "value": "licensePlate",
+            "country": {
+               "name": "licensePlateCountry",
+               "id": "licensePlateCountryId"
+            }
+         },
+         "damage": {
+            "cargo": 0.20000000298023224,
+            "chassis": 0.30000001192092896,
+            "wheels": 0.4000000059604645,
+            "body": 0.5,
+            "total": 0.5
+         },
+         "liftAxle": {
+            "enabled": true,
+            "indicator": {
+               "enabled": true
+            }
+         },
+         "brand": {
+            "id": "brandId",
+            "name": "brand"
+         }
+      },
+      {
+         "wheels": [
+            {
+               "substance": {
+                  "id": 1,
+                  "name": "substances-2"
+               },
+               "lift": 0.10000000149011612,
+               "liftOffset": 0.10000000149011612,
+               "radius": 0.6000000238418579,
+               "rotation": 0.6000000238418579,
+               "steering": 0.10000000149011612,
+               "suspDeflection": 0.10100000351667404,
+               "velocity": 0.10010000318288803,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.4000000059604645,
+                  "Y": 0.6000000238418579,
+                  "Z": 1.600000023841858
+               }
+            },
+            {
+               "substance": {
+                  "id": 2,
+                  "name": "substances-3"
+               },
+               "lift": 0.20000000298023224,
+               "liftOffset": 0.20000000298023224,
+               "radius": 0.699999988079071,
+               "rotation": 0.699999988079071,
+               "steering": 0.20000000298023224,
+               "suspDeflection": 0.20100000500679016,
+               "velocity": 0.20010000467300415,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.30000001192092896,
+                  "Y": 0.699999988079071,
+                  "Z": 1.7000000476837158
+               }
+            },
+            {
+               "substance": {
+                  "id": 3,
+                  "name": "substances-4"
+               },
+               "lift": 0.30000001192092896,
+               "liftOffset": 0.30000001192092896,
+               "radius": 0.800000011920929,
+               "rotation": 0.800000011920929,
+               "steering": 0.30000001192092896,
+               "suspDeflection": 0.3009999990463257,
+               "velocity": 0.3000999987125397,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.20000000298023224,
+                  "Y": 0.800000011920929,
+                  "Z": 1.7999999523162842
+               }
+            },
+            {
+               "substance": {
+                  "id": 4,
+                  "name": "substances-5"
+               },
+               "lift": 0.4000000059604645,
+               "liftOffset": 0.4000000059604645,
+               "radius": 0.8999999761581421,
+               "rotation": 0.8999999761581421,
+               "steering": 0.4000000059604645,
+               "suspDeflection": 0.4009999930858612,
+               "velocity": 0.4000999927520752,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.10000000149011612,
+                  "Y": 0.8999999761581421,
+                  "Z": 1.899999976158142
+               }
+            },
+            {
+               "substance": {
+                  "id": 5,
+                  "name": "substances-6"
+               },
+               "lift": 0.5,
+               "liftOffset": 0.5,
+               "radius": 1,
+               "rotation": 1,
+               "steering": 0.5,
+               "suspDeflection": 0.5009999871253967,
+               "velocity": 0.5001000165939331,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 2
+               }
+            },
+            {
+               "substance": {
+                  "id": 6,
+                  "name": "substances-7"
+               },
+               "lift": 0.6000000238418579,
+               "liftOffset": 0.6000000238418579,
+               "radius": 1.100000023841858,
+               "rotation": 1.100000023841858,
+               "steering": 0.6000000238418579,
+               "suspDeflection": 0.6010000109672546,
+               "velocity": 0.6000999808311462,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": 0.10000000149011612,
+                  "Y": 1.100000023841858,
+                  "Z": 2.0999999046325684
+               }
+            }
+         ],
+         "attached": true,
+         "cargo": {
+            "damage": 0.20000000298023224
+         },
+         "chassis": {
+            "damage": 0.30000001192092896
+         },
+         "body": {
+            "damage": 0.5
+         },
+         "acceleration": {
+            "linearVelocity": {
+               "X": 0.10100000351667404,
+               "Y": 0.10000000149011612,
+               "Z": 0.10010000318288803
+            },
+            "angularVelocity": {
+               "X": 0.10199999809265137,
+               "Y": 0.10000000149011612,
+               "Z": 0.10019999742507935
+            },
+            "linearAcceleration": {
+               "X": 0.09700000286102295,
+               "Y": 0.10000000149011612,
+               "Z": 0.10029999911785126
+            },
+            "angularAcceleration": {
+               "X": 0.10400000214576721,
+               "Y": 0.10000000149011612,
+               "Z": 0.10040000081062317
+            }
+         },
+         "hook": {
+            "position": {
+               "X": 0.10000000149011612,
+               "Y": 1.100000023841858,
+               "Z": -5.400000095367432
+            }
+         },
+         "position": {
+            "X": 1600.1,
+            "Y": -1.4,
+            "Z": -30499.9
+         },
+         "orientation": {
+            "heading": 0.6,
+            "pitch": 0.0995,
+            "roll": 5.6
+         },
+         "model": {
+            "id": "id",
+            "name": "name"
+         },
+         "accessoryId": "cargoAcessoryId",
+         "bodyType": "bodyType",
+         "make": {
+            "id": "brandId",
+            "name": "brand"
+         },
+         "chainType": "chainType",
+         "licensePlate": {
+            "value": "licensePlate",
+            "country": {
+               "name": "licensePlateCountry",
+               "id": "licensePlateCountryId"
+            }
+         },
+         "damage": {
+            "cargo": 0.20000000298023224,
+            "chassis": 0.30000001192092896,
+            "wheels": 0.4000000059604645,
+            "body": 0.5,
+            "total": 0.5
+         },
+         "liftAxle": {
+            "enabled": true,
+            "indicator": {
+               "enabled": true
+            }
+         },
+         "brand": {
+            "id": "brandId",
+            "name": "brand"
+         }
+      },
+      {
+         "wheels": [
+            {
+               "substance": {
+                  "id": 1,
+                  "name": "substances-2"
+               },
+               "lift": 0.10000000149011612,
+               "liftOffset": 0.10000000149011612,
+               "radius": 0.6000000238418579,
+               "rotation": 0.6000000238418579,
+               "steering": 0.10000000149011612,
+               "suspDeflection": 0.10100000351667404,
+               "velocity": 0.10010000318288803,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.4000000059604645,
+                  "Y": 0.6000000238418579,
+                  "Z": 1.600000023841858
+               }
+            },
+            {
+               "substance": {
+                  "id": 2,
+                  "name": "substances-3"
+               },
+               "lift": 0.20000000298023224,
+               "liftOffset": 0.20000000298023224,
+               "radius": 0.699999988079071,
+               "rotation": 0.699999988079071,
+               "steering": 0.20000000298023224,
+               "suspDeflection": 0.20100000500679016,
+               "velocity": 0.20010000467300415,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.30000001192092896,
+                  "Y": 0.699999988079071,
+                  "Z": 1.7000000476837158
+               }
+            },
+            {
+               "substance": {
+                  "id": 3,
+                  "name": "substances-4"
+               },
+               "lift": 0.30000001192092896,
+               "liftOffset": 0.30000001192092896,
+               "radius": 0.800000011920929,
+               "rotation": 0.800000011920929,
+               "steering": 0.30000001192092896,
+               "suspDeflection": 0.3009999990463257,
+               "velocity": 0.3000999987125397,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.20000000298023224,
+                  "Y": 0.800000011920929,
+                  "Z": 1.7999999523162842
+               }
+            },
+            {
+               "substance": {
+                  "id": 4,
+                  "name": "substances-5"
+               },
+               "lift": 0.4000000059604645,
+               "liftOffset": 0.4000000059604645,
+               "radius": 0.8999999761581421,
+               "rotation": 0.8999999761581421,
+               "steering": 0.4000000059604645,
+               "suspDeflection": 0.4009999930858612,
+               "velocity": 0.4000999927520752,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.10000000149011612,
+                  "Y": 0.8999999761581421,
+                  "Z": 1.899999976158142
+               }
+            },
+            {
+               "substance": {
+                  "id": 5,
+                  "name": "substances-6"
+               },
+               "lift": 0.5,
+               "liftOffset": 0.5,
+               "radius": 1,
+               "rotation": 1,
+               "steering": 0.5,
+               "suspDeflection": 0.5009999871253967,
+               "velocity": 0.5001000165939331,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 2
+               }
+            },
+            {
+               "substance": {
+                  "id": 6,
+                  "name": "substances-7"
+               },
+               "lift": 0.6000000238418579,
+               "liftOffset": 0.6000000238418579,
+               "radius": 1.100000023841858,
+               "rotation": 1.100000023841858,
+               "steering": 0.6000000238418579,
+               "suspDeflection": 0.6010000109672546,
+               "velocity": 0.6000999808311462,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": 0.10000000149011612,
+                  "Y": 1.100000023841858,
+                  "Z": 2.0999999046325684
+               }
+            }
+         ],
+         "attached": true,
+         "cargo": {
+            "damage": 0.20000000298023224
+         },
+         "chassis": {
+            "damage": 0.30000001192092896
+         },
+         "body": {
+            "damage": 0.5
+         },
+         "acceleration": {
+            "linearVelocity": {
+               "X": 0.10100000351667404,
+               "Y": 0.10000000149011612,
+               "Z": 0.10010000318288803
+            },
+            "angularVelocity": {
+               "X": 0.10199999809265137,
+               "Y": 0.10000000149011612,
+               "Z": 0.10019999742507935
+            },
+            "linearAcceleration": {
+               "X": 0.09700000286102295,
+               "Y": 0.10000000149011612,
+               "Z": 0.10029999911785126
+            },
+            "angularAcceleration": {
+               "X": 0.10400000214576721,
+               "Y": 0.10000000149011612,
+               "Z": 0.10040000081062317
+            }
+         },
+         "hook": {
+            "position": {
+               "X": 0.10000000149011612,
+               "Y": 1.100000023841858,
+               "Z": -5.400000095367432
+            }
+         },
+         "position": {
+            "X": 1600.1,
+            "Y": -1.4,
+            "Z": -30499.9
+         },
+         "orientation": {
+            "heading": 0.6,
+            "pitch": 0.0995,
+            "roll": 5.6
+         },
+         "model": {
+            "id": "id",
+            "name": "name"
+         },
+         "accessoryId": "cargoAcessoryId",
+         "bodyType": "bodyType",
+         "make": {
+            "id": "brandId",
+            "name": "brand"
+         },
+         "chainType": "chainType",
+         "licensePlate": {
+            "value": "licensePlate",
+            "country": {
+               "name": "licensePlateCountry",
+               "id": "licensePlateCountryId"
+            }
+         },
+         "damage": {
+            "cargo": 0.20000000298023224,
+            "chassis": 0.30000001192092896,
+            "wheels": 0.4000000059604645,
+            "body": 0.5,
+            "total": 0.5
+         },
+         "liftAxle": {
+            "enabled": true,
+            "indicator": {
+               "enabled": true
+            }
+         },
+         "brand": {
+            "id": "brandId",
+            "name": "brand"
+         }
+      },
+      {
+         "wheels": [
+            {
+               "substance": {
+                  "id": 1,
+                  "name": "substances-2"
+               },
+               "lift": 0.10000000149011612,
+               "liftOffset": 0.10000000149011612,
+               "radius": 0.6000000238418579,
+               "rotation": 0.6000000238418579,
+               "steering": 0.10000000149011612,
+               "suspDeflection": 0.10100000351667404,
+               "velocity": 0.10010000318288803,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.4000000059604645,
+                  "Y": 0.6000000238418579,
+                  "Z": 1.600000023841858
+               }
+            },
+            {
+               "substance": {
+                  "id": 2,
+                  "name": "substances-3"
+               },
+               "lift": 0.20000000298023224,
+               "liftOffset": 0.20000000298023224,
+               "radius": 0.699999988079071,
+               "rotation": 0.699999988079071,
+               "steering": 0.20000000298023224,
+               "suspDeflection": 0.20100000500679016,
+               "velocity": 0.20010000467300415,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.30000001192092896,
+                  "Y": 0.699999988079071,
+                  "Z": 1.7000000476837158
+               }
+            },
+            {
+               "substance": {
+                  "id": 3,
+                  "name": "substances-4"
+               },
+               "lift": 0.30000001192092896,
+               "liftOffset": 0.30000001192092896,
+               "radius": 0.800000011920929,
+               "rotation": 0.800000011920929,
+               "steering": 0.30000001192092896,
+               "suspDeflection": 0.3009999990463257,
+               "velocity": 0.3000999987125397,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.20000000298023224,
+                  "Y": 0.800000011920929,
+                  "Z": 1.7999999523162842
+               }
+            },
+            {
+               "substance": {
+                  "id": 4,
+                  "name": "substances-5"
+               },
+               "lift": 0.4000000059604645,
+               "liftOffset": 0.4000000059604645,
+               "radius": 0.8999999761581421,
+               "rotation": 0.8999999761581421,
+               "steering": 0.4000000059604645,
+               "suspDeflection": 0.4009999930858612,
+               "velocity": 0.4000999927520752,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.10000000149011612,
+                  "Y": 0.8999999761581421,
+                  "Z": 1.899999976158142
+               }
+            },
+            {
+               "substance": {
+                  "id": 5,
+                  "name": "substances-6"
+               },
+               "lift": 0.5,
+               "liftOffset": 0.5,
+               "radius": 1,
+               "rotation": 1,
+               "steering": 0.5,
+               "suspDeflection": 0.5009999871253967,
+               "velocity": 0.5001000165939331,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 2
+               }
+            },
+            {
+               "substance": {
+                  "id": 6,
+                  "name": "substances-7"
+               },
+               "lift": 0.6000000238418579,
+               "liftOffset": 0.6000000238418579,
+               "radius": 1.100000023841858,
+               "rotation": 1.100000023841858,
+               "steering": 0.6000000238418579,
+               "suspDeflection": 0.6010000109672546,
+               "velocity": 0.6000999808311462,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": 0.10000000149011612,
+                  "Y": 1.100000023841858,
+                  "Z": 2.0999999046325684
+               }
+            }
+         ],
+         "attached": true,
+         "cargo": {
+            "damage": 0.20000000298023224
+         },
+         "chassis": {
+            "damage": 0.30000001192092896
+         },
+         "body": {
+            "damage": 0.5
+         },
+         "acceleration": {
+            "linearVelocity": {
+               "X": 0.10100000351667404,
+               "Y": 0.10000000149011612,
+               "Z": 0.10010000318288803
+            },
+            "angularVelocity": {
+               "X": 0.10199999809265137,
+               "Y": 0.10000000149011612,
+               "Z": 0.10019999742507935
+            },
+            "linearAcceleration": {
+               "X": 0.09700000286102295,
+               "Y": 0.10000000149011612,
+               "Z": 0.10029999911785126
+            },
+            "angularAcceleration": {
+               "X": 0.10400000214576721,
+               "Y": 0.10000000149011612,
+               "Z": 0.10040000081062317
+            }
+         },
+         "hook": {
+            "position": {
+               "X": 0.10000000149011612,
+               "Y": 1.100000023841858,
+               "Z": -5.400000095367432
+            }
+         },
+         "position": {
+            "X": 1600.1,
+            "Y": -1.4,
+            "Z": -30499.9
+         },
+         "orientation": {
+            "heading": 0.6,
+            "pitch": 0.0995,
+            "roll": 5.6
+         },
+         "model": {
+            "id": "id",
+            "name": "name"
+         },
+         "accessoryId": "cargoAcessoryId",
+         "bodyType": "bodyType",
+         "make": {
+            "id": "brandId",
+            "name": "brand"
+         },
+         "chainType": "chainType",
+         "licensePlate": {
+            "value": "licensePlate",
+            "country": {
+               "name": "licensePlateCountry",
+               "id": "licensePlateCountryId"
+            }
+         },
+         "damage": {
+            "cargo": 0.20000000298023224,
+            "chassis": 0.30000001192092896,
+            "wheels": 0.4000000059604645,
+            "body": 0.5,
+            "total": 0.5
+         },
+         "liftAxle": {
+            "enabled": true,
+            "indicator": {
+               "enabled": true
+            }
+         },
+         "brand": {
+            "id": "brandId",
+            "name": "brand"
+         }
+      },
+      {
+         "wheels": [
+            {
+               "substance": {
+                  "id": 1,
+                  "name": "substances-2"
+               },
+               "lift": 0.10000000149011612,
+               "liftOffset": 0.10000000149011612,
+               "radius": 0.6000000238418579,
+               "rotation": 0.6000000238418579,
+               "steering": 0.10000000149011612,
+               "suspDeflection": 0.10100000351667404,
+               "velocity": 0.10010000318288803,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.4000000059604645,
+                  "Y": 0.6000000238418579,
+                  "Z": 1.600000023841858
+               }
+            },
+            {
+               "substance": {
+                  "id": 2,
+                  "name": "substances-3"
+               },
+               "lift": 0.20000000298023224,
+               "liftOffset": 0.20000000298023224,
+               "radius": 0.699999988079071,
+               "rotation": 0.699999988079071,
+               "steering": 0.20000000298023224,
+               "suspDeflection": 0.20100000500679016,
+               "velocity": 0.20010000467300415,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.30000001192092896,
+                  "Y": 0.699999988079071,
+                  "Z": 1.7000000476837158
+               }
+            },
+            {
+               "substance": {
+                  "id": 3,
+                  "name": "substances-4"
+               },
+               "lift": 0.30000001192092896,
+               "liftOffset": 0.30000001192092896,
+               "radius": 0.800000011920929,
+               "rotation": 0.800000011920929,
+               "steering": 0.30000001192092896,
+               "suspDeflection": 0.3009999990463257,
+               "velocity": 0.3000999987125397,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.20000000298023224,
+                  "Y": 0.800000011920929,
+                  "Z": 1.7999999523162842
+               }
+            },
+            {
+               "substance": {
+                  "id": 4,
+                  "name": "substances-5"
+               },
+               "lift": 0.4000000059604645,
+               "liftOffset": 0.4000000059604645,
+               "radius": 0.8999999761581421,
+               "rotation": 0.8999999761581421,
+               "steering": 0.4000000059604645,
+               "suspDeflection": 0.4009999930858612,
+               "velocity": 0.4000999927520752,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.10000000149011612,
+                  "Y": 0.8999999761581421,
+                  "Z": 1.899999976158142
+               }
+            },
+            {
+               "substance": {
+                  "id": 5,
+                  "name": "substances-6"
+               },
+               "lift": 0.5,
+               "liftOffset": 0.5,
+               "radius": 1,
+               "rotation": 1,
+               "steering": 0.5,
+               "suspDeflection": 0.5009999871253967,
+               "velocity": 0.5001000165939331,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 2
+               }
+            },
+            {
+               "substance": {
+                  "id": 6,
+                  "name": "substances-7"
+               },
+               "lift": 0.6000000238418579,
+               "liftOffset": 0.6000000238418579,
+               "radius": 1.100000023841858,
+               "rotation": 1.100000023841858,
+               "steering": 0.6000000238418579,
+               "suspDeflection": 0.6010000109672546,
+               "velocity": 0.6000999808311462,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": 0.10000000149011612,
+                  "Y": 1.100000023841858,
+                  "Z": 2.0999999046325684
+               }
+            }
+         ],
+         "attached": true,
+         "cargo": {
+            "damage": 0.20000000298023224
+         },
+         "chassis": {
+            "damage": 0.30000001192092896
+         },
+         "body": {
+            "damage": 0.5
+         },
+         "acceleration": {
+            "linearVelocity": {
+               "X": 0.10100000351667404,
+               "Y": 0.10000000149011612,
+               "Z": 0.10010000318288803
+            },
+            "angularVelocity": {
+               "X": 0.10199999809265137,
+               "Y": 0.10000000149011612,
+               "Z": 0.10019999742507935
+            },
+            "linearAcceleration": {
+               "X": 0.09700000286102295,
+               "Y": 0.10000000149011612,
+               "Z": 0.10029999911785126
+            },
+            "angularAcceleration": {
+               "X": 0.10400000214576721,
+               "Y": 0.10000000149011612,
+               "Z": 0.10040000081062317
+            }
+         },
+         "hook": {
+            "position": {
+               "X": 0.10000000149011612,
+               "Y": 1.100000023841858,
+               "Z": -5.400000095367432
+            }
+         },
+         "position": {
+            "X": 1600.1,
+            "Y": -1.4,
+            "Z": -30499.9
+         },
+         "orientation": {
+            "heading": 0.6,
+            "pitch": 0.0995,
+            "roll": 5.6
+         },
+         "model": {
+            "id": "id",
+            "name": "name"
+         },
+         "accessoryId": "cargoAcessoryId",
+         "bodyType": "bodyType",
+         "make": {
+            "id": "brandId",
+            "name": "brand"
+         },
+         "chainType": "chainType",
+         "licensePlate": {
+            "value": "licensePlate",
+            "country": {
+               "name": "licensePlateCountry",
+               "id": "licensePlateCountryId"
+            }
+         },
+         "damage": {
+            "cargo": 0.20000000298023224,
+            "chassis": 0.30000001192092896,
+            "wheels": 0.4000000059604645,
+            "body": 0.5,
+            "total": 0.5
+         },
+         "liftAxle": {
+            "enabled": true,
+            "indicator": {
+               "enabled": true
+            }
+         },
+         "brand": {
+            "id": "brandId",
+            "name": "brand"
+         }
+      },
+      {
+         "wheels": [
+            {
+               "substance": {
+                  "id": 1,
+                  "name": "substances-2"
+               },
+               "lift": 0.10000000149011612,
+               "liftOffset": 0.10000000149011612,
+               "radius": 0.6000000238418579,
+               "rotation": 0.6000000238418579,
+               "steering": 0.10000000149011612,
+               "suspDeflection": 0.10100000351667404,
+               "velocity": 0.10010000318288803,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.4000000059604645,
+                  "Y": 0.6000000238418579,
+                  "Z": 1.600000023841858
+               }
+            },
+            {
+               "substance": {
+                  "id": 2,
+                  "name": "substances-3"
+               },
+               "lift": 0.20000000298023224,
+               "liftOffset": 0.20000000298023224,
+               "radius": 0.699999988079071,
+               "rotation": 0.699999988079071,
+               "steering": 0.20000000298023224,
+               "suspDeflection": 0.20100000500679016,
+               "velocity": 0.20010000467300415,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.30000001192092896,
+                  "Y": 0.699999988079071,
+                  "Z": 1.7000000476837158
+               }
+            },
+            {
+               "substance": {
+                  "id": 3,
+                  "name": "substances-4"
+               },
+               "lift": 0.30000001192092896,
+               "liftOffset": 0.30000001192092896,
+               "radius": 0.800000011920929,
+               "rotation": 0.800000011920929,
+               "steering": 0.30000001192092896,
+               "suspDeflection": 0.3009999990463257,
+               "velocity": 0.3000999987125397,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": -0.20000000298023224,
+                  "Y": 0.800000011920929,
+                  "Z": 1.7999999523162842
+               }
+            },
+            {
+               "substance": {
+                  "id": 4,
+                  "name": "substances-5"
+               },
+               "lift": 0.4000000059604645,
+               "liftOffset": 0.4000000059604645,
+               "radius": 0.8999999761581421,
+               "rotation": 0.8999999761581421,
+               "steering": 0.4000000059604645,
+               "suspDeflection": 0.4009999930858612,
+               "velocity": 0.4000999927520752,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": -0.10000000149011612,
+                  "Y": 0.8999999761581421,
+                  "Z": 1.899999976158142
+               }
+            },
+            {
+               "substance": {
+                  "id": 5,
+                  "name": "substances-6"
+               },
+               "lift": 0.5,
+               "liftOffset": 0.5,
+               "radius": 1,
+               "rotation": 1,
+               "steering": 0.5,
+               "suspDeflection": 0.5009999871253967,
+               "velocity": 0.5001000165939331,
+               "liftable": true,
+               "onGround": true,
+               "powered": true,
+               "simulated": true,
+               "steerable": true,
+               "position": {
+                  "X": 0,
+                  "Y": 1,
+                  "Z": 2
+               }
+            },
+            {
+               "substance": {
+                  "id": 6,
+                  "name": "substances-7"
+               },
+               "lift": 0.6000000238418579,
+               "liftOffset": 0.6000000238418579,
+               "radius": 1.100000023841858,
+               "rotation": 1.100000023841858,
+               "steering": 0.6000000238418579,
+               "suspDeflection": 0.6010000109672546,
+               "velocity": 0.6000999808311462,
+               "liftable": false,
+               "onGround": false,
+               "powered": false,
+               "simulated": false,
+               "steerable": false,
+               "position": {
+                  "X": 0.10000000149011612,
+                  "Y": 1.100000023841858,
+                  "Z": 2.0999999046325684
+               }
+            }
+         ],
+         "attached": true,
+         "cargo": {
+            "damage": 0.20000000298023224
+         },
+         "chassis": {
+            "damage": 0.30000001192092896
+         },
+         "body": {
+            "damage": 0.5
+         },
+         "acceleration": {
+            "linearVelocity": {
+               "X": 0.10100000351667404,
+               "Y": 0.10000000149011612,
+               "Z": 0.10010000318288803
+            },
+            "angularVelocity": {
+               "X": 0.10199999809265137,
+               "Y": 0.10000000149011612,
+               "Z": 0.10019999742507935
+            },
+            "linearAcceleration": {
+               "X": 0.09700000286102295,
+               "Y": 0.10000000149011612,
+               "Z": 0.10029999911785126
+            },
+            "angularAcceleration": {
+               "X": 0.10400000214576721,
+               "Y": 0.10000000149011612,
+               "Z": 0.10040000081062317
+            }
+         },
+         "hook": {
+            "position": {
+               "X": 0.10000000149011612,
+               "Y": 1.100000023841858,
+               "Z": -5.400000095367432
+            }
+         },
+         "position": {
+            "X": 1600.1,
+            "Y": -1.4,
+            "Z": -30499.9
+         },
+         "orientation": {
+            "heading": 0.6,
+            "pitch": 0.0995,
+            "roll": 5.6
+         },
+         "model": {
+            "id": "id",
+            "name": "name"
+         },
+         "accessoryId": "cargoAcessoryId",
+         "bodyType": "bodyType",
+         "make": {
+            "id": "brandId",
+            "name": "brand"
+         },
+         "chainType": "chainType",
+         "licensePlate": {
+            "value": "licensePlate",
+            "country": {
+               "name": "licensePlateCountry",
+               "id": "licensePlateCountryId"
+            }
+         },
+         "damage": {
+            "cargo": 0.20000000298023224,
+            "chassis": 0.30000001192092896,
+            "wheels": 0.4000000059604645,
+            "body": 0.5,
+            "total": 0.5
+         },
+         "liftAxle": {
+            "enabled": true,
+            "indicator": {
+               "enabled": true
+            }
+         },
+         "brand": {
+            "id": "brandId",
+            "name": "brand"
+         }
+      }
+   ]
+}
