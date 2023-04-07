@@ -5,7 +5,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [
+      "main",
+      "feature/**",
+      "fix/**",
+      "refactor/**"
+    ]
   pull_request:
     branches: [ "master" ]
 
