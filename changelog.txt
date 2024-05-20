@@ -1,5 +1,8 @@
 Changelog
 
+v0.20.0 - 2024-05-20
+- Removed support for node v14
+
 V0.19.1 - 2023-01-29
 - Updated license
 
