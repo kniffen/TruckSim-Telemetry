@@ -22,7 +22,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [16.x, 18.x, 20.x, 22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -35,7 +35,8 @@ jobs:
     - name: patch node gyp on windows to support Visual Studio 2019
       shell: powershell
       run: |
-        npm install --global node-gyp@latest
+        pip install setuptools
+        npm install --global node-gyp@9.4.1
         npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
     - name: Install dependencies
       run: npm install
