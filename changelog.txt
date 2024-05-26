@@ -1,5 +1,9 @@
 Changelog
 
+v0.21.0 - 2024-05-26
+- Fixed issue where some environments do not allow external buffers
+- Improved error handling when attempting to read memory mapped file
+
 v0.20.0 - 2024-05-20
 - Removed support for node v14
 
