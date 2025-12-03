@@ -1,10 +1,16 @@
 #define NODE_API_NO_EXTERNAL_BUFFERS_ALLOWED true
 #include <node_api.h>
-#include <windows.h>
+#include <string.h>
+#include <stdlib.h>
 
-HANDLE hMapFileSCSTelemetry;
-LPVOID pBuf = NULL;
-napi_value buffer;
+#if defined(_WIN32)
+  #include <windows.h>
+#else
+  #include <sys/mman.h>
+  #include <sys/stat.h>
+  #include <fcntl.h>
+  #include <unistd.h>
+#endif
 
 napi_value GetBuffer(napi_env env, napi_callback_info info) {
   char* mmf_name;
@@ -12,7 +18,7 @@ napi_value GetBuffer(napi_env env, napi_callback_info info) {
   size_t mmf_name_size;
   size_t mmf_name_size_read;
   size_t mmf_size = 32*1024;
-  void* data;
+  void* mapped = nullptr;
 
   napi_status status;
   napi_value argv[1];
@@ -43,37 +49,65 @@ napi_value GetBuffer(napi_env env, napi_callback_info info) {
     return nullptr;
   }
 
+#if defined(_WIN32)
   // Open the memory-mapped file
-  hMapFileSCSTelemetry = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, mmf_name);
+  HANDLE hMapFileSCSTelemetry = OpenFileMapping(FILE_MAP_READ, FALSE, mmf_name);
   free(mmf_name);
   if (!hMapFileSCSTelemetry) {
     napi_throw_error(env, NULL, "Failed trying to open memory-mapped file");
     return nullptr;
   }
 
-  // Map the file into the process's address space
-  pBuf = MapViewOfFile(hMapFileSCSTelemetry, FILE_MAP_ALL_ACCESS, 0, 0, mmf_size);
-  if (!pBuf) {
+  mapped = MapViewOfFile(hMapFileSCSTelemetry, FILE_MAP_READ, 0, 0, mmf_size);
+  if (!mapped) {
     CloseHandle(hMapFileSCSTelemetry);
     napi_throw_error(env, NULL, "Failed to map view of memory-mapped file");
     return nullptr;
   }
+#else // POSIX (Linux, macOS)
+  int fd = shm_open(mmf_name, O_RDONLY, 0400);
+  free(mmf_name);
+
+  if (fd == -1) {
+    napi_throw_error(env, NULL, "Failed to open POSIX shared memory");
+    return nullptr;
+  }
+
+  mapped = mmap(NULL, mmf_size, PROT_READ, MAP_SHARED, fd, 0);
+  if (mapped == MAP_FAILED) {
+    napi_throw_error(env, NULL, "Failed to mmap shared memory");
+    return nullptr;
+  }
+  close(fd);
+#endif
 
   // Create a new buffer for use in javascript
+  napi_value buffer;
+  void* data;
   status = napi_create_buffer(env, mmf_size, &data, &buffer);
   if (status != napi_ok) {
-    UnmapViewOfFile(pBuf);
+
+#if defined(_WIN32)
+    UnmapViewOfFile(mapped);
     CloseHandle(hMapFileSCSTelemetry);
+#else
+    munmap(mapped, mmf_size);
+#endif
+
     napi_throw_error(env, NULL, "Failed to create buffer");
     return nullptr;
   }
 
   // Copy data from memory-mapped file to the new buffer
-  memcpy(data, pBuf, mmf_size);
+  memcpy(data, mapped, mmf_size);
 
   // Cleanup
-  UnmapViewOfFile(pBuf);
+#if defined(_WIN32)
+  UnmapViewOfFile(mapped);
   CloseHandle(hMapFileSCSTelemetry);
+#else
+  munmap(mapped, mmf_size);
+#endif
 
   return buffer;
 }
@@ -82,10 +116,8 @@ napi_value GetBuffer(napi_env env, napi_callback_info info) {
   { name, 0, func, 0, 0, 0, napi_default, 0 }
 
 napi_value Init(napi_env env, napi_value exports) {
-  napi_status status;
-
   napi_property_descriptor desc = DECLARE_NAPI_METHOD("getBuffer", GetBuffer);
-  status = napi_define_properties(env, exports, 1, &desc);
+  napi_define_properties(env, exports, 1, &desc);
 
   return exports;
 }
