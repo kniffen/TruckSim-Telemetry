@@ -18,7 +18,7 @@ napi_value GetBuffer(napi_env env, napi_callback_info info) {
   size_t mmf_name_size;
   size_t mmf_name_size_read;
   size_t mmf_size = 32*1024;
-  void* mapped = nullptr;
+  void* mappedFileView = nullptr;
 
   napi_status status;
   napi_value argv[1];
@@ -58,8 +58,8 @@ napi_value GetBuffer(napi_env env, napi_callback_info info) {
     return nullptr;
   }
 
-  mapped = MapViewOfFile(hMapFileSCSTelemetry, FILE_MAP_READ, 0, 0, mmf_size);
-  if (!mapped) {
+  mappedFileView = MapViewOfFile(hMapFileSCSTelemetry, FILE_MAP_READ, 0, 0, mmf_size);
+  if (!mappedFileView) {
     CloseHandle(hMapFileSCSTelemetry);
     napi_throw_error(env, NULL, "Failed to map view of memory-mapped file");
     return nullptr;
@@ -73,8 +73,8 @@ napi_value GetBuffer(napi_env env, napi_callback_info info) {
     return nullptr;
   }
 
-  mapped = mmap(NULL, mmf_size, PROT_READ, MAP_SHARED, fd, 0);
-  if (mapped == MAP_FAILED) {
+  mappedFileView = mmap(NULL, mmf_size, PROT_READ, MAP_SHARED, fd, 0);
+  if (mappedFileView == MAP_FAILED) {
     napi_throw_error(env, NULL, "Failed to mmap shared memory");
     return nullptr;
   }
@@ -88,10 +88,10 @@ napi_value GetBuffer(napi_env env, napi_callback_info info) {
   if (status != napi_ok) {
 
 #if defined(_WIN32)
-    UnmapViewOfFile(mapped);
+    UnmapViewOfFile(mappedFileView);
     CloseHandle(hMapFileSCSTelemetry);
 #else
-    munmap(mapped, mmf_size);
+    munmap(mappedFileView, mmf_size);
 #endif
 
     napi_throw_error(env, NULL, "Failed to create buffer");
@@ -99,14 +99,14 @@ napi_value GetBuffer(napi_env env, napi_callback_info info) {
   }
 
   // Copy data from memory-mapped file to the new buffer
-  memcpy(data, mapped, mmf_size);
+  memcpy(data, mappedFileView, mmf_size);
 
   // Cleanup
 #if defined(_WIN32)
-  UnmapViewOfFile(mapped);
+  UnmapViewOfFile(mappedFileView);
   CloseHandle(hMapFileSCSTelemetry);
 #else
-  munmap(mapped, mmf_size);
+  munmap(mappedFileView, mmf_size);
 #endif
 
   return buffer;
