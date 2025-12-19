@@ -8,5 +8,5 @@ build
 **/*.tgz
 
 # Test data
-tests/typescript/data/*
+tst-tests/data/*
 coverage
