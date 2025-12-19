@@ -1,0 +1,11 @@
+export const WHEEL_COUNT              = 16;
+export const TRAILER_COUNT            = 10;
+export const GEAR_COUNT               = 32;
+export const FORWARD_GEAR_COUNT       = 24;
+export const REVERSE_GEAR_COUNT       = 8;
+export const SHIFTER_TOGGLE_COUNT     = 2;
+export const SUBSTANCE_COUNT          = 25;
+export const STRING_SIZE              = 64;
+export const SHIFTER_TYPE_STRING_SIZE = 16;
+export const JOB_MARKET_STRING_SIZE   = 32;
+export const FINE_OFFENCE_STRING_SIZE = 32;

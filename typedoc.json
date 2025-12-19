@@ -1,0 +1,11 @@
+{
+  "name": "TruckSim Telemetry",
+  "entryPoints": ["src/main.ts"],
+  "out": "docs",
+  "excludePrivate": true,
+  "excludeInternal": true,
+  "includeVersion": true,
+  "plugin": ["typedoc-github-theme"],
+  "projectDocuments": ["documents/quick-start.md", "documents/events.md", "documents/units.md", "documents/migration.md"],
+  "highlightLanguages": ["typescript", "javascript", "json", "diff"]
+}
