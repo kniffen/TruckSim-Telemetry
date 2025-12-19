@@ -1,5 +1,8 @@
 build
 tests
 tsconfig.json
+.github
+coverage
+tst-tests/data/*
 
 **/*.tgz
