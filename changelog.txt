@@ -1,5 +1,8 @@
 Changelog
 
+v0.22.1 - 2025-12-19
+- Remove github and coverage folders from npm
+
 v0.22.0 - 2025-12-19
 - Add support for truckermudgeon's plugin alternative (mac and linux support)
 - Updated dependencies
