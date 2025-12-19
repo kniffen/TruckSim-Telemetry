@@ -13,7 +13,7 @@ Read the full documentation over at https://tst.kniffen.dev
 ## Getting started
 
 ### Prerequisites
-#### Download and install the 󠀠󠀠󠀠󠀠[scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin) by [RenCloud](https://github.com/RenCloud)
+
 Supported plugin versions (Limited meaning some data and/or events may be inaccurate)
 - v1.12.0
 - v1.11.0
@@ -21,7 +21,13 @@ Supported plugin versions (Limited meaning some data and/or events may be inaccu
 - v1.10.5 (Limited)
 - v1.10.4 (Limited)
 
+### Windows
+#### Download and install the 󠀠󠀠󠀠󠀠[scs-sdk-plugin](https://github.com/RenCloud/scs-sdk-plugin) by [RenCloud](https://github.com/RenCloud)
 #### Install the 󠀠󠀠󠀠󠀠[windows-build-tools](https://github.com/felixrieseberg/windows-build-tools)
+
+### Linux/Mac OS
+#### Download the 󠀠󠀠󠀠󠀠[scs-sdk-plugin](https://github.com/truckermudgeon/scs-sdk-plugin) by [truckermudgeon](https://github.com/truckermudgeon)
+Note: You may have to build this from source
 
 ### Installing
 Install the module via NPM
