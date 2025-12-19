@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "npx jest",
-    "test-ts": "node ./ts-tests/generateData.js && npx tsc --noEmit --resolveJsonModule ./ts-tests/index.test.ts",
+    "typecheck": "node ./ts-tests/generateData.js && npx tsc --noEmit --resolveJsonModule ./ts-tests/index.test.ts",
     "lint": "npx eslint ."
   },
   "gypfile": true,

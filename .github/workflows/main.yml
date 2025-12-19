@@ -1,0 +1,79 @@
+name: Code quality
+
+on: 
+  workflow_dispatch:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+
+jobs:
+  windows: 
+    name: Windows
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        node:
+          - version: 16
+          - version: 22
+          - version: 24
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - name: patch node gyp on windows to support Visual Studio 2019
+        shell: powershell
+        run: |
+          pip install setuptools
+          npm install --global node-gyp@9.4.1
+          npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
+      - name: Install dependencies
+        run: npm ci
+      - name: Typescheck
+        run: npm run typecheck
+      - name: Lint check
+        run: npm run lint
+      - name: Tests
+        run: npm test
+      - run: npm run build --if-present
+  linux:
+    needs: windows
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Typescheck
+        run: npm run typecheck
+      - name: Lint check
+        run: npm run lint
+      - name: Tests
+        run: npm test
+      - run: npm run build --if-present
+  macOS:
+    needs: windows
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Typescheck
+        run: npm run typecheck
+      - name: Lint check
+        run: npm run lint
+      - name: Tests
+        run: npm test
+      - run: npm run build --if-present
