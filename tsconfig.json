@@ -4,14 +4,24 @@
       "./node_modules/@types"
     ],
     "noImplicitAny": true,
-    "skipLibCheck": false,
-    "resolveJsonModule": true,
+    "target": "ES2022",
+    "lib": [
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
     "esModuleInterop": true,
-    "target": "es5",
-    "allowImportingTsExtensions": true
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "outDir": "./dist",
+    "declaration": true,
+    "sourceMap": true,
   },
   "include": [
-    "ts-tests/**/*.ts"
+    "src/**/*.ts",
+    "src/**/*.test.ts"
   ],
   "exclude": [
     "node_modules"

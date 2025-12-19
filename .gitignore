@@ -1,12 +1,6 @@
-# Node
 node_modules
-
-# Node-gyp
 build
-
-# Dist
+dist
+docs
 **/*.tgz
-
-# Test data
-tst-tests/data/*
 coverage

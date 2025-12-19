@@ -1,58 +1,64 @@
-# TruckSim-Telemetry AI Coding Conventions
+# TruckSim-Telemetry AI Coding Agent Instructions
 
-This document provides guidance for AI agents working on the TruckSim-Telemetry codebase.
+This document provides essential information for AI coding agents working on the TruckSim-Telemetry codebase.
 
 ## Big Picture Architecture
 
-This project is a Node.js module with a native C++ addon for reading telemetry data from the games Euro Truck Simulator 2 and American Truck Simulator. The data is provided by the `scs-sdk-plugin` via a memory-mapped file.
+This is a Node.js module that processes telemetry data for Euro Truck Simulator 2 and American Truck Simulator. It uses a native C++ addon to interface with the game's telemetry SDK.
 
-The general data flow is as follows:
-1.  The C++ addon (`scsSDKTelemetry.cc`) reads data from a memory-mapped file into a Node.js Buffer. This is exposed via the `getBuffer()` function.
-2.  The raw buffer is parsed in `lib/parser/parseData.js`.
-3.  The parsed data is then converted into a structured format. The logic in `lib/converter/` handles different versions of the `scs-sdk-plugin`. For example, `scs_sdk_plugin_12.js` handles version 1.12 of the plugin data.
-4.  The `lib/eventEmitters/` directory contains logic to detect changes in the data and emit corresponding events (e.g., `game.js`, `truck.js`, `job.js`).
-5.  The main entry point is `lib/index.js`, which orchestrates the process of watching for data changes and emitting events.
+The core logic resides in `src/telemetry.ts`. The `telemetry()` function initializes the process. It sets up a loop that runs at 60 FPS. In each iteration, it:
+1.  Reads data from a shared memory buffer using `getBuffer()` (from `src/buffer/getBuffer.ts`). This buffer is provided by the SCS SDK plugin.
+2.  The raw buffer is then parsed and structured into a `SCSSDKTelemetryData` object by `updateTelemetryData()` (from `src/data/updateTelemetryData.ts`). The data structures are defined in `src/data/types.ts`.
+3.  `handleEvents()` (from `src/events/handleEvents.ts`) is called to check for changes in the telemetry data and emit corresponding events.
 
-Key files and directories:
-- `scsSDKTelemetry.cc`: The core C++ code for reading from the memory-mapped file.
-- `binding.gyp`: The build configuration for the native C++ addon.
-- `lib/index.js`: The main JavaScript entry point.
-- `lib/parser/parseData.js`: Handles parsing the raw buffer from the native addon.
-- `lib/converter/`: Contains logic for different plugin data versions.
-- `lib/eventEmitters/`: Contains the logic for emitting game-specific events.
-- `typings/`: Contains all TypeScript type definitions. These are a great source of information about the data structures used in the project.
-- `test-buffers/`: Contains sample buffer data for testing purposes.
+The C++ addon (`scsSDKTelemetry.cc`) is responsible for the low-level communication with the game's telemetry SDK. It's built using `node-gyp`.
 
-## Developer Workflow
+## Developer Workflows
 
-### Building
-The project uses `node-gyp` to compile the C++ addon. To build the project, run:
-```bash
-npm install
-```
-On Windows, `windows-build-tools` is required.
+### Build
+
+- To build the TypeScript code: `npm run build`
+- The C++ addon is built automatically during `npm install` thanks to the `gypfile: true` property in `package.json`. To manually rebuild it, you can run `npx node-gyp rebuild`.
 
 ### Testing
-The project uses Jest for testing. Tests are located alongside the files they test (e.g., `lib/eventEmitters/game.test.js` tests `lib/eventEmitters/game.js`).
-To run the tests:
-```bash
-npm test
-```
 
-TypeScript types are checked separately:
-```bash
-npm run typecheck
-```
+- Run tests with `npm test`.
+- Watch for changes and run tests with `npm test:watch`.
+- Test data can be generated with `npm run generate-test-data`. This executes `src/test/generateTestData.ts`.
 
 ### Linting
-ESLint is used for linting.
-```bash
-npm run lint
-```
+
+- To check for linting errors: `npm run lint`
+- To automatically fix linting errors: `npm run lint:fix`
+
+## Linting Rules
+
+The project uses ESLint to enforce a consistent code style. The rules are defined in `eslint.config.mjs`. Please adhere to these rules. Some of the key rules include:
+- Single quotes for strings
+- 2-space indentation
+- Spacing around operators and in object braces
+- Semicolons at the end of statements
+- Explicit function return types
+- `camelCase` for variables and functions, and `PascalCase` for classes and types.
+- No unused variables
+- Use of `===` and `!==`
+- Braces around all control statements
+- Consistent type imports
 
 ## Project-Specific Conventions
 
-- **Data Conversion:** When adding support for a new version of the `scs-sdk-plugin`, a new file should be created in `lib/converter/`. This file will be responsible for converting the new data structure into the common format used by the rest of the application. See `lib/converter/scs_sdk_plugin_12.js` for an example.
-- **Event Emitters:** Event emitters in `lib/eventEmitters/` are responsible for watching for specific data changes and emitting events. They should be self-contained and focus on a specific domain of the game (e.g., `truck`, `job`, `navigation`).
-- **Types:** All data structures are defined in the `typings/` directory. When making changes to data structures, ensure the corresponding TypeScript definitions are updated.
-- **Error Handling:** The native addon can throw errors if it fails to read the memory-mapped file. These errors are handled in the JavaScript code that calls the native functions.
+- The data flow is unidirectional: `C++ addon -> Buffer -> TypeScript -> Events`.
+- Event handling is stateful. The previous state of the telemetry data is stored and compared against the current state to detect changes and emit events. See `src/events/createEventStates.ts` and `src/events/updateEventState.ts`.
+- The module is designed to be used as an `EventEmitter`. The main `telemetry` function returns an instance of `TruckSimTelemetry` which extends `EventEmitter`.
+
+## Key Files and Directories
+
+- `scsSDKTelemetry.cc`: The native C++ addon for game communication.
+- `binding.gyp`: The configuration file for building the C++ addon.
+- `src/main.ts`: The main entry point of the module.
+- `src/telemetry.ts`: Contains the core telemetry processing logic.
+- `src/data/types.ts`: Defines the data structures for the telemetry information.
+- `src/buffer/`: Contains logic for reading from the shared memory buffer.
+- `src/data/`: Contains logic for allocating, updating, and getting telemetry data.
+- `src/events/`: Contains all the event handling logic.
+- `src/test/`: Contains test utilities and data generation scripts.

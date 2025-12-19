@@ -3,7 +3,10 @@ module.exports = {
   forceExit: true,
   verbose: true,
   clearMocks: true,
+  preset: 'ts-jest',
+  testEnvironment: 'node',
   testMatch: [
-    "**/?(*.)+(test).js"
+    '<rootDir>/src/**/*.test.js',
+    '<rootDir>/src/**/*.test.ts'
   ],
 }

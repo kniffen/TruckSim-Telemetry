@@ -1,8 +1,15 @@
-build
-tests
-tsconfig.json
+# Folders
 .github
+build
 coverage
-tst-tests/data/*
+node_modules
+src
+docs
+documents
 
+# Files
 **/*.tgz
+*.log
+eslint.config.mjs
+jest.config.js
+tsconfig.json

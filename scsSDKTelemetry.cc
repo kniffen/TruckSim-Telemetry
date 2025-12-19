@@ -13,11 +13,11 @@
 #endif
 
 napi_value GetBuffer(napi_env env, napi_callback_info info) {
-  char* mmf_name;
+  char* sharedMemoryName;
   size_t argc = 1;
-  size_t mmf_name_size;
-  size_t mmf_name_size_read;
-  size_t mmf_size = 32*1024;
+  size_t sharedMemoryNameSize;
+  size_t sharedMemoryNameSizeRead;
+  size_t sharedMemorySize = 32 * 1024; // 32 KB
   void* mappedFileView = nullptr;
 
   napi_status status;
@@ -31,49 +31,49 @@ napi_value GetBuffer(napi_env env, napi_callback_info info) {
   }
 
   // Get size of filename
-  status = napi_get_value_string_utf8(env, argv[0], NULL, 0, &mmf_name_size);
+  status = napi_get_value_string_utf8(env, argv[0], NULL, 0, &sharedMemoryNameSize);
   if (status != napi_ok) {
     napi_throw_error(env, NULL, "Failed to get memory-mapped filename size.");
     return nullptr;
   }
 
   // Allocate memory for filename
-  mmf_name      = (char*)calloc(mmf_name_size + 1, sizeof(char));
-  mmf_name_size = mmf_name_size + 1;
+  sharedMemoryName     = (char*)calloc(sharedMemoryNameSize + 1, sizeof(char));
+  sharedMemoryNameSize = sharedMemoryNameSize + 1;
 
   // Set the filename value
-  status = napi_get_value_string_utf8(env, argv[0], mmf_name, mmf_name_size, &mmf_name_size_read);
+  status = napi_get_value_string_utf8(env, argv[0], sharedMemoryName, sharedMemoryNameSize, &sharedMemoryNameSizeRead);
   if (status != napi_ok) {
-    free(mmf_name);
+    free(sharedMemoryName);
     napi_throw_error(env, NULL, "Failed to set memory-mapped filename.");
     return nullptr;
   }
 
 #if defined(_WIN32)
   // Open the memory-mapped file
-  HANDLE hMapFileSCSTelemetry = OpenFileMapping(FILE_MAP_READ, FALSE, mmf_name);
-  free(mmf_name);
+  HANDLE hMapFileSCSTelemetry = OpenFileMapping(FILE_MAP_READ, FALSE, sharedMemoryName);
+  free(sharedMemoryName);
   if (!hMapFileSCSTelemetry) {
     napi_throw_error(env, NULL, "Failed trying to open memory-mapped file");
     return nullptr;
   }
 
-  mappedFileView = MapViewOfFile(hMapFileSCSTelemetry, FILE_MAP_READ, 0, 0, mmf_size);
+  mappedFileView = MapViewOfFile(hMapFileSCSTelemetry, FILE_MAP_READ, 0, 0, sharedMemorySize);
   if (!mappedFileView) {
     CloseHandle(hMapFileSCSTelemetry);
     napi_throw_error(env, NULL, "Failed to map view of memory-mapped file");
     return nullptr;
   }
 #else // POSIX (Linux, macOS)
-  int fd = shm_open(mmf_name, O_RDONLY, 0400);
-  free(mmf_name);
+  int fd = shm_open(sharedMemoryName, O_RDONLY, 0400);
+  free(sharedMemoryName);
 
   if (fd == -1) {
     napi_throw_error(env, NULL, "Failed to open POSIX shared memory");
     return nullptr;
   }
 
-  mappedFileView = mmap(NULL, mmf_size, PROT_READ, MAP_SHARED, fd, 0);
+  mappedFileView = mmap(NULL, sharedMemorySize, PROT_READ, MAP_SHARED, fd, 0);
   if (mappedFileView == MAP_FAILED) {
     napi_throw_error(env, NULL, "Failed to mmap shared memory");
     return nullptr;
@@ -84,14 +84,14 @@ napi_value GetBuffer(napi_env env, napi_callback_info info) {
   // Create a new buffer for use in javascript
   napi_value buffer;
   void* data;
-  status = napi_create_buffer(env, mmf_size, &data, &buffer);
+  status = napi_create_buffer(env, sharedMemorySize, &data, &buffer);
   if (status != napi_ok) {
 
 #if defined(_WIN32)
     UnmapViewOfFile(mappedFileView);
     CloseHandle(hMapFileSCSTelemetry);
 #else
-    munmap(mappedFileView, mmf_size);
+    munmap(mappedFileView, sharedMemorySize);
 #endif
 
     napi_throw_error(env, NULL, "Failed to create buffer");
@@ -99,14 +99,14 @@ napi_value GetBuffer(napi_env env, napi_callback_info info) {
   }
 
   // Copy data from memory-mapped file to the new buffer
-  memcpy(data, mappedFileView, mmf_size);
+  memcpy(data, mappedFileView, sharedMemorySize);
 
   // Cleanup
 #if defined(_WIN32)
   UnmapViewOfFile(mappedFileView);
   CloseHandle(hMapFileSCSTelemetry);
 #else
-  munmap(mappedFileView, mmf_size);
+  munmap(mappedFileView, sharedMemorySize);
 #endif
 
   return buffer;
