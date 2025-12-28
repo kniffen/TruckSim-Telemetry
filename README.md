@@ -17,8 +17,8 @@ Read the full documentation over at https://kniffen.dev/TruckSim-Telemetry
 ## Features
 - **Real-time data:** Access telemetry data from ETS2/ATS.
 - **Event-driven:** Emits events for various in-game occurrences (job, truck, navigation, etc.).
-- **Cross-platform:** Works on Windows, and unofficially on Linux/macOS through a community fork.
-- **Lightweight:** Native C++ addon for efficient communication with the game.
+- **Cross-platform:** Works on Windows, Linux and macOS.
+- **Lightweight:** Native C/C++ addon, zero dependencies.
 
 ## Installation
 

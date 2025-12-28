@@ -34,7 +34,7 @@
   "bugs": {
     "url": "https://github.com/kniffen/TruckSim-Telemetry/issues"
   },
-  "homepage": "https://github.com/kniffen/TruckSim-Telemetry#readme",
+  "homepage": "https://kniffen.dev/TruckSim-Telemetry/",
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "@types/node": "^24.10.4",
