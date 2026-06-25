@@ -1,6 +1,4 @@
-import pluginJs from '@eslint/js';
-import tseslint from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
+import tseslint from 'typescript-eslint';
 
 const stylingRules = {
   'quotes': ['error', 'single'], // enforce the consistent use of single quotes
@@ -12,25 +10,23 @@ const stylingRules = {
   "key-spacing": ["error", { mode: "strict", align: 'value' }], // enforce consistent spacing between keys and values in object literal properties
 }
 
-export default [
+export default tseslint.config(
   {
     ignores: ['eslint.config.js', 'node_modules', 'build', 'dist', 'coverage'],
   },
   {
     files: ['./src/**/*.{js,mjs,cjs,ts}'],
     ignores: ['./src/**/*.test.{js,mjs,cjs,ts}'],
-    plugins: {
-      '@typescript-eslint': tseslint,
-    },
+    extends: [
+      ...tseslint.configs.recommended,
+    ],
     languageOptions: {
-      parser: tsParser,
       parserOptions: {
         project: './tsconfig.json',
-        sourceType: 'module',
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     rules: {
-      ...tseslint.configs.recommended.rules,
       ...stylingRules,
       'no-await-in-loop': ['error'], // disallow await keyword inside of loops
       'prefer-const': ['error'], // require const declarations for variables that are never reassigned after declared
@@ -50,14 +46,13 @@ export default [
   },
   {
     files: ['./src/**/*.test.{js,mjs,cjs,ts}'],
-    plugins: {
-      '@typescript-eslint': tseslint,
-    },
+    extends: [
+      ...tseslint.configs.recommended,
+    ],
     languageOptions: {
-      parser: tsParser,
       parserOptions: {
         project: './tsconfig.json',
-        sourceType: 'module',
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     rules: {
@@ -68,4 +63,4 @@ export default [
       '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }], // require consistent usage of type imports
     },
   },
-];
+);
