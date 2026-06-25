@@ -3,6 +3,7 @@
     "typeRoots": [
       "./node_modules/@types"
     ],
+    "types": ["node"],
     "noImplicitAny": true,
     "target": "ES2022",
     "lib": [

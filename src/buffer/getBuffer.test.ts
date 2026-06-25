@@ -1,17 +1,20 @@
+import { describe, expect, test, vi } from 'vitest';
 import { getBuffer } from './getBuffer';
 
-jest.mock('../../build/Release/scsSDKTelemetry.node', () => ({
-  getBuffer: (path: string) => {
-    if (path === 'error') {
-      throw new Error('Failed to get buffer');
-    }
+vi.mock('../../build/Release/scsSDKTelemetry.node', () => ({
+  default: {
+    getBuffer: (path: string) => {
+      if (path === 'error') {
+        throw new Error('Failed to get buffer');
+      }
 
-    return path;
+      return path;
+    }
   }
 }));
 
-jest.mock('../createConfig', () => ({
-  ...jest.requireActual('../createConfig'),
+vi.mock('../createConfig', async () => ({
+  ...(await vi.importActual('../createConfig')),
   createConfig: () => ({
     sharedMemoryName: 'foobar'
   })

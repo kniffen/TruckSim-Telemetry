@@ -1,6 +1,7 @@
 import type { TruckSimTelemetry } from '../truckSimTelemetry';
 import type { SCSSDKTelemetry } from '../types';
 import { handleGameEvents } from './handleGameEvents';
+import { describe, vi, beforeEach, test, expect } from 'vitest';
 
 describe('handleGameEvents()', () => {
   const tst = {
@@ -8,11 +9,11 @@ describe('handleGameEvents()', () => {
       current:  {},
       previous: {},
     },
-    emit: jest.fn(),
+    emit: vi.fn(),
   } as unknown as TruckSimTelemetry;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     tst.data.previous = {
       paused:      false,

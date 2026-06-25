@@ -1,28 +1,35 @@
 import type { TruckSimTelemetry } from '../truckSimTelemetry';
 import { handleEvents } from './handleEvents';
-import * as handleGameEvents from './handleGameEvents';
-import * as handleNavigationEvents from './handleNavigationEvents';
-import * as handleJobEvents from './handleJobEvents';
-import * as handleTruckEvents from './handleTruckEvents';
-import * as handleTrailerEvents from './handleTrailerEvents';
+import { handleGameEvents } from './handleGameEvents';
+import { handleNavigationEvents } from './handleNavigationEvents';
+import { handleJobEvents } from './handleJobEvents';
+import { handleTruckEvents } from './handleTruckEvents';
+import { handleTrailerEvents } from './handleTrailerEvents';
+import { describe, vi, beforeEach, test, expect } from 'vitest';
+
+vi.mock('./handleGameEvents');
+vi.mock('./handleNavigationEvents');
+vi.mock('./handleJobEvents');
+vi.mock('./handleTruckEvents');
+vi.mock('./handleTrailerEvents');
 
 describe('handleEvents()', () => {
-  const handleGameEventsSpy = jest.spyOn(handleGameEvents, 'handleGameEvents').mockImplementation();
-  const handleJobEventsSpy = jest.spyOn(handleJobEvents, 'handleJobEvents').mockImplementation();
-  const handleNavigationEventsSpy = jest.spyOn(handleNavigationEvents, 'handleNavigationEvents').mockImplementation();
-  const handleTruckEventsSpy = jest.spyOn(handleTruckEvents, 'handleTruckEvents').mockImplementation();
-  const handleTrailerEventsSpy = jest.spyOn(handleTrailerEvents, 'handleTrailerEvents').mockImplementation();
+  const handleGameEventsSpy = vi.mocked(handleGameEvents);
+  const handleJobEventsSpy = vi.mocked(handleJobEvents);
+  const handleNavigationEventsSpy = vi.mocked(handleNavigationEvents);
+  const handleTruckEventsSpy = vi.mocked(handleTruckEvents);
+  const handleTrailerEventsSpy = vi.mocked(handleTrailerEvents);
 
   const tst = {
     data: {
       current:  { },
       previous: { },
     },
-    emit: jest.fn(),
+    emit: vi.fn(),
   } as unknown as TruckSimTelemetry;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     tst.data.current.sdkActive  = false;
     tst.data.previous.sdkActive = false;

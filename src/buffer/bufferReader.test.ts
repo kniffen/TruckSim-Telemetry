@@ -1,4 +1,5 @@
 import { createBufferReader } from './bufferReader';
+import  { describe, expect, test } from 'vitest';
 
 describe('createBufferReader()', () => {
   const buffer = Buffer.alloc(60);
