@@ -1,5 +1,6 @@
 import type { TruckSimTelemetry } from '../truckSimTelemetry';
 import { handleTrailerEvents } from './handleTrailerEvents';
+import { describe, vi, beforeEach, test, expect } from 'vitest';
 
 describe('handleTrailerEvents()', () => {
   const tst = {
@@ -17,11 +18,11 @@ describe('handleTrailerEvents()', () => {
         ],
       },
     },
-    emit: jest.fn(),
+    emit: vi.fn(),
   } as unknown as TruckSimTelemetry;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('It should trigger attached events', () => {

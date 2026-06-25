@@ -1,22 +1,28 @@
-import * as getBuffer from '../buffer/getBuffer';
-import * as allocateTelemetryData from './allocateTelemetryData';
-import * as createBufferReader from '../buffer/bufferReader';
-import * as updateTelemetryData from './updateTelemetryData';
-import * as createConfig from '../createConfig';
+import { getBuffer } from '../buffer/getBuffer';
+import { allocateTelemetryData } from './allocateTelemetryData';
+import { createBufferReader, type BufferReader } from '../buffer/bufferReader';
+import { updateTelemetryData } from './updateTelemetryData';
+import { createConfig } from '../createConfig';
 import { getData } from './getData';
 import type { SCSSDKTelemetry } from '../types';
-import type { BufferReader } from '../buffer/bufferReader';
+import { describe, vi, beforeEach, test, expect } from 'vitest';
+
+vi.mock('../buffer/getBuffer');
+vi.mock('./allocateTelemetryData');
+vi.mock('./updateTelemetryData');
+vi.mock('../buffer/bufferReader');
+vi.mock('../createConfig');
 
 describe('getData()', () => {
-  const getBufferSpy = jest.spyOn(getBuffer, 'getBuffer').mockImplementation();
-  const allocateTelemetryDataSpy = jest.spyOn(allocateTelemetryData, 'allocateTelemetryData').mockReturnValue('data' as unknown as SCSSDKTelemetry);
-  const updateTelemetryDataSpy = jest.spyOn(updateTelemetryData, 'updateTelemetryData').mockImplementation();
-  const setBufferSpy = jest.fn();
-  jest.spyOn(createBufferReader, 'createBufferReader').mockReturnValue({ setBuffer: setBufferSpy } as unknown as BufferReader);
-  jest.spyOn(createConfig, 'createConfig').mockReturnValue({ sharedMemoryName: 'foobar' });
+  const getBufferSpy = vi.mocked(getBuffer);
+  const allocateTelemetryDataSpy = vi.mocked(allocateTelemetryData).mockReturnValue('data' as unknown as SCSSDKTelemetry);
+  const updateTelemetryDataSpy = vi.mocked(updateTelemetryData);
+  const setBufferSpy = vi.fn();
+  vi.mocked(createBufferReader).mockReturnValue({ setBuffer: setBufferSpy } as unknown as BufferReader);
+  vi.mocked(createConfig).mockReturnValue({ sharedMemoryName: 'foobar' });
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('it should get telemetry data', () => {

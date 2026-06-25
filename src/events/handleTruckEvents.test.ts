@@ -14,6 +14,7 @@ import type {
   TSTWaterTempWarningEvent,
   TSTRetarderEvent
 } from '../types';
+import { describe, vi, beforeEach, test, expect } from 'vitest';
 
 describe('handleTruckEvents()', () => {
   const tst = {
@@ -21,11 +22,11 @@ describe('handleTruckEvents()', () => {
       current:  {},
       previous: {},
     },
-    emit: jest.fn(),
+    emit: vi.fn(),
   } as unknown as TruckSimTelemetry;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     tst.data.current  = {} as SCSSDKTelemetry;
     tst.data.previous = {} as SCSSDKTelemetry;

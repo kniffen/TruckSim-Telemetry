@@ -1,5 +1,6 @@
 import type { TruckSimTelemetry } from '../truckSimTelemetry';
 import { handleNavigationEvents } from './handleNavigationEvents';
+import { describe, vi, beforeEach, test, expect } from 'vitest';
 
 describe('handleNavigationEvents()', () => {
   const tst = {
@@ -7,11 +8,11 @@ describe('handleNavigationEvents()', () => {
       current:  {},
       previous: {},
     },
-    emit: jest.fn(),
+    emit: vi.fn(),
   } as unknown as TruckSimTelemetry;
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     tst.data.previous.speedLimit = 0;
     tst.data.current.speedLimit  = 0;

@@ -1,10 +1,11 @@
 import type { TruckSimTelemetry } from '../truckSimTelemetry';
 import type { SCSSDKTelemetry, TSTJobCancelledEvent, TSTJobDeliveredEvent, TSTJobStartedEvent } from '../types';
 import { handleJobEvents } from './handleJobEvents';
+import { describe, vi, beforeEach, test, expect } from 'vitest';
 
 describe('handleJobEvents()', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
 
     tst.data.previous.onJob        = false;
     tst.data.previous.jobDelivered = false;
@@ -183,5 +184,5 @@ const tst = {
     current:  currentDataMock,
     previous: previousDataMock,
   },
-  emit: jest.fn(),
+  emit: vi.fn(),
 } as unknown as TruckSimTelemetry;

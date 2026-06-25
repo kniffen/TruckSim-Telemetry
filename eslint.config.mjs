@@ -1,7 +1,6 @@
 import pluginJs from '@eslint/js';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-import jest from 'eslint-plugin-jest';
 
 const stylingRules = {
   'quotes': ['error', 'single'], // enforce the consistent use of single quotes
@@ -53,7 +52,6 @@ export default [
     files: ['./src/**/*.test.{js,mjs,cjs,ts}'],
     plugins: {
       '@typescript-eslint': tseslint,
-      'jest': jest,
     },
     languageOptions: {
       parser: tsParser,
@@ -61,10 +59,8 @@ export default [
         project: './tsconfig.json',
         sourceType: 'module',
       },
-      globals: jest.environments.globals.globals,
     },
     rules: {
-      ...jest.configs.recommended.rules,
       ...stylingRules,
       'prefer-const': ['error'],           // require const declarations for variables that are never reassigned after declared
       'no-duplicate-imports': ['error'],           // disallow duplicate module imports

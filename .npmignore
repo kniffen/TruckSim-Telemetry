@@ -11,5 +11,5 @@ documents
 **/*.tgz
 *.log
 eslint.config.mjs
-jest.config.js
+vitest.config.ts
 tsconfig.json
